@@ -12,12 +12,14 @@ struct SignUpUserTypeSelectionView: View {
             Text("앱의 이용 목적에 따라\n선택해주세요")
                 .modifier(TitleText())
             Spacer()
-            HStack {
-                Button("학생 회원") {
-                    //
-                }
-                Button("선생님 회원") {
-                    //
+            InputContentVStack {
+                HStack {
+                    Button("학생 회원") {
+                        //
+                    }
+                    Button("선생님 회원") {
+                        //
+                    }
                 }
             }
             Spacer()

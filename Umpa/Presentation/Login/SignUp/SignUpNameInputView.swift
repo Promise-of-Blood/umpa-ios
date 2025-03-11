@@ -12,11 +12,10 @@ struct SignUpNameInputView: View {
             Text("이름을 입력해주세요")
                 .modifier(TitleText())
             Spacer()
-            VStack(alignment: .leading) {
+            InputContentVStack {
                 InputFieldLabelText("이름")
                 nameTextField
             }
-            .padding(.horizontal, 30)
             Spacer()
             NavigationLink {
                 SignUpMajorSelectionView()
