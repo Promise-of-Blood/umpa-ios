@@ -9,8 +9,7 @@ private struct BackButtonIcon: View {
         Button {
             dismiss()
         } label: {
-            Image(systemName: "chevron.backward")
-                .foregroundColor(Color(hex: "#1D1B20"))
+            Image(.arrowBack)
                 .padding(.horizontal, 12)
         }
     }
