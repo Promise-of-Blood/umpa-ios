@@ -10,7 +10,7 @@ struct BottomButton: ViewModifier {
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, idealHeight: 71)
             .fixedSize(horizontal: false, vertical: true)
-            .background(Color(hex: "#5C79AF"), in: RoundedRectangle(cornerRadius: 5))
+            .background(Color.main, in: RoundedRectangle(cornerRadius: 5))
             .padding()
     }
 }
