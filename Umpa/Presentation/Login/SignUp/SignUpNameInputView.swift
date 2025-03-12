@@ -28,11 +28,15 @@ struct SignUpNameInputView: View {
     }
 
     var nameTextField: some View {
-        TextField(
-            "이름",
-            text: $name,
-            prompt: Text("이름을 입력해주세요")
-        )
+        HStack {
+            Image(systemName: "person.fill")
+                .foregroundStyle(Color(hex: "#9E9E9E"))
+            TextField(
+                "이름",
+                text: $name,
+                prompt: Text("이름을 입력해주세요")
+            )
+        }
         .padding()
         .overlay {
             RoundedRectangle(cornerRadius: 5)
