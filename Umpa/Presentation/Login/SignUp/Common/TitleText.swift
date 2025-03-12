@@ -8,7 +8,7 @@ struct TitleText: ViewModifier {
             .font(.system(size: 28, weight: .semibold))
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, 40)
-            .padding(.top, 50)
+            .padding(.top, 28)
     }
 }
 

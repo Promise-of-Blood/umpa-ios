@@ -5,12 +5,12 @@ import SwiftUI
 struct BottomButton: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 20))
+            .font(.system(size: 22))
             .fontWeight(.medium)
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, idealHeight: 71)
             .fixedSize(horizontal: false, vertical: true)
-            .background(Color(hex: "#5C79AF"), in: RoundedRectangle(cornerRadius: 5))
+            .background(Color.main, in: RoundedRectangle(cornerRadius: 12))
             .padding()
     }
 }
