@@ -3,12 +3,99 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var selection = 0
+
     var body: some View {
-        Image(.umpaLogo)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 200, height: 200)
-//            .background(Color.gray)
+        VStack {
+            Image(.umpaLogo)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 120)
+            teacherFindingCarouselView
+        }
+    }
+
+    var teacherFindingCarouselView: some View {
+        VStack(alignment: .leading) {
+            Text("선생님 찾기")
+                .font(.system(size: 24))
+            CustomDotsCarouselView(selection: $selection, pageCount: 2) {
+                Grid {
+                    GridRow {
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                    }
+                    GridRow {
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                    }
+                }
+                .tag(0)
+                Grid {
+                    GridRow {
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                    }
+                    GridRow {
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                        Text("")
+                            .frame(width: 40, height: 40)
+                            .background(Color.blue)
+                    }
+                }
+                .tag(1)
+            }
+        }
     }
 }
 
