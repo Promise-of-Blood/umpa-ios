@@ -6,15 +6,18 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     @Binding private var currentIndex: Int
     
     private let pagination: P
+    private let paginationOffset: CGFloat
     
     @ViewBuilder let content: () -> Content
     
     init(
         pagination: P,
+        paginationOffset: CGFloat = -20,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self._currentIndex = pagination.currentIndex
         self.pagination = pagination
+        self.paginationOffset = paginationOffset
         self.content = content
     }
     
@@ -22,10 +25,12 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     init(
         currentIndex: Binding<Int>,
         pageCount: Int,
+        paginationOffset: CGFloat = -20,
         @ViewBuilder content: @escaping () -> Content
     ) where P == DotsPagination {
         self._currentIndex = currentIndex
         self.pagination = DotsPagination(currentIndex: currentIndex, pageCount: pageCount)
+        self.paginationOffset = paginationOffset
         self.content = content
     }
     
@@ -36,7 +41,7 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
         .tabViewStyle(.page(indexDisplayMode: .never))
         .overlay(alignment: .bottom) {
             pagination
-                .offset(y: -20)
+                .offset(y: paginationOffset)
         }
     }
 }
@@ -47,7 +52,7 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     let colors: [Color] = [.red, .blue, .yellow]
     
     // 1: Default
-    PaginationCarousel(currentIndex: $index, pageCount: colors.count) {
+    PaginationCarousel(currentIndex: $index, pageCount: colors.count, paginationOffset: -30) {
         ForEach(0 ..< colors.count, id: \.self) { index in
             VStack {
                 Text("페이지 \(index + 1)")
@@ -55,7 +60,7 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
                 Image(systemName: "\(index + 1).circle.fill")
                     .font(.system(size: 50))
             }
-            .padding()
+            .padding(40)
             .background(colors[index].opacity(0.3))
             .tag(index)
         }
