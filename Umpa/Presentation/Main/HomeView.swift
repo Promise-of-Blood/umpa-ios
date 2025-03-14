@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var selection = 0
+    @State private var currentIndex = 0
 
     var body: some View {
         VStack {
@@ -19,7 +19,7 @@ struct HomeView: View {
         VStack(alignment: .leading) {
             Text("선생님 찾기")
                 .font(.system(size: 24))
-            CustomDotsCarouselView(selection: $selection, pageCount: 2) {
+            PaginationCarousel(currentIndex: $currentIndex, pageCount: 2) {
                 Grid {
                     GridRow {
                         Text("")

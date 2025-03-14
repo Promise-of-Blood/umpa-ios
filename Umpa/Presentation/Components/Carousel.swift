@@ -2,10 +2,10 @@
 
 import SwiftUI
 
-struct CarouselView<Content>: View where Content: View {
-    @ViewBuilder let content: () -> Content
-
+struct Carousel<Content>: View where Content: View {
     @Binding private var selection: Int
+
+    @ViewBuilder let content: () -> Content
 
     init(selection: Binding<Int>, @ViewBuilder content: @escaping () -> Content) {
         self._selection = selection
@@ -16,13 +16,13 @@ struct CarouselView<Content>: View where Content: View {
         TabView(selection: $selection) {
             content()
         }
-        .tabViewStyle(.page(indexDisplayMode: .always))
+        .tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
 
 #Preview {
     @Previewable @State var index = 0
-    CarouselView(selection: $index) {
+    Carousel(selection: $index) {
         Color.red
             .tag(0)
         Color.blue
