@@ -46,17 +46,24 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     
     let colors: [Color] = [.red, .blue, .yellow]
     
-    // 1
+    // 1: Default
     PaginationCarousel(currentIndex: $index, pageCount: colors.count) {
         ForEach(0 ..< colors.count, id: \.self) { index in
-            colors[index]
-                .tag(index)
+            VStack {
+                Text("페이지 \(index + 1)")
+                    .font(.title)
+                Image(systemName: "\(index + 1).circle.fill")
+                    .font(.system(size: 50))
+            }
+            .padding()
+            .background(colors[index].opacity(0.3))
+            .tag(index)
         }
     }
     .frame(width: 300, height: 200)
     .padding()
     
-    // 2
+    // 2: Custom Pagination
     let appearance = DotsPaginationAppearance(
         size: 10,
         spacing: 10,
