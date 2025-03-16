@@ -132,7 +132,7 @@ struct ComunitySection: View {
     var body: some View {
         VStack {
             Text("음파 커뮤니티")
-                
+                .font(.pretendardBold(size: 20))
         }
     }
 }
