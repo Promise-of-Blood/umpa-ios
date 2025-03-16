@@ -138,7 +138,12 @@ struct ComunitySection: View {
 }
 
 #Preview {
-    HomeView()
+    TabView {
+        HomeView()
+            .tabItem {
+                TabLabel(category: .home)
+            }
+    }
 }
 
 #Preview(traits: .iPhoneSE) {
