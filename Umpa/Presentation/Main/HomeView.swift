@@ -13,7 +13,7 @@ struct HomeView: View {
                 TeacherFindingCarousel()
                 Spacer()
                 Banner()
-                ComunitySection()
+                CommunitySection()
             }
         }
     }
@@ -128,7 +128,7 @@ struct Banner: View {
     }
 }
 
-struct ComunitySection: View {
+struct CommunitySection: View {
     var body: some View {
         VStack {
             Text("음파 커뮤니티")
