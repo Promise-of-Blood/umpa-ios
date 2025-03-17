@@ -24,8 +24,11 @@ struct Carousel<Content>: View where Content: View {
     @Previewable @State var index = 0
     Carousel(selection: $index) {
         Color.red
+            .frame(width: 200, height: 200)
             .tag(0)
         Color.blue
             .tag(1)
     }
+    .frame(width: 300, height: 300)
+    .background(Color.gray)
 }
