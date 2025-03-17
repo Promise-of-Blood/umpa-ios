@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-private struct BackButtonIcon: View {
+private struct NavigationBackButtonIcon: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -15,18 +15,18 @@ private struct BackButtonIcon: View {
     }
 }
 
-struct BackButton: ViewModifier {
+struct NavigationBackButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    BackButtonIcon()
+                    NavigationBackButtonIcon()
                 }
             }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    BackButtonIcon()
+    NavigationBackButtonIcon()
 }

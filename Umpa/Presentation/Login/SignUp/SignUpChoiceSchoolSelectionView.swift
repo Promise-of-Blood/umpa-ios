@@ -30,7 +30,7 @@ struct SignUpChoiceSchoolSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(BackButton())
+        .modifier(NavigationBackButton())
     }
 }
 

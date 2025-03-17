@@ -24,7 +24,7 @@ struct SignUpNicknameInputView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(BackButton())
+        .modifier(NavigationBackButton())
     }
 
     var nicknameTextField: some View {

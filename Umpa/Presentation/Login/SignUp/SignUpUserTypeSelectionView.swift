@@ -42,7 +42,7 @@ struct SignUpUserTypeSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(BackButton())
+        .modifier(NavigationBackButton())
     }
 
     func didTapStudentButton() {

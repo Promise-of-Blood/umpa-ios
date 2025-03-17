@@ -40,7 +40,7 @@ struct SignUpMajorSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(BackButton())
+        .modifier(NavigationBackButton())
     }
 }
 
