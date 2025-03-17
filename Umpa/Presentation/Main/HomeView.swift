@@ -38,7 +38,6 @@ private struct TeacherFindingCarousel: View {
         "관악",
         "전자음악",
         "화성학",
-        "보컬",
         "샘플1",
         "샘플2",
         "샘플3",
@@ -46,6 +45,7 @@ private struct TeacherFindingCarousel: View {
         "샘플5",
         "샘플6",
         "샘플7",
+        "샘플8",
     ]
 
     private var pageCount: Int {
