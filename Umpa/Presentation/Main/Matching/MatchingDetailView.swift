@@ -5,19 +5,21 @@ import SwiftUI
 struct MatchingDetailView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Image("")
-            title
-            LessonInfo()
-            PricePerTime(price: 100_000)
-            HStack(spacing: 9) {
-                Badge()
-                Badge()
+            VStack(alignment: .leading) {
+                Image("")
+                title
+                LessonInfo()
+                PricePerTime(price: 100_000)
+                HStack(spacing: 9) {
+                    Badge()
+                    Badge()
+                }
+                Spacer()
             }
-            Spacer()
+            .padding(.horizontal, 30)
             BottomActionBar()
                 .padding()
         }
-        .padding(.horizontal, 30)
         .modifier(NavigationBackButton())
     }
 
