@@ -12,7 +12,7 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     
     init(
         pagination: P,
-        paginationOffset: CGFloat = -20,
+        paginationOffset: CGFloat = 20,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self._currentIndex = pagination.currentIndex

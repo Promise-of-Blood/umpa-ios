@@ -22,7 +22,7 @@ struct BottomActionBar: View {
                     .foregroundStyle(Color.white)
                     .frame(maxWidth: .infinity, idealHeight: buttonsHeight)
                     .fixedSize(horizontal: false, vertical: true)
-                    .background(Color.main, in: RoundedRectangle(cornerRadius: buttonsRadius))
+                    .background(UmpaColor.main, in: RoundedRectangle(cornerRadius: buttonsRadius))
             }
         }
     }

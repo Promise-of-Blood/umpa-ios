@@ -10,7 +10,7 @@ struct HomeView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120)
-                TeacherFindingCarousel()
+                TeacherFindingSection()
                 Spacer()
                 Banner()
                 CommunitySection()
@@ -20,11 +20,11 @@ struct HomeView: View {
     }
 }
 
-private struct TeacherFindingCarousel: View {
+private struct TeacherFindingSection: View {
     @State private var currentIndex = 0
 
-    private var gridRowCount = 2
-    private var gridColumnCount = 5
+    private let gridRowCount = 2
+    private let gridColumnCount = 5
 
     private var itemsPerPage: Int { gridRowCount * gridColumnCount }
 
@@ -38,15 +38,12 @@ private struct TeacherFindingCarousel: View {
         "베이스",
         "관악",
         "전자음악",
-        "화성학",
-        "샘플1",
-        "샘플2",
-        "샘플3",
-        "샘플4",
-        "샘플5",
-        "샘플6",
-        "샘플7",
-        "샘플8",
+        "전통화성학",
+        "실용화성학",
+        "시창청음",
+        "악보제작",
+        "반주자",
+        "MR제작",
     ]
 
     private var pageCount: Int {
@@ -54,61 +51,71 @@ private struct TeacherFindingCarousel: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 15) {
             Text("선생님 찾기")
-                .font(.system(size: 20))
-                .padding(.leading, 40)
-            PaginationCarousel(currentIndex: $currentIndex, pageCount: pageCount) {
-                ForEach(0..<pageCount, id: \.self) { page in
-                    Grid {
-                        ForEach(0..<gridRowCount, id: \.self) { row in
-                            GridRow {
-                                ForEach(0..<gridColumnCount, id: \.self) { column in
-                                    let index = page * itemsPerPage + row * gridColumnCount + column
-                                    if let i = list[safe: index] {
-                                        TeacherFindingCarouselItem(
-                                            imageResource: ImageResource(name: "", bundle: .main),
-                                            caption: i
-                                        )
+                .font(UmpaFont.h2Kr)
+            VStack(spacing: 12) {
+                Carousel(currentIndex: $currentIndex) {
+                    ForEach(0..<pageCount, id: \.self) { page in
+                        Grid(alignment: .top, horizontalSpacing: 12, verticalSpacing: 20) {
+                            ForEach(0..<gridRowCount, id: \.self) { row in
+                                GridRow {
+                                    ForEach(0..<gridColumnCount, id: \.self) { column in
+                                        let index = page * itemsPerPage + row * gridColumnCount + column
+                                        if let caption = list[safe: index] {
+                                            TeacherFindingCarouselItem(
+                                                imageResource: ImageResource(name: "", bundle: .main),
+                                                caption: caption
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
+                        .tag(page)
                     }
-                    .tag(page)
                 }
+                .frame(width: .fill, height: 260) // TODO: Temp height
+                DotsPagination(
+                    currentIndex: $currentIndex,
+                    pageCount: pageCount,
+                    appearance: .default
+                )
             }
-            .frame(width: .infinity, height: 240) // TODO: Temp height
         }
+        .padding(.horizontal, 28)
     }
 }
 
-struct TeacherFindingCarouselItem: View {
+private struct TeacherFindingCarouselItem: View {
     let imageResource: ImageResource
     let caption: String
 
     var body: some View {
-        VStack(spacing: 5) {
-            Image(imageResource)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 34, height: 34)
-                .padding(8)
-                .background(Color(hex: "#D6E1FF"), in: RoundedRectangle(cornerRadius: 15))
-            Text(caption)
-                .font(.system(size: 12, weight: .medium))
-                .foregroundStyle(Color(hex: "#AFAFB4"))
+        Button(action: {}) {
+            VStack(spacing: 5) {
+                Image(imageResource)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(10)
+                    .background(UmpaColor.lightBlue, in: RoundedRectangle(cornerRadius: 15))
+                Text(caption)
+                    .font(UmpaFont.captionKr)
+                    .foregroundStyle(UmpaColor.darkGray)
+            }
+            .frame(minWidth: 52)
         }
+//        .frame(minHeight: 30)
     }
 }
 
-struct Banner: View {
+private struct Banner: View {
     let count = 3
     @State var currentIndex: Int = 1
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            Carousel(selection: $currentIndex) {
+            Carousel(currentIndex: $currentIndex) {
                 Color.red
                     .tag(0)
                 Color.blue
@@ -130,7 +137,7 @@ struct Banner: View {
     }
 }
 
-struct CommunitySection: View {
+private struct CommunitySection: View {
     var body: some View {
         VStack {
             Text("음파 커뮤니티")
@@ -139,7 +146,7 @@ struct CommunitySection: View {
     }
 }
 
-struct SeeAllButton: View {
+private struct SeeAllButton: View {
     var body: some View {
         Button(action: {}) {
             HStack(spacing: 7) {
@@ -153,7 +160,7 @@ struct SeeAllButton: View {
     }
 }
 
-struct ReviewCard: View {
+private struct ReviewCard: View {
     var body: some View {
         VStack {
             Text("리뷰")

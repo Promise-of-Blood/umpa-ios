@@ -41,7 +41,7 @@ struct Badge: View {
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .overlay {
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .strokeBorder(Color.main)
+                    .strokeBorder(UmpaColor.main)
             }
     }
 }

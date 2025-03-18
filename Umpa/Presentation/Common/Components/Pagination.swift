@@ -21,7 +21,7 @@ struct DotsPagination: View, Pagination {
     ) {
         self.currentIndex = currentIndex
         self.pageCount = pageCount
-        self.appearance = appearance ?? DotsPaginationAppearance.default
+        self.appearance = appearance ?? DotsPaginationAppearance.builtIn
     }
   
     var body: some View {
@@ -53,11 +53,11 @@ struct DotsPaginationAppearance {
     /// The scale factor for a dot when it is selected.
     let selectedScale: CGFloat
     
-    static let `default` = DotsPaginationAppearance(
+    static let builtIn = DotsPaginationAppearance(
         size: 8,
         spacing: 8,
-        normalColor: Color(hex: "#D9D9D9"),
-        selectedColor: Color(hex: "#7D7D87"),
+        normalColor: UmpaColor.lightGray,
+        selectedColor: UmpaColor.darkGray,
         selectedScale: 1.0
     )
 }
@@ -66,5 +66,9 @@ struct DotsPaginationAppearance {
     @Previewable @State var index = 2
     let colors: [Color] = [.red, .blue, .yellow]
     
-    DotsPagination(currentIndex: $index, pageCount: colors.count)
+    DotsPagination(
+        currentIndex: $index,
+        pageCount: colors.count,
+        appearance: DotsPaginationAppearance.builtIn
+    )
 }

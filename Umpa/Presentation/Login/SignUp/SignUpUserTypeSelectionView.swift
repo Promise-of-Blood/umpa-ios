@@ -63,15 +63,15 @@ private struct UserTypeSelectionButton: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .foregroundStyle(isSelected ? Color.white : Color.main)
+            .foregroundStyle(isSelected ? Color.white : UmpaColor.main)
             .frame(width: 145 - borderWidth * 2, height: 50 - borderWidth * 2)
             .background(
-                isSelected ? Color.main : Color.white,
+                isSelected ? UmpaColor.main : Color.white,
                 in: RoundedRectangle(cornerRadius: innerCornerRadius)
             )
             .padding(borderWidth)
             .background(
-                Color.main,
+                UmpaColor.main,
                 in: RoundedRectangle(cornerRadius: cornerRadius)
             )
     }
