@@ -2,17 +2,17 @@
 
 import SwiftUI
 
-struct Carousel<Content>: View where Content: View {
+public struct Carousel<Content>: View where Content: View {
     @Binding private var currentIndex: Int
 
     @ViewBuilder let content: () -> Content
 
-    init(currentIndex: Binding<Int>, @ViewBuilder content: @escaping () -> Content) {
+    public init(currentIndex: Binding<Int>, @ViewBuilder content: @escaping () -> Content) {
         self._currentIndex = currentIndex
         self.content = content
     }
 
-    var body: some View {
+    public var body: some View {
         TabView(selection: $currentIndex) {
             content()
         }

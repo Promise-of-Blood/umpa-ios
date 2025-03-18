@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 struct SignUpNameInputView: View {
     @State private var name: String = ""
@@ -24,7 +25,7 @@ struct SignUpNameInputView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var nameTextField: some View {

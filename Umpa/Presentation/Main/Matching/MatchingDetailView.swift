@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 struct MatchingDetailView: View {
     var body: some View {
@@ -20,7 +21,7 @@ struct MatchingDetailView: View {
             BottomActionBar()
                 .padding()
         }
-        .modifier(NavigationBackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var title: some View {

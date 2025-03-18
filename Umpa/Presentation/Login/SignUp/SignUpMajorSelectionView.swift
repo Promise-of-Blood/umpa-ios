@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 enum Major {
     case piano
@@ -40,7 +41,7 @@ struct SignUpMajorSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 }
 

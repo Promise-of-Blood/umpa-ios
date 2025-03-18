@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 enum UserType {
     case student
@@ -42,7 +43,7 @@ struct SignUpUserTypeSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 
     func didTapStudentButton() {

@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 struct SignUpNicknameInputView: View {
     @State private var name = ""
@@ -24,7 +25,7 @@ struct SignUpNicknameInputView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var nicknameTextField: some View {
