@@ -14,6 +14,7 @@ struct HomeView: View {
                 Spacer()
                 Banner()
                 CommunitySection()
+                SeeAllButton()
             }
         }
     }
@@ -55,7 +56,7 @@ private struct TeacherFindingCarousel: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("선생님 찾기")
-                .font(.system(size: 24))
+                .font(.system(size: 20))
                 .padding(.leading, 40)
             PaginationCarousel(currentIndex: $currentIndex, pageCount: pageCount) {
                 ForEach(0..<pageCount, id: \.self) { page in
@@ -77,7 +78,7 @@ private struct TeacherFindingCarousel: View {
                     .tag(page)
                 }
             }
-            .frame(width: .infinity, height: 240)
+            .frame(width: .infinity, height: 240) // TODO: Temp height
         }
     }
 }
@@ -115,7 +116,7 @@ struct Banner: View {
                 Color.green
                     .tag(2)
             }
-            .frame(width: 300, height: 80)
+            .frame(height: 80)
             .background(Color.gray)
             .clipShape(RoundedRectangle(cornerRadius: 10))
             Text("\(currentIndex + 1)/\(count)")
@@ -125,6 +126,7 @@ struct Banner: View {
                 .background(Color.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 20))
                 .offset(x: -16, y: -8)
         }
+        .padding(.horizontal, 30)
     }
 }
 
@@ -132,6 +134,29 @@ struct CommunitySection: View {
     var body: some View {
         VStack {
             Text("음파 커뮤니티")
+                .font(.pretendardBold(size: 20))
+        }
+    }
+}
+
+struct SeeAllButton: View {
+    var body: some View {
+        Button(action: {}) {
+            HStack(spacing: 7) {
+                Text("전체보기")
+                    .font(.pretendardMedium(size: 10))
+                Image(.customChevronRight)
+                    .frame(width: 6, height: 9)
+            }
+            .foregroundStyle(Color(hex: "72727C"))
+        }
+    }
+}
+
+struct ReviewCard: View {
+    var body: some View {
+        VStack {
+            Text("리뷰")
                 .font(.pretendardBold(size: 20))
         }
     }
