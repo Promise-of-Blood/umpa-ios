@@ -12,7 +12,6 @@ struct HomeView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120)
                 TeacherFindingSection()
-                Spacer()
                 Banner()
                 CommunitySection()
                 SeeAllButton()
@@ -74,9 +73,11 @@ private struct TeacherFindingSection: View {
                             }
                         }
                         .tag(page)
+                        .padding(.horizontal, 28)
                     }
                 }
-                .frame(width: .fill, height: 260) // TODO: Temp height
+                // FIXME: 임시 높이, TabView를 사용하지 않는 Carousel 구현으로 해결 필요
+                .frame(height: 180)
                 DotsPagination(
                     currentIndex: $currentIndex,
                     pageCount: pageCount,
@@ -84,57 +85,6 @@ private struct TeacherFindingSection: View {
                 )
             }
         }
-        .padding(.horizontal, 28)
-    }
-}
-
-private struct TeacherFindingCarouselItem: View {
-    let imageResource: ImageResource
-    let caption: String
-
-    var body: some View {
-        Button(action: {}) {
-            VStack(spacing: 5) {
-                Image(imageResource)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .padding(10)
-                    .background(UmpaColor.lightBlue, in: RoundedRectangle(cornerRadius: 15))
-                Text(caption)
-                    .font(UmpaFont.captionKr)
-                    .foregroundStyle(UmpaColor.darkGray)
-            }
-            .frame(minWidth: 52)
-        }
-//        .frame(minHeight: 30)
-    }
-}
-
-private struct Banner: View {
-    let count = 3
-    @State var currentIndex: Int = 1
-
-    var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            Carousel(currentIndex: $currentIndex) {
-                Color.red
-                    .tag(0)
-                Color.blue
-                    .tag(1)
-                Color.green
-                    .tag(2)
-            }
-            .frame(height: 80)
-            .background(Color.gray)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            Text("\(currentIndex + 1)/\(count)")
-                .font(.system(size: 10, weight: .medium))
-                .frame(width: 32, height: 12)
-                .foregroundStyle(Color.white)
-                .background(Color.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 20))
-                .offset(x: -16, y: -8)
-        }
-        .padding(.horizontal, 30)
     }
 }
 
@@ -142,29 +92,6 @@ private struct CommunitySection: View {
     var body: some View {
         VStack {
             Text("음파 커뮤니티")
-                .font(.pretendardBold(size: 20))
-        }
-    }
-}
-
-private struct SeeAllButton: View {
-    var body: some View {
-        Button(action: {}) {
-            HStack(spacing: 7) {
-                Text("전체보기")
-                    .font(.pretendardMedium(size: 10))
-                Image(.customChevronRight)
-                    .frame(width: 6, height: 9)
-            }
-            .foregroundStyle(Color(hex: "72727C"))
-        }
-    }
-}
-
-private struct ReviewCard: View {
-    var body: some View {
-        VStack {
-            Text("리뷰")
                 .font(.pretendardBold(size: 20))
         }
     }
