@@ -8,4 +8,5 @@ enum UmpaColor {
     static let lightBlue = Color(hex: "D6E1FF")
     static let lightGray = Color(hex: "9C9C9C")
     static let mediumGray = Color(hex: "97979C")
+    static let baseColor = Color(hex: "EFEFEF")
 }
