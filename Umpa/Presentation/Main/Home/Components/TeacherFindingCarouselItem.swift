@@ -8,24 +8,32 @@ struct TeacherFindingCarouselItem: View {
 
     var body: some View {
         Button(action: {}) {
-            VStack(spacing: 5) {
+            VStack(spacing: fs(5)) {
                 Image(imageResource)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .padding(10)
-                    .background(UmpaColor.lightBlue, in: RoundedRectangle(cornerRadius: 15))
+                    .padding(fs(10))
+                    .background(UmpaColor.lightBlue, in: RoundedRectangle(cornerRadius: fs(15)))
                 Text(caption)
                     .font(UmpaFont.captionKr)
                     .foregroundStyle(UmpaColor.darkGray)
+                    .frame(width: 60)
+                    .lineLimit(1)
             }
-            .frame(minWidth: 52, maxWidth: 60)
+            .frame(minWidth: fs(52), maxWidth: fs(60))
         }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
     TeacherFindingCarouselItem(
-        imageResource: ImageResource(name: "", bundle: .main),
-        caption: "전체보기"
+        imageResource: .seeAllIcon,
+        caption: "전통화성학"
     )
+    .frame(width: 52)
+    TeacherFindingCarouselItem(
+        imageResource: .seeAllIcon,
+        caption: "전통화성학"
+    )
+    .frame(width: 60)
 }

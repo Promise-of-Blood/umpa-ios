@@ -4,8 +4,9 @@ import SwiftUI
 import UmpaComponents
 
 struct Banner: View {
-    let count = 3
-    @State var currentIndex: Int = 1
+    @State var currentIndex: Int
+
+    let count: Int
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -17,19 +18,19 @@ struct Banner: View {
                 Color.green
                     .tag(2)
             }
-            .frame(height: 80)
+            .frame(height: fs(70))
             .background(Color.gray)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: fs(10)))
             Text("\(currentIndex + 1)/\(count)")
-                .font(.system(size: 10, weight: .medium))
-                .frame(width: 32, height: 12)
+                .font(.pretendardMedium(size: fs(9)))
+                .frame(width: fs(32), height: fs(12))
                 .foregroundStyle(Color.white)
-                .background(Color.black.opacity(0.5), in: RoundedRectangle(cornerRadius: 20))
-                .offset(x: -16, y: -8)
+                .background(Color.black.opacity(0.5), in: RoundedRectangle(cornerRadius: fs(20)))
+                .offset(x: fs(-15), y: fs(-8))
         }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    Banner()
+    Banner(currentIndex: 1, count: 3)
 }
