@@ -2,27 +2,27 @@
 
 import SwiftUI
 
-struct Carousel<Content>: View where Content: View {
-    @Binding private var selection: Int
+public struct Carousel<Content>: View where Content: View {
+    @Binding private var currentIndex: Int
 
     @ViewBuilder let content: () -> Content
 
-    init(selection: Binding<Int>, @ViewBuilder content: @escaping () -> Content) {
-        self._selection = selection
+    public init(currentIndex: Binding<Int>, @ViewBuilder content: @escaping () -> Content) {
+        self._currentIndex = currentIndex
         self.content = content
     }
 
-    var body: some View {
-        TabView(selection: $selection) {
+    public var body: some View {
+        TabView(selection: $currentIndex) {
             content()
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
 
-#Preview {
+#Preview(traits: .fixedLayout(width: 400, height: 400)) {
     @Previewable @State var index = 0
-    Carousel(selection: $index) {
+    Carousel(currentIndex: $index) {
         Color.red
             .frame(width: 200, height: 200)
             .tag(0)

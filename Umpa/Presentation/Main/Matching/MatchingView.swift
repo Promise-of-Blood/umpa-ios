@@ -20,7 +20,7 @@ struct MatchingView: View {
 
 struct FilterButton: View {
     private let cornerRadius: CGFloat = 20
-    private let foregroundColor = Color(hex: "9E9E9E")
+    private let foregroundColor = UmpaColor.lightGray
 
     var body: some View {
         HStack(spacing: 8) {
@@ -52,18 +52,6 @@ struct FilterButton: View {
 struct ListItem: View {
     var body: some View {
         fatalError()
-    }
-}
-
-struct PricePerTime: View {
-    let price: Int
-
-    var body: some View {
-        HStack(spacing: 3) {
-            Text("\(price)원")
-            Text("/시간")
-                .foregroundStyle(Color(hex: "9E9E9E"))
-        }
     }
 }
 

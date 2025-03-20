@@ -20,7 +20,7 @@ struct LoginView: View {
                     .padding(.top, 120)
                 Text("당신의 음악 파트너")
                     .font(.system(size: 22))
-                    .foregroundStyle(Color(hex: "#9E9E9E"))
+                    .foregroundStyle(UmpaColor.lightGray)
                     .padding(10)
                 Spacer()
                 loginButtons

@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
+public struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     @Binding private var currentIndex: Int
     
     private let pagination: P
@@ -10,9 +10,9 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     
     @ViewBuilder let content: () -> Content
     
-    init(
+    public init(
         pagination: P,
-        paginationOffset: CGFloat = -20,
+        paginationOffset: CGFloat = 20,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self._currentIndex = pagination.currentIndex
@@ -22,10 +22,10 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
     }
     
     /// 미리 정의된 `Pagination`을 사용하여 `Carousel`을 생성합니다.
-    init(
+    public init(
         currentIndex: Binding<Int>,
         pageCount: Int,
-        paginationOffset: CGFloat = -20,
+        paginationOffset: CGFloat = 20,
         @ViewBuilder content: @escaping () -> Content
     ) where P == DotsPagination {
         self._currentIndex = currentIndex
@@ -34,7 +34,7 @@ struct PaginationCarousel<Content, P>: View where Content: View, P: Pagination {
         self.content = content
     }
     
-    var body: some View {
+    public var body: some View {
         TabView(selection: $currentIndex.animation()) {
             content()
         }

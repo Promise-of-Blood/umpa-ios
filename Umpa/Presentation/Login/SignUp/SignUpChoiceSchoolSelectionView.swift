@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 struct SignUpChoiceSchoolSelectionView: View {
     var body: some View {
@@ -30,7 +31,7 @@ struct SignUpChoiceSchoolSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(BackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 }
 

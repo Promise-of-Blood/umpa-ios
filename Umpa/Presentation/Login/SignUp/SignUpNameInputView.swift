@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaComponents
 
 struct SignUpNameInputView: View {
     @State private var name: String = ""
@@ -24,13 +25,13 @@ struct SignUpNameInputView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(BackButton())
+        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var nameTextField: some View {
         HStack {
             Image(systemName: "person.fill")
-                .foregroundStyle(Color(hex: "#9E9E9E"))
+                .foregroundStyle(UmpaColor.lightGray)
             TextField(
                 "이름",
                 text: $name,
@@ -40,7 +41,7 @@ struct SignUpNameInputView: View {
         .padding()
         .overlay {
             RoundedRectangle(cornerRadius: 5)
-                .stroke(Color(hex: "#9E9E9E"))
+                .stroke(UmpaColor.lightGray)
         }
         .focused($isFocused)
         .onTapGesture {
