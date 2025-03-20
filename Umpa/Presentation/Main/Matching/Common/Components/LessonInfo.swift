@@ -3,32 +3,41 @@
 import SwiftUI
 
 struct LessonInfo: View {
-    let teacher: String
-    let rating: Double
-    let region: String
+    struct Model {
+        let teacher: String
+        let rating: Double
+        let region: String
+    }
+
+    let model: Model
+
+    var ratingString: String {
+        String(format: "%.1f", model.rating)
+    }
 
     private let dotSize: CGFloat = fs(1.5)
 
-    var ratingString: String {
-        String(format: "%.1f", rating)
-    }
-
     var body: some View {
         HStack(spacing: fs(4)) {
-            Text(teacher)
+            Text(model.teacher)
                 .font(.pretendardRegular(size: fs(12)))
                 .foregroundStyle(UmpaColor.lightGray)
+                .lineLimit(1)
+                .layoutPriority(2)
             spacingDot
             HStack(spacing: fs(3)) {
                 Image(systemName: "star.fill") // TODO: 실제 리소스로 교체
                 Text(ratingString)
                     .font(.pretendardSemiBold(size: fs(12)))
                     .foregroundStyle(Color.black)
+                    .lineLimit(1)
             }
+            .layoutPriority(1)
             spacingDot
-            Text(region)
+            Text(model.region)
                 .font(.pretendardRegular(size: fs(12)))
                 .foregroundStyle(UmpaColor.lightGray)
+                .lineLimit(1)
         }
     }
 
@@ -40,9 +49,39 @@ struct LessonInfo: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    LessonInfo(
+    LessonInfo(model: .example0)
+        .frame(width: 160)
+        .border(Color.black)
+        .padding()
+        .border(Color.black)
+    LessonInfo(model: .example1)
+        .border(Color.black)
+        .padding()
+        .border(Color.black)
+    LessonInfo(model: .example2)
+        .border(Color.black)
+        .padding()
+        .border(Color.black)
+}
+
+#if DEBUG
+extension LessonInfo.Model {
+    static let example0 = LessonInfo.Model(
         teacher: "으음파 선생님",
         rating: 5.0,
+        region: "충남 금산/금산읍"
+    )
+
+    static let example1 = LessonInfo.Model(
+        teacher: "김현지 선생님",
+        rating: 3.2,
         region: "음파/음파동"
     )
+
+    static let example2 = LessonInfo.Model(
+        teacher: "힝꾸 선생님",
+        rating: 4.0,
+        region: "안산/고양이동"
+    )
 }
+#endif
