@@ -4,24 +4,24 @@ import SwiftUI
 import UmpaComponents
 
 struct Banner: View {
-    @State var currentIndex: Int
+    @State private var currentIndex: Int = 0
 
-    let count: Int
+    let bannerResources: [ImageResource]
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Carousel(currentIndex: $currentIndex) {
-                Color.red
-                    .tag(0)
-                Color.blue
-                    .tag(1)
-                Color.green
-                    .tag(2)
+                ForEach(Array(zip(bannerResources.indices, bannerResources)), id: \.0) { index, resource in
+                    Image(resource)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .tag(index)
+                }
             }
             .frame(height: fs(70))
             .background(Color.gray)
             .clipShape(RoundedRectangle(cornerRadius: fs(10)))
-            Text("\(currentIndex + 1)/\(count)")
+            Text("\(currentIndex + 1)/\(bannerResources.count)")
                 .font(.pretendardMedium(size: fs(9)))
                 .frame(width: fs(32), height: fs(12))
                 .foregroundStyle(Color.white)
@@ -32,5 +32,12 @@ struct Banner: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    Banner(currentIndex: 1, count: 3)
+    @Previewable @State var index = 1
+    Banner(
+        bannerResources: [
+            .bannerSample1,
+            .bannerSample1,
+            .bannerSample1,
+        ]
+    )
 }

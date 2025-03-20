@@ -46,8 +46,12 @@ struct HomeView: View {
     var content: some View {
         VStack(spacing: fs(30)) {
             _TeacherFindingSection()
-            Banner(currentIndex: 1, count: 3)
-                .padding(.horizontal, contentHorizontalPadding)
+            Banner(bannerResources: [
+                .bannerSample1,
+                .bannerSample1,
+                .bannerSample1,
+            ])
+            .padding(.horizontal, contentHorizontalPadding)
             _CommunitySection()
         }
     }
