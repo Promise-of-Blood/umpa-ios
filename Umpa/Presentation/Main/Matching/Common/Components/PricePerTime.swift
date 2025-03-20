@@ -9,7 +9,7 @@ struct PricePerTime: View {
         HStack(spacing: 3) {
             Text("\(price)원")
             Text("/시간")
-                .foregroundStyle(Color(hex: "9E9E9E"))
+                .foregroundStyle(UmpaColor.lightGray)
         }
     }
 }

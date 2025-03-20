@@ -20,7 +20,7 @@ struct MatchingView: View {
 
 struct FilterButton: View {
     private let cornerRadius: CGFloat = 20
-    private let foregroundColor = Color(hex: "9E9E9E")
+    private let foregroundColor = UmpaColor.lightGray
 
     var body: some View {
         HStack(spacing: 8) {

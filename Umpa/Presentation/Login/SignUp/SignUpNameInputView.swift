@@ -31,7 +31,7 @@ struct SignUpNameInputView: View {
     var nameTextField: some View {
         HStack {
             Image(systemName: "person.fill")
-                .foregroundStyle(Color(hex: "#9E9E9E"))
+                .foregroundStyle(UmpaColor.lightGray)
             TextField(
                 "이름",
                 text: $name,
@@ -41,7 +41,7 @@ struct SignUpNameInputView: View {
         .padding()
         .overlay {
             RoundedRectangle(cornerRadius: 5)
-                .stroke(Color(hex: "#9E9E9E"))
+                .stroke(UmpaColor.lightGray)
         }
         .focused($isFocused)
         .onTapGesture {
