@@ -4,7 +4,9 @@ import SwiftUI
 
 struct SeeAllButton: View {
     var body: some View {
-        Button(action: {}) {
+        Button(action: {
+            // TODO: Implement
+        }) {
             HStack(spacing: fs(5)) {
                 Text("전체보기")
                     .font(.pretendardMedium(size: fs(10)))

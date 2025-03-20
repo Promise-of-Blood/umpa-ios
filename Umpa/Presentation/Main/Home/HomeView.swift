@@ -32,10 +32,14 @@ struct HomeView: View {
                 .frame(width: fs(87))
             Spacer()
             HStack(spacing: fs(12)) {
-                Button(action: {}) {
+                Button(action: {
+                    // TODO: Implement
+                }) {
                     Image(.notificationIcon)
                 }
-                Button(action: {}) {
+                Button(action: {
+                    // TODO: Implement
+                }) {
                     Image(.profileIcon)
                 }
             }
@@ -57,7 +61,9 @@ struct HomeView: View {
     }
 
     var calendarButton: some View {
-        Button(action: {}) {
+        Button(action: {
+            // TODO: Implement
+        }) {
             ZStack {
                 Circle()
                     .frame(width: fs(50), height: fs(50))

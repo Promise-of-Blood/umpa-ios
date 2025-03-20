@@ -7,7 +7,9 @@ struct TeacherFindingCarouselItem: View {
     let caption: String
 
     var body: some View {
-        Button(action: {}) {
+        Button(action: {
+            // TODO: Implement
+        }) {
             VStack(spacing: fs(5)) {
                 Image(imageResource)
                     .resizable()
