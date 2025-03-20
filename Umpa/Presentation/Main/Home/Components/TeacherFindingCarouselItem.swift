@@ -19,6 +19,7 @@ struct TeacherFindingCarouselItem: View {
                 Text(caption)
                     .font(UmpaFont.captionKr)
                     .foregroundStyle(UmpaColor.darkGray)
+                    // 말줄임표(...)가 생기지 않도록 고정값 지정. 추후 개선 필요 가능성 있음
                     .frame(width: 60)
                     .lineLimit(1)
             }
