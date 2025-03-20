@@ -53,3 +53,16 @@ struct ListContentModel {
     ListContent(model: .sample2)
         .frame(width: 300)
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    VStack(spacing: 20) {
+        ListContent(model: .sample1)
+            .frame(width: 300)
+        ListContent(model: .sample2)
+            .frame(width: 300)
+        ListContent(model: .sample1)
+            .frame(width: 300)
+            .preferredColorScheme(.dark)
+    }
+    .padding()
+}
