@@ -27,11 +27,6 @@ struct MainView: View {
                     TabLabel(category: .chatting)
                 }
                 .tag(3)
-            MyProfileView()
-                .tabItem {
-                    TabLabel(category: .myProfile)
-                }
-                .tag(4)
         }
     }
 }
@@ -41,7 +36,6 @@ enum TabCategory {
     case matching
     case community
     case chatting
-    case myProfile
 
     var title: String {
         switch self {
@@ -53,8 +47,6 @@ enum TabCategory {
             return "커뮤니티"
         case .chatting:
             return "채팅"
-        case .myProfile:
-            return "내 정보"
         }
     }
 
@@ -68,8 +60,6 @@ enum TabCategory {
             return ImageResource(name: "community", bundle: .main)
         case .chatting:
             return ImageResource(name: "chatting", bundle: .main)
-        case .myProfile:
-            return ImageResource(name: "myProfile", bundle: .main)
         }
     }
 }
