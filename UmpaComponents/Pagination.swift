@@ -22,7 +22,7 @@ public struct DotsPagination: View, Pagination {
     ) {
         self.currentIndex = currentIndex
         self.pageCount = pageCount
-        self.appearance = appearance ?? DotsPaginationAppearance.builtIn
+        self.appearance = appearance ?? DotsPaginationAppearance.default
     }
   
     public var body: some View {
@@ -68,7 +68,7 @@ public struct DotsPaginationAppearance {
         self.selectedScale = selectedScale
     }
     
-    static let builtIn = DotsPaginationAppearance(
+    static let `default` = DotsPaginationAppearance(
         size: 8,
         spacing: 8,
         normalColor: Color(hex: "9C9C9C"),
@@ -84,6 +84,6 @@ public struct DotsPaginationAppearance {
     DotsPagination(
         currentIndex: $index,
         pageCount: colors.count,
-        appearance: DotsPaginationAppearance.builtIn
+        appearance: DotsPaginationAppearance.default
     )
 }
