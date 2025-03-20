@@ -29,23 +29,7 @@ struct MatchingDetailView: View {
     }
 }
 
-struct Badge: View {
-    private let cornerRadius: CGFloat = 5
 
-    var body: some View {
-        Text("태그 뱃찌")
-            .foregroundStyle(Color(hex: "337AF7"))
-            .padding(.horizontal, 10)
-            .padding(.top, 5.4)
-            .padding(.bottom, 5.6)
-            .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            .overlay {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .strokeBorder(UmpaColor.main)
-            }
-    }
-}
 
 #Preview {
     NavigationStack {
