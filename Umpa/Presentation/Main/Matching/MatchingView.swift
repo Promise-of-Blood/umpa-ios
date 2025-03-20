@@ -13,7 +13,7 @@ struct MatchingView: View {
                 FilterButton()
                 FilterButton()
             }
-            PricePerTime(price: 100_000)
+//            PricePerTime(price: 100_000)
         }
     }
 }

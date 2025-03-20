@@ -3,28 +3,30 @@
 import SwiftUI
 
 struct BottomActionBar: View {
-    private let buttonsHeight: CGFloat = 50
-    private let buttonsRadius: CGFloat = 10
+    private let height: CGFloat = fs(50)
+    private let buttonsRadius: CGFloat = fs(10)
 
     var body: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: fs(8)) {
             Button(action: didTapFavoriteButton) {
-                Image(systemName: "heart")
+                Image(systemName: "heart") // TODO: 실제 리소스로 교체
                     .foregroundStyle(Color.black)
-                    .frame(width: buttonsHeight, height: buttonsHeight)
-                    .overlay {
-                        RoundedRectangle(cornerRadius: buttonsRadius)
-                            .strokeBorder(Color(hex: "EBEBEB"))
-                    }
+                    .frame(width: height, height: height)
+                    .innerStroke(Color(hex: "EBEBEB"), cornerRadius: buttonsRadius, lineWidth: fs(1))
             }
             Button(action: didTapPrimaryButton) {
                 Text("채팅 하기")
+                    .font(.pretendardMedium(size: fs(15)))
                     .foregroundStyle(Color.white)
-                    .frame(maxWidth: .infinity, idealHeight: buttonsHeight)
+                    .frame(maxWidth: .fill, idealHeight: height)
                     .fixedSize(horizontal: false, vertical: true)
                     .background(UmpaColor.main, in: RoundedRectangle(cornerRadius: buttonsRadius))
             }
         }
+        .frame(maxWidth: .fill, idealHeight: height)
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(.horizontal, fs(14))
+        .padding(.vertical, fs(8))
     }
 
     func didTapFavoriteButton() {}

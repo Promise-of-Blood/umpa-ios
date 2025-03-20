@@ -3,22 +3,46 @@
 import SwiftUI
 
 struct LessonInfo: View {
+    let teacher: String
+    let rating: Double
+    let region: String
+
+    private let dotSize: CGFloat = fs(1.5)
+
+    var ratingString: String {
+        String(format: "%.1f", rating)
+    }
+
     var body: some View {
-        HStack(spacing: 4) {
-            Text("OOO 선생님")
-            Circle()
-                .frame(width: 1.5, height: 1.5)
-            HStack(spacing: 3) {
-                Image(systemName: "star.fill")
-                Text("4.5")
+        HStack(spacing: fs(4)) {
+            Text(teacher)
+                .font(.pretendardRegular(size: fs(12)))
+                .foregroundStyle(UmpaColor.lightGray)
+            spacingDot
+            HStack(spacing: fs(3)) {
+                Image(systemName: "star.fill") // TODO: 실제 리소스로 교체
+                Text(ratingString)
+                    .font(.pretendardSemiBold(size: fs(12)))
+                    .foregroundStyle(Color.black)
             }
-            Circle()
-                .frame(width: 1.5, height: 1.5)
-            Text("음파/음파동")
+            spacingDot
+            Text(region)
+                .font(.pretendardRegular(size: fs(12)))
+                .foregroundStyle(UmpaColor.lightGray)
         }
+    }
+
+    var spacingDot: some View {
+        Circle()
+            .frame(width: dotSize, height: dotSize)
+            .foregroundStyle(UmpaColor.lightGray)
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    LessonInfo()
+    LessonInfo(
+        teacher: "으음파 선생님",
+        rating: 5.0,
+        region: "음파/음파동"
+    )
 }

@@ -9,8 +9,8 @@ struct MatchingDetailView: View {
             VStack(alignment: .leading) {
                 Image("")
                 title
-                LessonInfo()
-                PricePerTime(price: 100_000)
+//                LessonInfo()
+//                PricePerTime(price: 100_000)
                 HStack(spacing: 9) {
                     Badge("학력 인증")
                     Badge("시범 레슨 운영")
