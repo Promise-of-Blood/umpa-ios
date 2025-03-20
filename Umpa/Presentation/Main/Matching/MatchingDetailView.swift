@@ -12,8 +12,8 @@ struct MatchingDetailView: View {
                 LessonInfo()
                 PricePerTime(price: 100_000)
                 HStack(spacing: 9) {
-                    Badge()
-                    Badge()
+                    Badge("학력 인증")
+                    Badge("시범 레슨 운영")
                 }
                 Spacer()
             }
@@ -28,8 +28,6 @@ struct MatchingDetailView: View {
         Text("가고싶은 학교 무조건 가는 방법")
     }
 }
-
-
 
 #Preview {
     NavigationStack {
