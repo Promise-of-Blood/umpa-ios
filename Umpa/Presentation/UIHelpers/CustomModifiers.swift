@@ -3,10 +3,14 @@
 import SwiftUI
 
 extension View {
-    @inlinable func innerStroke<S>(_ shapeStyle: S, cornerRadius: CGFloat) -> some View where S: ShapeStyle {
+    @inlinable func innerStroke<S>(
+        _ shapeStyle: S,
+        cornerRadius: CGFloat,
+        lineWidth: CGFloat = 1
+    ) -> some View where S: ShapeStyle {
         self.overlay(
             RoundedRectangle(cornerRadius: cornerRadius)
-                .strokeBorder(shapeStyle, lineWidth: 1)
+                .strokeBorder(shapeStyle, lineWidth: lineWidth)
         )
     }
 }
