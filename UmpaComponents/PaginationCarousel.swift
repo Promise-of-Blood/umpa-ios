@@ -25,7 +25,7 @@ public struct PaginationCarousel<Content, P>: View where Content: View, P: Pagin
     public init(
         currentIndex: Binding<Int>,
         pageCount: Int,
-        paginationOffset: CGFloat = -20,
+        paginationOffset: CGFloat = 20,
         @ViewBuilder content: @escaping () -> Content
     ) where P == DotsPagination {
         self._currentIndex = currentIndex
