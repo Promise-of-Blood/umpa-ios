@@ -11,10 +11,6 @@ struct LessonInfo: View {
 
     let model: Model
 
-    var ratingString: String {
-        String(format: "%.1f", model.rating)
-    }
-
     private let dotSize: CGFloat = fs(1.5)
 
     var body: some View {
@@ -25,14 +21,8 @@ struct LessonInfo: View {
                 .lineLimit(1)
                 .layoutPriority(2)
             spacingDot
-            HStack(spacing: fs(3)) {
-                Image(systemName: "star.fill") // TODO: 실제 리소스로 교체
-                Text(ratingString)
-                    .font(.pretendardSemiBold(size: fs(12)))
-                    .foregroundStyle(Color.black)
-                    .lineLimit(1)
-            }
-            .layoutPriority(1)
+            Rating(model.rating)
+                .layoutPriority(1)
             spacingDot
             Text(model.region)
                 .font(.pretendardRegular(size: fs(12)))

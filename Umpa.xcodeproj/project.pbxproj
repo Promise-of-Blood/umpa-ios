@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DAB64B632D89CA5A00319429 /* UmpaComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */; };
-		DAB64B642D89CA5A00319429 /* UmpaComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; };
+		DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; };
 		DAB64B7B2D89CBB400319429 /* Utility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB64B812D89CBBE00319429 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; };
@@ -60,7 +60,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DAB64B642D89CA5A00319429 /* UmpaComponents.framework in Embed Frameworks */,
+				DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */,
 				DAB64B7B2D89CBB400319429 /* Utility.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -83,7 +83,7 @@
 		0C9CD41C2D31062B003F4455 /* Umpa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Umpa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9CD42C2D31062D003F4455 /* UmpaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UmpaComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB64B5D2D89CA5A00319429 /* Components.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Components.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB64B742D89CBB400319429 /* Utility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,12 +96,12 @@
 			);
 			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
 		};
-		DAB64B682D89CA5A00319429 /* Exceptions for "UmpaComponents" folder in "UmpaComponents" target */ = {
+		DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
 				UmpaComponent.h,
 			);
-			target = DAB64B5C2D89CA5A00319429 /* UmpaComponents */;
+			target = DAB64B5C2D89CA5A00319429 /* Components */;
 		};
 		DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -131,12 +131,12 @@
 			path = UmpaUITests;
 			sourceTree = "<group>";
 		};
-		DAB64B5E2D89CA5A00319429 /* UmpaComponents */ = {
+		DAB64B5E2D89CA5A00319429 /* Components */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DAB64B682D89CA5A00319429 /* Exceptions for "UmpaComponents" folder in "UmpaComponents" target */,
+				DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */,
 			);
-			path = UmpaComponents;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		DAB64B752D89CBB400319429 /* Utility */ = {
@@ -154,7 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB64B632D89CA5A00319429 /* UmpaComponents.framework in Frameworks */,
+				DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */,
 				DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,11 +194,11 @@
 		0C9CD4132D31062B003F4455 = {
 			isa = PBXGroup;
 			children = (
+				DAB64B752D89CBB400319429 /* Utility */,
+				DAB64B5E2D89CA5A00319429 /* Components */,
 				0C9CD41E2D31062B003F4455 /* Umpa */,
 				0C9CD42F2D31062D003F4455 /* UmpaTests */,
 				0C9CD4392D31062D003F4455 /* UmpaUITests */,
-				DAB64B5E2D89CA5A00319429 /* UmpaComponents */,
-				DAB64B752D89CBB400319429 /* Utility */,
 				DAB64B802D89CBBE00319429 /* Frameworks */,
 				0C9CD41D2D31062B003F4455 /* Products */,
 			);
@@ -210,7 +210,7 @@
 				0C9CD41C2D31062B003F4455 /* Umpa.app */,
 				0C9CD42C2D31062D003F4455 /* UmpaTests.xctest */,
 				0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */,
-				DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */,
+				DAB64B5D2D89CA5A00319429 /* Components.framework */,
 				DAB64B742D89CBB400319429 /* Utility.framework */,
 			);
 			name = Products;
@@ -314,9 +314,9 @@
 			productReference = 0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		DAB64B5C2D89CA5A00319429 /* UmpaComponents */ = {
+		DAB64B5C2D89CA5A00319429 /* Components */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "UmpaComponents" */;
+			buildConfigurationList = DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "Components" */;
 			buildPhases = (
 				DAB64B582D89CA5A00319429 /* Headers */,
 				DAB64B592D89CA5A00319429 /* Sources */,
@@ -330,13 +330,13 @@
 				DAB64B842D89CBBE00319429 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				DAB64B5E2D89CA5A00319429 /* UmpaComponents */,
+				DAB64B5E2D89CA5A00319429 /* Components */,
 			);
-			name = UmpaComponents;
+			name = Components;
 			packageProductDependencies = (
 			);
 			productName = UmpaComponent;
-			productReference = DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */;
+			productReference = DAB64B5D2D89CA5A00319429 /* Components.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DAB64B732D89CBB400319429 /* Utility */ = {
@@ -408,7 +408,7 @@
 				0C9CD41B2D31062B003F4455 /* Umpa */,
 				0C9CD42B2D31062D003F4455 /* UmpaTests */,
 				0C9CD4352D31062D003F4455 /* UmpaUITests */,
-				DAB64B5C2D89CA5A00319429 /* UmpaComponents */,
+				DAB64B5C2D89CA5A00319429 /* Components */,
 				DAB64B732D89CBB400319429 /* Utility */,
 			);
 		};
@@ -503,7 +503,7 @@
 		};
 		DAB64B622D89CA5A00319429 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB64B5C2D89CA5A00319429 /* UmpaComponents */;
+			target = DAB64B5C2D89CA5A00319429 /* Components */;
 			targetProxy = DAB64B612D89CA5A00319429 /* PBXContainerItemProxy */;
 		};
 		DAB64B792D89CBB400319429 /* PBXTargetDependency */ = {
@@ -807,7 +807,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.UmpaComponent;
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.Components;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -853,7 +853,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.UmpaComponent;
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.Components;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -997,7 +997,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "UmpaComponents" */ = {
+		DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "Components" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB64B662D89CA5A00319429 /* Debug */,
