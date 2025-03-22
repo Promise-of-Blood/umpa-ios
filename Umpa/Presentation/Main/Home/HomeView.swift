@@ -7,19 +7,21 @@ private let contentHorizontalPadding: CGFloat = fs(28)
 
 struct HomeView: View {
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .bottomTrailing) {
-                ScrollView {
-                    VStack(spacing: fs(34)) {
-                        header
-                        content
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack(alignment: .bottomTrailing) {
+                    ScrollView {
+                        VStack(spacing: fs(34)) {
+                            header
+                            content
+                        }
+                        .frame(width: geometry.size.width)
+                        .padding(.vertical, fs(20))
                     }
-                    .frame(width: geometry.size.width)
-                    .padding(.vertical, fs(20))
+                    .padding(.top, 1) // 네비게이션 바 유지를 위함
+                    calendarButton
+                        .offset(x: fs(-28), y: fs(-25))
                 }
-                .padding(.top, 1) // 네비게이션 바 유지를 위함
-                calendarButton
-                    .offset(x: fs(-28), y: fs(-25))
             }
         }
     }
@@ -37,9 +39,9 @@ struct HomeView: View {
                 }) {
                     Image(.notificationIcon)
                 }
-                Button(action: {
-                    // TODO: Implement
-                }) {
+                NavigationLink {
+                    MyProfileView()
+                } label: {
                     Image(.profileIcon)
                 }
             }
