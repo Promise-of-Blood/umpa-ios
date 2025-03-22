@@ -81,6 +81,8 @@ struct HomeView: View {
 }
 
 private struct _TeacherFindingSection: View {
+    @EnvironmentObject var appState: AppState
+
     @State private var currentIndex = 0
 
     private let gridRowCount = 2
@@ -135,10 +137,14 @@ private struct _TeacherFindingSection: View {
                             ForEach(0..<gridColumnCount, id: \.self) { column in
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if let caption = list[safe: index] {
-                                    TeacherFindingCarouselItem(
-                                        imageResource: ImageResource(name: "", bundle: .main),
-                                        caption: caption
-                                    )
+                                    Button {
+                                        appState.currentTabIndex = 1
+                                    } label: {
+                                        TeacherFindingCarouselItem(
+                                            imageResource: ImageResource(name: "", bundle: .main),
+                                            caption: caption
+                                        )
+                                    }
                                 } else {
                                     TeacherFindingCarouselItem(
                                         imageResource: ImageResource(name: "", bundle: .main),

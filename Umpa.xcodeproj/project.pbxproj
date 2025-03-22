@@ -122,6 +122,13 @@
 			);
 			target = DA7E351F2D8D5B01001DD6AA /* Networking */;
 		};
+		DA9E5F8B2D8F179F009319A0 /* Exceptions for "Utility" folder in "Umpa" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Collection+safe.swift",
+			);
+			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
+		};
 		DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
@@ -131,6 +138,9 @@
 		};
 		DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Collection+safe.swift",
+			);
 			publicHeaders = (
 				Utility.h,
 			);
@@ -176,6 +186,7 @@
 		DAB64B752D89CBB400319429 /* Utility */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				DA9E5F8B2D8F179F009319A0 /* Exceptions for "Utility" folder in "Umpa" target */,
 				DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */,
 			);
 			path = Utility;

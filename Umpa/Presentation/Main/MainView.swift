@@ -1,8 +1,14 @@
 // Created for Umpa in 2025
 
+import Combine
 import SwiftUI
+import Utility
 
 struct MainView: View {
+    private var cancelBag = CancelBag()
+
+    @EnvironmentObject var appState: AppState
+
     @State private var selection = 0
 
     var body: some View {
@@ -28,6 +34,17 @@ struct MainView: View {
                 }
                 .tag(3)
         }
+        .onAppear {
+            bindingAppState()
+        }
+    }
+
+    private func bindingAppState() {
+        appState.$currentTabIndex
+            .sink { index in
+                selection = index
+            }
+            .store(in: cancelBag)
     }
 }
 

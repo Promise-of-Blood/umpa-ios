@@ -25,4 +25,5 @@ struct UmpaApp: App {
 
 class AppState: ObservableObject {
     @Published var isLoggedIn = false
+    @Published var currentTabIndex = 0
 }
