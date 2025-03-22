@@ -17,7 +17,7 @@ struct HomeView: View {
                     .frame(width: geometry.size.width)
                     .padding(.vertical, fs(20))
                 }
-                .padding(.top, 1)
+                .padding(.top, 1) // 네비게이션 바 유지를 위함
                 calendarButton
                     .offset(x: fs(-28), y: fs(-25))
             }
