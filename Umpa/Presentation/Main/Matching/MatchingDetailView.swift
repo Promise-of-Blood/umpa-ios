@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
+import Components
 import SwiftUI
-import UmpaComponents
 
 struct MatchingDetailView: View {
     var body: some View {

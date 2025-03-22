@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
+import Components
 import SwiftUI
-import UmpaComponents
 
 struct SignUpNameInputView: View {
     @State private var name: String = ""
