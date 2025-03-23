@@ -4,6 +4,7 @@ import SwiftUI
 
 struct SignUpFinishView: View {
     @EnvironmentObject var appState: AppState
+//    private var interactor: SignUpInteractor
 
     var body: some View {
         VStack {
@@ -19,6 +20,10 @@ struct SignUpFinishView: View {
     }
 
     func completeSignUp() {
+        // let userInfo =
+        // let result = await interactor.signUp(with: userInfo)
+        // if result ... {
+        //     appState.isLoggedIn = true
         appState.isLoggedIn = true
     }
 }

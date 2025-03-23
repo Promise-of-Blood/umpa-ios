@@ -1,18 +1,13 @@
 // Created for Umpa in 2025
 
 import Components
+import Networking
 import SwiftUI
 
-enum Major {
-    case piano
-    case drum
-    case guitar
-    case violin
-    case cello
-}
-
 struct SignUpMajorSelectionView: View {
-    @State private var selectedMajor = Major.piano
+    @EnvironmentObject var appState: AppState
+
+    @State private var selectedMajor: String?
 
     var body: some View {
         VStack {
@@ -21,11 +16,9 @@ struct SignUpMajorSelectionView: View {
             Spacer()
             InputContentVStack {
                 Picker("Major", selection: $selectedMajor) {
-                    Text("피아노").tag(Major.piano)
-                    Text("드럼").tag(Major.drum)
-                    Text("기타").tag(Major.guitar)
-                    Text("바이올린").tag(Major.violin)
-                    Text("첼로").tag(Major.cello)
+                    ForEach(appState.majorList, id: \.self) { major in
+                        Text(major).tag(major)
+                    }
                 }
             }
             Spacer()
@@ -42,6 +35,9 @@ struct SignUpMajorSelectionView: View {
             }
         }
         .modifier(NavigationBackButton(.arrowBack))
+        .onAppear {
+            selectedMajor = appState.majorList.first
+        }
     }
 }
 

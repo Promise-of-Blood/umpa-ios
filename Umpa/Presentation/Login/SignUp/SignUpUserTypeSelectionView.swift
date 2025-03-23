@@ -9,8 +9,6 @@ enum UserType {
 }
 
 struct SignUpUserTypeSelectionView: View {
-    @Environment(\.dismiss) private var dismiss
-
     @State private var userType: UserType = .student
 
     var body: some View {
