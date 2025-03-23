@@ -10,6 +10,7 @@
 		DA7E35262D8D5B01001DD6AA /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* Networking.framework */; };
 		DA7E35272D8D5B01001DD6AA /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA7E352F2D8D5B5D001DD6AA /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* Networking.framework */; };
+		DA9E60C32D902959009319A0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DA9E60C22D902959009319A0 /* Factory */; };
 		DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; };
 		DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; };
@@ -200,6 +201,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA7E352F2D8D5B5D001DD6AA /* Networking.framework in Frameworks */,
+				DA9E60C32D902959009319A0 /* Factory in Frameworks */,
 				DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */,
 				DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */,
 				DA7E35262D8D5B01001DD6AA /* Networking.framework in Frameworks */,
@@ -328,6 +330,7 @@
 			);
 			name = Umpa;
 			packageProductDependencies = (
+				DA9E60C22D902959009319A0 /* Factory */,
 			);
 			productName = Umpa;
 			productReference = 0C9CD41C2D31062B003F4455 /* Umpa.app */;
@@ -491,6 +494,9 @@
 			);
 			mainGroup = 0C9CD4132D31062B003F4455;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0C9CD41D2D31062B003F4455 /* Products */;
 			projectDirPath = "";
@@ -1215,6 +1221,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA9E60C22D902959009319A0 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C9CD4142D31062B003F4455 /* Project object */;
 }

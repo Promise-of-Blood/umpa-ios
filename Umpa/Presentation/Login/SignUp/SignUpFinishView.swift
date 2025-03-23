@@ -1,30 +1,27 @@
 // Created for Umpa in 2025
 
+import Factory
 import SwiftUI
 
 struct SignUpFinishView: View {
-    @EnvironmentObject var appState: AppState
-//    private var interactor: SignUpInteractor
+    @InjectedObject(\.appState) private var appState: AppState
+    @Injected(\.signUpInteractor) private var signUpInteractor: SignUpInteractor
 
     var body: some View {
+        content
+            .navigationBarBackButtonHidden()
+    }
+
+    var content: some View {
         VStack {
             Text("환영합니다")
                 .modifier(TitleText())
             Spacer()
-            Button(action: completeSignUp) {
+            Button(action: signUpInteractor.signUp) {
                 Text("회원 가입 완료")
                     .modifier(BottomButton())
             }
         }
-        .navigationBarBackButtonHidden()
-    }
-
-    func completeSignUp() {
-        // let userInfo =
-        // let result = await interactor.signUp(with: userInfo)
-        // if result ... {
-        //     appState.isLoggedIn = true
-        appState.isLoggedIn = true
     }
 }
 

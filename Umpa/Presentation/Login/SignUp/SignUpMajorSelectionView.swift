@@ -5,7 +5,7 @@ import Networking
 import SwiftUI
 
 struct SignUpMajorSelectionView: View {
-    @EnvironmentObject var appState: AppState
+    @EnvironmentObject private var appState: AppState
 
     @State private var selectedMajor: String?
 

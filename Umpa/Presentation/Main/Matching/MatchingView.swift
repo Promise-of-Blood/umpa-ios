@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct MatchingView: View {
+    @EnvironmentObject private var mainViewModel: MainView.Model
+
     var body: some View {
         VStack(alignment: .leading) {
             Image(.umpaLogo)
@@ -13,6 +15,7 @@ struct MatchingView: View {
                 FilterButton()
                 FilterButton()
             }
+            Text(mainViewModel.selectedSubject ?? "")
 //            PricePerTime(price: 100_000)
         }
     }

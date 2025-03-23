@@ -1,18 +1,22 @@
 // Created for Umpa in 2025
 
-import Combine
 import SwiftUI
-import Utility
 
 struct MainView: View {
-    private var cancelBag = CancelBag()
+    class Model: ObservableObject {
+        @Published var currentTabIndex: Int = 0
+        @Published var selectedSubject: String?
+    }
 
-    @EnvironmentObject var appState: AppState
-
-    @State private var selection = 0
+    @StateObject private var model = Model()
 
     var body: some View {
-        TabView(selection: $selection) {
+        content
+            .environmentObject(model)
+    }
+
+    var content: some View {
+        TabView(selection: $model.currentTabIndex) {
             HomeView()
                 .tabItem {
                     TabLabel(category: .home)
@@ -34,17 +38,6 @@ struct MainView: View {
                 }
                 .tag(3)
         }
-        .onAppear {
-            bindingAppState()
-        }
-    }
-
-    private func bindingAppState() {
-        appState.$currentTabIndex
-            .sink { index in
-                selection = index
-            }
-            .store(in: cancelBag)
     }
 }
 

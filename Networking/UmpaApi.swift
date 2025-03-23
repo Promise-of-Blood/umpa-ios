@@ -3,15 +3,13 @@
 import Foundation
 
 public struct UmpaApi {
-    public static let shared = UmpaApi()
-
     let baseUrl: URL
 
     var apiUrl: URL {
         baseUrl.appending(path: "api")
     }
 
-    private init() {
+    public init() {
         let baseUrlString = Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as! String
         baseUrl = URL(string: baseUrlString)!
     }
