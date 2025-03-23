@@ -6,6 +6,8 @@ import SwiftUI
 private let contentHorizontalPadding: CGFloat = fs(28)
 
 struct HomeView: View {
+    @State private var isPresentingMyProfile = false
+
     var body: some View {
         NavigationStack {
             GeometryReader { geometry in
@@ -39,10 +41,13 @@ struct HomeView: View {
                 }) {
                     Image(.notificationIcon)
                 }
-                NavigationLink {
-                    MyProfileView()
-                } label: {
+                Button(action: {
+                    isPresentingMyProfile.toggle()
+                }) {
                     Image(.profileIcon)
+                        .fullScreenCover(isPresented: $isPresentingMyProfile) {
+                            MyProfileView()
+                        }
                 }
             }
         }
