@@ -13,7 +13,9 @@ struct SignUpMajorSelectionView: View {
         content
             .modifier(NavigationBackButton(.arrowBack))
             .onAppear {
-                signUpModel.major = appState.majorList.first
+                if signUpModel.major == nil {
+                    signUpModel.major = appState.majorList.first
+                }
             }
     }
 
