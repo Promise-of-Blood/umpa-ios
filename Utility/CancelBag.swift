@@ -11,19 +11,11 @@ import Combine
 public final class CancelBag {
     fileprivate(set) var subscriptions = [any Cancellable]()
 
-    private let equalToAny: Bool
-
-    public init(equalToAny: Bool = false) {
-        self.equalToAny = equalToAny
-    }
+    public init() {}
 
     public func cancel() {
         subscriptions.removeAll()
     }
-
-//    func isEqual(to other: CancelBag) -> Bool {
-//        return other === self || other.equalToAny || equalToAny
-//    }
 }
 
 extension Cancellable {
