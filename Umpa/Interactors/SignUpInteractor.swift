@@ -4,11 +4,14 @@ import Factory
 import Foundation
 import Networking
 
-struct SignUpInteractor {
+protocol SignUpInteractor {
+    @MainActor func signUp(with model: SignUpModel) async
+}
+
+struct DefaultSignUpInteractor: SignUpInteractor {
     @Injected(\.appState) private var appState
     @Injected(\.umpaApi) private var umpaApi
 
-    @MainActor
     func signUp(with model: SignUpModel) async {
         // TODO: Implement
 
@@ -18,8 +21,21 @@ struct SignUpInteractor {
         // Request signUp
         // let result = await umpaApi.signUp(requestModel)
 
-        appState.isLoggedIn = true
+//        appState.isLoggedIn = true
 
+//        Container.shared.manager.reset(scope: .signUpSession)
+
+        fatalError()
+    }
+}
+
+#if DEBUG
+struct MockSignUpInteractor: SignUpInteractor {
+    @Injected(\.appState) private var appState
+
+    func signUp(with model: SignUpModel) async {
+        appState.isLoggedIn = true
         Container.shared.manager.reset(scope: .signUpSession)
     }
 }
+#endif

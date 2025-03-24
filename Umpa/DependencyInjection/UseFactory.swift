@@ -16,12 +16,12 @@ extension Container {
     }
 
     var appInteractor: Factory<AppInteractor> {
-        Factory(self) { AppInteractor() }
+        Factory(self) { DefaultAppInteractor() }
             .scope(.singleton)
     }
 
     var signUpInteractor: Factory<SignUpInteractor> {
-        Factory(self) { SignUpInteractor() }
+        Factory(self) { DefaultSignUpInteractor() }
             .scope(.shared)
     }
 

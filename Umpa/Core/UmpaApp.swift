@@ -11,8 +11,15 @@ import SwiftUI
 
 @main
 struct UmpaApp: App {
-    @InjectedObject(\.appState) private var appState: AppState
-    @Injected(\.appInteractor) private var appInteractor: AppInteractor
+    @InjectedObject(\.appState) private var appState
+    @Injected(\.appInteractor) private var appInteractor
+
+    init() {
+        #if DEBUG
+        Container.shared.appInteractor.register { MockAppInteractor() }
+        Container.shared.signUpInteractor.register { MockSignUpInteractor() }
+        #endif
+    }
 
     var body: some Scene {
         WindowGroup {
