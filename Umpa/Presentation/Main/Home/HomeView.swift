@@ -87,7 +87,6 @@ struct HomeView: View {
 }
 
 private struct _TeacherFindingSection: View {
-//    @EnvironmentObject private var mainViewModel: MainView.Model
     @InjectedObject(\.mainViewModel) private var mainViewModel
 
     @State private var currentIndex = 0

@@ -1,9 +1,10 @@
 // Created for Umpa in 2025
 
+import Factory
 import SwiftUI
 
 struct MatchingView: View {
-    @EnvironmentObject private var mainViewModel: MainView.Model
+    @InjectedObject(\.mainViewModel) private var mainViewModel
 
     var body: some View {
         VStack(alignment: .leading) {
