@@ -5,8 +5,8 @@ import Foundation
 import Networking
 
 struct AppInteractor {
-    @Injected(\.appState) var appState: AppState
-    @Injected(\.umpaApi) var umpaApi: UmpaApi
+    @Injected(\.appState) var appState
+    @Injected(\.umpaApi) var umpaApi
 
     @MainActor
     func loadMajorList() async {

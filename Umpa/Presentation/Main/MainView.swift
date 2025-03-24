@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Factory
 import SwiftUI
 
 struct MainView: View {
@@ -8,11 +9,10 @@ struct MainView: View {
         @Published var selectedSubject: String?
     }
 
-    @StateObject private var model = Model()
+    @InjectedObject(\.mainViewModel) private var model
 
     var body: some View {
         content
-            .environmentObject(model)
     }
 
     var content: some View {

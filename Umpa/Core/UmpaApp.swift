@@ -30,6 +30,5 @@ struct UmpaApp: App {
                     }
             }
         }
-        .environmentObject(appState)
     }
 }

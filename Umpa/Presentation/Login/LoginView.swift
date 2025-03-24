@@ -7,8 +7,15 @@
 
 import SwiftUI
 
+enum LoginType {
+    case kakao
+    case naver
+    case google
+    case apple
+}
+
 struct LoginView: View {
-    @State private var path: [String] = []
+    @State private var path: [LoginType] = []
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -24,7 +31,8 @@ struct LoginView: View {
                     .padding(10)
                 Spacer()
                 loginButtons
-                    .navigationDestination(for: String.self) { _ in
+                    // FIXME: 개발용 임시 코드
+                    .navigationDestination(for: LoginType.self) { _ in
                         SignUpUserTypeSelectionView()
                     }
             }
@@ -57,21 +65,21 @@ struct LoginView: View {
         #if RELEASE
             fatalError()
         #endif
-        path.append("kakao")
+        path.append(.kakao)
     }
 
     func loginWithNaver() {
         #if RELEASE
             fatalError()
         #endif
-        path.append("naver")
+        path.append(.naver)
     }
 
     func loginWithGoogle() {
         #if RELEASE
             fatalError()
         #endif
-        path.append("google")
+        path.append(.google)
     }
 }
 

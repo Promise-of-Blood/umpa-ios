@@ -24,4 +24,19 @@ extension Container {
         Factory(self) { SignUpInteractor() }
             .scope(.shared)
     }
+
+    var signUpModel: Factory<SignUpModel> {
+        Factory(self) { SignUpModel() }
+            .scope(.signUpSession)
+    }
+
+    var mainViewModel: Factory<MainView.Model> {
+        Factory(self) { MainView.Model() }
+            .scope(.mainSession)
+    }
+}
+
+extension Scope {
+    static let signUpSession = Cached()
+    static let mainSession = Cached()
 }

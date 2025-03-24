@@ -1,14 +1,20 @@
 // Created for Umpa in 2025
 
 import Components
+import Factory
 import SwiftUI
 
 struct SignUpNameInputView: View {
-    @State private var name: String = ""
+    @InjectedObject(\.signUpModel) private var signUpModel
 
     @FocusState private var isFocused: Bool
 
     var body: some View {
+        content
+            .modifier(NavigationBackButton(.arrowBack))
+    }
+
+    var content: some View {
         VStack {
             Text("이름을 입력해주세요")
                 .modifier(TitleText())
@@ -25,7 +31,6 @@ struct SignUpNameInputView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var nameTextField: some View {
@@ -34,7 +39,7 @@ struct SignUpNameInputView: View {
                 .foregroundStyle(UmpaColor.lightGray)
             TextField(
                 "이름",
-                text: $name,
+                text: $signUpModel.name,
                 prompt: Text("이름을 입력해주세요")
             )
         }

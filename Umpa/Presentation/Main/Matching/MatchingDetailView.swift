@@ -5,6 +5,11 @@ import SwiftUI
 
 struct MatchingDetailView: View {
     var body: some View {
+        content
+            .modifier(NavigationBackButton(.arrowBack))
+    }
+
+    var content: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Image("")
@@ -21,7 +26,6 @@ struct MatchingDetailView: View {
             BottomActionBar()
                 .padding()
         }
-        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var title: some View {
