@@ -60,6 +60,7 @@ enum TabCategory {
         }
     }
 
+    // TODO: 실제 리소스로 변경
     var imageResource: ImageResource {
         switch self {
         case .home:
