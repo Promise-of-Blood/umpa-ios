@@ -1,8 +1,11 @@
 // Created for Umpa in 2025
 
+import Factory
 import SwiftUI
 
 struct MatchingView: View {
+    @InjectedObject(\.mainViewModel) private var mainViewModel
+
     var body: some View {
         VStack(alignment: .leading) {
             Image(.umpaLogo)
@@ -13,7 +16,8 @@ struct MatchingView: View {
                 FilterButton()
                 FilterButton()
             }
-            PricePerTime(price: 100_000)
+            Text(mainViewModel.selectedSubject ?? "")
+//            PricePerTime(price: 100_000)
         }
     }
 }

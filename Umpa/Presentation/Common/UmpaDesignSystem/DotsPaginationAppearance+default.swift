@@ -1,6 +1,6 @@
 // Created for Umpa in 2025
 
-import UmpaComponents
+import Components
 
 extension DotsPaginationAppearance {
     static let `default` = DotsPaginationAppearance(

@@ -1,10 +1,18 @@
 // Created for Umpa in 2025
 
+import Components
+import Factory
 import SwiftUI
-import UmpaComponents
 
 struct SignUpChoiceSchoolSelectionView: View {
+    @InjectedObject(\.signUpModel) private var signUpModel
+
     var body: some View {
+        content
+            .modifier(NavigationBackButton(.arrowBack))
+    }
+
+    var content: some View {
         VStack {
             Text("지망 학교를 설정해주세요")
                 .modifier(TitleText())
@@ -31,7 +39,6 @@ struct SignUpChoiceSchoolSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton(.arrowBack))
     }
 }
 

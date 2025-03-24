@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
+import Components
 import SwiftUI
-import UmpaComponents
 
 struct Banner: View {
     @State private var currentIndex: Int = 0

@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DAB64B632D89CA5A00319429 /* UmpaComponents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */; };
-		DAB64B642D89CA5A00319429 /* UmpaComponents.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA7E35262D8D5B01001DD6AA /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* Networking.framework */; };
+		DA7E35272D8D5B01001DD6AA /* Networking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* Networking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA7E352F2D8D5B5D001DD6AA /* Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* Networking.framework */; };
+		DA9E60C32D902959009319A0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DA9E60C22D902959009319A0 /* Factory */; };
+		DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; };
+		DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; };
 		DAB64B7B2D89CBB400319429 /* Utility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB64B812D89CBBE00319429 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; };
@@ -29,6 +33,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 0C9CD41B2D31062B003F4455;
 			remoteInfo = Umpa;
+		};
+		DA7E35242D8D5B01001DD6AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA7E351F2D8D5B01001DD6AA;
+			remoteInfo = Networking;
+		};
+		DA7E35302D8D5B5D001DD6AA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA7E351F2D8D5B01001DD6AA;
+			remoteInfo = Networking;
 		};
 		DAB64B612D89CA5A00319429 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -60,8 +78,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DAB64B642D89CA5A00319429 /* UmpaComponents.framework in Embed Frameworks */,
+				DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */,
 				DAB64B7B2D89CBB400319429 /* Utility.framework in Embed Frameworks */,
+				DA7E35272D8D5B01001DD6AA /* Networking.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,7 +102,8 @@
 		0C9CD41C2D31062B003F4455 /* Umpa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Umpa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9CD42C2D31062D003F4455 /* UmpaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UmpaComponents.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA7E35202D8D5B01001DD6AA /* Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB64B5D2D89CA5A00319429 /* Components.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Components.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB64B742D89CBB400319429 /* Utility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -96,15 +116,32 @@
 			);
 			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
 		};
-		DAB64B682D89CA5A00319429 /* Exceptions for "UmpaComponents" folder in "UmpaComponents" target */ = {
+		DA7E352B2D8D5B01001DD6AA /* Exceptions for "Networking" folder in "Networking" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			publicHeaders = (
+				Networking.h,
+			);
+			target = DA7E351F2D8D5B01001DD6AA /* Networking */;
+		};
+		DA9E5F8B2D8F179F009319A0 /* Exceptions for "Utility" folder in "Umpa" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Collection+safe.swift",
+			);
+			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
+		};
+		DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
 				UmpaComponent.h,
 			);
-			target = DAB64B5C2D89CA5A00319429 /* UmpaComponents */;
+			target = DAB64B5C2D89CA5A00319429 /* Components */;
 		};
 		DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Collection+safe.swift",
+			);
 			publicHeaders = (
 				Utility.h,
 			);
@@ -131,17 +168,26 @@
 			path = UmpaUITests;
 			sourceTree = "<group>";
 		};
-		DAB64B5E2D89CA5A00319429 /* UmpaComponents */ = {
+		DA7E35212D8D5B01001DD6AA /* Networking */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DAB64B682D89CA5A00319429 /* Exceptions for "UmpaComponents" folder in "UmpaComponents" target */,
+				DA7E352B2D8D5B01001DD6AA /* Exceptions for "Networking" folder in "Networking" target */,
 			);
-			path = UmpaComponents;
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		DAB64B5E2D89CA5A00319429 /* Components */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		DAB64B752D89CBB400319429 /* Utility */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				DA9E5F8B2D8F179F009319A0 /* Exceptions for "Utility" folder in "Umpa" target */,
 				DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */,
 			);
 			path = Utility;
@@ -154,8 +200,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAB64B632D89CA5A00319429 /* UmpaComponents.framework in Frameworks */,
+				DA7E352F2D8D5B5D001DD6AA /* Networking.framework in Frameworks */,
+				DA9E60C32D902959009319A0 /* Factory in Frameworks */,
+				DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */,
 				DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */,
+				DA7E35262D8D5B01001DD6AA /* Networking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +216,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0C9CD4332D31062D003F4455 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA7E351D2D8D5B01001DD6AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -194,11 +250,12 @@
 		0C9CD4132D31062B003F4455 = {
 			isa = PBXGroup;
 			children = (
+				DAB64B752D89CBB400319429 /* Utility */,
+				DAB64B5E2D89CA5A00319429 /* Components */,
 				0C9CD41E2D31062B003F4455 /* Umpa */,
 				0C9CD42F2D31062D003F4455 /* UmpaTests */,
 				0C9CD4392D31062D003F4455 /* UmpaUITests */,
-				DAB64B5E2D89CA5A00319429 /* UmpaComponents */,
-				DAB64B752D89CBB400319429 /* Utility */,
+				DA7E35212D8D5B01001DD6AA /* Networking */,
 				DAB64B802D89CBBE00319429 /* Frameworks */,
 				0C9CD41D2D31062B003F4455 /* Products */,
 			);
@@ -210,8 +267,9 @@
 				0C9CD41C2D31062B003F4455 /* Umpa.app */,
 				0C9CD42C2D31062D003F4455 /* UmpaTests.xctest */,
 				0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */,
-				DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */,
+				DAB64B5D2D89CA5A00319429 /* Components.framework */,
 				DAB64B742D89CBB400319429 /* Utility.framework */,
+				DA7E35202D8D5B01001DD6AA /* Networking.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,6 +284,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		DA7E351B2D8D5B01001DD6AA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB64B582D89CA5A00319429 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,12 +322,15 @@
 			dependencies = (
 				DAB64B622D89CA5A00319429 /* PBXTargetDependency */,
 				DAB64B792D89CBB400319429 /* PBXTargetDependency */,
+				DA7E35252D8D5B01001DD6AA /* PBXTargetDependency */,
+				DA7E35312D8D5B5D001DD6AA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0C9CD41E2D31062B003F4455 /* Umpa */,
 			);
 			name = Umpa;
 			packageProductDependencies = (
+				DA9E60C22D902959009319A0 /* Factory */,
 			);
 			productName = Umpa;
 			productReference = 0C9CD41C2D31062B003F4455 /* Umpa.app */;
@@ -314,9 +382,32 @@
 			productReference = 0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		DAB64B5C2D89CA5A00319429 /* UmpaComponents */ = {
+		DA7E351F2D8D5B01001DD6AA /* Networking */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "UmpaComponents" */;
+			buildConfigurationList = DA7E35282D8D5B01001DD6AA /* Build configuration list for PBXNativeTarget "Networking" */;
+			buildPhases = (
+				DA7E351B2D8D5B01001DD6AA /* Headers */,
+				DA7E351C2D8D5B01001DD6AA /* Sources */,
+				DA7E351D2D8D5B01001DD6AA /* Frameworks */,
+				DA7E351E2D8D5B01001DD6AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DA7E35212D8D5B01001DD6AA /* Networking */,
+			);
+			name = Networking;
+			packageProductDependencies = (
+			);
+			productName = Networking;
+			productReference = DA7E35202D8D5B01001DD6AA /* Networking.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DAB64B5C2D89CA5A00319429 /* Components */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "Components" */;
 			buildPhases = (
 				DAB64B582D89CA5A00319429 /* Headers */,
 				DAB64B592D89CA5A00319429 /* Sources */,
@@ -330,13 +421,13 @@
 				DAB64B842D89CBBE00319429 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				DAB64B5E2D89CA5A00319429 /* UmpaComponents */,
+				DAB64B5E2D89CA5A00319429 /* Components */,
 			);
-			name = UmpaComponents;
+			name = Components;
 			packageProductDependencies = (
 			);
 			productName = UmpaComponent;
-			productReference = DAB64B5D2D89CA5A00319429 /* UmpaComponents.framework */;
+			productReference = DAB64B5D2D89CA5A00319429 /* Components.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DAB64B732D89CBB400319429 /* Utility */ = {
@@ -383,6 +474,9 @@
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 0C9CD41B2D31062B003F4455;
 					};
+					DA7E351F2D8D5B01001DD6AA = {
+						CreatedOnToolsVersion = 16.2;
+					};
 					DAB64B5C2D89CA5A00319429 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -400,6 +494,9 @@
 			);
 			mainGroup = 0C9CD4132D31062B003F4455;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0C9CD41D2D31062B003F4455 /* Products */;
 			projectDirPath = "";
@@ -408,8 +505,9 @@
 				0C9CD41B2D31062B003F4455 /* Umpa */,
 				0C9CD42B2D31062D003F4455 /* UmpaTests */,
 				0C9CD4352D31062D003F4455 /* UmpaUITests */,
-				DAB64B5C2D89CA5A00319429 /* UmpaComponents */,
+				DAB64B5C2D89CA5A00319429 /* Components */,
 				DAB64B732D89CBB400319429 /* Utility */,
+				DA7E351F2D8D5B01001DD6AA /* Networking */,
 			);
 		};
 /* End PBXProject section */
@@ -430,6 +528,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0C9CD4342D31062D003F4455 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA7E351E2D8D5B01001DD6AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -474,6 +579,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA7E351C2D8D5B01001DD6AA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB64B592D89CA5A00319429 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -501,9 +613,19 @@
 			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
 			targetProxy = 0C9CD4372D31062D003F4455 /* PBXContainerItemProxy */;
 		};
+		DA7E35252D8D5B01001DD6AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA7E351F2D8D5B01001DD6AA /* Networking */;
+			targetProxy = DA7E35242D8D5B01001DD6AA /* PBXContainerItemProxy */;
+		};
+		DA7E35312D8D5B5D001DD6AA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA7E351F2D8D5B01001DD6AA /* Networking */;
+			targetProxy = DA7E35302D8D5B5D001DD6AA /* PBXContainerItemProxy */;
+		};
 		DAB64B622D89CA5A00319429 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB64B5C2D89CA5A00319429 /* UmpaComponents */;
+			target = DAB64B5C2D89CA5A00319429 /* Components */;
 			targetProxy = DAB64B612D89CA5A00319429 /* PBXContainerItemProxy */;
 		};
 		DAB64B792D89CBB400319429 /* PBXTargetDependency */ = {
@@ -710,9 +832,9 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D859YXL4MF;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pob.UmpaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -729,9 +851,9 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D859YXL4MF;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pob.UmpaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -747,8 +869,9 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D859YXL4MF;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pob.UmpaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -764,8 +887,9 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D859YXL4MF;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = pob.UmpaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -773,6 +897,78 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Umpa;
+			};
+			name = Release;
+		};
+		DA7E35292D8D5B01001DD6AA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.Networking;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DA7E352A2D8D5B01001DD6AA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.Networking;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -807,7 +1003,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.UmpaComponent;
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.Components;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -853,7 +1049,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.UmpaComponent;
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.Components;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -997,7 +1193,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "UmpaComponents" */ = {
+		DA7E35282D8D5B01001DD6AA /* Build configuration list for PBXNativeTarget "Networking" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA7E35292D8D5B01001DD6AA /* Debug */,
+				DA7E352A2D8D5B01001DD6AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAB64B652D89CA5A00319429 /* Build configuration list for PBXNativeTarget "Components" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB64B662D89CA5A00319429 /* Debug */,
@@ -1016,6 +1221,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DA9E60C22D902959009319A0 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0C9CD4142D31062B003F4455 /* Project object */;
 }

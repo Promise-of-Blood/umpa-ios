@@ -1,16 +1,21 @@
 // Created for Umpa in 2025
 
+import Components
 import SwiftUI
-import UmpaComponents
 
 struct MatchingDetailView: View {
     var body: some View {
+        content
+            .modifier(NavigationBackButton(.arrowBack))
+    }
+
+    var content: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 Image("")
                 title
-                LessonInfo()
-                PricePerTime(price: 100_000)
+//                LessonInfo()
+//                PricePerTime(price: 100_000)
                 HStack(spacing: 9) {
                     Badge("학력 인증")
                     Badge("시범 레슨 운영")
@@ -21,7 +26,6 @@ struct MatchingDetailView: View {
             BottomActionBar()
                 .padding()
         }
-        .modifier(NavigationBackButton(.arrowBack))
     }
 
     var title: some View {

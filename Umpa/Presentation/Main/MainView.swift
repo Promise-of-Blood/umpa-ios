@@ -1,12 +1,22 @@
 // Created for Umpa in 2025
 
+import Factory
 import SwiftUI
 
 struct MainView: View {
-    @State private var selection = 0
+    class Model: ObservableObject {
+        @Published var currentTabIndex: Int = 0
+        @Published var selectedSubject: String?
+    }
+
+    @InjectedObject(\.mainViewModel) private var model
 
     var body: some View {
-        TabView(selection: $selection) {
+        content
+    }
+
+    var content: some View {
+        TabView(selection: $model.currentTabIndex) {
             HomeView()
                 .tabItem {
                     TabLabel(category: .home)
@@ -27,11 +37,6 @@ struct MainView: View {
                     TabLabel(category: .chatting)
                 }
                 .tag(3)
-            MyProfileView()
-                .tabItem {
-                    TabLabel(category: .myProfile)
-                }
-                .tag(4)
         }
     }
 }
@@ -41,7 +46,6 @@ enum TabCategory {
     case matching
     case community
     case chatting
-    case myProfile
 
     var title: String {
         switch self {
@@ -53,11 +57,10 @@ enum TabCategory {
             return "커뮤니티"
         case .chatting:
             return "채팅"
-        case .myProfile:
-            return "내 정보"
         }
     }
 
+    // TODO: 실제 리소스로 변경
     var imageResource: ImageResource {
         switch self {
         case .home:
@@ -68,8 +71,6 @@ enum TabCategory {
             return ImageResource(name: "community", bundle: .main)
         case .chatting:
             return ImageResource(name: "chatting", bundle: .main)
-        case .myProfile:
-            return ImageResource(name: "myProfile", bundle: .main)
         }
     }
 }

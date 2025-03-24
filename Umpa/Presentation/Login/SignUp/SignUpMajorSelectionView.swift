@@ -1,31 +1,34 @@
 // Created for Umpa in 2025
 
+import Components
+import Factory
+import Networking
 import SwiftUI
-import UmpaComponents
-
-enum Major {
-    case piano
-    case drum
-    case guitar
-    case violin
-    case cello
-}
 
 struct SignUpMajorSelectionView: View {
-    @State private var selectedMajor = Major.piano
+    @InjectedObject(\.appState) private var appState
+    @InjectedObject(\.signUpModel) private var signUpModel
 
     var body: some View {
+        content
+            .modifier(NavigationBackButton(.arrowBack))
+            .onAppear {
+                if signUpModel.major == nil {
+                    signUpModel.major = appState.majorList.first
+                }
+            }
+    }
+
+    var content: some View {
         VStack {
             Text("전공을 선택해주세요")
                 .modifier(TitleText())
             Spacer()
             InputContentVStack {
-                Picker("Major", selection: $selectedMajor) {
-                    Text("피아노").tag(Major.piano)
-                    Text("드럼").tag(Major.drum)
-                    Text("기타").tag(Major.guitar)
-                    Text("바이올린").tag(Major.violin)
-                    Text("첼로").tag(Major.cello)
+                Picker("Major", selection: $signUpModel.major) {
+                    ForEach(appState.majorList, id: \.self) { major in
+                        Text(major).tag(major)
+                    }
                 }
             }
             Spacer()
@@ -41,7 +44,6 @@ struct SignUpMajorSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton(.arrowBack))
     }
 }
 

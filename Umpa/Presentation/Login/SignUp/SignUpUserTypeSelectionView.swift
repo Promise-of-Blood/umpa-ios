@@ -1,7 +1,8 @@
 // Created for Umpa in 2025
 
+import Components
+import Factory
 import SwiftUI
-import UmpaComponents
 
 enum UserType {
     case student
@@ -9,11 +10,14 @@ enum UserType {
 }
 
 struct SignUpUserTypeSelectionView: View {
-    @Environment(\.dismiss) private var dismiss
-
-    @State private var userType: UserType = .student
+    @InjectedObject(\.signUpModel) private var signUpModel
 
     var body: some View {
+        content
+            .modifier(NavigationBackButton(.arrowBack))
+    }
+
+    var content: some View {
         VStack {
             Text("앱의 이용 목적에 따라\n선택해주세요")
                 .modifier(TitleText())
@@ -22,17 +26,17 @@ struct SignUpUserTypeSelectionView: View {
                 HStack {
                     Button(action: didTapStudentButton) {
                         Text("학생 회원")
-                            .modifier(UserTypeSelectionButton(isSelected: userType == .student))
+                            .modifier(UserTypeSelectionButton(isSelected: signUpModel.userType == .student))
                     }
                     Button(action: didTapTeacherButton) {
                         Text("선생님 회원")
-                            .modifier(UserTypeSelectionButton(isSelected: userType == .teacher))
+                            .modifier(UserTypeSelectionButton(isSelected: signUpModel.userType == .teacher))
                     }
                 }
             }
             Spacer()
             NavigationLink {
-                switch userType {
+                switch signUpModel.userType {
                 case .student:
                     SignUpNicknameInputView()
                 case .teacher:
@@ -43,15 +47,14 @@ struct SignUpUserTypeSelectionView: View {
                     .modifier(BottomButton())
             }
         }
-        .modifier(NavigationBackButton(.arrowBack))
     }
 
     func didTapStudentButton() {
-        userType = .student
+        signUpModel.userType = .student
     }
 
     func didTapTeacherButton() {
-        userType = .teacher
+        signUpModel.userType = .teacher
     }
 }
 

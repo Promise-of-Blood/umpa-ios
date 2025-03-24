@@ -1,25 +1,30 @@
 // Created for Umpa in 2025
 
+import Components
+import Factory
 import SwiftUI
-import UmpaComponents
 
 private let contentHorizontalPadding: CGFloat = fs(28)
 
 struct HomeView: View {
+    @State private var isPresentingMyProfile = false
+
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .bottomTrailing) {
-                ScrollView {
-                    VStack(spacing: fs(34)) {
-                        header
-                        content
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack(alignment: .bottomTrailing) {
+                    ScrollView {
+                        VStack(spacing: fs(34)) {
+                            header
+                            content
+                        }
+                        .frame(width: geometry.size.width)
+                        .padding(.vertical, fs(20))
                     }
-                    .frame(width: geometry.size.width)
-                    .padding(.vertical, fs(20))
+                    .padding(.top, 1) // 네비게이션 바 유지를 위함
+                    calendarButton
+                        .offset(x: fs(-28), y: fs(-25))
                 }
-                .padding(.top, 1)
-                calendarButton
-                    .offset(x: fs(-28), y: fs(-25))
             }
         }
     }
@@ -38,9 +43,12 @@ struct HomeView: View {
                     Image(.notificationIcon)
                 }
                 Button(action: {
-                    // TODO: Implement
+                    isPresentingMyProfile.toggle()
                 }) {
                     Image(.profileIcon)
+                        .fullScreenCover(isPresented: $isPresentingMyProfile) {
+                            MyProfileView()
+                        }
                 }
             }
         }
@@ -79,6 +87,8 @@ struct HomeView: View {
 }
 
 private struct _TeacherFindingSection: View {
+    @InjectedObject(\.mainViewModel) private var mainViewModel
+
     @State private var currentIndex = 0
 
     private let gridRowCount = 2
@@ -133,10 +143,15 @@ private struct _TeacherFindingSection: View {
                             ForEach(0..<gridColumnCount, id: \.self) { column in
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if let caption = list[safe: index] {
-                                    TeacherFindingCarouselItem(
-                                        imageResource: ImageResource(name: "", bundle: .main),
-                                        caption: caption
-                                    )
+                                    Button {
+                                        mainViewModel.currentTabIndex = 1
+                                        mainViewModel.selectedSubject = caption
+                                    } label: {
+                                        TeacherFindingCarouselItem(
+                                            imageResource: ImageResource(name: "", bundle: .main),
+                                            caption: caption
+                                        )
+                                    }
                                 } else {
                                     TeacherFindingCarouselItem(
                                         imageResource: ImageResource(name: "", bundle: .main),
