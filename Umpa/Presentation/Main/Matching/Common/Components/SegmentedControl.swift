@@ -3,17 +3,17 @@
 import SwiftUI
 
 struct SegmentedControl: View {
-    @State private var currentIndex = 3
+    @Binding private var selection: Int
 
     private let selectedColor = UmpaColor.main
 
     let names: [String]
     let buttonWidth: CGFloat?
 
-    init(_ names: [String], buttonWidth: CGFloat? = nil) {
+    init(_ names: [String], selection: Binding<Int>, buttonWidth: CGFloat? = nil) {
         self.names = names
         self.buttonWidth = buttonWidth
-        self.currentIndex = currentIndex
+        self._selection = selection
     }
 
     var body: some View {
@@ -22,16 +22,16 @@ struct SegmentedControl: View {
             return HStack(spacing: 0) {
                 ForEach(Array(zip(names.indices, names)), id: \.0) { index, name in
                     Button(action: {
-                        currentIndex = index
+                        selection = index
                     }) {
                         VStack(spacing: fs(12)) {
                             Text(name)
                                 .font(.pretendardRegular(size: fs(14)))
                                 .fixedSize()
-                                .foregroundStyle(index == currentIndex ? UmpaColor.main : Color.black)
+                                .foregroundStyle(index == selection ? UmpaColor.main : Color.black)
                             Rectangle()
                                 .frame(height: fs(2))
-                                .foregroundStyle(index == currentIndex ? UmpaColor.main : Color.clear)
+                                .foregroundStyle(index == selection ? UmpaColor.main : Color.clear)
                         }
                         .frame(width: buttonWidth ?? maximumButtonWidth)
                     }
@@ -46,13 +46,15 @@ struct SegmentedControl: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
+    @Previewable @State var index = 1
+
     Text("커스텀 크기 지정")
     SegmentedControl([
         "선생님 소개",
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], buttonWidth: 70)
+    ], selection: $index, buttonWidth: 70)
         .frame(width: 360)
         .padding()
 
@@ -62,7 +64,7 @@ struct SegmentedControl: View {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], buttonWidth: 70)
+    ], selection: $index, buttonWidth: 70)
         .padding()
 
     Text("전체 적절한 너비 지정")
@@ -71,9 +73,9 @@ struct SegmentedControl: View {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ])
-    .frame(width: 360)
-    .padding()
+    ], selection: $index)
+        .frame(width: 360)
+        .padding()
 
     Text("너비가 좁은 버튼")
     SegmentedControl([
@@ -81,7 +83,7 @@ struct SegmentedControl: View {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], buttonWidth: 60)
+    ], selection: $index, buttonWidth: 60)
         .frame(width: 296)
         .padding()
 
@@ -91,9 +93,9 @@ struct SegmentedControl: View {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ])
-    .frame(width: 230)
-    .padding()
+    ], selection: $index)
+        .frame(width: 230)
+        .padding()
 
     Text("너비 지정 안함")
     SegmentedControl([
@@ -101,15 +103,15 @@ struct SegmentedControl: View {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ])
-    .padding()
+    ], selection: $index)
+        .padding()
 
     Text("갯수 3개")
     SegmentedControl([
         "선생님 소개",
         "반주 정보",
         "리뷰",
-    ])
-    .frame(width: 280)
-    .padding()
+    ], selection: $index)
+        .frame(width: 280)
+        .padding()
 }
