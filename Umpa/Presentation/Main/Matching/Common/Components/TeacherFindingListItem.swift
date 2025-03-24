@@ -8,7 +8,7 @@ struct TeacherFindingListItem: View {
         let lessonInfo: LessonInfo.Model
         let description: String
         let pricePerUnit: PricePerUnit.Model
-        let image: ImageResource
+        let image: ImageResource?
     }
 
     let model: Model
@@ -32,7 +32,8 @@ struct TeacherFindingListItem: View {
                     attributes: PricePerUnit.Attributes(priceColor: UmpaColor.darkBlue)
                 )
             }
-            Image(model.image)
+            // FIXME: 스켈레톤 이미지 추가
+            Image(model.image ?? ImageResource(name: "", bundle: .main))
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: fs(70), height: fs(70))
@@ -65,7 +66,7 @@ extension TeacherFindingListItem.Model {
         lessonInfo: LessonInfo.Model.example1,
         description: "서울예대 작곡 전공 교수님들의 귀염둥이이자 어쩌구",
         pricePerUnit: PricePerUnit.Model.example1,
-        image: ImageResource(name: "", bundle: .main)
+        image: nil
     )
 
     static let example2 = TeacherFindingListItem.Model(
