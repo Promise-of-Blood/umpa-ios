@@ -27,14 +27,16 @@ public struct CheckBox: View {
             self.cornerRadius = cornerRadius
         }
 
-        static func defaultBy(_ dimension: CGFloat) -> Attributes {
-            Attributes(
+        static func defaultSquareBy(_ dimension: CGFloat) -> Attributes {
+            let strokeWidthScale: CGFloat = 11.0
+            let cornerRadiusScale: CGFloat = 6.0
+            return Attributes(
                 backgroundColor: .white,
                 foregroundColor: .blue,
                 checkmarkColor: .white,
                 strokeColor: .gray,
-                strokeWidth: dimension / 11.0,
-                cornerRadius: dimension / 6.0
+                strokeWidth: dimension / strokeWidthScale,
+                cornerRadius: dimension / cornerRadiusScale
             )
         }
     }
@@ -47,6 +49,11 @@ public struct CheckBox: View {
 
     let attributes: Attributes
 
+    private var checkmarkPaddingByDimension: CGFloat {
+        let scale = 4.5
+        return dimension / scale
+    }
+
     public init(
         isOn: Binding<Bool>,
         dimension: CGFloat = 24,
@@ -54,7 +61,7 @@ public struct CheckBox: View {
     ) {
         self._isOn = isOn
         self.dimension = dimension
-        self.attributes = attributes ?? .defaultBy(dimension)
+        self.attributes = attributes ?? .defaultSquareBy(dimension)
     }
 
     public var body: some View {
@@ -80,7 +87,7 @@ public struct CheckBox: View {
                     .fontWeight(.semibold)
                     .foregroundStyle(attributes.checkmarkColor)
                     .opacity(isOn ? 1 : 0)
-                    .padding(dimension / 4.5)
+                    .padding(checkmarkPaddingByDimension)
                     .background(
                         isOn ? attributes.foregroundColor : Color.clear,
                         in: RoundedRectangle(cornerRadius: attributes.cornerRadius)
@@ -153,7 +160,7 @@ public struct CheckBox: View {
     )
     .padding()
 
-    // 4.
+    // 5.
     CheckBox(isOn: $isOn5)
         .padding()
 }
