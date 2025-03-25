@@ -3,7 +3,7 @@
 import SwiftUI
 
 public struct CheckBox: View {
-    public struct Attributes {
+    public struct Appearance {
         let backgroundColor: Color
         let foregroundColor: Color
         let checkmarkColor: Color
@@ -27,10 +27,10 @@ public struct CheckBox: View {
             self.cornerRadius = cornerRadius
         }
 
-        static func defaultSquareBy(_ dimension: CGFloat) -> Attributes {
+        static func defaultSquareBy(_ dimension: CGFloat) -> Appearance {
             let strokeWidthScale: CGFloat = 11.0
             let cornerRadiusScale: CGFloat = 6.0
-            return Attributes(
+            return Appearance(
                 backgroundColor: .white,
                 foregroundColor: .blue,
                 checkmarkColor: .white,
@@ -47,7 +47,7 @@ public struct CheckBox: View {
 
     let dimension: CGFloat
 
-    let attributes: Attributes
+    let attributes: Appearance
 
     private var checkmarkPaddingByDimension: CGFloat {
         let scale = 4.5
@@ -57,7 +57,7 @@ public struct CheckBox: View {
     public init(
         isOn: Binding<Bool>,
         dimension: CGFloat = 24,
-        attributes: Attributes? = nil
+        attributes: Appearance? = nil
     ) {
         self._isOn = isOn
         self.dimension = dimension
@@ -126,7 +126,7 @@ public struct CheckBox: View {
     CheckBox(
         isOn: $isOn2,
         dimension: 50,
-        attributes: CheckBox.Attributes(
+        attributes: CheckBox.Appearance(
             backgroundColor: .black,
             foregroundColor: .blue,
             checkmarkColor: .black,
@@ -149,7 +149,7 @@ public struct CheckBox: View {
     CheckBox(
         isOn: $isOn4,
         dimension: 120,
-        attributes: CheckBox.Attributes(
+        attributes: CheckBox.Appearance(
             backgroundColor: .black,
             foregroundColor: .blue,
             checkmarkColor: .black,
