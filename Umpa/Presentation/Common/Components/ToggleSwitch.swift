@@ -26,6 +26,7 @@ public struct ToggleSwitch: View {
     @Binding var isOn: Bool
 
     @State private var isPressing = false
+    @State private var visualIsOn: Bool
 
     private let appearance: Appearance = .default
 
@@ -34,21 +35,68 @@ public struct ToggleSwitch: View {
 
     var stretchAdjustingOffset: CGFloat {
         let adjustingOffset = stretchingWidth / 2.0
-        if !isOn && isPressing {
+        if !visualIsOn && isPressing {
             return adjustingOffset
         }
-        if isOn && isPressing {
+        if visualIsOn && isPressing {
             return -adjustingOffset
         }
         return 0
     }
 
+    public init(isOn: Binding<Bool>) {
+        _isOn = isOn
+        _visualIsOn = State(wrappedValue: isOn.wrappedValue)
+    }
+
     public var body: some View {
+        content
+            .onChange(of: isOn, initial: true) {
+                visualIsOn = isOn
+            }
+            .onTapGesture {
+                isOn.toggle()
+            }
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { _ in
+                        isPressing = true
+                    }
+                    .onEnded { _ in
+                        isPressing = false
+                    }
+            )
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .onChanged { gesture in
+                        let stateChangeThreshold = appearance.rectangleSize.width * 0.7
+                        let stateReturnThreshold = appearance.rectangleSize.width * 0.2
+                        if isOn {
+                            if gesture.translation.width < -stateChangeThreshold {
+                                visualIsOn = false
+                            } else if gesture.translation.width > -stateReturnThreshold {
+                                visualIsOn = true
+                            }
+                        } else {
+                            if gesture.translation.width > stateChangeThreshold {
+                                visualIsOn = true
+                            } else if gesture.translation.width < stateReturnThreshold {
+                                visualIsOn = false
+                            }
+                        }
+                    }
+                    .onEnded { _ in
+                        isOn = visualIsOn
+                    }
+            )
+    }
+
+    var content: some View {
         ZStack {
             RoundedRectangle(cornerRadius: appearance.rectangleCornerRadius)
                 .frame(width: appearance.rectangleSize.width, height: appearance.rectangleSize.height)
-                .foregroundStyle(isOn ? appearance.enabledColor : appearance.disabledColor)
-                .animation(.easeOut(duration: animationDuration), value: isOn)
+                .foregroundStyle(visualIsOn ? appearance.enabledColor : appearance.disabledColor)
+                .animation(.easeOut(duration: animationDuration), value: visualIsOn)
             Capsule()
                 .frame(
                     width: isPressing ? appearance.circleRadius + stretchingWidth : appearance.circleRadius,
@@ -56,22 +104,10 @@ public struct ToggleSwitch: View {
                 )
                 .foregroundStyle(appearance.circleColor)
                 .offset(x: stretchAdjustingOffset)
-                .offset(x: isOn ? appearance.movingOffset : -appearance.movingOffset)
-                .animation(.easeOut(duration: animationDuration), value: isOn)
+                .offset(x: visualIsOn ? appearance.movingOffset : -appearance.movingOffset)
+                .animation(.easeOut(duration: animationDuration), value: visualIsOn)
                 .animation(.easeOut(duration: animationDuration), value: isPressing)
         }
-        .onTapGesture {
-            isOn.toggle()
-        }
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in
-                    isPressing = true
-                }
-                .onEnded { _ in
-                    isPressing = false
-                }
-        )
     }
 }
 
@@ -95,6 +131,9 @@ public struct ToggleSwitch: View {
 
     ToggleSwitch(isOn: $isOn4)
         .scaleEffect(4.0)
+        .padding(40)
+
+    Toggle("Example Label", isOn: $isOn1)
         .padding(40)
 
     HStack(spacing: fs(14)) {
