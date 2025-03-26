@@ -57,38 +57,8 @@ public struct ToggleSwitch: View {
             .onTapGesture {
                 isOn.toggle()
             }
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        isPressing = true
-                    }
-                    .onEnded { _ in
-                        isPressing = false
-                    }
-            )
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { gesture in
-                        let stateChangeThreshold = appearance.rectangleSize.width * 0.7
-                        let stateReturnThreshold = appearance.rectangleSize.width * 0.2
-                        if isOn {
-                            if gesture.translation.width < -stateChangeThreshold {
-                                visualIsOn = false
-                            } else if gesture.translation.width > -stateReturnThreshold {
-                                visualIsOn = true
-                            }
-                        } else {
-                            if gesture.translation.width > stateChangeThreshold {
-                                visualIsOn = true
-                            } else if gesture.translation.width < stateReturnThreshold {
-                                visualIsOn = false
-                            }
-                        }
-                    }
-                    .onEnded { _ in
-                        isOn = visualIsOn
-                    }
-            )
+            .applyPressingGesture($isPressing)
+            .applySwipeGesture(isOn: $isOn, visualIsOn: $visualIsOn, width: appearance.rectangleSize.width)
     }
 
     var content: some View {
@@ -108,6 +78,69 @@ public struct ToggleSwitch: View {
                 .animation(.easeOut(duration: animationDuration), value: visualIsOn)
                 .animation(.easeOut(duration: animationDuration), value: isPressing)
         }
+    }
+}
+
+private extension ToggleSwitch {
+    struct ApplyPressingGesture: ViewModifier {
+        @Binding var isPressing: Bool
+
+        func body(content: Content) -> some View {
+            content
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in
+                            isPressing = true
+                        }
+                        .onEnded { _ in
+                            isPressing = false
+                        }
+                )
+        }
+    }
+
+    struct ApplySwipeGesture: ViewModifier {
+        @Binding var isOn: Bool
+        @Binding var visualIsOn: Bool
+
+        let width: CGFloat
+
+        func body(content: Content) -> some View {
+            content
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { gesture in
+                            let stateChangeThreshold = width * 0.7
+                            let stateReturnThreshold = width * 0.2
+                            if isOn {
+                                if gesture.translation.width < -stateChangeThreshold {
+                                    visualIsOn = false
+                                } else if gesture.translation.width > -stateReturnThreshold {
+                                    visualIsOn = true
+                                }
+                            } else {
+                                if gesture.translation.width > stateChangeThreshold {
+                                    visualIsOn = true
+                                } else if gesture.translation.width < stateReturnThreshold {
+                                    visualIsOn = false
+                                }
+                            }
+                        }
+                        .onEnded { _ in
+                            isOn = visualIsOn
+                        }
+                )
+        }
+    }
+}
+
+private extension View {
+    func applyPressingGesture(_ isPressing: Binding<Bool>) -> some View {
+        modifier(ToggleSwitch.ApplyPressingGesture(isPressing: isPressing))
+    }
+
+    func applySwipeGesture(isOn: Binding<Bool>, visualIsOn: Binding<Bool>, width: CGFloat) -> some View {
+        modifier(ToggleSwitch.ApplySwipeGesture(isOn: isOn, visualIsOn: visualIsOn, width: width))
     }
 }
 
