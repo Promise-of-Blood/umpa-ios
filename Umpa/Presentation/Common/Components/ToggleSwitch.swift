@@ -113,20 +113,28 @@ private extension ToggleSwitch {
                             let stateChangeThreshold = width * 0.7
                             let stateReturnThreshold = width * 0.2
                             if isOn {
+                                // 켜진 상태에서 왼쪽으로 충분히 스와이프하면 시각적으로 꺼짐
                                 if gesture.translation.width < -stateChangeThreshold {
                                     visualIsOn = false
-                                } else if gesture.translation.width > -stateReturnThreshold {
+                                }
+                                // 켜진 상태에서 왼쪽으로 약간만 스와이프하면 켜진 상태 유지
+                                else if gesture.translation.width > -stateReturnThreshold {
                                     visualIsOn = true
                                 }
-                            } else {
+                            }
+                            else {
+                                // 꺼진 상태에서 오른쪽으로 충분히 스와이프하면 시각적으로 켜짐
                                 if gesture.translation.width > stateChangeThreshold {
                                     visualIsOn = true
-                                } else if gesture.translation.width < stateReturnThreshold {
+                                }
+                                // 꺼진 상태에서 오른쪽으로 약간만 스와이프하면 꺼진 상태 유지
+                                else if gesture.translation.width < stateReturnThreshold {
                                     visualIsOn = false
                                 }
                             }
                         }
                         .onEnded { _ in
+                            // 제스처가 끝나면 시각적 상태를 실제 상태에 적용
                             isOn = visualIsOn
                         }
                 )
