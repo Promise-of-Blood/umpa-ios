@@ -7,13 +7,13 @@ import SwiftUI
 
 protocol ReviewInteractor {
     @MainActor
-    func load(reviews: Binding<[Review]>, for id: ServiceId) async throws
+    func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws
 }
 
 struct DefaultReviewInteractor: ReviewInteractor {
     @Injected(\.umpaApi) private var umpaApi
 
-    func load(reviews: Binding<[Review]>, for id: ServiceId) async throws {
+    func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws {
         fatalError()
     }
 }
@@ -24,7 +24,7 @@ enum ReviewInteractorError: Error {
 
 #if DEBUG
 struct MockReviewInteractor: ReviewInteractor {
-    func load(reviews: Binding<[Review]>, for id: ServiceId) async throws {
+    func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws {
         if id.isEmpty {
             throw ReviewInteractorError.invalidId
         }
