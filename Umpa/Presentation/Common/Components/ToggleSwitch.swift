@@ -26,6 +26,7 @@ public struct ToggleSwitch: View {
     @Binding var isOn: Bool
 
     @State private var isPressing = false
+    @State private var visualIsOn: Bool
 
     private let appearance: Appearance = .default
 
@@ -34,21 +35,38 @@ public struct ToggleSwitch: View {
 
     var stretchAdjustingOffset: CGFloat {
         let adjustingOffset = stretchingWidth / 2.0
-        if !isOn && isPressing {
+        if !visualIsOn && isPressing {
             return adjustingOffset
         }
-        if isOn && isPressing {
+        if visualIsOn && isPressing {
             return -adjustingOffset
         }
         return 0
     }
 
+    public init(isOn: Binding<Bool>) {
+        _isOn = isOn
+        _visualIsOn = State(wrappedValue: isOn.wrappedValue)
+    }
+
     public var body: some View {
+        content
+            .onChange(of: isOn, initial: true) {
+                visualIsOn = isOn
+            }
+            .onTapGesture {
+                isOn.toggle()
+            }
+            .applyPressingGesture($isPressing)
+            .applySwipeGesture(isOn: $isOn, visualIsOn: $visualIsOn, width: appearance.rectangleSize.width)
+    }
+
+    var content: some View {
         ZStack {
             RoundedRectangle(cornerRadius: appearance.rectangleCornerRadius)
                 .frame(width: appearance.rectangleSize.width, height: appearance.rectangleSize.height)
-                .foregroundStyle(isOn ? appearance.enabledColor : appearance.disabledColor)
-                .animation(.easeOut(duration: animationDuration), value: isOn)
+                .foregroundStyle(visualIsOn ? appearance.enabledColor : appearance.disabledColor)
+                .animation(.easeOut(duration: animationDuration), value: visualIsOn)
             Capsule()
                 .frame(
                     width: isPressing ? appearance.circleRadius + stretchingWidth : appearance.circleRadius,
@@ -56,22 +74,81 @@ public struct ToggleSwitch: View {
                 )
                 .foregroundStyle(appearance.circleColor)
                 .offset(x: stretchAdjustingOffset)
-                .offset(x: isOn ? appearance.movingOffset : -appearance.movingOffset)
-                .animation(.easeOut(duration: animationDuration), value: isOn)
+                .offset(x: visualIsOn ? appearance.movingOffset : -appearance.movingOffset)
+                .animation(.easeOut(duration: animationDuration), value: visualIsOn)
                 .animation(.easeOut(duration: animationDuration), value: isPressing)
         }
-        .onTapGesture {
-            isOn.toggle()
+    }
+}
+
+private extension ToggleSwitch {
+    struct ApplyPressingGesture: ViewModifier {
+        @Binding var isPressing: Bool
+
+        func body(content: Content) -> some View {
+            content
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { _ in
+                            isPressing = true
+                        }
+                        .onEnded { _ in
+                            isPressing = false
+                        }
+                )
         }
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in
-                    isPressing = true
-                }
-                .onEnded { _ in
-                    isPressing = false
-                }
-        )
+    }
+
+    struct ApplySwipeGesture: ViewModifier {
+        @Binding var isOn: Bool
+        @Binding var visualIsOn: Bool
+
+        let width: CGFloat
+
+        func body(content: Content) -> some View {
+            content
+                .simultaneousGesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged { gesture in
+                            let stateChangeThreshold = width * 0.7
+                            let stateReturnThreshold = width * 0.2
+                            if isOn {
+                                // 켜진 상태에서 왼쪽으로 충분히 스와이프하면 시각적으로 꺼짐
+                                if gesture.translation.width < -stateChangeThreshold {
+                                    visualIsOn = false
+                                }
+                                // 켜진 상태에서 왼쪽으로 약간만 스와이프하면 켜진 상태 유지
+                                else if gesture.translation.width > -stateReturnThreshold {
+                                    visualIsOn = true
+                                }
+                            }
+                            else {
+                                // 꺼진 상태에서 오른쪽으로 충분히 스와이프하면 시각적으로 켜짐
+                                if gesture.translation.width > stateChangeThreshold {
+                                    visualIsOn = true
+                                }
+                                // 꺼진 상태에서 오른쪽으로 약간만 스와이프하면 꺼진 상태 유지
+                                else if gesture.translation.width < stateReturnThreshold {
+                                    visualIsOn = false
+                                }
+                            }
+                        }
+                        .onEnded { _ in
+                            // 제스처가 끝나면 시각적 상태를 실제 상태에 적용
+                            isOn = visualIsOn
+                        }
+                )
+        }
+    }
+}
+
+private extension View {
+    func applyPressingGesture(_ isPressing: Binding<Bool>) -> some View {
+        modifier(ToggleSwitch.ApplyPressingGesture(isPressing: isPressing))
+    }
+
+    func applySwipeGesture(isOn: Binding<Bool>, visualIsOn: Binding<Bool>, width: CGFloat) -> some View {
+        modifier(ToggleSwitch.ApplySwipeGesture(isOn: isOn, visualIsOn: visualIsOn, width: width))
     }
 }
 
@@ -95,6 +172,9 @@ public struct ToggleSwitch: View {
 
     ToggleSwitch(isOn: $isOn4)
         .scaleEffect(4.0)
+        .padding(40)
+
+    Toggle("Example Label", isOn: $isOn1)
         .padding(40)
 
     HStack(spacing: fs(14)) {

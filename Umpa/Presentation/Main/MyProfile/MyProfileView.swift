@@ -17,6 +17,18 @@ struct MyProfileView: View {
         }) {
             Text("로그아웃")
         }
+
+        List {
+            Rectangle()
+                .listRowSeparator(.hidden)
+            Rectangle()
+                .listRowSeparator(.hidden)
+            Rectangle()
+                .listRowSeparator(.hidden)
+            Rectangle()
+                .listRowSeparator(.hidden)
+        }
+        .listStyle(.plain)
     }
 }
 
