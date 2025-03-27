@@ -57,14 +57,14 @@ struct HomeView: View {
 
     var content: some View {
         VStack(spacing: fs(30)) {
-            _TeacherFindingSection()
+            TeacherFindingSection()
             Banner(bannerResources: [
                 .bannerSample1,
                 .bannerSample1,
                 .bannerSample1,
             ])
             .padding(.horizontal, contentHorizontalPadding)
-            _CommunitySection()
+            CommunitySection()
         }
     }
 
@@ -86,7 +86,7 @@ struct HomeView: View {
     }
 }
 
-private struct _TeacherFindingSection: View {
+private struct TeacherFindingSection: View {
     @InjectedObject(\.mainViewModel) private var mainViewModel
 
     @State private var currentIndex = 0
@@ -172,7 +172,7 @@ private struct _TeacherFindingSection: View {
     }
 }
 
-private struct _CommunitySection: View {
+private struct CommunitySection: View {
     var body: some View {
         VStack(spacing: fs(14)) {
             Text("음파 커뮤니티")
@@ -183,7 +183,7 @@ private struct _CommunitySection: View {
             VStack(spacing: fs(16)) {
                 acceptanceReviewsRow
                 informationSharingRow
-                latestQuestionsRow
+                LatestQuestionsRow()
                 mentoringRow
             }
         }
@@ -228,32 +228,9 @@ private struct _CommunitySection: View {
             }
             VStack(spacing: fs(9)) {
                 ListContent(model: .sample1)
-                divider
+                HorizontalDivider(thickness: fs(1.25), color: .white)
                 ListContent(model: .sample1)
-                divider
-                ListContent(model: .sample1)
-            }
-            .padding(.horizontal, fs(15))
-            .padding(.vertical, fs(14))
-            .background(UmpaColor.baseColor, in: RoundedRectangle(cornerRadius: fs(15)))
-        }
-        .padding(.horizontal, contentHorizontalPadding)
-    }
-
-    var latestQuestionsRow: some View {
-        VStack(spacing: fs(10)) {
-            HStack {
-                Text("가장 최근에 올라온 질문")
-                    .foregroundStyle(UmpaColor.darkGray)
-                    .font(UmpaFont.h3Kr)
-                Spacer()
-                SeeAllButton()
-            }
-            VStack(spacing: fs(9)) {
-                ListContent(model: .sample1)
-                divider
-                ListContent(model: .sample1)
-                divider
+                HorizontalDivider(thickness: fs(1.25), color: .white)
                 ListContent(model: .sample1)
             }
             .padding(.horizontal, fs(15))
@@ -289,16 +266,55 @@ private struct _CommunitySection: View {
             .scrollIndicators(.never)
         }
     }
+}
 
-    var divider: some View {
-        Rectangle()
-            .frame(maxWidth: .fill, idealHeight: fs(1.25))
-            .foregroundStyle(Color.white)
+private struct LatestQuestionsRow: View {
+    @Injected(\.questionInteractor) private var questionInteractor
+
+    @State private var questions: [Question] = []
+
+    var body: some View {
+        content
+            .onAppear {
+                Task {
+                    try? await questionInteractor.load($questions)
+                }
+            }
+    }
+
+    var content: some View {
+        VStack(spacing: fs(10)) {
+            HStack {
+                Text("가장 최근에 올라온 질문")
+                    .foregroundStyle(UmpaColor.darkGray)
+                    .font(UmpaFont.h3Kr)
+                Spacer()
+                SeeAllButton()
+            }
+            VStack(spacing: fs(9)) {
+                ForEach(Array(zip(questions.indices, questions)), id: \.1.id) { index, question in
+                    NavigationLink {
+                        QuestionDetailView(question: question)
+                    } label: {
+                        ListContent(model: question.toListContentModel())
+                    }
+                    if index < questions.count - 1 {
+                        HorizontalDivider(thickness: fs(1.25), color: .white)
+                    }
+                }
+            }
+            .padding(.horizontal, fs(15))
+            .padding(.vertical, fs(14))
+            .background(UmpaColor.baseColor, in: RoundedRectangle(cornerRadius: fs(15)))
+        }
+        .padding(.horizontal, contentHorizontalPadding)
     }
 }
 
 #Preview {
-    TabView {
+    Container.shared.questionInteractor.register { MockQuestionInteractor() }
+
+    return TabView {
         HomeView()
             .tabItem {
                 TabLabel(category: .home)

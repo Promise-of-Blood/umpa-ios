@@ -22,13 +22,7 @@ struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
 struct MockAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: ServiceId) async throws {
         acceptanceReviews.wrappedValue = [
-            AcceptanceReview(
-                id: "acceptanceReview0",
-                comments: [
-                    AcceptanceReview.Comment(contents: "와 정말 축하해요~~~~!!!!", writer: "user0"),
-                    AcceptanceReview.Comment(contents: "나도 합격하고 싶다...", writer: "user1"),
-                ]
-            ),
+            AcceptanceReview.sample0,
         ]
     }
 }

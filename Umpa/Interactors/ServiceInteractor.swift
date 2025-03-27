@@ -22,9 +22,7 @@ struct DefaultServiceInteractor: ServiceInteractor {
 struct MockServiceInteractor: ServiceInteractor {
     func load(_ lessonServices: Binding<[LessonService]>) async throws {
         lessonServices.wrappedValue = [
-            LessonService(
-                baseInfo: ServiceCommonInfo(id: "service0")
-            ),
+            LessonService.sample0,
         ]
     }
 }
