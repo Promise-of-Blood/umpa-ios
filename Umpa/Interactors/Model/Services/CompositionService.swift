@@ -53,7 +53,7 @@ extension CompositionService {
             .bass,
         ],
         revisionPolicy: RevisionPolicy(freeCount: 2, price: 5_000),
-        turnaround: Turnaround(minDate: 3, maxDate: 7),
+        turnaround: Turnaround(unit: .day, minDate: 3, maxDate: 7),
         pricesByMajor: [
             PriceByMajor(price: 20_000, major: .vocal),
             PriceByMajor(price: 40_000, major: .piano),
