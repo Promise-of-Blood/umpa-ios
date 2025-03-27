@@ -96,26 +96,9 @@ private struct TeacherFindingSection: View {
 
     private var itemsPerPage: Int { gridRowCount * gridColumnCount }
 
-    private let list: [String] = [
-        "전체보기",
-        "피아노",
-        "보컬",
-        "작곡",
-        "드럼",
-        "기타",
-        "베이스",
-        "관악",
-        "전자음악",
-        "전통화성학",
-        "실용화성학",
-        "시창청음",
-        "악보제작",
-        "반주자",
-        "MR제작",
-    ]
-
     private var pageCount: Int {
-        Int(ceil(Double(list.count) / Double(itemsPerPage)))
+        let shortcutCount = Subject.allCases.count + 1 // 전체보기 버튼 +1
+        return Int(ceil(Double(shortcutCount) / Double(itemsPerPage)))
     }
 
     var body: some View {
@@ -142,14 +125,19 @@ private struct TeacherFindingSection: View {
                         GridRow {
                             ForEach(0..<gridColumnCount, id: \.self) { column in
                                 let index = page * itemsPerPage + row * gridColumnCount + column
-                                if let caption = list[safe: index] {
+                                if index == 0 {
+                                    TeacherFindingCarouselItem(
+                                        imageResource: ImageResource(name: "", bundle: .main),
+                                        caption: "전체보기"
+                                    )
+                                } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
                                         mainViewModel.currentTabIndex = 1
-                                        mainViewModel.selectedSubject = caption
+                                        mainViewModel.selectedSubject = subject.name
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),
-                                            caption: caption
+                                            caption: subject.name
                                         )
                                     }
                                 } else {
@@ -339,7 +327,9 @@ private struct LatestQuestionsRow: View {
 }
 
 #Preview("iPhoneSE", traits: .iPhoneSE) {
-    TabView {
+    Container.shared.questionInteractor.register { MockQuestionInteractor() }
+
+    return TabView {
         HomeView()
             .tabItem {
                 TabLabel(category: .home)

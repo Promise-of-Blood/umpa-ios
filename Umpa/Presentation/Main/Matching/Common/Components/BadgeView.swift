@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct Badge: View {
+struct BadgeView: View {
     let title: String
 
     private let cornerRadius: CGFloat = fs(5)
@@ -15,9 +15,7 @@ struct Badge: View {
         Text(title)
             .font(.pretendardSemiBold(size: fs(11)))
             .foregroundStyle(Color(hex: "337AF7"))
-            .padding(.horizontal, fs(10))
-            .padding(.top, fs(5.5))
-            .padding(.bottom, fs(4.5))
+            .padding(EdgeInsets(top: fs(5.5), leading: fs(10), bottom: fs(4.5), trailing: fs(10)))
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
             .innerStroke(UmpaColor.main, cornerRadius: cornerRadius, lineWidth: fs(1))
@@ -25,8 +23,8 @@ struct Badge: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    Badge("태그 뱃찌")
+    BadgeView("태그 뱃찌")
         .padding()
-    Badge("시범 레슨 운영")
+    BadgeView("시범 레슨 운영")
         .padding()
 }

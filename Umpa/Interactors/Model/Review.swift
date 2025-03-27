@@ -10,7 +10,7 @@ struct Review: Identifiable {
     let rating: Double
     let writer: Student.Id
     let contents: String
-    let images: [URL]
+    let images: [URL?]
 }
 
 #if DEBUG
