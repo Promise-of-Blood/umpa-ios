@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct Badge: View {
+struct BadgeView: View {
     let title: String
 
     private let cornerRadius: CGFloat = fs(5)
@@ -25,8 +25,8 @@ struct Badge: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    Badge("태그 뱃찌")
+    BadgeView("태그 뱃찌")
         .padding()
-    Badge("시범 레슨 운영")
+    BadgeView("시범 레슨 운영")
         .padding()
 }

@@ -7,5 +7,12 @@ enum Subject {
     case drum
     case bass
     case guitar
-    // TODO: 추가하기
+    case electronicMusic
+    case windInstruments
+    case classicalHarmony
+    case sightSingingEarTraining
+    case practicalHarmony
+    case musicNotation
+    case accompanist
+    case musicCreation
 }

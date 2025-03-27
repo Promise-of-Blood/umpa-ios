@@ -17,8 +17,8 @@ struct MatchingDetailView: View {
 //                LessonInfo()
 //                PricePerTime(price: 100_000)
                 HStack(spacing: 9) {
-                    Badge("학력 인증")
-                    Badge("시범 레슨 운영")
+                    BadgeView("학력 인증")
+                    BadgeView("시범 레슨 운영")
                 }
                 Spacer()
             }
