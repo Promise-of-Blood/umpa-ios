@@ -3,7 +3,33 @@
 import SwiftUI
 
 struct ListContent: View {
-    let model: ListContentModel
+    struct Model: Identifiable {
+        let id: Question.Id
+        let title: String
+        let timeText: String
+        let likeCount: Int
+        let commentCount: Int
+
+        #if DEBUG
+        static let sample1 = Model(
+            id: "listContentModel1",
+            title: "제 9회 한국음악예술재단 주최 음파 경연대회 공모 요강 어서 빨리빨리!!!!",
+            timeText: "25.03.16   09:24",
+            likeCount: 512,
+            commentCount: 131
+        )
+
+        static let sample2 = Model(
+            id: "listContentModel2",
+            title: "하루에 연습 몇시간 씩 하시나요?",
+            timeText: "1분전",
+            likeCount: 3,
+            commentCount: 1
+        )
+        #endif
+    }
+
+    let model: Model
 
     var body: some View {
         VStack(spacing: 6) {
@@ -24,27 +50,16 @@ struct ListContent: View {
     }
 }
 
-struct ListContentModel {
-    let title: String
-    let timeText: String
-    let likeCount: Int
-    let commentCount: Int
-
-    #if DEBUG
-    static let sample1 = ListContentModel(
-        title: "제 9회 한국음악예술재단 주최 음파 경연대회 공모 요강 어서 빨리빨리!!!!",
-        timeText: "25.03.16   09:24",
-        likeCount: 512,
-        commentCount: 131
-    )
-
-    static let sample2 = ListContentModel(
-        title: "하루에 연습 몇시간 씩 하시나요?",
-        timeText: "1분전",
-        likeCount: 3,
-        commentCount: 1
-    )
-    #endif
+extension Question {
+    func toListContentModel() -> ListContent.Model {
+        ListContent.Model(
+            id: id,
+            title: contents,
+            timeText: created.formatted(),
+            likeCount: 0,
+            commentCount: comments.count
+        )
+    }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {

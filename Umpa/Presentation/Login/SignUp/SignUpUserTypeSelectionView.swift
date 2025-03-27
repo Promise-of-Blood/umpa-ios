@@ -4,11 +4,6 @@ import Components
 import Factory
 import SwiftUI
 
-enum UserType {
-    case student
-    case teacher
-}
-
 struct SignUpUserTypeSelectionView: View {
     @InjectedObject(\.signUpModel) private var signUpModel
 
