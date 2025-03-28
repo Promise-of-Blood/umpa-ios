@@ -8,12 +8,19 @@ import SwiftUI
 protocol ReviewInteractor {
     @MainActor
     func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws
+
+    @MainActor
+    func save(_ review: Review) async throws
 }
 
 struct DefaultReviewInteractor: ReviewInteractor {
     @Injected(\.umpaApi) private var umpaApi
 
     func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws {
+        fatalError()
+    }
+
+    func save(_ review: Review) async throws {
         fatalError()
     }
 }
@@ -34,5 +41,7 @@ struct MockReviewInteractor: ReviewInteractor {
             Review.sample1,
         ]
     }
+
+    func save(_ review: Review) async throws {}
 }
 #endif

@@ -5,7 +5,7 @@ import Foundation
 typealias ServiceId = String
 
 struct ServiceCommonInfo: Identifiable {
-    let id: ServiceId
+    let id: ServiceId?
     let title: String
     let thumbnail: URL?
     let rating: Double

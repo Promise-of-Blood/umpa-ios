@@ -14,6 +14,9 @@ protocol QuestionInteractor {
 
     @MainActor
     func loadQuestion(by id: Question.Id) async throws -> Question
+
+    @MainActor
+    func post(_ question: Question) async throws
 }
 
 struct DefaultQuestionInteractor: QuestionInteractor {
@@ -26,6 +29,10 @@ struct DefaultQuestionInteractor: QuestionInteractor {
     }
 
     func loadQuestion(by id: Question.Id) async throws -> Question {
+        fatalError()
+    }
+
+    func post(_ question: Question) async throws {
         fatalError()
     }
 }
@@ -60,5 +67,7 @@ struct MockQuestionInteractor: QuestionInteractor {
             Question.sample2,
         ]
     }
+
+    func post(_ question: Question) async throws {}
 }
 #endif

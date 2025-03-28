@@ -8,12 +8,19 @@ import SwiftUI
 protocol AcceptanceReviewInteractor {
     @MainActor
     func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: ServiceId) async throws
+
+    @MainActor
+    func save(_ acceptanceReview: AcceptanceReview) async throws
 }
 
 struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     @Injected(\.umpaApi) private var umpaApi
 
     func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: ServiceId) async throws {
+        fatalError()
+    }
+
+    func save(_ acceptanceReview: AcceptanceReview) async throws {
         fatalError()
     }
 }
@@ -25,5 +32,7 @@ struct MockAcceptanceReviewInteractor: AcceptanceReviewInteractor {
             AcceptanceReview.sample0,
         ]
     }
+
+    func save(_ acceptanceReview: AcceptanceReview) async throws {}
 }
 #endif
