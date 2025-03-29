@@ -280,7 +280,7 @@ private struct LatestQuestionsRow: View {
                 SeeAllButton()
             }
             VStack(spacing: fs(9)) {
-                ForEach(Array(zip(questions.indices, questions)), id: \.1.id) { index, question in
+                IndexingForEach(questions) { index, question in
                     NavigationLink {
                         QuestionDetailView(question: question)
                     } label: {

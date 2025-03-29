@@ -20,7 +20,7 @@ struct SegmentedControl: View {
         GeometryReader { proxy in
             let maximumButtonWidth = proxy.size.width / CGFloat(names.count)
             return HStack(spacing: 0) {
-                ForEach(Array(zip(names.indices, names)), id: \.0) { index, name in
+                IndexingForEach(names) { index, name in
                     Button(action: {
                         selection = index
                     }) {
