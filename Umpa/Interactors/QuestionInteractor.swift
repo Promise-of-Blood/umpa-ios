@@ -5,6 +5,7 @@ import Foundation
 import Networking
 import SwiftUI
 
+@available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")
 protocol QuestionInteractor {
     @MainActor
     func load(_ questions: Binding<[Question]>) async throws

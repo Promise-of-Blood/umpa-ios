@@ -161,11 +161,17 @@ private struct TeacherFindingSection: View {
 }
 
 private struct CommunitySection: View {
+    @Injected(\.acceptanceReviewInteractor) private var acceptanceReviewInteractor
+
     var body: some View {
+        content
+    }
+
+    var content: some View {
         VStack(spacing: fs(14)) {
             Text("음파 커뮤니티")
                 .font(UmpaFont.h2Kr)
-                .foregroundStyle(UmpaColor.charcoal)
+                .foregroundStyle(Color(hex: "121214"))
                 .frame(maxWidth: .fill, alignment: .leading)
                 .padding(.horizontal, contentHorizontalPadding)
             VStack(spacing: fs(16)) {

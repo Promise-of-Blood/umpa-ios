@@ -55,6 +55,11 @@ extension Container {
         Factory(self) { DefaultQuestionInteractor() }
             .scope(.shared)
     }
+
+    var chatInteractor: Factory<ChatInteractor> {
+        Factory(self) { DefaultChatInteractor() }
+            .scope(.shared)
+    }
 }
 
 // MARK: - ObservableObject

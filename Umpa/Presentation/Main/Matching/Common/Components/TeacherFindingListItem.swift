@@ -18,7 +18,7 @@ struct TeacherFindingListItem: View {
             VStack(alignment: .leading, spacing: fs(8)) {
                 Text(model.title)
                     .font(.pretendardBold(size: fs(16)))
-                    .foregroundStyle(UmpaColor.charcoal)
+                    .foregroundStyle(Color(hex: "121214"))
                     .frame(maxWidth: .fill, alignment: .leading)
                     .lineLimit(1)
                 LessonInfo(model: model.lessonInfo)

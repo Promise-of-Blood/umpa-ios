@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")
 struct QuestionDetailView: View {
     @State private var question: Question
 
@@ -39,6 +40,6 @@ struct QuestionDetailView: View {
     }
 }
 
-#Preview {
-    QuestionDetailView(question: .sample0)
-}
+// #Preview {
+//    QuestionDetailView(question: .sample0)
+// }
