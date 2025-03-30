@@ -3,20 +3,21 @@
 import Factory
 import SwiftUI
 
-struct MainView: View {
-    class Model: ObservableObject {
-        @Published var currentTabIndex: Int = 0
-        @Published var selectedSubject: String?
-    }
+class MainViewSharedData: ObservableObject {
+    @Published var currentTabIndex: Int = 0
+    @Published var selectedService: ServiceType = .lesson
+    @Published var selectedSubjectInTeacherFinding: Subject?
+}
 
-    @InjectedObject(\.mainViewModel) private var model
+struct MainView: View {
+    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
 
     var body: some View {
         content
     }
 
     var content: some View {
-        TabView(selection: $model.currentTabIndex) {
+        TabView(selection: $mainViewSharedData.currentTabIndex) {
             HomeView()
                 .tabItem {
                     TabLabel(category: .home)

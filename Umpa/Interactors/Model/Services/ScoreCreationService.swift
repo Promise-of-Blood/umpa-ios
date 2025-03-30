@@ -2,19 +2,26 @@
 
 import Foundation
 
-struct CompositionService {
-    let baseInfo: ServiceCommonInfo
+struct ScoreCreationService: Service {
+    let id: String?
+    let type: ServiceType
+    let title: String
+    let thumbnail: URL?
+    let rating: Double
+    let author: Teacher
+    let acceptanceReviews: [AcceptanceReview]
+    let reviews: [Review]
+    let serviceDescription: String
     let basePrice: Int
-    let majors: [CompositionMajor]
+    let majors: [ScoreCreationMajor]
     let revisionPolicy: RevisionPolicy
     let turnaround: Turnaround
     let pricesByMajor: [PriceByMajor]
     let tools: [CompositionTool]
-    let serviceDescription: String
     let sampleSheets: [URL?]
 }
 
-enum CompositionMajor {
+enum ScoreCreationMajor {
     case vocal
     case piano
     case drum
@@ -26,7 +33,7 @@ enum CompositionMajor {
 
 struct PriceByMajor {
     let price: Int
-    let major: CompositionMajor
+    let major: ScoreCreationMajor
 }
 
 struct CompositionTool {
@@ -34,17 +41,25 @@ struct CompositionTool {
 }
 
 #if DEBUG
-extension CompositionService {
-    static let sample0 = CompositionService(
-        baseInfo: ServiceCommonInfo(
-            id: "compositionService0",
-            title: "입시 악보 제작 합니다",
-            thumbnail: nil,
-            rating: 4.5,
-            author: "teacher0",
-            acceptanceReviews: [],
-            reviews: []
-        ),
+extension ScoreCreationService {
+    static let sample0 = ScoreCreationService(
+        id: "compositionService0",
+        type: .scoreCreation,
+        title: "입시 악보 제작 합니다",
+        thumbnail: nil,
+        rating: 4.5,
+        author: .sample0,
+        acceptanceReviews: [],
+        reviews: [],
+        serviceDescription:
+        """
+        입시 악보 제작 합니다
+
+        악보 제작 경력 몇년입니다
+        믿고 맡겨주세요
+        업게 최고 빠른 작업 속도!
+        짱 저렴한 가격~!
+        """,
         basePrice: 20_000,
         majors: [
             .vocal,
@@ -63,15 +78,6 @@ extension CompositionService {
         tools: [
             CompositionTool(name: "시벨리우스"),
         ],
-        serviceDescription:
-        """
-        입시 악보 제작 합니다
-
-        악보 제작 경력 몇년입니다
-        믿고 맡겨주세요
-        업게 최고 빠른 작업 속도!
-        짱 저렴한 가격~!
-        """,
         sampleSheets: []
     )
 }

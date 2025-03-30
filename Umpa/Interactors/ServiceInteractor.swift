@@ -13,10 +13,25 @@ protocol ServiceInteractor {
     func load(_ accompanistServices: Binding<[AccompanistService]>) async throws
 
     @MainActor
-    func load(_ compositionServices: Binding<[CompositionService]>) async throws
+    func load(_ compositionServices: Binding<[ScoreCreationService]>) async throws
 
     @MainActor
     func load(_ musicCreationServices: Binding<[MusicCreationService]>) async throws
+
+    @MainActor
+    func load(_ services: Binding<[any Service]>) async throws
+
+    @MainActor
+    func loadServices() async throws -> [any Service]
+
+    @MainActor
+    func load(_ services: Binding<[any Service]>, for serviceType: ServiceType) async throws
+
+    @MainActor
+    func loadServices(for serviceType: ServiceType) async throws -> [any Service]
+
+    @MainActor
+    func loadFavoriteServices(_ services: Binding<[any Service]>) async throws
 
     @MainActor
     func post(_ lessonService: LessonService)
@@ -25,7 +40,7 @@ protocol ServiceInteractor {
     func post(_ accompanistService: AccompanistService)
 
     @MainActor
-    func post(_ compositionService: CompositionService)
+    func post(_ compositionService: ScoreCreationService)
 
     @MainActor
     func post(_ musicCreationService: MusicCreationService)
@@ -42,11 +57,31 @@ struct DefaultServiceInteractor: ServiceInteractor {
         fatalError()
     }
 
-    func load(_ compositionServices: Binding<[CompositionService]>) async throws {
+    func load(_ compositionServices: Binding<[ScoreCreationService]>) async throws {
         fatalError()
     }
 
     func load(_ musicCreationServices: Binding<[MusicCreationService]>) async throws {
+        fatalError()
+    }
+
+    func load(_ services: Binding<[any Service]>) async throws {
+        fatalError()
+    }
+
+    func loadServices() async throws -> [any Service] {
+        fatalError()
+    }
+
+    func load(_ services: Binding<[any Service]>, for serviceType: ServiceType) async throws {
+        fatalError()
+    }
+
+    func loadFavoriteServices(_ services: Binding<[any Service]>) async throws {
+        fatalError()
+    }
+
+    func loadServices(for serviceType: ServiceType) async throws -> [any Service] {
         fatalError()
     }
 
@@ -58,7 +93,7 @@ struct DefaultServiceInteractor: ServiceInteractor {
         fatalError()
     }
 
-    func post(_ compositionService: CompositionService) {
+    func post(_ compositionService: ScoreCreationService) {
         fatalError()
     }
 
@@ -81,9 +116,9 @@ struct MockServiceInteractor: ServiceInteractor {
         ]
     }
 
-    func load(_ compositionServices: Binding<[CompositionService]>) async throws {
+    func load(_ compositionServices: Binding<[ScoreCreationService]>) async throws {
         compositionServices.wrappedValue = [
-            CompositionService.sample0,
+            ScoreCreationService.sample0,
         ]
     }
 
@@ -93,11 +128,60 @@ struct MockServiceInteractor: ServiceInteractor {
         ]
     }
 
+    func loadServices() async throws -> [any Service] {
+        return [
+            LessonService.sample0,
+            AccompanistService.sample0,
+            ScoreCreationService.sample0,
+            MusicCreationService.sample0,
+        ]
+    }
+
+    func load(_ services: Binding<[any Service]>) async throws {
+        services.wrappedValue = try await loadServices()
+    }
+
+    func load(_ services: Binding<[any Service]>, for serviceType: ServiceType) async throws {
+        services.wrappedValue = try await loadServices(for: serviceType)
+    }
+
+    func loadServices(for serviceType: ServiceType) async throws -> [any Service] {
+        switch serviceType {
+        case .lesson:
+            return [
+                LessonService.sample0,
+            ]
+        case .accompanist:
+            return [
+                AccompanistService.sample0,
+            ]
+        case .scoreCreation:
+            return [
+                ScoreCreationService.sample0,
+            ]
+        case .mrCreation:
+            return [
+                MusicCreationService.sample0,
+            ]
+        }
+    }
+
+    func loadFavoriteServices(_ services: Binding<[any Service]>) async throws {
+        let allServices = try await loadServices()
+
+        let favoriteServices = allServices.filter { service in
+            guard let serviceId = service.id else { return false }
+            return Student.sample0.favoriteServices.contains(serviceId)
+        }
+
+        services.wrappedValue = favoriteServices
+    }
+
     func post(_ lessonService: LessonService) {}
 
     func post(_ accompanistService: AccompanistService) {}
 
-    func post(_ compositionService: CompositionService) {}
+    func post(_ compositionService: ScoreCreationService) {}
 
     func post(_ musicCreationService: MusicCreationService) {}
 }

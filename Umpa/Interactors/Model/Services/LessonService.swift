@@ -2,15 +2,22 @@
 
 import Foundation
 
-struct LessonService {
-    let baseInfo: ServiceCommonInfo
+struct LessonService: SinglePriceService {
+    let id: String?
+    let type: ServiceType
+    let title: String
+    let thumbnail: URL?
+    let rating: Double
+    let author: Teacher
+    let acceptanceReviews: [AcceptanceReview]
+    let reviews: [Review]
+    let serviceDescription: String
     let subject: Major
     let badges: [Badge]
     let price: Int
     let scheduleType: ScheduleType
     let availableTimes: [TimeByDay]
     let lessonStyle: LessonStyle
-    let lessonDescription: String
     let isAvailableOfflineCounseling: Bool
     let trialPolicy: TrialPolicy
     let lessonTargets: [TargetStudent]
@@ -68,25 +75,15 @@ enum LessonStatus {
 #if DEBUG
 extension LessonService {
     static let sample0 = LessonService(
-        baseInfo: ServiceCommonInfo(
-            id: "lessonService0",
-            title: "가고싶은 학교 무조건 가는 방법",
-            thumbnail: nil,
-            rating: 5.0,
-            author: "teacher0",
-            acceptanceReviews: [],
-            reviews: []
-        ),
-        subject: Major(name: "piano"),
-        badges: [
-            Badge(title: "학력 인증"),
-            Badge(title: "시범 레슨 운영"),
-        ],
-        price: 100_000,
-        scheduleType: .byStudent,
-        availableTimes: [],
-        lessonStyle: .both,
-        lessonDescription:
+        id: "lessonService0",
+        type: .lesson,
+        title: "가고싶은 학교 무조건 가는 방법",
+        thumbnail: nil,
+        rating: 5.0,
+        author: .sample0,
+        acceptanceReviews: [],
+        reviews: [],
+        serviceDescription:
         """
         기초적인 음악 이론부터 
         미디 큐베이스 프로툴 로직 에이블톤 활용등 실용음악적으로 곡 쓰기
@@ -105,6 +102,15 @@ extension LessonService {
         음악에서 형식은 왜 중요하고 꼭 쓰지않아도 되는것인가
         제가 연구하고 가진 정보와 지식들을 모두 알려드립니다
         """,
+        subject: Major(name: "piano"),
+        badges: [
+            Badge(title: "학력 인증"),
+            Badge(title: "시범 레슨 운영"),
+        ],
+        price: 100_000,
+        scheduleType: .byStudent,
+        availableTimes: [],
+        lessonStyle: .both,
 
         isAvailableOfflineCounseling: true,
         trialPolicy: .free,

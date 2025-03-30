@@ -51,6 +51,7 @@ extension Container {
             .scope(.shared)
     }
 
+    @available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")
     var questionInteractor: Factory<QuestionInteractor> {
         Factory(self) { DefaultQuestionInteractor() }
             .scope(.shared)
@@ -70,8 +71,8 @@ extension Container {
             .scope(.signUpSession)
     }
 
-    var mainViewModel: Factory<MainView.Model> {
-        Factory(self) { MainView.Model() }
+    var mainViewSharedData: Factory<MainViewSharedData> {
+        Factory(self) { MainViewSharedData() }
             .scope(.mainSession)
     }
 }

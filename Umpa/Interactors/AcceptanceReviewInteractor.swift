@@ -7,7 +7,7 @@ import SwiftUI
 
 protocol AcceptanceReviewInteractor {
     @MainActor
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: ServiceId) async throws
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws
 
     @MainActor
     func save(_ acceptanceReview: AcceptanceReview) async throws
@@ -16,7 +16,7 @@ protocol AcceptanceReviewInteractor {
 struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     @Injected(\.umpaApi) private var umpaApi
 
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: ServiceId) async throws {
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws {
         fatalError()
     }
 
@@ -27,7 +27,7 @@ struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
 
 #if DEBUG
 struct MockAcceptanceReviewInteractor: AcceptanceReviewInteractor {
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: ServiceId) async throws {
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws {
         acceptanceReviews.wrappedValue = [
             AcceptanceReview.sample0,
         ]

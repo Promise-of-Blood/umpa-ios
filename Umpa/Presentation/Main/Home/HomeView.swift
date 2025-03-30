@@ -75,7 +75,7 @@ struct HomeView: View {
             ZStack {
                 Circle()
                     .frame(width: fs(50), height: fs(50))
-                    .foregroundStyle(UmpaColor.blueMain)
+                    .foregroundStyle(UmpaColor.mainBlue)
                 Image(.calendarIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -87,7 +87,7 @@ struct HomeView: View {
 }
 
 private struct TeacherFindingSection: View {
-    @InjectedObject(\.mainViewModel) private var mainViewModel
+    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
 
     @State private var currentIndex = 0
 
@@ -126,14 +126,21 @@ private struct TeacherFindingSection: View {
                             ForEach(0..<gridColumnCount, id: \.self) { column in
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if index == 0 {
-                                    TeacherFindingCarouselItem(
-                                        imageResource: ImageResource(name: "", bundle: .main),
-                                        caption: "전체보기"
-                                    )
+                                    Button {
+                                        mainViewSharedData.currentTabIndex = 1
+                                        mainViewSharedData.selectedService = .lesson
+                                        mainViewSharedData.selectedSubjectInTeacherFinding = nil
+                                    } label: {
+                                        TeacherFindingCarouselItem(
+                                            imageResource: ImageResource(name: "", bundle: .main),
+                                            caption: "전체보기"
+                                        )
+                                    }
                                 } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
-                                        mainViewModel.currentTabIndex = 1
-                                        mainViewModel.selectedSubject = subject.name
+                                        mainViewSharedData.currentTabIndex = 1
+                                        mainViewSharedData.selectedService = .lesson
+                                        mainViewSharedData.selectedSubjectInTeacherFinding = subject
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),

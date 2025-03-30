@@ -7,7 +7,7 @@ struct ChattingRoom: Identifiable {
 
     let id: Id?
     let student: Student.Id
-    let relatedService: ServiceId
+    let relatedService: Service.Id
     let messages: [ChatMessage.Id]
 }
 

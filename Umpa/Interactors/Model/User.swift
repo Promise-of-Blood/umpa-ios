@@ -46,7 +46,7 @@ struct Student: User {
     let subject: Subject
     let availableLessonDay: [WeekDay]
     let requirements: String // 자기소개 및 요청 사항
-    let interestingServices: [ServiceId]
+    let favoriteServices: [Service.Id]
 }
 
 struct Teacher: User {
@@ -63,7 +63,7 @@ struct Teacher: User {
     let introduction: String
     let experiences: [String]
     let links: [URL?]
-    let myServices: [ServiceId]
+    let myServices: [Service.Id]
 }
 
 #if DEBUG
@@ -84,7 +84,7 @@ extension Student {
         subject: .piano,
         availableLessonDay: [.sat, .sun],
         requirements: "피아노 다시 시작하고 싶어요. 10년 전에 배웠었는데 다시 시작하려고 합니다. 주말에 수업 가능한 선생님 찾습니다.",
-        interestingServices: [
+        favoriteServices: [
             "lessonService0",
         ]
     )
