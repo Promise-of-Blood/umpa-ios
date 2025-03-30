@@ -20,6 +20,7 @@ struct UmpaApp: App {
         Container.shared.signUpInteractor.register { MockSignUpInteractor() }
         Container.shared.serviceInteractor.register { MockServiceInteractor() }
         Container.shared.questionInteractor.register { MockQuestionInteractor() }
+        Container.shared.generalBoardInteractor.register { MockGeneralBoardInteractor() }
         #endif
     }
 

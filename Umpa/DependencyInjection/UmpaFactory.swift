@@ -61,6 +61,11 @@ extension Container {
         Factory(self) { DefaultChatInteractor() }
             .scope(.shared)
     }
+
+    var generalBoardInteractor: Factory<GeneralBoardInteractor> {
+        Factory(self) { DefaultGeneralBoardInteractor() }
+            .scope(.shared)
+    }
 }
 
 // MARK: - ObservableObject

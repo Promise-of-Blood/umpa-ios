@@ -15,3 +15,51 @@ protocol GeneralBoardInteractor {
     @MainActor
     func post(_ post: Post) async throws
 }
+
+struct DefaultGeneralBoardInteractor: GeneralBoardInteractor {
+    @Injected(\.umpaApi) private var umpaApi
+
+    func load(_ boards: Binding<[Post]>, filter: Post.Filter) async throws {
+        fatalError()
+    }
+
+    func load(_ hotPosts: Binding<[Post]>) async throws {
+        fatalError()
+    }
+
+    func post(_ post: Post) async throws {
+        fatalError()
+    }
+}
+
+#if MOCK
+struct MockGeneralBoardInteractor: GeneralBoardInteractor {
+    func load(_ boards: Binding<[Post]>, filter: Post.Filter) async throws {
+        let posts: [Post]
+        switch filter {
+        case .all:
+            posts = [
+                .sample0,
+            ]
+        case .onlyQuestions:
+            posts = [
+                .sample1,
+            ]
+        case .excludeQuestions:
+            posts = [
+                .sample0,
+            ]
+        }
+        boards.wrappedValue = posts
+    }
+
+    func load(_ hotPosts: Binding<[Post]>) async throws {
+        hotPosts.wrappedValue = [
+            .sample0,
+            .sample1,
+        ]
+    }
+
+    func post(_ post: Post) async throws {}
+}
+#endif
