@@ -18,7 +18,7 @@ struct DefaultAppInteractor: AppInteractor {
     }
 }
 
-#if DEBUG
+#if MOCK
 struct MockAppInteractor: AppInteractor {
     @Injected(\.appState) var appState
 

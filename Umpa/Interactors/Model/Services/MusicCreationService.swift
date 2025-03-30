@@ -24,7 +24,7 @@ struct MusicCreationTool {
     let name: String
 }
 
-#if DEBUG
+#if MOCK
 extension MusicCreationService {
     static let sample0 = MusicCreationService(
         id: "musicCreationService0",

@@ -20,7 +20,7 @@ struct ChatMessage: Identifiable {
     let text: String
 }
 
-#if DEBUG
+#if MOCK
 extension ChattingRoom {
     static let sample0 = ChattingRoom(
         id: "chattingRoom0",

@@ -29,7 +29,7 @@ enum ReviewInteractorError: Error {
     case invalidId
 }
 
-#if DEBUG
+#if MOCK
 struct MockReviewInteractor: ReviewInteractor {
     func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws {
         if id.isEmpty {

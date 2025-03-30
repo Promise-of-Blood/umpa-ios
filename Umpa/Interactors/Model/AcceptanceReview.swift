@@ -25,7 +25,7 @@ struct AcceptanceReview: Identifiable {
     let taggedTeachers: [Teacher.Id]
 }
 
-#if DEBUG
+#if MOCK
 extension AcceptanceReview {
     static let sample0 = AcceptanceReview(
         id: "acceptanceReview0",

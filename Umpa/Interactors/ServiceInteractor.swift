@@ -102,7 +102,7 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 }
 
-#if DEBUG
+#if MOCK
 struct MockServiceInteractor: ServiceInteractor {
     func load(_ lessonServices: Binding<[LessonService]>) async throws {
         lessonServices.wrappedValue = [

@@ -42,7 +42,7 @@ enum QuestionInteractorError: Error {
     case invalidId
 }
 
-#if DEBUG
+#if MOCK
 struct MockQuestionInteractor: QuestionInteractor {
     func load(_ questions: Binding<[Question]>) async throws {
         questions.wrappedValue = try await loadQuestions()

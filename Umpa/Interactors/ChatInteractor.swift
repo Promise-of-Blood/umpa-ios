@@ -23,7 +23,7 @@ struct DefaultChatInteractor: ChatInteractor {
     }
 }
 
-#if DEBUG
+#if MOCK
 struct MockChatInteractor: ChatInteractor {
     func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws {
         chats.wrappedValue = [

@@ -24,7 +24,7 @@ struct Question: Identifiable {
     let comments: [Comment]
 }
 
-#if DEBUG
+#if MOCK
 extension Question {
     static let sample0 = Question(
         id: "question0",

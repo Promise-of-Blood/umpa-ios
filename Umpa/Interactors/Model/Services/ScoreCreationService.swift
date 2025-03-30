@@ -40,7 +40,7 @@ struct CompositionTool {
     let name: String
 }
 
-#if DEBUG
+#if MOCK
 extension ScoreCreationService {
     static let sample0 = ScoreCreationService(
         id: "compositionService0",

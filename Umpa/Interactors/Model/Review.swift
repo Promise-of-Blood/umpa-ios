@@ -13,7 +13,7 @@ struct Review: Identifiable {
     let images: [URL?]
 }
 
-#if DEBUG
+#if MOCK
 extension Review {
     static let sample0 = Review(
         id: "review0",

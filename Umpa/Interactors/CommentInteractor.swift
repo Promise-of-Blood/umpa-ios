@@ -37,7 +37,7 @@ struct DefaultCommentInteractor: CommentInteractor {
     }
 }
 
-#if DEBUG
+#if MOCK
 struct MockCommentInteractor: CommentInteractor {
     func load(_ comments: Binding<[Question.Comment]>, for id: Question.Id) async throws {
         comments.wrappedValue = [

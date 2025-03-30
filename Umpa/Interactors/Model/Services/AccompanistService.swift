@@ -35,7 +35,7 @@ struct EnsemblePlace: OptionSet {
     static let all: EnsemblePlace = [.privateStudio, .rentalStudio, .studentPreference]
 }
 
-#if DEBUG
+#if MOCK
 extension AccompanistService {
     static let sample0 = AccompanistService(
         id: "accompanistService0",

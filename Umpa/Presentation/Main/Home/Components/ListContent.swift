@@ -10,7 +10,7 @@ struct ListContent: View {
         let likeCount: Int
         let commentCount: Int
 
-        #if DEBUG
+        #if MOCK
         static let sample1 = Model(
             id: "listContentModel1",
             title: "제 9회 한국음악예술재단 주최 음파 경연대회 공모 요강 어서 빨리빨리!!!!",

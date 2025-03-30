@@ -25,7 +25,7 @@ struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     }
 }
 
-#if DEBUG
+#if MOCK
 struct MockAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws {
         acceptanceReviews.wrappedValue = [

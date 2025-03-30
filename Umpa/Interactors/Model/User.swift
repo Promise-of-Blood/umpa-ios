@@ -66,7 +66,7 @@ struct Teacher: User {
     let myServices: [Service.Id]
 }
 
-#if DEBUG
+#if MOCK
 extension Student {
     static let sample0 = Student(
         id: "student0",

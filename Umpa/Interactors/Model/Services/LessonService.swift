@@ -72,7 +72,7 @@ enum LessonStatus {
     case closed
 }
 
-#if DEBUG
+#if MOCK
 extension LessonService {
     static let sample0 = LessonService(
         id: "lessonService0",

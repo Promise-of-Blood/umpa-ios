@@ -313,9 +313,7 @@ private struct LatestQuestionsRow: View {
 }
 
 #Preview {
-    Container.shared.questionInteractor.register { MockQuestionInteractor() }
-
-    return TabView {
+    TabView {
         HomeView()
             .tabItem {
                 TabLabel(category: .home)
@@ -340,9 +338,7 @@ private struct LatestQuestionsRow: View {
 }
 
 #Preview("iPhoneSE", traits: .iPhoneSE) {
-    Container.shared.questionInteractor.register { MockQuestionInteractor() }
-
-    return TabView {
+    TabView {
         HomeView()
             .tabItem {
                 TabLabel(category: .home)

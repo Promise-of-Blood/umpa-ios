@@ -105,7 +105,7 @@ extension Service {
         .border(Color.black)
 }
 
-#if DEBUG
+#if MOCK
 extension ServiceListItem.Model {
     static let example1 = ServiceListItem.Model(
         title: "가고 싶은 학교 무조건 가는 방법",
