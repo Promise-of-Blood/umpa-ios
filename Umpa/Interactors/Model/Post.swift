@@ -21,7 +21,7 @@ struct Post: Identifiable {
     }
 
     let id: Id?
-    let writter: User.Id?
+    let writer: User.Id?
     let created: Date
     let title: String
     let contents: String
