@@ -2,11 +2,28 @@
 
 import Factory
 import SwiftUI
+import Utility
 
 struct MatchingView: View {
-    @InjectedObject(\.mainViewModel) private var mainViewModel
+    @Injected(\.serviceInteractor) private var serviceInteractor
+
+    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
+
+    @State private var serviceList: [any Service] = []
 
     var body: some View {
+        content
+            .onAppear {
+                Task {
+                    try await serviceInteractor.load($serviceList, for: mainViewSharedData.selectedService)
+                } catch: { error in
+                    // FIXME: Handle error
+                    print(error)
+                }
+            }
+    }
+
+    var content: some View {
         VStack(alignment: .leading) {
             Image(.umpaLogo)
                 .resizable()
@@ -16,8 +33,11 @@ struct MatchingView: View {
                 FilterButton()
                 FilterButton()
             }
-            Text(mainViewModel.selectedSubject ?? "")
-//            PricePerTime(price: 100_000)
+            Text(mainViewSharedData.selectedService.name)
+
+            ForEach(serviceList, id: \.id) { service in
+                ServiceListItem(model: service.toServiceListItemModel())
+            }
         }
     }
 }

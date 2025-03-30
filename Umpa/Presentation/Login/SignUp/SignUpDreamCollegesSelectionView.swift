@@ -4,7 +4,7 @@ import Components
 import Factory
 import SwiftUI
 
-struct SignUpChoiceSchoolSelectionView: View {
+struct SignUpDreamCollegesSelectionView: View {
     @InjectedObject(\.signUpModel) private var signUpModel
 
     var body: some View {
@@ -44,6 +44,6 @@ struct SignUpChoiceSchoolSelectionView: View {
 
 #Preview {
     NavigationStack {
-        SignUpChoiceSchoolSelectionView()
+        SignUpDreamCollegesSelectionView()
     }
 }

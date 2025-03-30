@@ -7,13 +7,20 @@ import SwiftUI
 
 protocol ReviewInteractor {
     @MainActor
-    func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws
+    func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws
+
+    @MainActor
+    func save(_ review: Review) async throws
 }
 
 struct DefaultReviewInteractor: ReviewInteractor {
     @Injected(\.umpaApi) private var umpaApi
 
-    func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws {
+    func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws {
+        fatalError()
+    }
+
+    func save(_ review: Review) async throws {
         fatalError()
     }
 }
@@ -22,9 +29,9 @@ enum ReviewInteractorError: Error {
     case invalidId
 }
 
-#if DEBUG
+#if MOCK
 struct MockReviewInteractor: ReviewInteractor {
-    func load(_ reviews: Binding<[Review]>, for id: ServiceId) async throws {
+    func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws {
         if id.isEmpty {
             throw ReviewInteractorError.invalidId
         }
@@ -34,5 +41,7 @@ struct MockReviewInteractor: ReviewInteractor {
             Review.sample1,
         ]
     }
+
+    func save(_ review: Review) async throws {}
 }
 #endif

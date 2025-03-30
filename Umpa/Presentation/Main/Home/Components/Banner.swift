@@ -11,7 +11,7 @@ struct Banner: View {
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Carousel(currentIndex: $currentIndex) {
-                ForEach(Array(zip(bannerResources.indices, bannerResources)), id: \.0) { index, resource in
+                IndexingForEach(bannerResources) { index, resource in
                     Image(resource)
                         .resizable()
                         .aspectRatio(contentMode: .fill)

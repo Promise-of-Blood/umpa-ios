@@ -5,7 +5,7 @@ import Foundation
 struct Review: Identifiable {
     typealias Id = String
 
-    let id: Id
+    let id: Id?
     let created: Date
     let rating: Double
     let writer: Student.Id
@@ -13,7 +13,7 @@ struct Review: Identifiable {
     let images: [URL?]
 }
 
-#if DEBUG
+#if MOCK
 extension Review {
     static let sample0 = Review(
         id: "review0",
@@ -33,7 +33,7 @@ extension Review {
         id: "review1",
         created: .now,
         rating: 4.5,
-        writer: "student1",
+        writer: "student0",
         contents:
         """
         개인 사정으로 잠깐 그만 두었지만 정말 좋은 선생님 이십니다.

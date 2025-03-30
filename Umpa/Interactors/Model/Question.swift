@@ -2,6 +2,7 @@
 
 import Foundation
 
+@available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")
 struct Question: Identifiable {
     typealias Id = String
 
@@ -23,7 +24,7 @@ struct Question: Identifiable {
     let comments: [Comment]
 }
 
-#if DEBUG
+#if MOCK
 extension Question {
     static let sample0 = Question(
         id: "question0",

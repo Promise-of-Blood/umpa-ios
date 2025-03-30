@@ -75,7 +75,7 @@ struct HomeView: View {
             ZStack {
                 Circle()
                     .frame(width: fs(50), height: fs(50))
-                    .foregroundStyle(UmpaColor.blueMain)
+                    .foregroundStyle(UmpaColor.mainBlue)
                 Image(.calendarIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -87,7 +87,7 @@ struct HomeView: View {
 }
 
 private struct TeacherFindingSection: View {
-    @InjectedObject(\.mainViewModel) private var mainViewModel
+    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
 
     @State private var currentIndex = 0
 
@@ -126,14 +126,21 @@ private struct TeacherFindingSection: View {
                             ForEach(0..<gridColumnCount, id: \.self) { column in
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if index == 0 {
-                                    TeacherFindingCarouselItem(
-                                        imageResource: ImageResource(name: "", bundle: .main),
-                                        caption: "전체보기"
-                                    )
+                                    Button {
+                                        mainViewSharedData.currentTabIndex = 1
+                                        mainViewSharedData.selectedService = .lesson
+                                        mainViewSharedData.selectedSubjectInTeacherFinding = nil
+                                    } label: {
+                                        TeacherFindingCarouselItem(
+                                            imageResource: ImageResource(name: "", bundle: .main),
+                                            caption: "전체보기"
+                                        )
+                                    }
                                 } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
-                                        mainViewModel.currentTabIndex = 1
-                                        mainViewModel.selectedSubject = subject.name
+                                        mainViewSharedData.currentTabIndex = 1
+                                        mainViewSharedData.selectedService = .lesson
+                                        mainViewSharedData.selectedSubjectInTeacherFinding = subject
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),
@@ -161,11 +168,17 @@ private struct TeacherFindingSection: View {
 }
 
 private struct CommunitySection: View {
+    @Injected(\.acceptanceReviewInteractor) private var acceptanceReviewInteractor
+
     var body: some View {
+        content
+    }
+
+    var content: some View {
         VStack(spacing: fs(14)) {
             Text("음파 커뮤니티")
                 .font(UmpaFont.h2Kr)
-                .foregroundStyle(UmpaColor.charcoal)
+                .foregroundStyle(Color(hex: "121214"))
                 .frame(maxWidth: .fill, alignment: .leading)
                 .padding(.horizontal, contentHorizontalPadding)
             VStack(spacing: fs(16)) {
@@ -280,7 +293,7 @@ private struct LatestQuestionsRow: View {
                 SeeAllButton()
             }
             VStack(spacing: fs(9)) {
-                ForEach(Array(zip(questions.indices, questions)), id: \.1.id) { index, question in
+                IndexingForEach(questions) { index, question in
                     NavigationLink {
                         QuestionDetailView(question: question)
                     } label: {
@@ -300,9 +313,7 @@ private struct LatestQuestionsRow: View {
 }
 
 #Preview {
-    Container.shared.questionInteractor.register { MockQuestionInteractor() }
-
-    return TabView {
+    TabView {
         HomeView()
             .tabItem {
                 TabLabel(category: .home)
@@ -327,9 +338,7 @@ private struct LatestQuestionsRow: View {
 }
 
 #Preview("iPhoneSE", traits: .iPhoneSE) {
-    Container.shared.questionInteractor.register { MockQuestionInteractor() }
-
-    return TabView {
+    TabView {
         HomeView()
             .tabItem {
                 TabLabel(category: .home)

@@ -42,11 +42,11 @@ struct Student: User {
     let region: Region
     let gender: Gender
     let grade: Grade
-    let dreamSchool: [String]
+    let dreamCollege: [College]
     let subject: Subject
     let availableLessonDay: [WeekDay]
     let requirements: String // 자기소개 및 요청 사항
-    let interestingServices: [ServiceId]
+    let favoriteServices: [Service.Id]
 }
 
 struct Teacher: User {
@@ -63,10 +63,10 @@ struct Teacher: User {
     let introduction: String
     let experiences: [String]
     let links: [URL?]
-    let myServices: [ServiceId]
+    let myServices: [Service.Id]
 }
 
-#if DEBUG
+#if MOCK
 extension Student {
     static let sample0 = Student(
         id: "student0",
@@ -78,13 +78,13 @@ extension Student {
         region: Region(regionalLocalGovernment: "경기도", basicLocalGovernment: "의정부시"),
         gender: .male,
         grade: .사회인,
-        dreamSchool: [
-            "서울예술대학교",
+        dreamCollege: [
+            College(name: "서울예술대학교"),
         ],
         subject: .piano,
         availableLessonDay: [.sat, .sun],
         requirements: "피아노 다시 시작하고 싶어요. 10년 전에 배웠었는데 다시 시작하려고 합니다. 주말에 수업 가능한 선생님 찾습니다.",
-        interestingServices: [
+        favoriteServices: [
             "lessonService0",
         ]
     )

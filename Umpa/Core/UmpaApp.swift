@@ -15,9 +15,11 @@ struct UmpaApp: App {
     @Injected(\.appInteractor) private var appInteractor
 
     init() {
-        #if DEBUG
+        #if MOCK
         Container.shared.appInteractor.register { MockAppInteractor() }
         Container.shared.signUpInteractor.register { MockSignUpInteractor() }
+        Container.shared.serviceInteractor.register { MockServiceInteractor() }
+        Container.shared.questionInteractor.register { MockQuestionInteractor() }
         #endif
     }
 

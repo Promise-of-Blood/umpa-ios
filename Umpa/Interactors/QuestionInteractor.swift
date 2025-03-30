@@ -5,6 +5,7 @@ import Foundation
 import Networking
 import SwiftUI
 
+@available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")
 protocol QuestionInteractor {
     @MainActor
     func load(_ questions: Binding<[Question]>) async throws
@@ -14,6 +15,9 @@ protocol QuestionInteractor {
 
     @MainActor
     func loadQuestion(by id: Question.Id) async throws -> Question
+
+    @MainActor
+    func post(_ question: Question) async throws
 }
 
 struct DefaultQuestionInteractor: QuestionInteractor {
@@ -28,13 +32,17 @@ struct DefaultQuestionInteractor: QuestionInteractor {
     func loadQuestion(by id: Question.Id) async throws -> Question {
         fatalError()
     }
+
+    func post(_ question: Question) async throws {
+        fatalError()
+    }
 }
 
 enum QuestionInteractorError: Error {
     case invalidId
 }
 
-#if DEBUG
+#if MOCK
 struct MockQuestionInteractor: QuestionInteractor {
     func load(_ questions: Binding<[Question]>) async throws {
         questions.wrappedValue = try await loadQuestions()
@@ -60,5 +68,7 @@ struct MockQuestionInteractor: QuestionInteractor {
             Question.sample2,
         ]
     }
+
+    func post(_ question: Question) async throws {}
 }
 #endif
