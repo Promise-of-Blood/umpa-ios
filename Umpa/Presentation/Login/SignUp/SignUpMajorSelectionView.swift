@@ -38,7 +38,7 @@ struct SignUpMajorSelectionView: View {
 //                } else {
 //                    SignUpFinishView()
 //                }
-                SignUpChoiceSchoolSelectionView()
+                SignUpDreamCollegesSelectionView()
             } label: {
                 Text("다음")
                     .modifier(BottomButton())

@@ -17,7 +17,7 @@ struct AcceptanceReview: Identifiable {
     let created: Date
     let writer: Student.Id
     let title: String
-    let school: School
+    let college: College
     let major: Major
     let images: [URL]
     let likeCount: Int
@@ -32,7 +32,7 @@ extension AcceptanceReview {
         created: .now,
         writer: "student0",
         title: "서울예대 작곡 합격 후기",
-        school: School(name: "서울예술대학교"),
+        college: College(name: "서울예술대학교"),
         major: Major(name: "피아노"),
         images: [],
         likeCount: 372,
