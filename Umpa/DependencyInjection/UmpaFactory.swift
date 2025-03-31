@@ -66,6 +66,11 @@ extension Container {
         Factory(self) { DefaultGeneralBoardInteractor() }
             .scope(.shared)
     }
+
+    var mentoringInteractor: Factory<MentoringInteractor> {
+        Factory(self) { DefaultMentoringInteractor() }
+            .scope(.shared)
+    }
 }
 
 // MARK: - ObservableObject

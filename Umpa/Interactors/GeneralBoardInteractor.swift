@@ -10,7 +10,7 @@ protocol GeneralBoardInteractor {
     func load(_ boards: Binding<[Post]>, filter: Post.Filter) async throws
 
     @MainActor
-    func load(_ hotPosts: Binding<[Post]>) async throws
+    func loadHotPosts(_ hotPosts: Binding<[Post]>) async throws
 
     @MainActor
     func post(_ post: Post) async throws
@@ -23,7 +23,7 @@ struct DefaultGeneralBoardInteractor: GeneralBoardInteractor {
         fatalError()
     }
 
-    func load(_ hotPosts: Binding<[Post]>) async throws {
+    func loadHotPosts(_ hotPosts: Binding<[Post]>) async throws {
         fatalError()
     }
 
@@ -53,7 +53,7 @@ struct MockGeneralBoardInteractor: GeneralBoardInteractor {
         boards.wrappedValue = posts
     }
 
-    func load(_ hotPosts: Binding<[Post]>) async throws {
+    func loadHotPosts(_ hotPosts: Binding<[Post]>) async throws {
         hotPosts.wrappedValue = [
             .sample0,
             .sample1,
