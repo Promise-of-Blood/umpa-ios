@@ -44,6 +44,9 @@ protocol ServiceInteractor {
 
     @MainActor
     func post(_ musicCreationService: MusicCreationService)
+
+    @MainActor
+    func markAsLike(_ isLiked: Bool, for id: Service.Id) async throws
 }
 
 struct DefaultServiceInteractor: ServiceInteractor {
@@ -98,6 +101,10 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func post(_ musicCreationService: MusicCreationService) {
+        fatalError()
+    }
+
+    func markAsLike(_ isLiked: Bool, for id: Service.Id) async throws {
         fatalError()
     }
 }
@@ -184,5 +191,7 @@ struct MockServiceInteractor: ServiceInteractor {
     func post(_ compositionService: ScoreCreationService) {}
 
     func post(_ musicCreationService: MusicCreationService) {}
+
+    func markAsLike(_ isLiked: Bool, for id: Service.Id) async throws {}
 }
 #endif

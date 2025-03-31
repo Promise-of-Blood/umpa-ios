@@ -59,9 +59,13 @@ struct Teacher: User {
     let region: Region
     let gender: Gender
     let isEvaluated: Bool
+    /// 대표 문구
     let keyphrase: String
+    /// 소개글
     let introduction: String
+    /// 경력 사항
     let experiences: [String]
+    /// 사이트 링크
     let links: [URL?]
     let myServices: [Service.Id]
 }
@@ -116,6 +120,40 @@ extension Teacher {
         links: [
             URL(string: "https://www.youtube.com/watch?v=d3IKMiv8AHw"),
         ],
+        myServices: []
+    )
+
+    static let sample1 = Teacher(
+        id: "teacher1",
+        userType: .teacher,
+        major: Major(name: "composition"),
+        name: "김현지",
+        username: "면지",
+        profileImage: nil,
+        region: Region(regionalLocalGovernment: "서울시", basicLocalGovernment: "연남동"),
+        gender: .female,
+        isEvaluated: true,
+        keyphrase:
+        """
+        서울예대 동아방송대를 작곡으로 붙고
+        호원대를 베이스로 붙은 사람
+        """,
+        introduction:
+        """
+        저는 세상에서 제일 게으른 사람입니다.
+        근데 너네는 힝꾸 없잖아. 어쩔티비 알파카좋아 오리너구리도 좋아 담배는 맛있어 오늘 뭐먹지 쓰레기버리러 나가기 귀찮다.
+
+        음 그래서 저한테 레슨을 받으신다면 최선을 다해 가르쳐드리겠습니다.
+        아무튼 그렇습니다. 게으르긴 하지만 책임감은 있는 편이라서 돈 받은 값은 합니다.
+        네네치킨 
+        """,
+        experiences: [
+            "서울예술대학교 작곡 전공 졸업",
+            "동아방송대 작곡 전공 합격",
+            "호원대 베이스 전공 합격",
+            "전 LNS, SMMA 출강",
+        ],
+        links: [],
         myServices: []
     )
 }

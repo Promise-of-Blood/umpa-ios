@@ -5,53 +5,53 @@ import Factory
 import SwiftUI
 import Utility
 
-enum TabItem: CaseIterable {
-    case acceptanceReview
-    case generalBoard
-    case mentoring
+struct CommunityView: View {
+    enum TabItem: CaseIterable {
+        case acceptanceReview
+        case generalBoard
+        case mentoring
 
-    var name: String {
-        switch self {
-        case .acceptanceReview:
-            return "합격 후기"
-        case .generalBoard:
-            return "게시판"
-        case .mentoring:
-            return "멘토링"
+        var name: String {
+            switch self {
+            case .acceptanceReview:
+                return "합격 후기"
+            case .generalBoard:
+                return "게시판"
+            case .mentoring:
+                return "멘토링"
+            }
         }
     }
-}
 
-struct CommunityView: View {
     @State private var selection = 0
 
     var body: some View {
         content
     }
 
-    @ViewBuilder
     var content: some View {
-        Text("커뮤니티")
+        VStack {
+            Text("커뮤니티")
 
-        BottomLineSegmentedControl(
-            TabItem.allCases.map(\.name),
-            selection: $selection,
-            appearance: BottomLineSegmentedControl.Appearance(
-                buttonWidth: nil,
-                activeColor: UmpaColor.main,
-                bottomLineHeight: fs(2),
-                bottomLineOffset: fs(12),
-                font: .pretendardMedium(size: fs(16))
+            BottomLineSegmentedControl(
+                TabItem.allCases.map(\.name),
+                selection: $selection,
+                appearance: BottomLineSegmentedControl.Appearance(
+                    buttonWidth: fs(100),
+                    activeColor: UmpaColor.main,
+                    bottomLineHeight: fs(2),
+                    bottomLineOffset: fs(12),
+                    font: .pretendardMedium(size: fs(16))
+                )
             )
-        )
-        .padding()
-        .frame(height: 60)
+            .padding()
 
-        containedView()
-            .frame(maxWidth: .fill, maxHeight: .fill)
+            containedView
+                .frame(maxWidth: .fill, maxHeight: .fill)
+        }
     }
 
-    func containedView() -> AnyView {
+    var containedView: AnyView {
         switch selection {
         case 0:
             return AnyView(AcceptanceReviewTab())

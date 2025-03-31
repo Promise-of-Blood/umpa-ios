@@ -8,77 +8,49 @@ public struct BottomLineSegmentedControl: View {
     let names: [String]
     let appearance: Appearance
 
-    public init(_ names: [String], selection: Binding<Int>, appearance: Appearance? = nil) {
+    public init(_ names: [String], selection: Binding<Int>, appearance: Appearance) {
         self.names = names
         self._selection = selection
-        self.appearance = appearance ?? Appearance()
+        self.appearance = appearance
+    }
+
+    public init(_ names: [String], selection: Binding<Int>, buttonWidth: CGFloat) {
+        self.names = names
+        self._selection = selection
+        self.appearance = Appearance(buttonWidth: buttonWidth)
     }
 
     public var body: some View {
-        GeometryReader { proxy in
-            let (buttonWidth, spacing) = calculateButtonWidthAndSpacing(proxy.size.width)
-            return HStack(spacing: spacing) {
-                ForEach(Array(zip(names.indices, names)), id: \.0) { index, name in
-                    Button(action: {
-                        selection = index
-                    }) {
-                        VStack(spacing: appearance.bottomLineOffset) {
-                            Text(name)
-                                .font(appearance.font)
-                                .fixedSize()
-                                .foregroundStyle(index == selection ? appearance.activeColor : appearance.inactiveColor)
-                            Rectangle()
-                                .frame(height: appearance.bottomLineHeight)
-                                .foregroundStyle(index == selection ? appearance.activeColor : Color.clear)
-                        }
-                        .frame(width: buttonWidth)
+        HStack(spacing: 0) {
+            ForEach(Array(zip(names.indices, names)), id: \.0) { index, name in
+                Button(action: {
+                    selection = index
+                }) {
+                    VStack(spacing: appearance.bottomLineOffset) {
+                        Text(name)
+                            .font(appearance.font)
+                            .fixedSize()
+                            .foregroundStyle(index == selection ? appearance.activeColor : appearance.inactiveColor)
+                        Rectangle()
+                            .frame(height: appearance.bottomLineHeight)
+                            .foregroundStyle(index == selection ? appearance.activeColor : Color.clear)
                     }
-                    if case .value = appearance.buttonWidth,
-                       let lastIndex = names.indices.last, index < lastIndex
-                    {
-                        Spacer(minLength: 0)
-                    }
+                    .frame(width: appearance.buttonWidth)
+                }
+                if let lastIndex = names.indices.last, index < lastIndex {
+                    Spacer(minLength: 0)
                 }
             }
-            .frame(maxWidth: .infinity)
         }
-    }
-
-    private func calculateButtonWidthAndSpacing(_ parentWidth: CGFloat) -> (buttonWidth: CGFloat, spacing: CGFloat) {
-        let spacing: CGFloat
-        let width: CGFloat
-
-        if let buttonWidth = appearance.buttonWidth {
-            switch buttonWidth {
-            case .value(let widthValue):
-                width = widthValue
-                spacing = 0
-            case .spacing(let spacingValue):
-                let totalSpacingWidth = spacingValue * CGFloat(names.count - 1)
-                width = (parentWidth - totalSpacingWidth) / CGFloat(names.count)
-                spacing = spacingValue
-            }
-        } else {
-            width = parentWidth / CGFloat(names.count)
-            spacing = 0
-        }
-
-        return (width, spacing)
     }
 }
 
 extension BottomLineSegmentedControl {
     public struct Appearance {
-        /// 버튼의 너비를 지정하는 방법을 지정합니다.
-        public enum Width {
-            /// 버튼의 너비를 직접 지정합니다.
-            case value(CGFloat)
-            /// 버튼 사이의 간격을 지정하여 버튼의 너비를 결정합니다.
-            case spacing(CGFloat)
-        }
-
-        /// 버튼의 너비를 지정하고 싶을 때 사용합니다. 지정하지 않으면 버튼의 너비는 가능한 크게 확장됩니다.
-        public let buttonWidth: Width?
+        /// 버튼의 너비를 지정합니다.
+        ///
+        /// `GeometryReader` 사용을 피하기 위해 필수로 버튼의 너비를 지정해야 합니다.
+        public let buttonWidth: CGFloat
 
         /// 활성화된 탭에 적용할 색상입니다.
         public let activeColor: Color
@@ -96,7 +68,7 @@ extension BottomLineSegmentedControl {
         public let font: Font
 
         public init(
-            buttonWidth: Width? = nil,
+            buttonWidth: CGFloat,
             activeColor: Color = .blue,
             inactiveColor: Color = .black,
             bottomLineHeight: CGFloat = 1.6,
@@ -112,21 +84,15 @@ extension BottomLineSegmentedControl {
         }
 
         public func updated(
-            buttonWidth: (() -> Width?)? = nil,
+            buttonWidth: CGFloat? = nil,
             activeColor: Color? = nil,
             inactiveColor: Color? = nil,
             bottomLineHeight: CGFloat? = nil,
             bottomLineOffset: CGFloat? = nil,
             font: Font? = nil
         ) -> Appearance {
-            let _buttonWidth: Width? = if let buttonWidth {
-                buttonWidth()
-            } else {
-                nil
-            }
-
-            return Appearance(
-                buttonWidth: _buttonWidth,
+            Appearance(
+                buttonWidth: buttonWidth ?? self.buttonWidth,
                 activeColor: activeColor ?? self.activeColor,
                 inactiveColor: inactiveColor ?? self.inactiveColor,
                 bottomLineHeight: bottomLineHeight ?? self.bottomLineHeight,
@@ -141,7 +107,7 @@ extension BottomLineSegmentedControl {
     @Previewable @State var index = 1
 
     let defaultAppearance = BottomLineSegmentedControl.Appearance(
-        buttonWidth: nil,
+        buttonWidth: 70,
         activeColor: Color(red: 0.4627, green: 0.8392, blue: 1.0),
         inactiveColor: Color.gray,
         bottomLineHeight: 2,
@@ -155,7 +121,7 @@ extension BottomLineSegmentedControl {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: { .value(70) }))
+    ], selection: $index, appearance: defaultAppearance)
         .frame(width: 330)
         .padding()
 
@@ -165,7 +131,7 @@ extension BottomLineSegmentedControl {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: { .value(70) }))
+    ], selection: $index, appearance: defaultAppearance)
         .padding()
 
     Text("전체 적절한 너비 지정")
@@ -184,7 +150,7 @@ extension BottomLineSegmentedControl {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: { .value(60) }))
+    ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: 50))
         .frame(width: 296)
         .padding()
 
@@ -207,15 +173,6 @@ extension BottomLineSegmentedControl {
     ], selection: $index, appearance: defaultAppearance)
         .padding()
 
-    Text("Spacing 지정")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: { .spacing(12) }))
-        .padding()
-
     Text("갯수 3개")
     BottomLineSegmentedControl([
         "선생님 소개",
@@ -231,6 +188,6 @@ extension BottomLineSegmentedControl {
         "수업 소개",
         "커리큘럼",
         "리뷰",
-    ], selection: $index)
+    ], selection: $index, buttonWidth: 70)
         .padding()
 }
