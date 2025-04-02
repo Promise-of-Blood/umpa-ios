@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct BottomActionBar: View {
-    @State private var isLiked: Bool = false
+    @State private var isLiked: Bool
 
     let height: CGFloat
     private let buttonsRadius: CGFloat = fs(10)
@@ -13,10 +13,12 @@ struct BottomActionBar: View {
 
     init(
         height: CGFloat = fs(50),
+        isLiked: Bool,
         likeButtonAction: @escaping (Bool) -> Void,
         primaryButtonAction: @escaping () -> Void
     ) {
         self.height = height
+        self._isLiked = State(initialValue: isLiked)
         self.likeButtonAction = likeButtonAction
         self.primaryButtonAction = primaryButtonAction
     }
@@ -61,6 +63,17 @@ struct BottomActionBar: View {
         .padding()
 
     BottomActionBar(
+        isLiked: false,
+        likeButtonAction: { isLiked in
+            currentState = isLiked
+        },
+        primaryButtonAction: {
+            chatAttempts += 1
+        }
+    )
+
+    BottomActionBar(
+        isLiked: true,
         likeButtonAction: { isLiked in
             currentState = isLiked
         },

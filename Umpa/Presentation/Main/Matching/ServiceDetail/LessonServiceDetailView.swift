@@ -67,6 +67,7 @@ struct LessonServiceDetailView: View {
             }
             BottomActionBar(
                 height: bottomActionBarHeight,
+                isLiked: false, // TODO: isLiked 를 받아와야 함
                 likeButtonAction: { isLiked in
                     if let serviceId = service.id {
                         Task {
