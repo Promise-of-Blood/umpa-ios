@@ -10,7 +10,7 @@ protocol ChatInteractor {
     func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws
 
     @MainActor
-    func create(_ chat: ChattingRoom) async throws
+    func createChattingRoom(for service: any Service) async throws
 }
 
 struct DefaultChatInteractor: ChatInteractor {
@@ -18,7 +18,9 @@ struct DefaultChatInteractor: ChatInteractor {
         fatalError()
     }
 
-    func create(_ chat: ChattingRoom) async throws {
+    func createChattingRoom(for service: any Service) async throws {
+        let serviceId = service.id
+        let teacherId = service.author.id
         fatalError()
     }
 }
@@ -31,6 +33,6 @@ struct MockChatInteractor: ChatInteractor {
         ]
     }
 
-    func create(_ chat: ChattingRoom) async throws {}
+    func createChattingRoom(for service: any Service) async throws {}
 }
 #endif
