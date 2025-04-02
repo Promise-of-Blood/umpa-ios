@@ -4,6 +4,7 @@ import SwiftUI
 
 enum UmpaColor {
     static let main = Color(hex: "5C79AF")
+    static let lightLightGray = Color(hex: "E8E8E8")
     static let lightGray = Color(hex: "CCCCCC")
     static let mediumGray = Color(hex: "767676")
     static let darkGray = Color(hex: "363636")

@@ -18,7 +18,7 @@ struct BadgeView: View {
             .padding(EdgeInsets(top: fs(5.5), leading: fs(10), bottom: fs(4.5), trailing: fs(10)))
             .background(Color.white)
             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-            .innerStroke(UmpaColor.main, cornerRadius: cornerRadius, lineWidth: fs(1))
+            .innerRoundedStroke(UmpaColor.main, cornerRadius: cornerRadius, lineWidth: fs(1))
     }
 }
 

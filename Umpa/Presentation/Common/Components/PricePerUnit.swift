@@ -2,30 +2,10 @@
 
 import SwiftUI
 
-enum UnitType {
-    case hour
-    case sheet
-    case song
-    case school
-
-    var text: String {
-        switch self {
-        case .hour:
-            return "시간"
-        case .sheet:
-            return "장"
-        case .song:
-            return "곡"
-        case .school:
-            return "학교"
-        }
-    }
-}
-
 struct PricePerUnit: View {
     struct Model {
         let price: Int
-        let unitType: UnitType
+        let unitType: PriceUnitType
     }
 
     struct Attributes {

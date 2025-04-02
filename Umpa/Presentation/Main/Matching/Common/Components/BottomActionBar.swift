@@ -8,11 +8,15 @@ struct BottomActionBar: View {
     let height: CGFloat
     private let buttonsRadius: CGFloat = fs(10)
 
+    var buttonHeight: CGFloat {
+        height - fs(16) // vertical padding
+    }
+
     let likeButtonAction: @MainActor (Bool) -> Void
     let primaryButtonAction: @MainActor () -> Void
 
     init(
-        height: CGFloat = fs(50),
+        height: CGFloat = fs(66),
         isLiked: Bool,
         likeButtonAction: @escaping (Bool) -> Void,
         primaryButtonAction: @escaping () -> Void
@@ -31,19 +35,19 @@ struct BottomActionBar: View {
             }) {
                 Image(systemName: isLiked ? "heart.fill" : "heart") // TODO: 실제 리소스로 교체
                     .foregroundStyle(Color.black)
-                    .frame(width: height, height: height)
-                    .innerStroke(Color(hex: "EBEBEB"), cornerRadius: buttonsRadius, lineWidth: fs(1))
+                    .frame(width: buttonHeight, height: buttonHeight)
+                    .innerRoundedStroke(Color(hex: "EBEBEB"), cornerRadius: buttonsRadius, lineWidth: fs(1))
             }
             Button(action: primaryButtonAction) {
                 Text("채팅 하기")
                     .font(.pretendardMedium(size: fs(15)))
                     .foregroundStyle(Color.white)
-                    .frame(maxWidth: .fill, idealHeight: height)
+                    .frame(maxWidth: .fill, idealHeight: buttonHeight)
                     .fixedSize(horizontal: false, vertical: true)
                     .background(UmpaColor.main, in: RoundedRectangle(cornerRadius: buttonsRadius))
             }
         }
-        .frame(maxWidth: .fill, idealHeight: height)
+        .frame(maxWidth: .fill, idealHeight: buttonHeight)
         .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal, fs(14))
         .padding(.vertical, fs(8))

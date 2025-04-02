@@ -28,7 +28,7 @@ public struct BottomLineSegmentedControl: View {
                 }) {
                     VStack(spacing: appearance.bottomLineOffset) {
                         Text(name)
-                            .font(appearance.font)
+                            .font(index == selection ? appearance.activeFont : appearance.inactiveFont)
                             .fixedSize()
                             .foregroundStyle(index == selection ? appearance.activeColor : appearance.inactiveColor)
                         Rectangle()
@@ -64,23 +64,49 @@ extension BottomLineSegmentedControl {
         /// 활성화된 버튼을 강조하는 하단 라인의 Y축 오프셋입니다. 0이면 버튼 바로 아래에 위치하게 됩니다.
         public let bottomLineOffset: CGFloat
 
-        /// 버튼 텍스트의 폰트입니다.
-        public let font: Font
+        /// 활성화된 버튼의 폰트입니다.
+        public let activeFont: Font
 
-        public init(
+        /// 비활성화된 버튼의 폰트입니다.
+        public let inactiveFont: Font
+
+        init(
             buttonWidth: CGFloat,
             activeColor: Color = .blue,
             inactiveColor: Color = .black,
             bottomLineHeight: CGFloat = 1.6,
             bottomLineOffset: CGFloat = 10,
-            font: Font = .system(size: 14)
+            activeFont: Font = .system(size: 14, weight: .medium),
+            inactiveFont: Font = .system(size: 14, weight: .regular)
+//            font: Font = .system(size: 14)
         ) {
             self.buttonWidth = buttonWidth
             self.activeColor = activeColor
             self.inactiveColor = inactiveColor
             self.bottomLineHeight = bottomLineHeight
             self.bottomLineOffset = bottomLineOffset
-            self.font = font
+            self.activeFont = activeFont
+            self.inactiveFont = inactiveFont
+        }
+
+        public static func appearance(
+            buttonWidth: CGFloat,
+            activeColor: Color = .blue,
+            inactiveColor: Color = .black,
+            bottomLineHeight: CGFloat = 1.6,
+            bottomLineOffset: CGFloat = 10,
+            activeFont: Font = .system(size: 14, weight: .medium),
+            inactiveFont: Font = .system(size: 14, weight: .regular)
+        ) -> Appearance {
+            Appearance(
+                buttonWidth: buttonWidth,
+                activeColor: activeColor,
+                inactiveColor: inactiveColor,
+                bottomLineHeight: bottomLineHeight,
+                bottomLineOffset: bottomLineOffset,
+                activeFont: activeFont,
+                inactiveFont: inactiveFont
+            )
         }
 
         public func updated(
@@ -89,7 +115,8 @@ extension BottomLineSegmentedControl {
             inactiveColor: Color? = nil,
             bottomLineHeight: CGFloat? = nil,
             bottomLineOffset: CGFloat? = nil,
-            font: Font? = nil
+            activeFont: Font? = nil,
+            inactiveFont: Font? = nil
         ) -> Appearance {
             Appearance(
                 buttonWidth: buttonWidth ?? self.buttonWidth,
@@ -97,7 +124,8 @@ extension BottomLineSegmentedControl {
                 inactiveColor: inactiveColor ?? self.inactiveColor,
                 bottomLineHeight: bottomLineHeight ?? self.bottomLineHeight,
                 bottomLineOffset: bottomLineOffset ?? self.bottomLineOffset,
-                font: font ?? self.font
+                activeFont: activeFont ?? self.activeFont,
+                inactiveFont: inactiveFont ?? self.inactiveFont
             )
         }
     }
@@ -112,7 +140,8 @@ extension BottomLineSegmentedControl {
         inactiveColor: Color.gray,
         bottomLineHeight: 2,
         bottomLineOffset: 12,
-        font: .system(size: 14)
+        activeFont: .system(size: 14, weight: .medium),
+        inactiveFont: .system(size: 14, weight: .regular)
     )
 
     Text("커스텀 크기 지정")

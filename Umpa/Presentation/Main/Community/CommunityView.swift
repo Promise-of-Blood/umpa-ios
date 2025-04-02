@@ -36,12 +36,13 @@ struct CommunityView: View {
             BottomLineSegmentedControl(
                 TabItem.allCases.map(\.name),
                 selection: $selection,
-                appearance: BottomLineSegmentedControl.Appearance(
+                appearance: .appearance(
                     buttonWidth: fs(100),
                     activeColor: UmpaColor.main,
                     bottomLineHeight: fs(2),
                     bottomLineOffset: fs(12),
-                    font: .pretendardMedium(size: fs(16))
+                    activeFont: .pretendardMedium(size: fs(14)),
+                    inactiveFont: .pretendardRegular(size: fs(14))
                 )
             )
             .padding()
