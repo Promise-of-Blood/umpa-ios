@@ -48,7 +48,7 @@ struct ServiceListItem: View {
 
 extension Service {
     func toServiceListItemModel() -> ServiceListItem.Model {
-        let unitType: UnitType = switch self.type {
+        let unitType: PriceUnitType = switch self.type {
         case .lesson: .hour
         case .accompanist: .school
         case .scoreCreation: .sheet

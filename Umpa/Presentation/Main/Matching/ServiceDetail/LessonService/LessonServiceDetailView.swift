@@ -8,7 +8,7 @@ struct LessonServiceDetailView: View {
     @Injected(\.chatInteractor) private var chatInteractor
     @Injected(\.serviceInteractor) private var serviceInteractor
 
-    private let bottomActionBarHeight: CGFloat = fs(50)
+    private let bottomActionBarHeight: CGFloat = fs(64)
 
     let service: LessonService
     let tabItems: [TabItem]
@@ -30,41 +30,15 @@ struct LessonServiceDetailView: View {
     @ViewBuilder
     var content: some View {
         ZStack(alignment: .bottom) {
-            ScrollView(.vertical) {
-                VStack(alignment: .leading) {
-                    AsyncImage(url: service.thumbnail) { image in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } placeholder: {
-                        Color.gray.opacity(0.5)
-                    }
-                    .frame(maxWidth: .fill, idealHeight: fs(200))
-                    .fixedSize(horizontal: false, vertical: true)
-                    Text(service.title)
-                    LessonInfo(model: LessonInfo.Model(
-                        teacher: service.author.name,
-                        rating: service.rating,
-                        region: service.author.region.description
-                    ))
-                    PricePerUnit(model: PricePerUnit.Model(price: service.price, unitType: .hour))
-                    HStack(spacing: 9) {
-                        BadgeView("학력 인증")
-                        BadgeView("시범 레슨 운영")
-                    }
-                    BottomLineSegmentedControl(
-                        tabItems.map(\.name),
-                        selection: $tabSelection,
-                        buttonWidth: fs(70)
-                    )
-                    .padding(.horizontal, 30)
-
+            ScrollView {
+                VStack(spacing: fs(0)) {
+                    Header(tabSelection: $tabSelection, service: service)
                     segmentedControlContent
-                        .frame(maxWidth: .fill, maxHeight: .fill, alignment: .top)
-                        .padding()
+                        .frame(maxWidth: .fill, maxHeight: .fill)
                 }
                 .padding(.bottom, bottomActionBarHeight)
             }
+
             BottomActionBar(
                 height: bottomActionBarHeight,
                 isLiked: false, // TODO: isLiked 를 받아와야 함
@@ -89,11 +63,11 @@ struct LessonServiceDetailView: View {
         case .teacherOverview:
             AnyView(TeacherOverviewTabContent(teacher: service.author))
         case .lessonOverview:
-            AnyView(LessonOverviewTab())
+            AnyView(LessonOverviewTabContent(service: service))
         case .curriculum:
-            AnyView(CurriculumTab())
+            AnyView(CurriculumTabContent(curriculumList: service.curriculum))
         case .review:
-            AnyView(ReviewTab())
+            AnyView(ReviewTabContent())
         }
     }
 }
@@ -117,24 +91,6 @@ extension LessonServiceDetailView {
                 return "리뷰"
             }
         }
-    }
-}
-
-struct LessonOverviewTab: View {
-    var body: some View {
-        Text("LessonOverviewTab")
-    }
-}
-
-struct CurriculumTab: View {
-    var body: some View {
-        Text("CurriculumTab")
-    }
-}
-
-struct ReviewTab: View {
-    var body: some View {
-        Text("ReviewTab")
     }
 }
 
