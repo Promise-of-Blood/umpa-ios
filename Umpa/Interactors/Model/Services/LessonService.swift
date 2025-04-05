@@ -82,7 +82,10 @@ extension LessonService {
         rating: 5.0,
         author: .sample0,
         acceptanceReviews: [],
-        reviews: [],
+        reviews: [
+            .sample0,
+            .sample1,
+        ],
         serviceDescription:
         """
         기초적인 음악 이론부터 

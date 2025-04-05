@@ -67,7 +67,7 @@ struct LessonServiceDetailView: View {
         case .curriculum:
             AnyView(CurriculumTabContent(curriculumList: service.curriculum))
         case .review:
-            AnyView(ReviewTabContent())
+            AnyView(ReviewTabContent(service: service))
         }
     }
 }
