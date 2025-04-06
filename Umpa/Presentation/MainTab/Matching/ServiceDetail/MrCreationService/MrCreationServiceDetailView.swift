@@ -54,16 +54,17 @@ struct MrCreationServiceDetailView: ServiceDetailView {
         }
     }
 
-    var segmentedControlContent: AnyView {
+    @ViewBuilder
+    var segmentedControlContent: some View {
         switch tabItems[tabSelection] {
         case .teacherOverview:
-            AnyView(TeacherOverviewTabContent(teacher: service.author))
+            TeacherOverviewTabContent(teacher: service.author)
         case .serviceOverview:
-            AnyView(ServiceOverviewTabContent(service: service))
+            ServiceOverviewTabContent(service: service)
         case .samplePreview:
-            AnyView(SamplePreviewTabContent(sampleMusics: service.sampleMusics))
+            SamplePreviewTabContent(sampleMusics: service.sampleMusics)
         case .review:
-            AnyView(ReviewTabContent(service: service))
+            ReviewTabContent(service: service)
         }
     }
 }

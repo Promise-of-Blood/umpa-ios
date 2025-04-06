@@ -9,7 +9,7 @@ class MainViewSharedData: ObservableObject {
     @Published var selectedSubjectInTeacherFinding: Subject?
 }
 
-struct MainView: View {
+struct MainTabView: View {
     @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
 
     var body: some View {
@@ -88,5 +88,5 @@ struct TabLabel: View {
 }
 
 #Preview {
-    MainView()
+    MainTabView()
 }

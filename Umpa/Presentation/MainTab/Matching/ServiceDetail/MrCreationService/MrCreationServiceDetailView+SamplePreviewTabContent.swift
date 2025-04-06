@@ -16,9 +16,15 @@ extension MrCreationServiceDetailView {
             VStack(spacing: fs(20)) {
                 IndexingForEach(sampleMusics) { _, sampleMusic in
                     ZStack {
-                        VideoPlayer(player: AVPlayer(url: sampleMusic.url!))
-                            .frame(maxWidth: .fill, idealHeight: fs(172))
-                            .fixedSize(horizontal: false, vertical: true)
+                        if let url = sampleMusic.url {
+                            VideoPlayer(player: AVPlayer(url: url))
+                                .frame(maxWidth: .fill, idealHeight: fs(172))
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            Text("재생할 수 없습니다.")
+                                .frame(maxWidth: .fill, idealHeight: fs(172))
+                                .background(Color.gray.opacity(0.2))
+                        }
 //                        playButton
                     }
                 }

@@ -100,6 +100,12 @@ extension ReviewTabContent {
     struct ReviewCard: View {
         let review: Review
 
+        var createdAt: String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy. MM. dd"
+            return formatter.string(from: review.createdAt)
+        }
+
         var body: some View {
             VStack(alignment: .trailing, spacing: fs(8)) {
                 VStack(spacing: fs(18)) {
@@ -119,7 +125,7 @@ extension ReviewTabContent {
                     .frame(maxWidth: .fill)
                 }
                 .frame(maxWidth: .fill)
-                Text(review.createdAt.description)
+                Text(createdAt)
                     .font(.pretendardRegular(size: fs(10)))
                     .foregroundStyle(UmpaColor.mediumGray)
             }
@@ -194,8 +200,9 @@ extension ReviewTabContent {
         let acceptanceReview: AcceptanceReview
 
         var createdAt: String {
-            // TODO: 날짜 포맷팅
-            acceptanceReview.createdAt.formatted()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy. MM. dd"
+            return formatter.string(from: acceptanceReview.createdAt)
         }
 
         private let imageSize: CGFloat = fs(80)

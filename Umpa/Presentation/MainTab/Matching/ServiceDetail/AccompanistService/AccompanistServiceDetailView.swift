@@ -50,14 +50,15 @@ struct AccompanistServiceDetailView: ServiceDetailView {
         }
     }
 
-    var segmentedControlContent: AnyView {
+    @ViewBuilder
+    var segmentedControlContent: some View {
         switch tabItems[tabSelection] {
         case .teacherOverview:
-            AnyView(TeacherOverviewTabContent(teacher: service.author))
+            TeacherOverviewTabContent(teacher: service.author)
         case .accompanimentOverview:
-            AnyView(ServiceOverviewTabContent(service: service))
+            ServiceOverviewTabContent(service: service)
         case .review:
-            AnyView(ReviewTabContent(service: service))
+            ReviewTabContent(service: service)
         }
     }
 }
