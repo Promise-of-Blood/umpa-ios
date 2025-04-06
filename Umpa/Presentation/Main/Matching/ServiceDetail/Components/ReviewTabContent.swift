@@ -16,11 +16,20 @@ struct ReviewTabContent: View {
     var content: some View {
         VStack(alignment: .leading, spacing: fs(10)) {
             topTabHeader
-            VStack(alignment: .leading, spacing: fs(15)) {
-                ratingSection
+            switch selectedTab {
+            case .review:
+                VStack(alignment: .leading, spacing: fs(15)) {
+                    ratingSection
+                    VStack(spacing: fs(16)) {
+                        IndexingForEach(service.reviews) { _, review in
+                            ReviewCard(review: review)
+                        }
+                    }
+                }
+            case .acceptanceReview:
                 VStack(spacing: fs(16)) {
-                    IndexingForEach(service.reviews) { _, review in
-                        ReviewCard(review: review)
+                    ForEach(service.acceptanceReviews, id: \.id) { acceptanceReview in
+                        AcceptanceReviewCard(acceptanceReview: acceptanceReview)
                     }
                 }
             }
@@ -28,17 +37,25 @@ struct ReviewTabContent: View {
     }
 
     var topTabHeader: some View {
-        HStack(spacing: fs(8)) {
-            Text("리뷰")
-                .font(selectedTab == .review
-                    ? .pretendardSemiBold(size: fs(12))
-                    : .pretendardMedium(size: fs(12)))
-                .foregroundStyle(selectedTab == .review ? UmpaColor.main : UmpaColor.mediumGray)
-            Text("합격 후기")
-                .font(selectedTab == .acceptanceReview
-                    ? .pretendardSemiBold(size: fs(12))
-                    : .pretendardMedium(size: fs(12)))
-                .foregroundStyle(selectedTab == .acceptanceReview ? UmpaColor.main : UmpaColor.mediumGray)
+        HStack(spacing: fs(30)) {
+            Button(action: {
+                selectedTab = .review
+            }) {
+                Text("리뷰")
+                    .font(selectedTab == .review
+                        ? .pretendardSemiBold(size: fs(12))
+                        : .pretendardMedium(size: fs(12)))
+                    .foregroundStyle(selectedTab == .review ? UmpaColor.main : UmpaColor.mediumGray)
+            }
+            Button(action: {
+                selectedTab = .acceptanceReview
+            }) {
+                Text("합격 후기")
+                    .font(selectedTab == .acceptanceReview
+                        ? .pretendardSemiBold(size: fs(12))
+                        : .pretendardMedium(size: fs(12)))
+                    .foregroundStyle(selectedTab == .acceptanceReview ? UmpaColor.main : UmpaColor.mediumGray)
+            }
         }
         .frame(maxWidth: .fill, alignment: .leading)
         .padding(.vertical, fs(5))
@@ -169,6 +186,65 @@ extension ReviewTabContent {
                     .frame(width: fs(80), height: fs(80))
                     .clipShape(RoundedRectangle(cornerRadius: fs(5)))
                 }
+            }
+        }
+    }
+
+    struct AcceptanceReviewCard: View {
+        let acceptanceReview: AcceptanceReview
+
+        var createdAt: String {
+            // TODO: 날짜 포맷팅
+            acceptanceReview.createdAt.formatted()
+        }
+
+        private let imageSize: CGFloat = fs(80)
+
+        var body: some View {
+            content
+                .padding(fs(14))
+                .innerRoundedStroke(UmpaColor.lightLightGray, cornerRadius: fs(10), lineWidth: fs(1))
+        }
+
+        var content: some View {
+            VStack(alignment: .leading, spacing: fs(2)) {
+                VStack(alignment: .leading, spacing: fs(16)) {
+                    Text("커뮤니티/합격후기")
+                        .font(.pretendardRegular(size: fs(11)))
+                        .foregroundStyle(UmpaColor.mediumGray)
+                    HStack(alignment: .top, spacing: fs(13)) {
+                        AsyncImage(url: acceptanceReview.images.first) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                        .frame(width: imageSize, height: imageSize)
+                        VStack(alignment: .leading, spacing: fs(8)) {
+                            Text(acceptanceReview.title)
+                                .font(.pretendardSemiBold(size: fs(14)))
+                            Text(acceptanceReview.college.name)
+                                .font(.pretendardRegular(size: fs(11)))
+                                .foregroundStyle(UmpaColor.mediumGray)
+                            HStack(spacing: fs(4)) {
+                                Text(acceptanceReview.writer.name)
+                                    .font(.pretendardRegular(size: fs(11)))
+                                    .foregroundStyle(UmpaColor.mediumGray)
+                                Circle()
+                                    .frame(width: fs(1.5), height: fs(1.5))
+                                    .foregroundStyle(UmpaColor.mediumGray)
+                                Text(acceptanceReview.writer.major.name)
+                                    .font(.pretendardRegular(size: fs(11)))
+                                    .foregroundStyle(UmpaColor.mediumGray)
+                            }
+                        }
+                    }
+                }
+                Text(createdAt)
+                    .font(.pretendardRegular(size: fs(11)))
+                    .foregroundStyle(UmpaColor.mediumGray)
+                    .frame(maxWidth: .fill, alignment: .trailing)
             }
         }
     }

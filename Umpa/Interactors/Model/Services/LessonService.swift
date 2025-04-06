@@ -81,7 +81,9 @@ extension LessonService {
         thumbnail: nil,
         rating: 5.0,
         author: .sample0,
-        acceptanceReviews: [],
+        acceptanceReviews: [
+            .sample0,
+        ],
         reviews: [
             .sample0,
             .sample1,
