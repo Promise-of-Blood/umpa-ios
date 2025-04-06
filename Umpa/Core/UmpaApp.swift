@@ -32,7 +32,7 @@ struct UmpaApp: App {
         WindowGroup {
             if appState.isSplashFinished {
                 if appState.isLoggedIn {
-                    MainView()
+                    MainTabView()
                 } else {
                     LoginView()
                 }

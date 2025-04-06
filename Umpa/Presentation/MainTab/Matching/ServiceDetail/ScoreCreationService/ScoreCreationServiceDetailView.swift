@@ -4,30 +4,25 @@ import Components
 import Factory
 import SwiftUI
 
-struct LessonServiceDetailView: View {
+struct ScoreCreationServiceDetailView: ServiceDetailView {
     @Injected(\.chatInteractor) private var chatInteractor
     @Injected(\.serviceInteractor) private var serviceInteractor
 
-    private let bottomActionBarHeight: CGFloat = fs(64)
+    let service: ScoreCreationService
 
-    let service: LessonService
-    let tabItems: [TabItem]
+    var tabItems: [TabItem] {
+        service.sampleSheets.isEmpty
+            ? [.teacherOverview, .serviceOverview, .review]
+            : [.teacherOverview, .serviceOverview, .samplePreview, .review]
+    }
 
     @State private var tabSelection = 0
-
-    init(service: LessonService) {
-        self.service = service
-        self.tabItems = service.curriculum.isEmpty
-            ? [.teacherOverview, .lessonOverview, .review]
-            : [.teacherOverview, .lessonOverview, .curriculum, .review]
-    }
 
     var body: some View {
         content
             .modifier(NavigationBackButton(.arrowBack))
     }
 
-    @ViewBuilder
     var content: some View {
         ZStack(alignment: .bottom) {
             ScrollView {
@@ -52,41 +47,43 @@ struct LessonServiceDetailView: View {
                 primaryButtonAction: {
                     Task {
                         try await chatInteractor.createChattingRoom(for: service)
+                        // TODO: 채팅으로 이동
                     }
                 }
             )
         }
     }
 
-    var segmentedControlContent: AnyView {
+    @ViewBuilder
+    var segmentedControlContent: some View {
         switch tabItems[tabSelection] {
         case .teacherOverview:
-            AnyView(TeacherOverviewTabContent(teacher: service.author))
-        case .lessonOverview:
-            AnyView(LessonOverviewTabContent(service: service))
-        case .curriculum:
-            AnyView(CurriculumTabContent(curriculumList: service.curriculum))
+            TeacherOverviewTabContent(teacher: service.author)
+        case .serviceOverview:
+            ServiceOverviewTabContent(service: service)
+        case .samplePreview:
+            SamplePreviewTabContent(sampleSheets: service.sampleSheets)
         case .review:
-            AnyView(ReviewTabContent())
+            ReviewTabContent(service: service)
         }
     }
 }
 
-extension LessonServiceDetailView {
+extension ScoreCreationServiceDetailView {
     enum TabItem {
         case teacherOverview
-        case lessonOverview
-        case curriculum
+        case serviceOverview
+        case samplePreview
         case review
 
         var name: String {
             switch self {
             case .teacherOverview:
                 return "선생님 소개"
-            case .lessonOverview:
-                return "수업 소개"
-            case .curriculum:
-                return "커리큘럼"
+            case .serviceOverview:
+                return "서비스 안내"
+            case .samplePreview:
+                return "샘플 확인"
             case .review:
                 return "리뷰"
             }
@@ -96,6 +93,6 @@ extension LessonServiceDetailView {
 
 #Preview {
     NavigationStack {
-        LessonServiceDetailView(service: .sample0)
+        ScoreCreationServiceDetailView(service: .sample0)
     }
 }

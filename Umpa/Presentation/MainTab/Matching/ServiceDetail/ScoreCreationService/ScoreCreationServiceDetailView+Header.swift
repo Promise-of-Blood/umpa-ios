@@ -3,35 +3,23 @@
 import Components
 import SwiftUI
 
-extension LessonServiceDetailView {
+extension ScoreCreationServiceDetailView {
     struct Header: View {
         @Binding var tabSelection: Int
 
-        let service: LessonService
-        let tabItems: [TabItem]
+        let service: ScoreCreationService
+
+        var tabItems: [TabItem] {
+            service.sampleSheets.isEmpty
+                ? [.teacherOverview, .serviceOverview, .review]
+                : [.teacherOverview, .serviceOverview, .samplePreview, .review]
+        }
 
         private let dotSize: CGFloat = fs(1.5)
 
-        init(tabSelection: Binding<Int>, service: LessonService) {
-            _tabSelection = tabSelection
-            self.service = service
-            self.tabItems = service.curriculum.isEmpty
-                ? [.teacherOverview, .lessonOverview, .review]
-                : [.teacherOverview, .lessonOverview, .curriculum, .review]
-        }
-
         var body: some View {
             VStack(spacing: fs(20)) {
-                AsyncImage(url: service.thumbnail) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } placeholder: {
-                    Color.gray
-                }
-                .frame(maxWidth: .fill, idealHeight: fs(374))
-                .fixedSize(horizontal: false, vertical: true)
-
+                thumbnail
                 VStack(alignment: .leading, spacing: fs(6)) {
                     Text(service.title)
                         .font(.pretendardBold(size: fs(20)))
@@ -42,19 +30,21 @@ extension LessonServiceDetailView {
                             .foregroundStyle(UmpaColor.mediumGray)
                         spacingDot
                         Rating(service.rating)
-                        spacingDot
-                        Text(service.author.region.description)
-                            .font(.pretendardRegular(size: fs(12)))
-                            .foregroundStyle(UmpaColor.mediumGray)
                     }
 
-                    ServiceDetailPricePerUnit(model: .init(price: service.price, unitType: .hour))
-                        .padding(.vertical, fs(4))
-
-                    HStack(spacing: fs(9)) {
-                        BadgeView("학력 인증")
-                        BadgeView("시범 레슨 운영")
+                    HStack(spacing: fs(10)) {
+                        ForEach(service.majors, id: \.self) { major in
+                            Text(major.name)
+                                .font(.pretendardMedium(size: fs(12)))
+                                .padding(.horizontal, fs(16))
+                                .padding(.vertical, fs(6))
+                                .background(Color(hex: "E5EEFF"), in: Capsule())
+                        }
                     }
+                    .padding(.vertical, fs(8))
+
+                    ServiceDetailPricePerUnit(model: .init(price: service.basePrice, unitType: .sheet))
+                        .padding(.vertical, fs(2))
                 }
                 .frame(maxWidth: .fill, alignment: .leading)
                 .padding(.horizontal, fs(30))
@@ -77,6 +67,18 @@ extension LessonServiceDetailView {
             .background(.white)
         }
 
+        var thumbnail: some View {
+            AsyncImage(url: service.thumbnail) { image in
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            } placeholder: {
+                Color.gray
+            }
+            .frame(maxWidth: .fill, idealHeight: fs(374))
+            .fixedSize(horizontal: false, vertical: true)
+        }
+
         var spacingDot: some View {
             Circle()
                 .frame(width: dotSize, height: dotSize)
@@ -88,7 +90,7 @@ extension LessonServiceDetailView {
 #Preview {
     @Previewable @State var tabSelection = 1
 
-    LessonServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
+    ScoreCreationServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
         .padding()
         .background(.black)
 }

@@ -6,10 +6,10 @@ struct Review: Identifiable {
     typealias Id = String
 
     let id: Id?
-    let created: Date
+    let createdAt: Date
     let rating: Double
-    let writer: Student.Id
-    let contents: String
+    let writer: Student
+    let content: String
     let images: [URL?]
 }
 
@@ -17,10 +17,10 @@ struct Review: Identifiable {
 extension Review {
     static let sample0 = Review(
         id: "review0",
-        created: .now,
+        createdAt: .now,
         rating: 5.0,
-        writer: "student0",
-        contents:
+        writer: .sample0,
+        content:
         """
         선생님한테 정말 많은 걸 배웠습니다.
         그냥 음악적인 지식 뿐만 아니라 연습하는 루틴까지 체크해주시고 열정적으로 알려주셨습니다.
@@ -31,10 +31,10 @@ extension Review {
 
     static let sample1 = Review(
         id: "review1",
-        created: .now,
+        createdAt: .now,
         rating: 4.5,
-        writer: "student0",
-        contents:
+        writer: .sample0,
+        content:
         """
         개인 사정으로 잠깐 그만 두었지만 정말 좋은 선생님 이십니다.
         빡센 선생님 찾고 있었는데 정말 빡세게 알려주십니다.
