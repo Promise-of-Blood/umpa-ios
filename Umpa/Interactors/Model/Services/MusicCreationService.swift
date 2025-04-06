@@ -17,11 +17,15 @@ struct MusicCreationService: SinglePriceService {
     let tools: [MusicCreationTool]
     let turnaround: Turnaround
     let revisionPolicy: RevisionPolicy
-    let sampleMusics: [URL?]
+    let sampleMusics: [SampleMusic]
 }
 
 struct MusicCreationTool {
     let name: String
+}
+
+struct SampleMusic {
+    let url: URL?
 }
 
 #if MOCK
@@ -50,7 +54,7 @@ extension MusicCreationService {
         revisionPolicy: RevisionPolicy(freeCount: 1, price: 10_000),
 
         sampleMusics: [
-            URL(string: "https://youtu.be/r6TwzSGYycM?si=BK53S-MP6U1HCaWP"),
+            SampleMusic(url: URL(string: "https://youtu.be/r6TwzSGYycM?si=BK53S-MP6U1HCaWP")),
         ]
     )
 }
