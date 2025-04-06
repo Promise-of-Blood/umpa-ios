@@ -18,7 +18,7 @@ struct ScoreCreationService: Service {
     let turnaround: Turnaround
     let pricesByMajor: [PriceByMajor]
     let tools: [CompositionTool]
-    let sampleSheets: [URL?]
+    let sampleSheets: [SampleSheet]
 }
 
 enum ScoreCreationMajor {
@@ -29,6 +29,18 @@ enum ScoreCreationMajor {
     case guitar
     case fullScore
     case electronicMusic
+
+    var name: String {
+        switch self {
+        case .vocal: return "보컬"
+        case .piano: return "피아노"
+        case .drum: return "드럼"
+        case .bass: return "베이스"
+        case .guitar: return "기타"
+        case .fullScore: return "풀스코어"
+        case .electronicMusic: return "전자음악"
+        }
+    }
 }
 
 struct PriceByMajor {
@@ -38,6 +50,10 @@ struct PriceByMajor {
 
 struct CompositionTool {
     let name: String
+}
+
+struct SampleSheet {
+    let url: URL?
 }
 
 #if MOCK
@@ -78,7 +94,9 @@ extension ScoreCreationService {
         tools: [
             CompositionTool(name: "시벨리우스"),
         ],
-        sampleSheets: []
+        sampleSheets: [
+            SampleSheet(url: URL(string: "https://www.musicscore.co.kr/sample/samp7ys7f3ij9wkjid8eujfhsiud843dsijfowejfisojf3490fi0if0sjk09jkr039uf90u/8u4ojsjdjf430foeid409ijef923jerojfgojdofj894jjdsf934f90f40ufj390rfjds/sample_102000/sample_Y3Zp6CqGi2024040332204.jpg")),
+        ]
     )
 }
 #endif

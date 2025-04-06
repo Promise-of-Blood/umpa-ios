@@ -4,16 +4,16 @@ import Components
 import Factory
 import SwiftUI
 
-struct LessonServiceDetailView: ServiceDetailView {
+struct ScoreCreationServiceDetailView: ServiceDetailView {
     @Injected(\.chatInteractor) private var chatInteractor
     @Injected(\.serviceInteractor) private var serviceInteractor
 
-    let service: LessonService
+    let service: ScoreCreationService
 
     var tabItems: [TabItem] {
-        service.curriculum.isEmpty
-            ? [.teacherOverview, .lessonOverview, .review]
-            : [.teacherOverview, .lessonOverview, .curriculum, .review]
+        service.sampleSheets.isEmpty
+            ? [.teacherOverview, .serviceOverview, .review]
+            : [.teacherOverview, .serviceOverview, .samplePreview, .review]
     }
 
     @State private var tabSelection = 0
@@ -23,7 +23,6 @@ struct LessonServiceDetailView: ServiceDetailView {
             .modifier(NavigationBackButton(.arrowBack))
     }
 
-    @ViewBuilder
     var content: some View {
         ZStack(alignment: .bottom) {
             ScrollView {
@@ -59,31 +58,31 @@ struct LessonServiceDetailView: ServiceDetailView {
         switch tabItems[tabSelection] {
         case .teacherOverview:
             AnyView(TeacherOverviewTabContent(teacher: service.author))
-        case .lessonOverview:
-            AnyView(LessonOverviewTabContent(service: service))
-        case .curriculum:
-            AnyView(CurriculumTabContent(curriculumList: service.curriculum))
+        case .serviceOverview:
+            AnyView(ServiceOverviewTabContent(service: service))
+        case .samplePreview:
+            AnyView(SamplePreviewTabContent(sampleSheets: service.sampleSheets))
         case .review:
             AnyView(ReviewTabContent(service: service))
         }
     }
 }
 
-extension LessonServiceDetailView {
+extension ScoreCreationServiceDetailView {
     enum TabItem {
         case teacherOverview
-        case lessonOverview
-        case curriculum
+        case serviceOverview
+        case samplePreview
         case review
 
         var name: String {
             switch self {
             case .teacherOverview:
                 return "선생님 소개"
-            case .lessonOverview:
-                return "수업 소개"
-            case .curriculum:
-                return "커리큘럼"
+            case .serviceOverview:
+                return "서비스 안내"
+            case .samplePreview:
+                return "샘플 확인"
             case .review:
                 return "리뷰"
             }
@@ -93,6 +92,6 @@ extension LessonServiceDetailView {
 
 #Preview {
     NavigationStack {
-        LessonServiceDetailView(service: .sample0)
+        ScoreCreationServiceDetailView(service: .sample0)
     }
 }
