@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
+import DataAccess
 import Factory
-import Networking
 import SwiftUI
 
 extension Scope {
@@ -79,15 +79,5 @@ extension Container {
     var signUpModel: Factory<SignUpModel> {
         Factory(self) { SignUpModel() }
             .scope(.signUpSession)
-    }
-
-    var mainViewSharedData: Factory<MainViewSharedData> {
-        Factory(self) { MainViewSharedData() }
-            .scope(.mainSession)
-    }
-
-    var mainViewRouter: Factory<MainViewRouter> {
-        Factory(self) { MainViewRouter() }
-            .scope(.mainSession)
     }
 }

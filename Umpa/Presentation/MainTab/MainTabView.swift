@@ -3,53 +3,35 @@
 import Factory
 import SwiftUI
 
-enum MainViewTabItem: Int {
-    case home = 0
-    case matching
-    case community
-    case chatting
-}
-
-class MainViewSharedData: ObservableObject {
-    @Published var selectedService: ServiceType = .lesson
-    @Published var selectedSubjectInTeacherFinding: Subject?
-}
-
-class MainViewRouter: ObservableObject {
-    @Published var currentTabIndex: MainViewTabItem = .home
-    @Published var chattingNavigationPath = NavigationPath()
-}
-
 struct MainTabView: View {
-    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
-    @InjectedObject(\.mainViewRouter) private var mainViewRouter
+    @InjectedObject(\.appState) private var appState
 
     var body: some View {
         content
     }
 
     var content: some View {
-        TabView(selection: $mainViewRouter.currentTabIndex) {
+        TabView(selection: $appState.routing.currentTab) {
             HomeView()
                 .tabItem {
                     MainTabView.TabLabel(category: .home)
                 }
-                .tag(MainViewTabItem.home)
+                .tag(MainViewTabType.home)
             MatchingView()
                 .tabItem {
                     MainTabView.TabLabel(category: .matching)
                 }
-                .tag(MainViewTabItem.matching)
+                .tag(MainViewTabType.matching)
             CommunityView()
                 .tabItem {
                     MainTabView.TabLabel(category: .community)
                 }
-                .tag(MainViewTabItem.community)
+                .tag(MainViewTabType.community)
             ChattingView()
                 .tabItem {
                     MainTabView.TabLabel(category: .chatting)
                 }
-                .tag(MainViewTabItem.chatting)
+                .tag(MainViewTabType.chatting)
         }
     }
 }
@@ -103,7 +85,7 @@ extension MainTabView {
 
 #Preview {
     @Injected(\.appState) var appState
-    appState.currenteUser = Student.sample0
+    appState.userData.currenteUser = Student.sample0
 
     return
         MainTabView()

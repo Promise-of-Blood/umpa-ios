@@ -1,8 +1,8 @@
 // Created for Umpa in 2025
 
+import DataAccess
 import Factory
 import Foundation
-import Networking
 
 protocol SignUpInteractor {
     @MainActor func signUp(with model: SignUpModel) async
@@ -35,7 +35,7 @@ struct MockSignUpInteractor: SignUpInteractor {
     @Injected(\.appState) private var appState
 
     func signUp(with model: SignUpModel) async {
-        appState.currenteUser = Student.sample0
+        appState.userData.currenteUser = Student.sample0
         Container.shared.manager.reset(scope: .signUpSession)
     }
 }

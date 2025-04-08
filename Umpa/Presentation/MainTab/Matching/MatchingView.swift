@@ -5,9 +5,9 @@ import SwiftUI
 import Utility
 
 struct MatchingView: View {
-    @Injected(\.serviceInteractor) private var serviceInteractor
+    @InjectedObject(\.appState) private var appState
 
-    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
+    @Injected(\.serviceInteractor) private var serviceInteractor
 
     @State private var serviceList: [any Service] = []
 
@@ -19,7 +19,7 @@ struct MatchingView: View {
             Task {
                 try await serviceInteractor.load(
                     $serviceList,
-                    for: mainViewSharedData.selectedService
+                    for: appState.userData.teacherFinding.selectedService
                 )
             } catch: { error in
                 // FIXME: Handle error
@@ -38,7 +38,7 @@ struct MatchingView: View {
                 FilterButton()
                 FilterButton()
             }
-            Text(mainViewSharedData.selectedService.name)
+            Text(appState.userData.teacherFinding.selectedService.name)
             ForEach(serviceList, id: \.id) { service in
                 switch service {
                 case let lessonService as LessonService:

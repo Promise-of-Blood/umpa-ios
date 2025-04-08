@@ -87,8 +87,7 @@ struct HomeView: View {
 }
 
 private struct TeacherFindingSection: View {
-    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
-    @InjectedObject(\.mainViewRouter) private var mainViewRouter
+    @InjectedObject(\.appState) private var appState
 
     @State private var currentIndex = 0
 
@@ -128,9 +127,9 @@ private struct TeacherFindingSection: View {
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if index == 0 {
                                     Button {
-                                        mainViewRouter.currentTabIndex = .matching
-                                        mainViewSharedData.selectedService = .lesson
-                                        mainViewSharedData.selectedSubjectInTeacherFinding = nil
+                                        appState.routing.currentTab = .matching
+                                        appState.userData.teacherFinding.selectedService = .lesson
+                                        appState.userData.teacherFinding.selectedSubject = nil
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),
@@ -139,9 +138,9 @@ private struct TeacherFindingSection: View {
                                     }
                                 } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
-                                        mainViewRouter.currentTabIndex = .matching
-                                        mainViewSharedData.selectedService = .lesson
-                                        mainViewSharedData.selectedSubjectInTeacherFinding = subject
+                                        appState.routing.currentTab = .matching
+                                        appState.userData.teacherFinding.selectedService = .lesson
+                                        appState.userData.teacherFinding.selectedSubject = subject
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),

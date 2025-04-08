@@ -1,13 +1,13 @@
 // Created for Umpa in 2025
 
 import Foundation
-import Networking
+import DataAccess
 
 struct College {
     let name: String
 }
 
-extension Networking.College {
+extension DataAccess.College {
     func toDomain() -> College {
         return College(name: name)
     }

@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DA7E351F2D8D5B01001DD6AA"
-               BuildableName = "Networking.framework"
-               BlueprintName = "Networking"
+               BuildableName = "DataAccess.framework"
+               BlueprintName = "DataAccess"
                ReferencedContainer = "container:Umpa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -51,8 +51,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DA7E351F2D8D5B01001DD6AA"
-            BuildableName = "Networking.framework"
-            BlueprintName = "Networking"
+            BuildableName = "DataAccess.framework"
+            BlueprintName = "DataAccess"
             ReferencedContainer = "container:Umpa.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

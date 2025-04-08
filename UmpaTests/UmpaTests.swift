@@ -5,7 +5,7 @@
 //  Created by 공명선 on 1/10/25.
 //
 
-import Networking
+import DataAccess
 import Testing
 @testable import Umpa
 

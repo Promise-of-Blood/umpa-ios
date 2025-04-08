@@ -1,13 +1,13 @@
 // Created for Umpa in 2025
 
 import Foundation
-import Networking
+import DataAccess
 
 struct Major {
     let name: String
 }
 
-extension Networking.Major {
+extension DataAccess.Major {
     func toDomain() -> Major {
         Major(name: name)
     }
