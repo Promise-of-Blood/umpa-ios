@@ -3,7 +3,7 @@
 import Foundation
 import DataAccess
 
-struct College {
+struct College: Hashable {
     let name: String
 }
 

@@ -41,10 +41,7 @@ struct AccompanistServiceDetailView: ServiceDetailView {
                     }
                 },
                 primaryButtonAction: {
-                    Task {
-                        try await chatInteractor.createChattingRoom(for: service)
-                        // TODO: 채팅으로 이동
-                    }
+                    chatInteractor.startChatting(with: service)
                 }
             )
         }

@@ -48,12 +48,7 @@ struct LessonServiceDetailView: ServiceDetailView {
                     }
                 },
                 primaryButtonAction: {
-                    Task {
-                        try await chatInteractor.createChattingRoom(for: service)
-                        appState.routing.currentTab = .chatting
-                        appState.routing.chattingNavigationPath.append("")
-                        service // 전달해야함
-                    }
+                    chatInteractor.startChatting(with: service)
                 }
             )
         }

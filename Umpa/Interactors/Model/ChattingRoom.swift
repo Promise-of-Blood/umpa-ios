@@ -2,16 +2,16 @@
 
 import Foundation
 
-struct ChattingRoom: Identifiable {
+struct ChattingRoom: Identifiable, Hashable {
     typealias Id = String
 
     let id: Id?
     let student: Student
-    let relatedService: any Service
+    let relatedService: AnyService
     let messages: [ChatMessage]
 }
 
-struct ChatMessage: Identifiable {
+struct ChatMessage: Identifiable, Hashable {
     typealias Id = String
 
     let id: Id?
@@ -25,7 +25,7 @@ extension ChattingRoom {
     static let sample0 = ChattingRoom(
         id: "chattingRoom0",
         student: .sample0,
-        relatedService: LessonService.sample0,
+        relatedService: LessonService.sample0.toAnyService(),
         messages: [
             ChatMessage.sample0,
             ChatMessage.sample1,

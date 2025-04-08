@@ -21,12 +21,12 @@ struct ChattingView: View {
 
     var content: some View {
         NavigationStack(path: $appState.routing.chattingNavigationPath) {
-            ForEach(chattingRoomList) { chattingRoom in
-                NavigationLink(value: "") {
+            IndexingForEach(chattingRoomList) { index, chattingRoom in
+                NavigationLink(value: chattingRoomList[index]) {
                     Text(chattingRoom.relatedService.author.name)
                 }
-                .navigationDestination(for: String.self) { _ in
-                    ChattingRoomView(chattingRoom: .sample0)
+                .navigationDestination(for: ChattingRoom.self) { chattingRoom in
+                    ChattingRoomView(chattingRoom: chattingRoom)
                 }
             }
         }

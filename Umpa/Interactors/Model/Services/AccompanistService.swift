@@ -20,12 +20,12 @@ struct AccompanistService: SinglePriceService {
     let ensemblePlace: EnsemblePlace
 }
 
-struct EnsemblePolicy {
+struct EnsemblePolicy: Hashable {
     let freeCount: Int
     let price: Int
 }
 
-struct EnsemblePlace: OptionSet {
+struct EnsemblePlace: OptionSet, Hashable {
     let rawValue: UInt8
 
     static let privateStudio = EnsemblePlace(rawValue: 1 << 0)

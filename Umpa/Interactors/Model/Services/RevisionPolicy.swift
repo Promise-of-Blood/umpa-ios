@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct RevisionPolicy {
+struct RevisionPolicy: Hashable {
     let freeCount: Int
     let price: Int
 }

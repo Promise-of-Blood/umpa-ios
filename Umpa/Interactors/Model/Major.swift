@@ -3,7 +3,7 @@
 import Foundation
 import DataAccess
 
-struct Major {
+struct Major: Hashable {
     let name: String
 }
 

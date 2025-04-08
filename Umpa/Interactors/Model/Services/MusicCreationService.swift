@@ -20,11 +20,11 @@ struct MusicCreationService: SinglePriceService {
     let sampleMusics: [SampleMusic]
 }
 
-struct MusicCreationTool {
+struct MusicCreationTool: Hashable {
     let name: String
 }
 
-struct SampleMusic {
+struct SampleMusic: Hashable {
     let url: URL?
 }
 
@@ -50,7 +50,10 @@ extension MusicCreationService {
         tools: [
             MusicCreationTool(name: "에이블톤"),
         ],
-        turnaround: Turnaround(unit: .week, minDate: 1, maxDate: 2),
+        turnaround: Turnaround(
+            minDate: UnitDate(amount: 1, unit: .week),
+            maxDate: UnitDate(amount: 2, unit: .week)
+        ),
         revisionPolicy: RevisionPolicy(freeCount: 1, price: 10_000),
 
         sampleMusics: [

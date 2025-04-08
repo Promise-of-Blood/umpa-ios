@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Review: Identifiable {
+struct Review: Identifiable, Hashable {
     typealias Id = String
 
     let id: Id?
