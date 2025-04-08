@@ -6,7 +6,6 @@ struct ServiceListItem: View {
     struct Model {
         let title: String
         let lessonInfo: LessonInfo.Model
-        let description: String
         let pricePerUnit: PricePerUnit.Model
         let image: URL?
     }
@@ -22,11 +21,6 @@ struct ServiceListItem: View {
                     .frame(maxWidth: .fill, alignment: .leading)
                     .lineLimit(1)
                 LessonInfo(model: self.model.lessonInfo)
-                Text(self.model.description)
-                    .font(.pretendardMedium(size: fs(12)))
-                    .foregroundStyle(UmpaColor.lightGray)
-                    .frame(maxWidth: .fill, alignment: .leading)
-                    .lineLimit(1)
                 PricePerUnit(
                     model: self.model.pricePerUnit,
                     attributes: PricePerUnit.Attributes(priceColor: UmpaColor.darkBlue)
@@ -82,7 +76,6 @@ extension Service {
                 rating: self.rating,
                 region: self.author.region.description
             ),
-            description: self.serviceDescription,
             pricePerUnit: PricePerUnit.Model(
                 price: price,
                 unitType: unitType
@@ -110,7 +103,6 @@ extension ServiceListItem.Model {
     static let example1 = ServiceListItem.Model(
         title: "가고 싶은 학교 무조건 가는 방법",
         lessonInfo: LessonInfo.Model.example1,
-        description: "서울예대 작곡 전공 교수님들의 귀염둥이이자 어쩌구",
         pricePerUnit: PricePerUnit.Model.example1,
         image: nil
     )
@@ -118,7 +110,6 @@ extension ServiceListItem.Model {
     static let example2 = ServiceListItem.Model(
         title: "초견 때문에 입시가 두려우신 분 들어 오던지 말던지",
         lessonInfo: LessonInfo.Model.example2,
-        description: "야옹야옹야옹야옹야옹미야옹야옹야옹야옹야오양옹",
         pricePerUnit: PricePerUnit.Model.example3,
         image: URL(string: "https://file.daesoon.org/webzine/307/202212191656_Daesoon_263_%EB%AC%B8%ED%99%94%EC%82%B0%EC%B1%85_%EC%A0%84%EA%B2%BD%20%EC%86%8D%20%EB%8F%99%EB%AC%BC%20%EA%B3%A0%EC%96%91.jpg")
     )

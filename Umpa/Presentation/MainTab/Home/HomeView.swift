@@ -88,6 +88,7 @@ struct HomeView: View {
 
 private struct TeacherFindingSection: View {
     @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
+    @InjectedObject(\.mainViewRouter) private var mainViewRouter
 
     @State private var currentIndex = 0
 
@@ -127,7 +128,7 @@ private struct TeacherFindingSection: View {
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if index == 0 {
                                     Button {
-                                        mainViewSharedData.currentTabIndex = 1
+                                        mainViewRouter.currentTabIndex = .matching
                                         mainViewSharedData.selectedService = .lesson
                                         mainViewSharedData.selectedSubjectInTeacherFinding = nil
                                     } label: {
@@ -138,7 +139,7 @@ private struct TeacherFindingSection: View {
                                     }
                                 } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
-                                        mainViewSharedData.currentTabIndex = 1
+                                        mainViewRouter.currentTabIndex = .matching
                                         mainViewSharedData.selectedService = .lesson
                                         mainViewSharedData.selectedSubjectInTeacherFinding = subject
                                     } label: {
@@ -316,22 +317,22 @@ private struct LatestQuestionsRow: View {
     TabView {
         HomeView()
             .tabItem {
-                TabLabel(category: .home)
+                MainTabView.TabLabel(category: .home)
             }
             .tag(0)
         Color.blue
             .tabItem {
-                TabLabel(category: .matching)
+                MainTabView.TabLabel(category: .matching)
             }
             .tag(1)
         Color.yellow
             .tabItem {
-                TabLabel(category: .community)
+                MainTabView.TabLabel(category: .community)
             }
             .tag(2)
         Color.red
             .tabItem {
-                TabLabel(category: .chatting)
+                MainTabView.TabLabel(category: .chatting)
             }
             .tag(3)
     }
@@ -341,22 +342,22 @@ private struct LatestQuestionsRow: View {
     TabView {
         HomeView()
             .tabItem {
-                TabLabel(category: .home)
+                MainTabView.TabLabel(category: .home)
             }
             .tag(0)
         Color.blue
             .tabItem {
-                TabLabel(category: .matching)
+                MainTabView.TabLabel(category: .matching)
             }
             .tag(1)
         Color.yellow
             .tabItem {
-                TabLabel(category: .community)
+                MainTabView.TabLabel(category: .community)
             }
             .tag(2)
         Color.red
             .tabItem {
-                TabLabel(category: .chatting)
+                MainTabView.TabLabel(category: .chatting)
             }
             .tag(3)
     }

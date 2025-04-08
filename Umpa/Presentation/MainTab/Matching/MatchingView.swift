@@ -12,15 +12,20 @@ struct MatchingView: View {
     @State private var serviceList: [any Service] = []
 
     var body: some View {
-        content
-            .onAppear {
-                Task {
-                    try await serviceInteractor.load($serviceList, for: mainViewSharedData.selectedService)
-                } catch: { error in
-                    // FIXME: Handle error
-                    print(error)
-                }
+        NavigationStack {
+            content
+        }
+        .onAppear {
+            Task {
+                try await serviceInteractor.load(
+                    $serviceList,
+                    for: mainViewSharedData.selectedService
+                )
+            } catch: { error in
+                // FIXME: Handle error
+                print(error)
             }
+        }
     }
 
     var content: some View {
@@ -28,54 +33,77 @@ struct MatchingView: View {
             Image(.umpaLogo)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 140)
+                .frame(height: fs(42))
             HStack(spacing: 8) {
                 FilterButton()
                 FilterButton()
             }
             Text(mainViewSharedData.selectedService.name)
-
             ForEach(serviceList, id: \.id) { service in
-                ServiceListItem(model: service.toServiceListItemModel())
+                switch service {
+                case let lessonService as LessonService:
+                    NavigationLink {
+                        LessonServiceDetailView(service: lessonService)
+                    } label: {
+                        ServiceListItem(model: service.toServiceListItemModel())
+                    }
+                case let accompanistService as AccompanistService:
+                    NavigationLink {
+                        AccompanistServiceDetailView(service: accompanistService)
+                    } label: {
+                        ServiceListItem(model: service.toServiceListItemModel())
+                    }
+                case let musicCreationService as MusicCreationService:
+                    NavigationLink {
+                        MrCreationServiceDetailView(service: musicCreationService)
+                    } label: {
+                        ServiceListItem(model: service.toServiceListItemModel())
+                    }
+                case let scoreCreationService as ScoreCreationService:
+                    NavigationLink {
+                        ScoreCreationServiceDetailView(service: scoreCreationService)
+                    } label: {
+                        ServiceListItem(model: service.toServiceListItemModel())
+                    }
+                default:
+                    preconditionFailure("\(type(of: service)) 타입이 처리되지 않았습니다.")
+                }
             }
         }
+        .frame(maxHeight: .fill, alignment: .top)
     }
 }
 
-struct FilterButton: View {
-    private let cornerRadius: CGFloat = 20
-    private let foregroundColor = UmpaColor.lightGray
+extension MatchingView {
+    struct FilterButton: View {
+        private let cornerRadius: CGFloat = 20
+        private let foregroundColor = UmpaColor.lightGray
 
-    var body: some View {
-        HStack(spacing: 8) {
-            Text("Filter")
+        var body: some View {
+            HStack(spacing: 8) {
+                Text("Filter")
+                    .foregroundStyle(foregroundColor)
+                icon
+            }
+            .padding(.horizontal, 15)
+            .padding(.vertical, 9)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+            .overlay {
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .strokeBorder(Color(hex: "EBEBEB"), lineWidth: 1)
+            }
+            .onTapGesture {
+                fatalError()
+            }
+        }
+
+        var icon: some View {
+            let squareSide: CGFloat = 12
+            return Rectangle()
                 .foregroundStyle(foregroundColor)
-            icon
+                .frame(width: squareSide, height: squareSide)
         }
-        .padding(.horizontal, 15)
-        .padding(.vertical, 9)
-        .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-        .overlay {
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .strokeBorder(Color(hex: "EBEBEB"), lineWidth: 1)
-        }
-        .onTapGesture {
-            fatalError()
-        }
-    }
-
-    var icon: some View {
-        let squareSide: CGFloat = 12
-        return Rectangle()
-            .foregroundStyle(foregroundColor)
-            .frame(width: squareSide, height: squareSide)
-    }
-}
-
-struct ListItem: View {
-    var body: some View {
-        fatalError()
     }
 }
 

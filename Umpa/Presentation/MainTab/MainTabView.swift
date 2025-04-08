@@ -3,41 +3,53 @@
 import Factory
 import SwiftUI
 
+enum MainViewTabItem: Int {
+    case home = 0
+    case matching
+    case community
+    case chatting
+}
+
 class MainViewSharedData: ObservableObject {
-    @Published var currentTabIndex: Int = 0
     @Published var selectedService: ServiceType = .lesson
     @Published var selectedSubjectInTeacherFinding: Subject?
 }
 
+class MainViewRouter: ObservableObject {
+    @Published var currentTabIndex: MainViewTabItem = .home
+    @Published var chattingNavigationPath = NavigationPath()
+}
+
 struct MainTabView: View {
     @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
+    @InjectedObject(\.mainViewRouter) private var mainViewRouter
 
     var body: some View {
         content
     }
 
     var content: some View {
-        TabView(selection: $mainViewSharedData.currentTabIndex) {
+        TabView(selection: $mainViewRouter.currentTabIndex) {
             HomeView()
                 .tabItem {
-                    TabLabel(category: .home)
+                    MainTabView.TabLabel(category: .home)
                 }
-                .tag(0)
+                .tag(MainViewTabItem.home)
             MatchingView()
                 .tabItem {
-                    TabLabel(category: .matching)
+                    MainTabView.TabLabel(category: .matching)
                 }
-                .tag(1)
+                .tag(MainViewTabItem.matching)
             CommunityView()
                 .tabItem {
-                    TabLabel(category: .community)
+                    MainTabView.TabLabel(category: .community)
                 }
-                .tag(2)
+                .tag(MainViewTabItem.community)
             ChattingView()
                 .tabItem {
-                    TabLabel(category: .chatting)
+                    MainTabView.TabLabel(category: .chatting)
                 }
-                .tag(3)
+                .tag(MainViewTabItem.chatting)
         }
     }
 }
@@ -76,17 +88,23 @@ enum TabCategory {
     }
 }
 
-struct TabLabel: View {
-    let category: TabCategory
+extension MainTabView {
+    struct TabLabel: View {
+        let category: TabCategory
 
-    var body: some View {
-        VStack {
-            Image(category.imageResource)
-            Text(category.title)
+        var body: some View {
+            VStack {
+                Image(category.imageResource)
+                Text(category.title)
+            }
         }
     }
 }
 
 #Preview {
-    MainTabView()
+    @Injected(\.appState) var appState
+    appState.currenteUser = Student.sample0
+
+    return
+        MainTabView()
 }

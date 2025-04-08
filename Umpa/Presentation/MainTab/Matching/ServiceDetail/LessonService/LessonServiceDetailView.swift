@@ -7,6 +7,8 @@ import SwiftUI
 struct LessonServiceDetailView: ServiceDetailView {
     @Injected(\.chatInteractor) private var chatInteractor
     @Injected(\.serviceInteractor) private var serviceInteractor
+    @Injected(\.mainViewSharedData) private var mainViewSharedData
+    @InjectedObject(\.mainViewRouter) private var mainViewRouter
 
     let service: LessonService
 
@@ -48,7 +50,9 @@ struct LessonServiceDetailView: ServiceDetailView {
                 primaryButtonAction: {
                     Task {
                         try await chatInteractor.createChattingRoom(for: service)
-                        // TODO: 채팅으로 이동
+                        mainViewRouter.currentTabIndex = .chatting
+                        mainViewRouter.chattingNavigationPath.append("")
+                        service // 전달해야함
                     }
                 }
             )

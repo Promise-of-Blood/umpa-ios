@@ -85,4 +85,9 @@ extension Container {
         Factory(self) { MainViewSharedData() }
             .scope(.mainSession)
     }
+
+    var mainViewRouter: Factory<MainViewRouter> {
+        Factory(self) { MainViewRouter() }
+            .scope(.mainSession)
+    }
 }

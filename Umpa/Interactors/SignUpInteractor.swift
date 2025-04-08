@@ -35,7 +35,7 @@ struct MockSignUpInteractor: SignUpInteractor {
     @Injected(\.appState) private var appState
 
     func signUp(with model: SignUpModel) async {
-        appState.isLoggedIn = true
+        appState.currenteUser = Student.sample0
         Container.shared.manager.reset(scope: .signUpSession)
     }
 }
