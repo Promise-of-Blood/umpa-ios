@@ -43,16 +43,16 @@ enum ScoreCreationMajor {
     }
 }
 
-struct PriceByMajor {
+struct PriceByMajor: Hashable {
     let price: Int
     let major: ScoreCreationMajor
 }
 
-struct CompositionTool {
+struct CompositionTool: Hashable {
     let name: String
 }
 
-struct SampleSheet {
+struct SampleSheet: Hashable {
     let url: URL?
 }
 
@@ -84,7 +84,10 @@ extension ScoreCreationService {
             .bass,
         ],
         revisionPolicy: RevisionPolicy(freeCount: 2, price: 5_000),
-        turnaround: Turnaround(unit: .day, minDate: 3, maxDate: 7),
+        turnaround: Turnaround(
+            minDate: UnitDate(amount: 3, unit: .day),
+            maxDate: UnitDate(amount: 7, unit: .day)
+        ),
         pricesByMajor: [
             PriceByMajor(price: 20_000, major: .vocal),
             PriceByMajor(price: 40_000, major: .piano),

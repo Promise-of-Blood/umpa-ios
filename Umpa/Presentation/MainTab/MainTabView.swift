@@ -3,41 +3,35 @@
 import Factory
 import SwiftUI
 
-class MainViewSharedData: ObservableObject {
-    @Published var currentTabIndex: Int = 0
-    @Published var selectedService: ServiceType = .lesson
-    @Published var selectedSubjectInTeacherFinding: Subject?
-}
-
 struct MainTabView: View {
-    @InjectedObject(\.mainViewSharedData) private var mainViewSharedData
+    @InjectedObject(\.appState) private var appState
 
     var body: some View {
         content
     }
 
     var content: some View {
-        TabView(selection: $mainViewSharedData.currentTabIndex) {
+        TabView(selection: $appState.routing.currentTab) {
             HomeView()
                 .tabItem {
-                    TabLabel(category: .home)
+                    MainTabView.TabLabel(category: .home)
                 }
-                .tag(0)
+                .tag(MainViewTabType.home)
             MatchingView()
                 .tabItem {
-                    TabLabel(category: .matching)
+                    MainTabView.TabLabel(category: .matching)
                 }
-                .tag(1)
+                .tag(MainViewTabType.matching)
             CommunityView()
                 .tabItem {
-                    TabLabel(category: .community)
+                    MainTabView.TabLabel(category: .community)
                 }
-                .tag(2)
+                .tag(MainViewTabType.community)
             ChattingView()
                 .tabItem {
-                    TabLabel(category: .chatting)
+                    MainTabView.TabLabel(category: .chatting)
                 }
-                .tag(3)
+                .tag(MainViewTabType.chatting)
         }
     }
 }
@@ -76,17 +70,23 @@ enum TabCategory {
     }
 }
 
-struct TabLabel: View {
-    let category: TabCategory
+extension MainTabView {
+    struct TabLabel: View {
+        let category: TabCategory
 
-    var body: some View {
-        VStack {
-            Image(category.imageResource)
-            Text(category.title)
+        var body: some View {
+            VStack {
+                Image(category.imageResource)
+                Text(category.title)
+            }
         }
     }
 }
 
 #Preview {
-    MainTabView()
+    @Injected(\.appState) var appState
+    appState.userData.currenteUser = Student.sample0
+
+    return
+        MainTabView()
 }

@@ -26,7 +26,7 @@ struct LessonService: SinglePriceService {
     let status: LessonStatus
 }
 
-struct Badge {
+struct Badge: Hashable {
     let title: String
 }
 
@@ -35,13 +35,13 @@ enum ScheduleType {
     case fixed
 }
 
-struct TimeByDay {
+struct TimeByDay: Hashable {
     let day: WeekDay
     let startTime: HMTime
     let endTime: HMTime
 }
 
-struct HMTime {
+struct HMTime: Hashable {
     let hour: Int
     let minute: Int
 }
@@ -58,11 +58,11 @@ enum TrialPolicy {
     case notAvailable
 }
 
-struct TargetStudent {
+struct TargetStudent: Hashable {
     let description: String
 }
 
-struct CurriculumItem {
+struct CurriculumItem: Hashable {
     let title: String
     let description: String
 }

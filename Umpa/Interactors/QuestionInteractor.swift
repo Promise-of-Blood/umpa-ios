@@ -2,7 +2,7 @@
 
 import Factory
 import Foundation
-import Networking
+import DataAccess
 import SwiftUI
 
 @available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")

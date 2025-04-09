@@ -1,8 +1,8 @@
 // Created for Umpa in 2025
 
 import Components
+import DataAccess
 import Factory
-import Networking
 import SwiftUI
 
 struct SignUpMajorSelectionView: View {
@@ -14,7 +14,7 @@ struct SignUpMajorSelectionView: View {
             .modifier(NavigationBackButton(.arrowBack))
             .onAppear {
                 if signUpModel.major == nil {
-                    signUpModel.major = appState.majorList.first
+                    signUpModel.major = appState.userData.majorList.first
                 }
             }
     }
@@ -26,7 +26,7 @@ struct SignUpMajorSelectionView: View {
             Spacer()
             InputContentVStack {
                 Picker("Major", selection: $signUpModel.major) {
-                    ForEach(appState.majorList, id: \.self) { major in
+                    ForEach(appState.userData.majorList, id: \.self) { major in
                         Text(major).tag(major)
                     }
                 }

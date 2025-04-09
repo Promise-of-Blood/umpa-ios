@@ -1,11 +1,12 @@
 // Created for Umpa in 2025
 
+import DataAccess
 import Factory
 import Foundation
-import Networking
 
 protocol AppInteractor {
-    @MainActor func loadMajorList() async
+    @MainActor
+    func loadMajorList() async
 }
 
 struct DefaultAppInteractor: AppInteractor {
@@ -14,7 +15,7 @@ struct DefaultAppInteractor: AppInteractor {
 
     func loadMajorList() async {
         let majors = await umpaApi.fetchMajors()
-        appState.majorList = majors.map(\.name)
+        appState.userData.majorList = majors.map(\.name)
     }
 }
 
@@ -23,7 +24,7 @@ struct MockAppInteractor: AppInteractor {
     @Injected(\.appState) var appState
 
     func loadMajorList() async {
-        appState.majorList = [
+        appState.userData.majorList = [
             "피아노",
             "작곡",
             "드럼",

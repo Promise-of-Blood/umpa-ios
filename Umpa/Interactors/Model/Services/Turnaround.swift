@@ -2,14 +2,18 @@
 
 import Foundation
 
-struct Turnaround {
+struct Turnaround: Hashable {
+    let minDate: UnitDate
+    let maxDate: UnitDate
+}
+
+struct UnitDate: Hashable {
     enum Unit {
         case day
         case week
         case month
     }
 
+    let amount: Int
     let unit: Unit
-    let minDate: Int
-    let maxDate: Int
 }

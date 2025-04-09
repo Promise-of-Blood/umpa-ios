@@ -2,7 +2,7 @@
 
 import Factory
 import Foundation
-import Networking
+import DataAccess
 import SwiftUI
 
 protocol CommentInteractor {

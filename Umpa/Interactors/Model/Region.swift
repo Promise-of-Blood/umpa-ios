@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct Region {
+struct Region: Hashable {
     let regionalLocalGovernment: String
     let basicLocalGovernment: String
 }

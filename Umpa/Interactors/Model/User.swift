@@ -19,7 +19,7 @@ enum Grade {
     // TODO: 기획 정해서 수정
 }
 
-protocol User: Identifiable {
+protocol User: Identifiable, Hashable {
     typealias Id = String
 
     var id: Id { get }

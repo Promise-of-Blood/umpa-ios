@@ -5,8 +5,8 @@
 //  Created by 공명선 on 1/10/25.
 //
 
+import DataAccess
 import Factory
-import Networking
 import SwiftUI
 
 @main
@@ -30,8 +30,8 @@ struct UmpaApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if appState.isSplashFinished {
-                if appState.isLoggedIn {
+            if appState.system.isSplashFinished {
+                if appState.userData.isLoggedIn {
                     MainTabView()
                 } else {
                     LoginView()
@@ -40,7 +40,7 @@ struct UmpaApp: App {
                 SplashView()
                     .task {
                         await appInteractor.loadMajorList()
-                        appState.isSplashFinished = true
+                        appState.system.isSplashFinished = true
                     }
             }
         }

@@ -2,10 +2,10 @@
 
 import Foundation
 
-struct AcceptanceReview: Identifiable {
+struct AcceptanceReview: Identifiable, Hashable {
     typealias Id = String
 
-    struct Comment: Identifiable {
+    struct Comment: Identifiable, Hashable {
         typealias Id = String
 
         let id: Id?

@@ -5,6 +5,8 @@ import Factory
 import SwiftUI
 
 struct LessonServiceDetailView: ServiceDetailView {
+    @InjectedObject(\.appState) private var appState
+
     @Injected(\.chatInteractor) private var chatInteractor
     @Injected(\.serviceInteractor) private var serviceInteractor
 
@@ -46,10 +48,7 @@ struct LessonServiceDetailView: ServiceDetailView {
                     }
                 },
                 primaryButtonAction: {
-                    Task {
-                        try await chatInteractor.createChattingRoom(for: service)
-                        // TODO: 채팅으로 이동
-                    }
+                    chatInteractor.startChatting(with: service)
                 }
             )
         }
