@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import Components
+import Domain
 import Factory
 import SwiftUI
 
@@ -184,7 +185,7 @@ private struct CommunitySection: View {
             VStack(spacing: fs(16)) {
                 acceptanceReviewsRow
                 informationSharingRow
-                LatestQuestionsRow()
+//                LatestQuestionsRow()
                 mentoringRow
             }
         }
@@ -269,48 +270,48 @@ private struct CommunitySection: View {
     }
 }
 
-private struct LatestQuestionsRow: View {
-    @Injected(\.questionInteractor) private var questionInteractor
-
-    @State private var questions: [Question] = []
-
-    var body: some View {
-        content
-            .onAppear {
-                Task {
-                    try? await questionInteractor.load($questions)
-                }
-            }
-    }
-
-    var content: some View {
-        VStack(spacing: fs(10)) {
-            HStack {
-                Text("가장 최근에 올라온 질문")
-                    .foregroundStyle(UmpaColor.darkGray)
-                    .font(UmpaFont.h3Kr)
-                Spacer()
-                SeeAllButton()
-            }
-            VStack(spacing: fs(9)) {
-                IndexingForEach(questions) { index, question in
-                    NavigationLink {
-                        QuestionDetailView(question: question)
-                    } label: {
-                        ListContent(model: question.toListContentModel())
-                    }
-                    if index < questions.count - 1 {
-                        HorizontalDivider(thickness: fs(1.25), color: .white)
-                    }
-                }
-            }
-            .padding(.horizontal, fs(15))
-            .padding(.vertical, fs(14))
-            .background(UmpaColor.baseColor, in: RoundedRectangle(cornerRadius: fs(15)))
-        }
-        .padding(.horizontal, contentHorizontalPadding)
-    }
-}
+// private struct LatestQuestionsRow: View {
+//    @Injected(\.questionInteractor) private var questionInteractor
+//
+//    @State private var questions: [Question] = []
+//
+//    var body: some View {
+//        content
+//            .onAppear {
+//                Task {
+//                    try? await questionInteractor.load($questions)
+//                }
+//            }
+//    }
+//
+//    var content: some View {
+//        VStack(spacing: fs(10)) {
+//            HStack {
+//                Text("가장 최근에 올라온 질문")
+//                    .foregroundStyle(UmpaColor.darkGray)
+//                    .font(UmpaFont.h3Kr)
+//                Spacer()
+//                SeeAllButton()
+//            }
+//            VStack(spacing: fs(9)) {
+//                IndexingForEach(questions) { index, question in
+//                    NavigationLink {
+//                        QuestionDetailView(question: question)
+//                    } label: {
+//                        ListContent(model: question.toListContentModel())
+//                    }
+//                    if index < questions.count - 1 {
+//                        HorizontalDivider(thickness: fs(1.25), color: .white)
+//                    }
+//                }
+//            }
+//            .padding(.horizontal, fs(15))
+//            .padding(.vertical, fs(14))
+//            .background(UmpaColor.baseColor, in: RoundedRectangle(cornerRadius: fs(15)))
+//        }
+//        .padding(.horizontal, contentHorizontalPadding)
+//    }
+// }
 
 #Preview {
     TabView {

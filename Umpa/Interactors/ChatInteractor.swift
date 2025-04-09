@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Domain
 import Factory
 import SwiftUI
 import Utility
@@ -15,10 +16,9 @@ protocol ChatInteractor {
 
 struct DefaultChatInteractor: ChatInteractor {
     @Injected(\.appState) private var appState
+    @Injected(\.repository) private var repository
 
-    func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws {
-        fatalError()
-    }
+    func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws {}
 
     /// 주어진 `service`에 대해 채팅을 시작합니다.
     ///

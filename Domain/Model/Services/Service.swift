@@ -2,7 +2,7 @@
 
 import Foundation
 
-protocol Service: Identifiable, Hashable {
+public protocol Service: Identifiable, Hashable {
     typealias Id = String
 
     var id: Id? { get }
@@ -16,18 +16,18 @@ protocol Service: Identifiable, Hashable {
     var serviceDescription: String { get }
 }
 
-protocol SinglePriceService: Service {
+public protocol SinglePriceService: Service {
     var price: Int { get }
 }
 
 extension Service {
-    func toAnyService() -> AnyService {
+    public func toAnyService() -> AnyService {
         return AnyService(self)
     }
 }
 
 /// 타입 소거(type erasure)를 사용하여 Service 프로토콜을 만족하면서도 Hashable을 제공하는 래퍼 타입.
-struct AnyService: Service {
+public struct AnyService: Service {
     // 내부에 캡슐화된 박스
     private let box: _AbstractServiceBox
 
@@ -37,23 +37,23 @@ struct AnyService: Service {
     }
 
     // Service 프로퍼티들 (내부 박스로 전달)
-    var id: String? { box.id }
-    var type: ServiceType { box.type }
-    var title: String { box.title }
-    var thumbnail: URL? { box.thumbnail }
-    var rating: Double { box.rating }
-    var author: Teacher { box.author }
-    var acceptanceReviews: [AcceptanceReview] { box.acceptanceReviews }
-    var reviews: [Review] { box.reviews }
-    var serviceDescription: String { box.serviceDescription }
+    public var id: String? { box.id }
+    public var type: ServiceType { box.type }
+    public var title: String { box.title }
+    public var thumbnail: URL? { box.thumbnail }
+    public var rating: Double { box.rating }
+    public var author: Teacher { box.author }
+    public var acceptanceReviews: [AcceptanceReview] { box.acceptanceReviews }
+    public var reviews: [Review] { box.reviews }
+    public var serviceDescription: String { box.serviceDescription }
 
     // MARK: - Hashable
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         box.hash(into: &hasher)
     }
 
-    static func == (lhs: AnyService, rhs: AnyService) -> Bool {
+    public static func == (lhs: AnyService, rhs: AnyService) -> Bool {
         return lhs.box.isEqual(to: rhs.box)
     }
 }

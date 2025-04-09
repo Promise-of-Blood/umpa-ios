@@ -1,7 +1,6 @@
 // Created for Umpa in 2025
 
 import SwiftUI
-import Utility
 
 public protocol Pagination: View {
     var currentIndex: Binding<Int> { get }
@@ -71,8 +70,8 @@ public struct DotsPaginationAppearance {
     static let `default` = DotsPaginationAppearance(
         size: 8,
         spacing: 8,
-        normalColor: Color(hex: "9C9C9C"),
-        selectedColor: Color(hex: "72727C"),
+        normalColor: Color(red: 0x9C / 255, green: 0x9C / 255, blue: 0x9C / 255),
+        selectedColor: Color(red: 0x72 / 255, green: 0x72 / 255, blue: 0x7C / 255),
         selectedScale: 1.0
     )
 }

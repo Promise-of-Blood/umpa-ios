@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import AVKit
+import Domain
 import SwiftUI
 
 extension MrCreationServiceDetailView {

@@ -1,6 +1,6 @@
 // Created for Umpa in 2025
 
-enum WeekDay {
+public enum WeekDay {
     case mon
     case tue
     case wed

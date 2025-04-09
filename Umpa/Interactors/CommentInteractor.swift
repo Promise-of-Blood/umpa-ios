@@ -1,17 +1,12 @@
 // Created for Umpa in 2025
 
+import DataAccess
+import Domain
 import Factory
 import Foundation
-import DataAccess
 import SwiftUI
 
 protocol CommentInteractor {
-    @MainActor
-    func load(_ comments: Binding<[Question.Comment]>, for id: Question.Id) async throws
-
-    @MainActor
-    func post(_ comment: Question.Comment) async throws
-
     @MainActor
     func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) async throws
 
@@ -20,14 +15,6 @@ protocol CommentInteractor {
 }
 
 struct DefaultCommentInteractor: CommentInteractor {
-    func load(_ comments: Binding<[Question.Comment]>, for id: Question.Id) async throws {
-        fatalError()
-    }
-
-    func post(_ comment: Question.Comment) async throws {
-        fatalError()
-    }
-
     func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) async throws {
         fatalError()
     }
@@ -39,16 +26,6 @@ struct DefaultCommentInteractor: CommentInteractor {
 
 #if MOCK
 struct MockCommentInteractor: CommentInteractor {
-    func load(_ comments: Binding<[Question.Comment]>, for id: Question.Id) async throws {
-        comments.wrappedValue = [
-            .sample0,
-            .sample1,
-            .sample2,
-        ]
-    }
-
-    func post(_ comment: Question.Comment) async throws {}
-
     func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) async throws {
         comments.wrappedValue = [
             .sample0,

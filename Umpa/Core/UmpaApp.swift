@@ -19,7 +19,6 @@ struct UmpaApp: App {
         Container.shared.appInteractor.register { MockAppInteractor() }
         Container.shared.signUpInteractor.register { MockSignUpInteractor() }
         Container.shared.serviceInteractor.register { MockServiceInteractor() }
-        Container.shared.questionInteractor.register { MockQuestionInteractor() }
         Container.shared.generalBoardInteractor.register { MockGeneralBoardInteractor() }
         Container.shared.reviewInteractor.register { MockReviewInteractor() }
         Container.shared.acceptanceReviewInteractor.register { MockAcceptanceReviewInteractor() }

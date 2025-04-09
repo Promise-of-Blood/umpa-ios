@@ -2,13 +2,13 @@
 
 import Foundation
 
-enum ServiceType: CaseIterable {
+public enum ServiceType: CaseIterable {
     case lesson
     case accompanist
     case scoreCreation
     case mrCreation
 
-    var name: String {
+    public var name: String {
         switch self {
         case .lesson:
             return "레슨"

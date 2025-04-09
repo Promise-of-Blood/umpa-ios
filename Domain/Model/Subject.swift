@@ -1,6 +1,6 @@
 // Created for Umpa in 2025
 
-enum Subject: CaseIterable {
+public enum Subject: CaseIterable {
     case piano
     case composition
     case vocal
@@ -16,7 +16,7 @@ enum Subject: CaseIterable {
     case accompanist
     case musicCreation
 
-    var name: String {
+    public var name: String {
         switch self {
         case .piano: "피아노"
         case .composition: "작곡"

@@ -7,6 +7,7 @@ enum PriceUnitType {
     case sheet
     case song
     case school
+    case unknown
 
     var text: String {
         switch self {
@@ -18,6 +19,8 @@ enum PriceUnitType {
             return "곡"
         case .school:
             return "학교"
+        case .unknown:
+            return "-"
         }
     }
 }

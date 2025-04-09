@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import DataAccess
+import Domain
 import Factory
 import SwiftUI
 
@@ -19,6 +20,11 @@ extension Container {
 
     var umpaApi: Factory<UmpaApi> {
         Factory(self) { UmpaApi() }
+            .scope(.singleton)
+    }
+
+    var repository: Factory<Repository> {
+        Factory(self) { ServerRepository() }
             .scope(.singleton)
     }
 }
@@ -48,12 +54,6 @@ extension Container {
 
     var serviceInteractor: Factory<ServiceInteractor> {
         Factory(self) { DefaultServiceInteractor() }
-            .scope(.shared)
-    }
-
-    @available(*, deprecated, message: "25/3/28(금) 기획에서 제거됨")
-    var questionInteractor: Factory<QuestionInteractor> {
-        Factory(self) { DefaultQuestionInteractor() }
             .scope(.shared)
     }
 
