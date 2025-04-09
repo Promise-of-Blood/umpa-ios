@@ -1,30 +1,23 @@
 // Created for Umpa in 2025
 
-import DataAccess
 import Domain
 import Factory
 import Foundation
 import SwiftUI
+import Utility
 
 protocol MentoringInteractor {
-    @MainActor
-    func load(_ mentoringPosts: Binding<[MentoringPost]>) async throws
+    func load(_ mentoringPosts: Binding<[MentoringPost]>)
 }
 
 struct DefaultMentoringInteractor: MentoringInteractor {
-    @Injected(\.umpaApi) private var umpaApi
+    @Injected(\.serverRepository) private var serverRepository
 
-    func load(_ mentoringPosts: Binding<[MentoringPost]>) async throws {
-        fatalError()
+    func load(_ mentoringPosts: Binding<[MentoringPost]>) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchMentoringPostList()
+            .replaceError(with: [])
+            .sink(mentoringPosts)
+            .store(in: cancelBag)
     }
 }
-
-#if MOCK
-struct MockMentoringInteractor: MentoringInteractor {
-    func load(_ mentoringPosts: Binding<[MentoringPost]>) async throws {
-        mentoringPosts.wrappedValue = [
-            MentoringPost.sample0,
-        ]
-    }
-}
-#endif

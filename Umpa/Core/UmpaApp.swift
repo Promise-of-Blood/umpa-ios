@@ -11,21 +11,10 @@ import SwiftUI
 
 @main
 struct UmpaApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
     @InjectedObject(\.appState) private var appState
     @Injected(\.appInteractor) private var appInteractor
-
-    init() {
-        #if MOCK
-        Container.shared.appInteractor.register { MockAppInteractor() }
-        Container.shared.signUpInteractor.register { MockSignUpInteractor() }
-        Container.shared.serviceInteractor.register { MockServiceInteractor() }
-        Container.shared.generalBoardInteractor.register { MockGeneralBoardInteractor() }
-        Container.shared.reviewInteractor.register { MockReviewInteractor() }
-        Container.shared.acceptanceReviewInteractor.register { MockAcceptanceReviewInteractor() }
-        Container.shared.chatInteractor.register { MockChatInteractor() }
-        Container.shared.mentoringInteractor.register { MockMentoringInteractor() }
-        #endif
-    }
 
     var body: some Scene {
         WindowGroup {
@@ -37,11 +26,26 @@ struct UmpaApp: App {
                 }
             } else {
                 SplashView()
-                    .task {
-                        await appInteractor.loadMajorList()
-                        appState.system.isSplashFinished = true
+                    .onAppear {
+                        appInteractor.loadMajorList()
                     }
             }
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        #if MOCK
+        Container.shared.signUpInteractor.register { MockSignUpInteractor() }
+        #endif
+        return true
+    }
+
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
+        // Record the device token.
     }
 }

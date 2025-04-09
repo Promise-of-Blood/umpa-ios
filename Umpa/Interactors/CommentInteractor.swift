@@ -1,38 +1,28 @@
 // Created for Umpa in 2025
 
-import DataAccess
 import Domain
 import Factory
 import Foundation
 import SwiftUI
+import Utility
 
 protocol CommentInteractor {
-    @MainActor
-    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) async throws
-
-    @MainActor
-    func post(_ comment: AcceptanceReview.Comment) async throws
+    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id)
+    func post(_ comment: AcceptanceReview.Comment)
 }
 
 struct DefaultCommentInteractor: CommentInteractor {
-    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) async throws {
-        fatalError()
+    @Injected(\.serverRepository) private var serverRepository
+
+    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchAcceptanceReviewCommentList(by: id)
+            .replaceError(with: [])
+            .sink(comments)
+            .store(in: cancelBag)
     }
 
-    func post(_ comment: AcceptanceReview.Comment) async throws {
+    func post(_ comment: AcceptanceReview.Comment) {
         fatalError()
     }
 }
-
-#if MOCK
-struct MockCommentInteractor: CommentInteractor {
-    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) async throws {
-        comments.wrappedValue = [
-            .sample0,
-            .sample1,
-        ]
-    }
-
-    func post(_ comment: AcceptanceReview.Comment) async throws {}
-}
-#endif

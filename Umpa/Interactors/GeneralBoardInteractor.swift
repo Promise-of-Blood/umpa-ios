@@ -1,66 +1,37 @@
 // Created for Umpa in 2025
 
-import DataAccess
 import Domain
 import Factory
 import Foundation
 import SwiftUI
+import Utility
 
 protocol GeneralBoardInteractor {
-    @MainActor
-    func load(_ boards: Binding<[Post]>, filter: Post.Filter) async throws
-
-    @MainActor
-    func loadHotPosts(_ hotPosts: Binding<[Post]>) async throws
-
-    @MainActor
-    func post(_ post: Post) async throws
+    func load(_ boards: Binding<[Post]>, filter: Post.Filter)
+    func loadHotPosts(_ hotPosts: Binding<[Post]>)
+    func post(_ post: Post)
 }
 
 struct DefaultGeneralBoardInteractor: GeneralBoardInteractor {
-    @Injected(\.umpaApi) private var umpaApi
+    @Injected(\.serverRepository) private var serverRepository
 
-    func load(_ boards: Binding<[Post]>, filter: Post.Filter) async throws {
-        fatalError()
+    func load(_ boards: Binding<[Post]>, filter: Post.Filter) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchPostList(with: filter)
+            .replaceError(with: [])
+            .sink(boards)
+            .store(in: cancelBag)
     }
 
-    func loadHotPosts(_ hotPosts: Binding<[Post]>) async throws {
-        fatalError()
+    func loadHotPosts(_ hotPosts: Binding<[Post]>) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchHotPostList()
+            .replaceError(with: [])
+            .sink(hotPosts)
+            .store(in: cancelBag)
     }
 
-    func post(_ post: Post) async throws {
+    func post(_ post: Post) {
         fatalError()
     }
 }
-
-#if MOCK
-struct MockGeneralBoardInteractor: GeneralBoardInteractor {
-    func load(_ boards: Binding<[Post]>, filter: Post.Filter) async throws {
-        let posts: [Post]
-        switch filter {
-        case .all:
-            posts = [
-                .sample0,
-            ]
-        case .onlyQuestions:
-            posts = [
-                .sample1,
-            ]
-        case .excludeQuestions:
-            posts = [
-                .sample0,
-            ]
-        }
-        boards.wrappedValue = posts
-    }
-
-    func loadHotPosts(_ hotPosts: Binding<[Post]>) async throws {
-        hotPosts.wrappedValue = [
-            .sample0,
-            .sample1,
-        ]
-    }
-
-    func post(_ post: Post) async throws {}
-}
-#endif

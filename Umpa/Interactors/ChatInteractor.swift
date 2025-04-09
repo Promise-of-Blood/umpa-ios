@@ -1,24 +1,31 @@
 // Created for Umpa in 2025
 
+import Combine
 import Domain
 import Factory
 import SwiftUI
 import Utility
 
 protocol ChatInteractor {
-    @MainActor
-    func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws
-
+    func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id)
     func startChatting(with service: any Service)
-
-    func enterChattingRoom(with id: ChattingRoom.Id) async throws
+    func enterChattingRoom(with id: ChattingRoom.Id)
 }
 
 struct DefaultChatInteractor: ChatInteractor {
     @Injected(\.appState) private var appState
-    @Injected(\.repository) private var repository
+    @Injected(\.serverRepository) private var serverRepository
 
-    func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws {}
+    func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id) {
+        let cancelBag = CancelBag()
+        chattingRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
+        serverRepository.fetchChattingRoomList()
+            .mapError { _ in
+                ChattingViewError.fakeError
+            }
+            .sinkToLoadable(chattingRoomList)
+            .store(in: cancelBag)
+    }
 
     /// 주어진 `service`에 대해 채팅을 시작합니다.
     ///
@@ -40,28 +47,7 @@ struct DefaultChatInteractor: ChatInteractor {
         appState.routing.chattingNavigationPath.append(chattingRoom)
     }
 
-    func enterChattingRoom(with id: ChattingRoom.Id) async throws {
+    func enterChattingRoom(with id: ChattingRoom.Id) {
         fatalError()
     }
 }
-
-#if MOCK
-struct MockChatInteractor: ChatInteractor {
-    @Injected(\.appState) private var appState
-    let realInteractor = DefaultChatInteractor()
-
-    func load(_ chats: Binding<[ChattingRoom]>, for id: User.Id) async throws {
-        chats.wrappedValue = [
-            .sample0,
-        ]
-    }
-
-    func startChatting(with service: any Service) {
-        realInteractor.startChatting(with: service)
-    }
-
-    func enterChattingRoom(with id: ChattingRoom.Id) async throws {
-        fatalError()
-    }
-}
-#endif

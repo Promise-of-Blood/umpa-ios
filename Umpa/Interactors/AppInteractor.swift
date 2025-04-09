@@ -1,39 +1,31 @@
 // Created for Umpa in 2025
 
-import DataAccess
+import Combine
 import Factory
 import Foundation
+import Utility
 
 protocol AppInteractor {
-    @MainActor
-    func loadMajorList() async
+    func loadMajorList()
 }
 
 struct DefaultAppInteractor: AppInteractor {
-    @Injected(\.appState) var appState
-    @Injected(\.umpaApi) var umpaApi
+    @Injected(\.appState) private var appState
+    @Injected(\.serverRepository) private var serverRepository
 
-    func loadMajorList() async {
-        let majors = await umpaApi.fetchMajors()
-        appState.userData.majorList = majors.map(\.name)
+    private let cancelBag = CancelBag()
+
+    func loadMajorList() {
+        serverRepository.fetchMajorList()
+            .print()
+            .replaceError(with: [])
+            .flatMap { [appState] in
+                appState.userData.majorList = $0.map(\.name)
+                return Just(())
+            }
+            .sink { [appState] in
+                appState.system.isSplashFinished = true
+            }
+            .store(in: cancelBag)
     }
 }
-
-#if MOCK
-struct MockAppInteractor: AppInteractor {
-    @Injected(\.appState) var appState
-
-    func loadMajorList() async {
-        appState.userData.majorList = [
-            "피아노",
-            "작곡",
-            "드럼",
-            "베이스",
-            "기타",
-            "보컬",
-            "전자음악",
-            "관악",
-        ]
-    }
-}
-#endif

@@ -23,9 +23,15 @@ extension Container {
             .scope(.singleton)
     }
 
-    var repository: Factory<Repository> {
-        Factory(self) { ServerRepository() }
-            .scope(.singleton)
+    var serverRepository: Factory<Repository> {
+        Factory(self) {
+            #if MOCK
+            return MockServerRepository()
+            #else
+            return ServerRepository()
+            #endif
+        }
+        .scope(.singleton)
     }
 }
 

@@ -23,24 +23,11 @@
 
 import Combine
 
-public final class CancelBag {
-    fileprivate(set) var subscriptions = [any Cancellable]()
-
-    public var subscriptionCount: Int {
-        subscriptions.count
-    }
-
-    public init() {}
-
-    public func cancel() {
-        subscriptions.removeAll()
+extension Subscribers.Completion {
+    public var error: Failure? {
+        switch self {
+        case let .failure(error): return error
+        default: return nil
+        }
     }
 }
-
-extension Cancellable {
-    public func store(in cancelBag: CancelBag) {
-        cancelBag.subscriptions.append(self)
-    }
-}
-
-extension Task: @retroactive Cancellable {}
