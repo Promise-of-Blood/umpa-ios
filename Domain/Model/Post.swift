@@ -14,10 +14,10 @@ public struct Post: Identifiable {
     public struct Comment {
         public typealias Id = String
 
-        let id: Id?
-        let writer: User.Id?
-        let created: Date
-        let contents: String
+        public let id: Id?
+        public let writer: User.Id?
+        public let created: Date
+        public let contents: String
 
         public init(id: Id?, writer: User.Id?, created: Date, contents: String) {
             self.id = id
