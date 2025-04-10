@@ -4,12 +4,12 @@ import Combine
 import Domain
 import Foundation
 
-public struct ServerRepository {
+public struct DefaultServerRepository {
     public init() {}
 }
 
-extension ServerRepository: Repository {
-    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.Id) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
+extension DefaultServerRepository: ServerRepository {
+    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         fatalError()
     }
 
@@ -121,7 +121,7 @@ extension ServerRepository: Repository {
         fatalError("fetchServiceDetail() has not been implemented")
     }
 
-    public func postLessonService(_ lessonService: Domain.LessonService) -> AnyPublisher<Void, any Error> {
+    public func postLessonService(_ lessonService: Domain.LessonServiceCreateData) -> AnyPublisher<Void, any Error> {
         fatalError("postLessonService() has not been implemented")
     }
 
@@ -151,7 +151,7 @@ public struct MockServerRepository {
     public init() {}
 }
 
-extension MockServerRepository: Repository {
+extension MockServerRepository: ServerRepository {
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -206,7 +206,7 @@ extension MockServerRepository: Repository {
             .eraseToAnyPublisher()
     }
 
-    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.Id) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
+    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         Just([AcceptanceReview.Comment.sample0, .sample1])
             .setFailureType(to: Error.self)
             .delay(for: .seconds(1), scheduler: RunLoop.main)
@@ -215,16 +215,16 @@ extension MockServerRepository: Repository {
 
     public func fetchMajorList() -> AnyPublisher<[Domain.Major], any Error> {
         Just([
-            "피아노",
-            "작곡",
-            "드럼",
-            "베이스",
-            "기타",
-            "보컬",
-            "전자음악",
-            "관악",
+            Major.piano,
+            Major.composition,
+            Major.drum,
+            Major.bass,
+            Major.guitar,
+            Major.vocal,
+            Major.electronicMusic,
+            Major.windInstrument,
+
         ])
-        .map { $0.map { Major(name: $0) } }
         .setFailureType(to: Error.self)
         .delay(for: .seconds(1), scheduler: RunLoop.main)
         .eraseToAnyPublisher()
@@ -379,7 +379,7 @@ extension MockServerRepository: Repository {
         fatalError()
     }
 
-    public func postLessonService(_ lessonService: Domain.LessonService) -> AnyPublisher<Void, any Error> {
+    public func postLessonService(_ lessonService: Domain.LessonServiceCreateData) -> AnyPublisher<Void, any Error> {
         fatalError()
     }
 

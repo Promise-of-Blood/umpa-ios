@@ -6,7 +6,7 @@ import SwiftUI
 
 extension LessonServiceDetailView {
     struct CurriculumTabContent: View {
-        let curriculumList: [CurriculumItem]
+        let curriculumList: [LessonService.CurriculumItem]
 
         private let cornerRadius: CGFloat = fs(10)
 

@@ -7,14 +7,14 @@ import SwiftUI
 import Utility
 
 protocol CommentInteractor {
-    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id)
+    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.ID)
     func post(_ comment: AcceptanceReview.Comment)
 }
 
 struct DefaultCommentInteractor: CommentInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
-    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.Id) {
+    func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.ID) {
         let cancelBag = CancelBag()
         serverRepository.fetchAcceptanceReviewCommentList(by: id)
             .replaceError(with: [])

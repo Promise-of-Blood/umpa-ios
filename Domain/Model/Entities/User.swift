@@ -12,11 +12,14 @@ public enum Gender {
     case female
 }
 
+/// 학년
 public enum Grade {
     case 사회인
     case 대학생
     case 재수생
-    // TODO: 기획 정해서 수정
+    case high1
+    case high2
+    case high3
 }
 
 public protocol User: Identifiable, Hashable {
@@ -26,7 +29,6 @@ public protocol User: Identifiable, Hashable {
     var userType: UserType { get }
     var major: Major { get }
     var name: String { get }
-    var username: String { get }
     var profileImage: URL? { get }
     var region: Region { get }
     var gender: Gender { get }
@@ -86,7 +88,6 @@ public struct Teacher: User {
     public let userType: UserType
     public let major: Major
     public let name: String
-    public let username: String
     public let profileImage: URL?
     public let region: Region
     public let gender: Gender
@@ -121,7 +122,6 @@ public struct Teacher: User {
         self.userType = userType
         self.major = major
         self.name = name
-        self.username = username
         self.profileImage = profileImage
         self.region = region
         self.gender = gender

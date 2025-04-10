@@ -3,23 +3,19 @@
 import Foundation
 
 public struct AcceptanceReview: Identifiable, Hashable {
-    public typealias Id = String
-
     public struct Comment: Identifiable, Hashable {
-        public typealias Id = String
-
-        public let id: Id?
+        public let id: String?
         public let contents: String
         public let writer: User.Id
 
-        public init(id: Id?, contents: String, writer: User.Id) {
+        public init(id: String?, contents: String, writer: User.Id) {
             self.id = id
             self.contents = contents
             self.writer = writer
         }
     }
 
-    public let id: Id?
+    public let id: String?
     public let createdAt: Date
     public let writer: Student
     public let title: String
@@ -31,7 +27,7 @@ public struct AcceptanceReview: Identifiable, Hashable {
     public let taggedTeachers: [Teacher.Id]
 
     public init(
-        id: Id?,
+        id: String?,
         createdAt: Date,
         writer: Student,
         title: String,

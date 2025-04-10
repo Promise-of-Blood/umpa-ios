@@ -23,12 +23,12 @@ extension Container {
             .scope(.singleton)
     }
 
-    var serverRepository: Factory<Repository> {
+    var serverRepository: Factory<ServerRepository> {
         Factory(self) {
             #if MOCK
             return MockServerRepository()
             #else
-            return ServerRepository()
+            return DefaultServerRepository()
             #endif
         }
         .scope(.singleton)
@@ -44,8 +44,14 @@ extension Container {
     }
 
     var signUpInteractor: Factory<SignUpInteractor> {
-        Factory(self) { DefaultSignUpInteractor() }
-            .scope(.shared)
+        Factory(self) {
+            #if MOCK
+            MockSignUpInteractor()
+            #else
+            DefaultSignUpInteractor()
+            #endif
+        }
+        .scope(.shared)
     }
 
     var reviewInteractor: Factory<ReviewInteractor> {
