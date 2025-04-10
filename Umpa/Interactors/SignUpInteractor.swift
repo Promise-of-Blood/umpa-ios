@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import DataAccess
+import Domain
 import Factory
 import Foundation
 

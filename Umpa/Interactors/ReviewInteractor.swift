@@ -1,47 +1,28 @@
 // Created for Umpa in 2025
 
+import Domain
 import Factory
 import Foundation
-import DataAccess
 import SwiftUI
+import Utility
 
 protocol ReviewInteractor {
-    @MainActor
-    func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws
-
-    @MainActor
-    func save(_ review: Review) async throws
+    func load(_ reviews: Binding<[Review]>, for id: Service.Id)
+    func save(_ review: Review)
 }
 
 struct DefaultReviewInteractor: ReviewInteractor {
-    @Injected(\.umpaApi) private var umpaApi
+    @Injected(\.serverRepository) private var serverRepository
 
-    func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws {
+    func load(_ reviews: Binding<[Review]>, for id: Service.Id) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchReviewList()
+            .replaceError(with: [])
+            .sink(reviews)
+            .store(in: cancelBag)
+    }
+
+    func save(_ review: Review) {
         fatalError()
     }
-
-    func save(_ review: Review) async throws {
-        fatalError()
-    }
 }
-
-enum ReviewInteractorError: Error {
-    case invalidId
-}
-
-#if MOCK
-struct MockReviewInteractor: ReviewInteractor {
-    func load(_ reviews: Binding<[Review]>, for id: Service.Id) async throws {
-        if id.isEmpty {
-            throw ReviewInteractorError.invalidId
-        }
-
-        reviews.wrappedValue = [
-            Review.sample0,
-            Review.sample1,
-        ]
-    }
-
-    func save(_ review: Review) async throws {}
-}
-#endif

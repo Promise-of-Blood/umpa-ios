@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Domain
 import SwiftUI
 
 class SignUpModel: ObservableObject {

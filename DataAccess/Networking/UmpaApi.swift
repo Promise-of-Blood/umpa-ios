@@ -14,7 +14,7 @@ public struct UmpaApi {
         baseUrl = URL(string: baseUrlString)!
     }
 
-    public func fetchMajors() async -> [Major] {
+    public func fetchMajors() async -> [MajorResponse] {
         let path = "majors"
         let url = apiUrl.appending(path: path)
         let urlRequest = URLRequest(url: url)
@@ -29,7 +29,7 @@ public struct UmpaApi {
 //            let allHeaderFields = httpResponse.allHeaderFields
 //            let mimeType = httpResponse.mimeType
 
-            let decoded = try JSONDecoder().decode([Major].self, from: data)
+            let decoded = try JSONDecoder().decode([MajorResponse].self, from: data)
             return decoded
         } catch {
             print(error)
@@ -56,7 +56,7 @@ public struct UmpaApi {
         return []
     }
 
-    public func fetchColleges() async -> [College] {
+    public func fetchColleges() async -> [CollegeResponse] {
         let path = "colleges"
         let url = apiUrl.appending(path: path)
         let urlRequest = URLRequest(url: url)
@@ -65,7 +65,7 @@ public struct UmpaApi {
         do {
             let (data, response) = try await urlSession.data(for: urlRequest)
 
-            let decoded = try JSONDecoder().decode([College].self, from: data)
+            let decoded = try JSONDecoder().decode([CollegeResponse].self, from: data)
             return decoded
         } catch {
             print(error)

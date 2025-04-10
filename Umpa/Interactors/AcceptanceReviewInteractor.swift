@@ -1,68 +1,54 @@
 // Created for Umpa in 2025
 
+import Combine
+import Domain
 import Factory
 import Foundation
-import DataAccess
 import SwiftUI
+import Utility
 
 protocol AcceptanceReviewInteractor {
     /// 모든 합격 후기를 불러옵니다.
-    @MainActor
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>) async throws
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>)
 
     /// `id`에 해당하는 합격 후기를 불러옵니다.
-    @MainActor
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id)
 
     /// Hot 합격 후기 목록을 불러옵니다.
-    @MainActor
-    func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>) async throws
+    func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>)
 
     /// 합격 후기를 작성합니다.
-    @MainActor
-    func post(_ acceptanceReview: AcceptanceReview) async throws
+    func post(_ acceptanceReview: AcceptanceReview)
 }
 
 struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
-    @Injected(\.umpaApi) private var umpaApi
+    @Injected(\.serverRepository) private var serverRepository
 
-    func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>) async throws {
-        fatalError()
+    func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchHotAcceptanceReviewList()
+            .replaceError(with: [])
+            .sink(acceptanceReviews)
+            .store(in: cancelBag)
     }
 
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>) async throws {
-        fatalError()
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchAllAcceptanceReviewList()
+            .replaceError(with: [])
+            .sink(acceptanceReviews)
+            .store(in: cancelBag)
     }
 
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws {
-        fatalError()
+    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) {
+        let cancelBag = CancelBag()
+        serverRepository.fetchAcceptanceReviewList(by: id)
+            .replaceError(with: [])
+            .sink(acceptanceReviews)
+            .store(in: cancelBag)
     }
 
-    func post(_ acceptanceReview: AcceptanceReview) async throws {
+    func post(_ acceptanceReview: AcceptanceReview) {
         fatalError()
     }
 }
-
-#if MOCK
-struct MockAcceptanceReviewInteractor: AcceptanceReviewInteractor {
-    func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>) async throws {
-        acceptanceReviews.wrappedValue = [
-            AcceptanceReview.sample0,
-        ]
-    }
-
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>) async throws {
-        acceptanceReviews.wrappedValue = [
-            AcceptanceReview.sample0,
-        ]
-    }
-
-    func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) async throws {
-        acceptanceReviews.wrappedValue = [
-            AcceptanceReview.sample0,
-        ]
-    }
-
-    func post(_ acceptanceReview: AcceptanceReview) async throws {}
-}
-#endif

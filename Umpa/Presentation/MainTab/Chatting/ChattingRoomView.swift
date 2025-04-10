@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import Components
+import Domain
 import SwiftUI
 
 struct ChattingRoomView: View {

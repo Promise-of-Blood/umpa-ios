@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Domain
 import SwiftUI
 
 struct ServiceListItem: View {
@@ -47,6 +48,8 @@ extension Service {
         case .accompanist: .school
         case .scoreCreation: .sheet
         case .mrCreation: .song
+        @unknown default:
+            .unknown
         }
 
         let price: Int
@@ -67,6 +70,9 @@ extension Service {
                 // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
                 price = 0
             }
+        @unknown default:
+            // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
+            price = 0
         }
 
         return ServiceListItem.Model(
