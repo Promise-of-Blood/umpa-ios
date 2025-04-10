@@ -157,6 +157,30 @@
 			);
 			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
 		};
+		DA376F922DA806FC002FE110 /* Exceptions for "Tests" folder in "UmpaTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				UmpaTests/UmpaTests.swift,
+			);
+			target = 0C9CD42B2D31062D003F4455 /* UmpaTests */;
+		};
+		DA376F932DA806FC002FE110 /* Exceptions for "Tests" folder in "UmpaUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				UmpaUITests/UmpaUITests.swift,
+				UmpaUITests/UmpaUITestsLaunchTests.swift,
+			);
+			target = 0C9CD4352D31062D003F4455 /* UmpaUITests */;
+		};
+		DA376F942DA806FC002FE110 /* Exceptions for "Tests" folder in "Components" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				UmpaTests/UmpaTests.swift,
+				UmpaUITests/UmpaUITests.swift,
+				UmpaUITests/UmpaUITestsLaunchTests.swift,
+			);
+			target = DAB64B5C2D89CA5A00319429 /* Components */;
+		};
 		DA7E352B2D8D5B01001DD6AA /* Exceptions for "DataAccess" folder in "DataAccess" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
@@ -206,14 +230,14 @@
 			path = Umpa;
 			sourceTree = "<group>";
 		};
-		0C9CD42F2D31062D003F4455 /* UmpaTests */ = {
+		DA376F892DA806F4002FE110 /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = UmpaTests;
-			sourceTree = "<group>";
-		};
-		0C9CD4392D31062D003F4455 /* UmpaUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = UmpaUITests;
+			exceptions = (
+				DA376F922DA806FC002FE110 /* Exceptions for "Tests" folder in "UmpaTests" target */,
+				DA376F932DA806FC002FE110 /* Exceptions for "Tests" folder in "UmpaUITests" target */,
+				DA376F942DA806FC002FE110 /* Exceptions for "Tests" folder in "Components" target */,
+			);
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		DA7E35212D8D5B01001DD6AA /* DataAccess */ = {
@@ -318,11 +342,10 @@
 			children = (
 				DAB64B752D89CBB400319429 /* Utility */,
 				DAB64B5E2D89CA5A00319429 /* Components */,
-				0C9CD41E2D31062B003F4455 /* Umpa */,
-				0C9CD42F2D31062D003F4455 /* UmpaTests */,
-				0C9CD4392D31062D003F4455 /* UmpaUITests */,
-				DA7E35212D8D5B01001DD6AA /* DataAccess */,
 				DAB719972DA6363800F32BE2 /* Domain */,
+				DA7E35212D8D5B01001DD6AA /* DataAccess */,
+				0C9CD41E2D31062B003F4455 /* Umpa */,
+				DA376F892DA806F4002FE110 /* Tests */,
 				DAB64B802D89CBBE00319429 /* Frameworks */,
 				0C9CD41D2D31062B003F4455 /* Products */,
 			);
@@ -425,9 +448,6 @@
 			dependencies = (
 				0C9CD42E2D31062D003F4455 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				0C9CD42F2D31062D003F4455 /* UmpaTests */,
-			);
 			name = UmpaTests;
 			packageProductDependencies = (
 			);
@@ -447,9 +467,6 @@
 			);
 			dependencies = (
 				0C9CD4382D31062D003F4455 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				0C9CD4392D31062D003F4455 /* UmpaUITests */,
 			);
 			name = UmpaUITests;
 			packageProductDependencies = (
@@ -498,6 +515,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				DA376F892DA806F4002FE110 /* Tests */,
 				DAB64B5E2D89CA5A00319429 /* Components */,
 			);
 			name = Components;

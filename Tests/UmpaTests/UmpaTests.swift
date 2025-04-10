@@ -10,7 +10,7 @@ import Testing
 @testable import Umpa
 
 struct UmpaTests {
-    let api = UmpaApi.shared
+    let api = UmpaApi()
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.
