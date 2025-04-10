@@ -58,7 +58,6 @@ extension Teacher {
         userType: .teacher,
         major: .piano,
         name: "조성진",
-        username: "미스터초",
         profileImage: URL(string: "https://newsimg.hankookilbo.com/cms/articlerelease/2021/01/28/ce746895-10e3-4226-b841-9512ed90d746.jpg"),
         region: Region(regionalLocalGovernment: "서울", basicLocalGovernment: "연남동"),
         gender: .male,
@@ -85,8 +84,7 @@ extension Teacher {
         id: "teacher1",
         userType: .teacher,
         major: .composition,
-        name: "김현지",
-        username: "면지",
+        name: "기면지",
         profileImage: nil,
         region: Region(regionalLocalGovernment: "서울시", basicLocalGovernment: "연남동"),
         gender: .female,
@@ -257,7 +255,6 @@ extension LessonService {
         scheduleType: .byStudent,
         availableTimes: [],
         lessonStyle: .both,
-
         isAvailableOfflineCounseling: true,
         trialPolicy: .free,
         lessonTargets: [
@@ -371,18 +368,13 @@ extension AcceptanceReview {
         images: [],
         likeCount: 372,
         comments: [
-            AcceptanceReview.Comment(
-                id: "acceptanceReviewCommentId0",
-                contents: "와 정말 축하해요~~~~!!!!",
-                writer: "student0"
-            ),
-            AcceptanceReview.Comment(
-                id: "acceptanceReviewCommentId1",
-                contents: "나도 합격하고 싶다...",
-                writer: "user1"
-            ),
+            .sample0,
+            .sample1,
+            .sample2,
         ],
-        taggedTeachers: ["teacher0"]
+        taggedTeachers: [
+            Teacher.sample0.id,
+        ]
     )
 }
 
@@ -390,20 +382,26 @@ extension AcceptanceReview.Comment {
     public static let sample0 = AcceptanceReview.Comment(
         id: "acceptanceReviewComment0",
         contents: "ㅊㅊㅊㅊㅊㅊㅊㅊㅊ",
-        writer: "student0"
+        writer: Student.sample0.id
     )
 
     public static let sample1 = AcceptanceReview.Comment(
         id: "acceptanceReviewComment1",
         contents: "와 정말 축하해요~~~~!!!!",
-        writer: "student0"
+        writer: Student.sample0.id
+    )
+
+    public static let sample2 = AcceptanceReview.Comment(
+        id: "acceptanceReviewComment2",
+        contents: "나도 합격하고 싶다...",
+        writer: Student.sample0.id
     )
 }
 
 extension MentoringPost {
     public static let sample0 = MentoringPost(
         id: "mentoringPost0",
-        author: "teacher0",
+        author: Teacher.sample0.id,
         created: .now,
         title: "실용음악 입시생이라면 누구나 알고 있는 앨범 10개",
         contents:

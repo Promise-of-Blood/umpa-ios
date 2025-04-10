@@ -107,7 +107,6 @@ public struct Teacher: User {
         userType: UserType,
         major: Major,
         name: String,
-        username: String,
         profileImage: URL?,
         region: Region,
         gender: Gender,
