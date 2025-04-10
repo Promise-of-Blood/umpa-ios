@@ -9,11 +9,18 @@ public extension View {
             get: { _ in
                 error.wrappedValue.error
             },
-            set: { error in
-                if let error {
-                    return .failed(error)
-                } else {
+            set: { newError in
+                // 에러가 발생했을 경우
+                if let newError {
+                    return .failed(newError)
+                }
+                // 에러가 해결됐고, 이전 상태가 .failed였을 경우
+                else if case .failed = error.wrappedValue {
                     return .notRequested
+                }
+                // 다른 상태는 유지
+                else {
+                    return error.wrappedValue
                 }
             }
         )
