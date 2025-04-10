@@ -68,6 +68,7 @@ struct DefaultServiceInteractor: ServiceInteractor {
         let cancelBag = CancelBag()
         serverRepository.fetchAllServiceList()
             .replaceError(with: [])
+            .map { $0.filter { $0.type == serviceType } }
             .sink(services)
             .store(in: cancelBag)
     }
