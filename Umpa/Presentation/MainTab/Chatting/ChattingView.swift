@@ -23,7 +23,7 @@ struct ChattingView: View {
         Button("에러 발생") {
             chattingRoomList = .failed(.fakeError)
         }
-    }
+    }   
 
     @ViewBuilder
     var content: some View {

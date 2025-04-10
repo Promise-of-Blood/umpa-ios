@@ -17,7 +17,6 @@ struct DefaultAppInteractor: AppInteractor {
 
     func loadMajorList() {
         serverRepository.fetchMajorList()
-            .print()
             .replaceError(with: [])
             .flatMap { [appState] in
                 appState.userData.majorList = $0.map(\.name)
