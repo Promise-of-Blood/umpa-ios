@@ -21,8 +21,9 @@ struct DefaultChatInteractor: ChatInteractor {
     @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
 
+    let cancelBag = CancelBag()
+
     func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id) {
-        let cancelBag = CancelBag()
         chattingRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
         serverRepository.fetchChattingRoomList()
             .mapError { _ in

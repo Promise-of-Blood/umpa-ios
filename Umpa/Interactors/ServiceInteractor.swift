@@ -24,8 +24,9 @@ protocol ServiceInteractor {
 struct DefaultServiceInteractor: ServiceInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
+    let cancelBag = CancelBag()
+
     func load(_ lessonServices: Binding<[LessonService]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchLessonServiceList()
             .replaceError(with: [])
             .sink(lessonServices)
@@ -33,7 +34,6 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func load(_ accompanistServices: Binding<[AccompanistService]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchAccompanistServiceList()
             .replaceError(with: [])
             .sink(accompanistServices)
@@ -41,7 +41,6 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func load(_ compositionServices: Binding<[ScoreCreationService]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchScoreCreationServiceList()
             .replaceError(with: [])
             .sink(compositionServices)
@@ -49,7 +48,6 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func load(_ musicCreationServices: Binding<[MusicCreationService]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchMusicCreationServiceList()
             .replaceError(with: [])
             .sink(musicCreationServices)
@@ -57,7 +55,6 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func load(_ services: Binding<[any Service]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchAllServiceList()
             .replaceError(with: [])
             .sink(services)
@@ -65,7 +62,6 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func load(_ services: Binding<[any Service]>, for serviceType: ServiceType) {
-        let cancelBag = CancelBag()
         serverRepository.fetchAllServiceList()
             .replaceError(with: [])
             .map { $0.filter { $0.type == serviceType } }
@@ -74,7 +70,6 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func loadFavoriteServices(_ services: Binding<[any Service]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchFavoriteServiceList()
             .replaceError(with: [])
             .sink(services)

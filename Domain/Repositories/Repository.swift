@@ -2,7 +2,7 @@
 
 import Combine
 
-public protocol ServerRepository {
+public protocol Repository {
     func fetchMajorList() -> AnyPublisher<[Major], Error>
 
     func fetchReview() -> AnyPublisher<Review, Error>

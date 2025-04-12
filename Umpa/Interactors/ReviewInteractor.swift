@@ -14,8 +14,9 @@ protocol ReviewInteractor {
 struct DefaultReviewInteractor: ReviewInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
+    let cancelBag = CancelBag()
+
     func load(_ reviews: Binding<[Review]>, for id: Service.Id) {
-        let cancelBag = CancelBag()
         serverRepository.fetchReviewList()
             .replaceError(with: [])
             .sink(reviews)

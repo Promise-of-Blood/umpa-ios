@@ -23,10 +23,10 @@ extension Container {
             .scope(.singleton)
     }
 
-    var serverRepository: Factory<ServerRepository> {
+    var serverRepository: Factory<Repository> {
         Factory(self) {
             #if DEBUG
-            return StubServerRepository()
+            return StubRepository()
             #else
             return DefaultServerRepository()
             #endif

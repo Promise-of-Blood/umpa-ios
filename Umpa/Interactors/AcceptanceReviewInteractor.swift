@@ -24,8 +24,9 @@ protocol AcceptanceReviewInteractor {
 struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
+    let cancelBag = CancelBag()
+
     func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchHotAcceptanceReviewList()
             .replaceError(with: [])
             .sink(acceptanceReviews)
@@ -33,7 +34,6 @@ struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     }
 
     func load(_ acceptanceReviews: Binding<[AcceptanceReview]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchAllAcceptanceReviewList()
             .replaceError(with: [])
             .sink(acceptanceReviews)
@@ -41,7 +41,6 @@ struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     }
 
     func load(_ acceptanceReviews: Binding<[AcceptanceReview]>, for id: Service.Id) {
-        let cancelBag = CancelBag()
         serverRepository.fetchAcceptanceReviewList(by: id)
             .replaceError(with: [])
             .sink(acceptanceReviews)

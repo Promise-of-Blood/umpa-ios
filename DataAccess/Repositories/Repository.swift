@@ -4,11 +4,11 @@ import Combine
 import Domain
 import Foundation
 
-public struct DefaultServerRepository {
+public struct DefaultRepository {
     public init() {}
 }
 
-extension DefaultServerRepository: ServerRepository {
+extension DefaultRepository: Repository {
     public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         fatalError()
     }
@@ -147,11 +147,11 @@ extension DefaultServerRepository: ServerRepository {
 }
 
 #if DEBUG
-public struct StubServerRepository {
+public struct StubRepository {
     public init() {}
 }
 
-extension StubServerRepository: ServerRepository {
+extension StubRepository: Repository {
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -323,6 +323,7 @@ extension StubServerRepository: ServerRepository {
             MusicCreationService.sample0,
         ])
         .setFailureType(to: Error.self)
+        .delay(for: 0.5, scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
 
