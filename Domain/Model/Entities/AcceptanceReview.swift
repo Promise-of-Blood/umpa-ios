@@ -3,8 +3,12 @@
 import Foundation
 
 public struct AcceptanceReview: Identifiable, Hashable {
+    public typealias Id = String
+
     public struct Comment: Identifiable, Hashable {
-        public let id: String?
+        public typealias Id = String
+
+        public let id: Id?
         public let contents: String
         public let writer: User.Id
 
@@ -15,7 +19,7 @@ public struct AcceptanceReview: Identifiable, Hashable {
         }
     }
 
-    public let id: String?
+    public let id: Id?
     public let createdAt: Date
     public let writer: Student
     public let title: String

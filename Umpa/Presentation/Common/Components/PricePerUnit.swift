@@ -50,7 +50,7 @@ struct PricePerUnit: View {
     PricePerUnit(model: .example4)
 }
 
-#if MOCK
+#if DEBUG
 extension PricePerUnit.Model {
     static let example1 = PricePerUnit.Model(price: 120_000, unitType: .hour)
     static let example2 = PricePerUnit.Model(price: 5_000, unitType: .sheet)

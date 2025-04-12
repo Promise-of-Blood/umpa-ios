@@ -93,16 +93,8 @@ private struct AcceptanceReviewTab: View {
     }
 
     private func loadInitialState() {
-        Task {
-            await withThrowingTaskGroup(of: Void.self) { group in
-                group.addTask {
-                    try await acceptanceReviewInteractor.load($acceptanceReviewList)
-                }
-                group.addTask {
-                    try await acceptanceReviewInteractor.loadHotAcceptanceReviews($hotAcceptanceReviews)
-                }
-            }
-        }
+        acceptanceReviewInteractor.load($acceptanceReviewList)
+        acceptanceReviewInteractor.loadHotAcceptanceReviews($hotAcceptanceReviews)
     }
 }
 
@@ -131,16 +123,8 @@ private struct GeneralBoardTab: View {
     }
 
     private func loadInitialState() {
-        Task {
-            await withThrowingTaskGroup(of: Void.self) { group in
-                group.addTask {
-                    try await generalBoardInteractor.load($postList, filter: .all)
-                }
-                group.addTask {
-                    try await generalBoardInteractor.loadHotPosts($hotPosts)
-                }
-            }
-        }
+        generalBoardInteractor.load($postList, filter: .all)
+        generalBoardInteractor.loadHotPosts($hotPosts)
     }
 }
 
@@ -163,9 +147,7 @@ private struct MentoringTab: View {
     }
 
     private func loadInitialState() {
-        Task {
-            try await mentoringInteractor.load($mentoringPostList)
-        }
+        mentoringInteractor.load($mentoringPostList)
     }
 }
 

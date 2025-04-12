@@ -25,8 +25,8 @@ extension Container {
 
     var serverRepository: Factory<ServerRepository> {
         Factory(self) {
-            #if MOCK
-            return MockServerRepository()
+            #if DEBUG
+            return StubServerRepository()
             #else
             return DefaultServerRepository()
             #endif
@@ -45,7 +45,7 @@ extension Container {
 
     var signUpInteractor: Factory<SignUpInteractor> {
         Factory(self) {
-            #if MOCK
+            #if DEBUG
             MockSignUpInteractor()
             #else
             DefaultSignUpInteractor()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1600"
+   LastUpgradeVersion = "1620"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -36,8 +36,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0C9CD42B2D31062D003F4455"
-               BuildableName = "UmpaTests.xctest"
-               BlueprintName = "UmpaTests"
+               BuildableName = "UmpaUnitTests.xctest"
+               BlueprintName = "UmpaUnitTests"
                ReferencedContainer = "container:Umpa.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -49,6 +49,17 @@
                BlueprintIdentifier = "0C9CD4352D31062D003F4455"
                BuildableName = "UmpaUITests.xctest"
                BlueprintName = "UmpaUITests"
+               ReferencedContainer = "container:Umpa.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DA2C71872DAA307C0031A2BC"
+               BuildableName = "TestTest.xctest"
+               BlueprintName = "TestTest"
                ReferencedContainer = "container:Umpa.xcodeproj">
             </BuildableReference>
          </TestableReference>

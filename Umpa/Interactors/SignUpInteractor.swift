@@ -31,7 +31,7 @@ struct DefaultSignUpInteractor: SignUpInteractor {
     }
 }
 
-#if MOCK
+#if DEBUG
 struct MockSignUpInteractor: SignUpInteractor {
     @Injected(\.appState) private var appState
 

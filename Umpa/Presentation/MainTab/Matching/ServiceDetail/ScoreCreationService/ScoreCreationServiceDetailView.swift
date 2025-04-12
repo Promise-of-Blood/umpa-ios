@@ -41,7 +41,7 @@ struct ScoreCreationServiceDetailView: ServiceDetailView {
                 likeButtonAction: { isLiked in
                     if let serviceId = service.id {
                         Task {
-                            try await serviceInteractor.markAsLike(isLiked, for: serviceId)
+                            serviceInteractor.markAsLike(isLiked, for: serviceId)
                         }
                     }
                 },

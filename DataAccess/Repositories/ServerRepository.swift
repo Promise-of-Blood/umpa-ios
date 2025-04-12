@@ -146,12 +146,12 @@ extension DefaultServerRepository: ServerRepository {
     }
 }
 
-#if MOCK
-public struct MockServerRepository {
+#if DEBUG
+public struct StubServerRepository {
     public init() {}
 }
 
-extension MockServerRepository: ServerRepository {
+extension StubServerRepository: ServerRepository {
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -167,49 +167,42 @@ extension MockServerRepository: ServerRepository {
 
         return Just(favoriteServices)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchLessonServiceList() -> AnyPublisher<[Domain.LessonService], any Error> {
         Just([LessonService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAccompanistServiceList() -> AnyPublisher<[Domain.AccompanistService], any Error> {
         Just([AccompanistService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchScoreCreationServiceList() -> AnyPublisher<[Domain.ScoreCreationService], any Error> {
         Just([ScoreCreationService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMusicCreationServiceList() -> AnyPublisher<[Domain.MusicCreationService], any Error> {
         Just([MusicCreationService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchHotPostList() -> AnyPublisher<[Domain.Post], any Error> {
         Just([Post.sample0, .sample1])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         Just([AcceptanceReview.Comment.sample0, .sample1])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
@@ -226,56 +219,48 @@ extension MockServerRepository: ServerRepository {
 
         ])
         .setFailureType(to: Error.self)
-        .delay(for: .seconds(1), scheduler: RunLoop.main)
         .eraseToAnyPublisher()
     }
 
     public func fetchAcceptanceReviewList(by id: String) -> AnyPublisher<[Domain.AcceptanceReview], any Error> {
         Just([AcceptanceReview.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAllAcceptanceReviewList() -> AnyPublisher<[Domain.AcceptanceReview], any Error> {
         Just([AcceptanceReview.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchHotAcceptanceReviewList() -> AnyPublisher<[Domain.AcceptanceReview], any Error> {
         Just([AcceptanceReview.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchReview() -> AnyPublisher<Domain.Review, any Error> {
         Just(Review.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchReviewList() -> AnyPublisher<[Domain.Review], any Error> {
         Just([Review.sample0, .sample1])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAcceptanceReview() -> AnyPublisher<Domain.AcceptanceReview, any Error> {
         Just(AcceptanceReview.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchPost() -> AnyPublisher<Domain.Post, any Error> {
         Just(Post.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
@@ -303,35 +288,30 @@ extension MockServerRepository: ServerRepository {
 
         return Just(postList)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMentoringPost() -> AnyPublisher<Domain.MentoringPost, any Error> {
         Just(MentoringPost.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMentoringPostList() -> AnyPublisher<[Domain.MentoringPost], any Error> {
         Just([MentoringPost.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchStudentData() -> AnyPublisher<Domain.Student, any Error> {
         Just(Student.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchTeacherData() -> AnyPublisher<Domain.Teacher, any Error> {
         Just(Teacher.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
@@ -343,35 +323,30 @@ extension MockServerRepository: ServerRepository {
             MusicCreationService.sample0,
         ])
         .setFailureType(to: Error.self)
-        .delay(for: .seconds(1), scheduler: RunLoop.main)
         .eraseToAnyPublisher()
     }
 
     public func fetchLessonServiceDetail() -> AnyPublisher<Domain.LessonService, any Error> {
         Just(LessonService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAccompanistServiceDetail() -> AnyPublisher<Domain.AccompanistService, any Error> {
         Just(AccompanistService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchScoreCreationServiceDetail() -> AnyPublisher<Domain.ScoreCreationService, any Error> {
         Just(ScoreCreationService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMusicCreationServiceDetail() -> AnyPublisher<Domain.MusicCreationService, any Error> {
         Just(MusicCreationService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
@@ -398,7 +373,6 @@ extension MockServerRepository: ServerRepository {
     public func fetchChattingRoomList() -> AnyPublisher<[Domain.ChattingRoom], any Error> {
         Just([ChattingRoom.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 

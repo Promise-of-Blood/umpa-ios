@@ -54,7 +54,7 @@ struct LessonInfo: View {
         .border(Color.black)
 }
 
-#if MOCK
+#if DEBUG
 extension LessonInfo.Model {
     static let example0 = LessonInfo.Model(
         teacher: "으음파 선생님",

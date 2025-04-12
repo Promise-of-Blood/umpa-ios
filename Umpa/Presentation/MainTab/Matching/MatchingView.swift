@@ -18,7 +18,7 @@ struct MatchingView: View {
         }
         .onAppear {
             Task {
-                try await serviceInteractor.load(
+                serviceInteractor.load(
                     $serviceList,
                     for: appState.userData.teacherFinding.selectedService
                 )

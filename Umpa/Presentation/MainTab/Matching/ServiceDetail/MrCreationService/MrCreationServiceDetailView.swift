@@ -40,9 +40,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
                 isLiked: false, // TODO: isLiked 를 받아와야 함
                 likeButtonAction: { isLiked in
                     if let serviceId = service.id {
-                        Task {
-                            try await serviceInteractor.markAsLike(isLiked, for: serviceId)
-                        }
+                        serviceInteractor.markAsLike(isLiked, for: serviceId)
                     }
                 },
                 primaryButtonAction: {
