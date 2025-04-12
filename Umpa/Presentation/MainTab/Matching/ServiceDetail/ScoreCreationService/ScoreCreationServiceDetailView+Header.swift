@@ -30,7 +30,7 @@ extension ScoreCreationServiceDetailView {
                             .font(.pretendardRegular(size: fs(12)))
                             .foregroundStyle(UmpaColor.mediumGray)
                         spacingDot
-                        Rating(service.rating)
+                        StarRating(service.rating)
                     }
 
                     HStack(spacing: fs(10)) {

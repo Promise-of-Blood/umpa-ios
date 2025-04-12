@@ -39,7 +39,7 @@ extension LessonServiceDetailView {
                             .font(.pretendardRegular(size: fs(12)))
                             .foregroundStyle(UmpaColor.mediumGray)
                         spacingDot
-                        Rating(service.rating)
+                        StarRating(service.rating)
                         spacingDot
                         Text(service.author.region.description)
                             .font(.pretendardRegular(size: fs(12)))

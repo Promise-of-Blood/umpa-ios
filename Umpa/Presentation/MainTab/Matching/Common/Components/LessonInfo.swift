@@ -21,7 +21,7 @@ struct LessonInfo: View {
                 .lineLimit(1)
                 .layoutPriority(2)
             spacingDot
-            Rating(model.rating)
+            StarRating(model.rating)
                 .layoutPriority(1)
             spacingDot
             Text(model.region)
