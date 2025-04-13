@@ -13,8 +13,9 @@ protocol MentoringInteractor {
 struct DefaultMentoringInteractor: MentoringInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
+    let cancelBag = CancelBag()
+
     func load(_ mentoringPosts: Binding<[MentoringPost]>) {
-        let cancelBag = CancelBag()
         serverRepository.fetchMentoringPostList()
             .replaceError(with: [])
             .sink(mentoringPosts)

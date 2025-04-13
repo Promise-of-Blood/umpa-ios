@@ -16,7 +16,7 @@ public struct LessonService: SinglePriceService {
     public let badges: [Badge]
     public let price: Int
     public let scheduleType: ScheduleType
-    public let availableTimes: [TimeByDay]
+    public let availableTimes: [TimesByWeekday<HMTime>]
     public let lessonStyle: LessonStyle
     public let isAvailableOfflineCounseling: Bool
     public let trialPolicy: TrialPolicy
@@ -39,7 +39,7 @@ public struct LessonService: SinglePriceService {
         badges: [Badge],
         price: Int,
         scheduleType: ScheduleType,
-        availableTimes: [TimeByDay],
+        availableTimes: [TimesByWeekday<HMTime>],
         lessonStyle: LessonStyle,
         isAvailableOfflineCounseling: Bool,
         trialPolicy: TrialPolicy,
@@ -72,72 +72,33 @@ public struct LessonService: SinglePriceService {
     }
 }
 
-public struct Badge: Hashable {
-    public let title: String
-
-    public init(title: String) {
-        self.title = title
+extension LessonService {
+    public enum LessonStyle {
+        case online
+        case offline
+        case both
     }
-}
 
-public enum ScheduleType {
-    case byStudent
-    case fixed
-}
+    public struct TargetStudent: Hashable {
+        public let description: String
 
-public struct TimeByDay: Hashable {
-    public let day: WeekDay
-    public let startTime: HMTime
-    public let endTime: HMTime
-
-    public init(day: WeekDay, startTime: HMTime, endTime: HMTime) {
-        self.day = day
-        self.startTime = startTime
-        self.endTime = endTime
+        public init(description: String) {
+            self.description = description
+        }
     }
-}
 
-public struct HMTime: Hashable {
-    public let hour: Int
-    public let minute: Int
+    public struct CurriculumItem: Hashable {
+        public let title: String
+        public let description: String
 
-    public init(hour: Int, minute: Int) {
-        self.hour = hour
-        self.minute = minute
+        public init(title: String, description: String) {
+            self.title = title
+            self.description = description
+        }
     }
-}
 
-public enum LessonStyle {
-    case online
-    case offline
-    case both
-}
-
-public enum TrialPolicy {
-    case paid
-    case free
-    case notAvailable
-}
-
-public struct TargetStudent: Hashable {
-    public let description: String
-
-    public init(description: String) {
-        self.description = description
+    public enum LessonStatus {
+        case recruiting
+        case closed
     }
-}
-
-public struct CurriculumItem: Hashable {
-    public let title: String
-    public let description: String
-
-    public init(title: String, description: String) {
-        self.title = title
-        self.description = description
-    }
-}
-
-public enum LessonStatus {
-    case recruiting
-    case closed
 }

@@ -4,12 +4,16 @@ import Combine
 import Domain
 import Foundation
 
-public struct ServerRepository {
+public struct DefaultServerRepository {
     public init() {}
 }
 
-extension ServerRepository: Repository {
-    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.Id) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
+extension DefaultServerRepository: ServerRepository {
+    public func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[Domain.LessonService], any Error> {
+        fatalError()
+    }
+
+    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         fatalError()
     }
 
@@ -97,7 +101,7 @@ extension ServerRepository: Repository {
         fatalError("fetchTeacherData() has not been implemented")
     }
 
-    public func fetchAllServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         fatalError("fetchAllServiceList() has not been implemented")
     }
 
@@ -121,7 +125,7 @@ extension ServerRepository: Repository {
         fatalError("fetchServiceDetail() has not been implemented")
     }
 
-    public func postLessonService(_ lessonService: Domain.LessonService) -> AnyPublisher<Void, any Error> {
+    public func postLessonService(_ lessonService: Domain.LessonServiceCreateData) -> AnyPublisher<Void, any Error> {
         fatalError("postLessonService() has not been implemented")
     }
 
@@ -147,11 +151,11 @@ extension ServerRepository: Repository {
 }
 
 #if MOCK
-public struct MockServerRepository {
+public struct StubServerRepository {
     public init() {}
 }
 
-extension MockServerRepository: Repository {
+extension StubServerRepository: ServerRepository {
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -167,115 +171,102 @@ extension MockServerRepository: Repository {
 
         return Just(favoriteServices)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchLessonServiceList() -> AnyPublisher<[Domain.LessonService], any Error> {
-        Just([LessonService.sample0])
-            .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
-            .eraseToAnyPublisher()
+        Just([
+            LessonService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
     }
 
     public func fetchAccompanistServiceList() -> AnyPublisher<[Domain.AccompanistService], any Error> {
         Just([AccompanistService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchScoreCreationServiceList() -> AnyPublisher<[Domain.ScoreCreationService], any Error> {
         Just([ScoreCreationService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMusicCreationServiceList() -> AnyPublisher<[Domain.MusicCreationService], any Error> {
         Just([MusicCreationService.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchHotPostList() -> AnyPublisher<[Domain.Post], any Error> {
         Just([Post.sample0, .sample1])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
-    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.Id) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
+    public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         Just([AcceptanceReview.Comment.sample0, .sample1])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMajorList() -> AnyPublisher<[Domain.Major], any Error> {
         Just([
-            "피아노",
-            "작곡",
-            "드럼",
-            "베이스",
-            "기타",
-            "보컬",
-            "전자음악",
-            "관악",
+            Major.piano,
+            Major.composition,
+            Major.drum,
+            Major.bass,
+            Major.guitar,
+            Major.vocal,
+            Major.electronicMusic,
+            Major.windInstrument,
+
         ])
-        .map { $0.map { Major(name: $0) } }
         .setFailureType(to: Error.self)
-        .delay(for: .seconds(1), scheduler: RunLoop.main)
         .eraseToAnyPublisher()
     }
 
     public func fetchAcceptanceReviewList(by id: String) -> AnyPublisher<[Domain.AcceptanceReview], any Error> {
         Just([AcceptanceReview.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAllAcceptanceReviewList() -> AnyPublisher<[Domain.AcceptanceReview], any Error> {
         Just([AcceptanceReview.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchHotAcceptanceReviewList() -> AnyPublisher<[Domain.AcceptanceReview], any Error> {
         Just([AcceptanceReview.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchReview() -> AnyPublisher<Domain.Review, any Error> {
         Just(Review.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchReviewList() -> AnyPublisher<[Domain.Review], any Error> {
         Just([Review.sample0, .sample1])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAcceptanceReview() -> AnyPublisher<Domain.AcceptanceReview, any Error> {
         Just(AcceptanceReview.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchPost() -> AnyPublisher<Domain.Post, any Error> {
         Just(Post.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
@@ -303,39 +294,34 @@ extension MockServerRepository: Repository {
 
         return Just(postList)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMentoringPost() -> AnyPublisher<Domain.MentoringPost, any Error> {
         Just(MentoringPost.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMentoringPostList() -> AnyPublisher<[Domain.MentoringPost], any Error> {
         Just([MentoringPost.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchStudentData() -> AnyPublisher<Domain.Student, any Error> {
         Just(Student.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchTeacherData() -> AnyPublisher<Domain.Teacher, any Error> {
         Just(Teacher.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
-    public func fetchAllServiceList() -> AnyPublisher<[any Service], any Error> {
+    public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Service], any Error> {
         Just<[any Service]>([
             LessonService.sample0,
             AccompanistService.sample0,
@@ -343,35 +329,30 @@ extension MockServerRepository: Repository {
             MusicCreationService.sample0,
         ])
         .setFailureType(to: Error.self)
-        .delay(for: .seconds(1), scheduler: RunLoop.main)
         .eraseToAnyPublisher()
     }
 
     public func fetchLessonServiceDetail() -> AnyPublisher<Domain.LessonService, any Error> {
         Just(LessonService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchAccompanistServiceDetail() -> AnyPublisher<Domain.AccompanistService, any Error> {
         Just(AccompanistService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchScoreCreationServiceDetail() -> AnyPublisher<Domain.ScoreCreationService, any Error> {
         Just(ScoreCreationService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func fetchMusicCreationServiceDetail() -> AnyPublisher<Domain.MusicCreationService, any Error> {
         Just(MusicCreationService.sample0)
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
@@ -379,7 +360,7 @@ extension MockServerRepository: Repository {
         fatalError()
     }
 
-    public func postLessonService(_ lessonService: Domain.LessonService) -> AnyPublisher<Void, any Error> {
+    public func postLessonService(_ lessonService: Domain.LessonServiceCreateData) -> AnyPublisher<Void, any Error> {
         fatalError()
     }
 
@@ -398,12 +379,19 @@ extension MockServerRepository: Repository {
     public func fetchChattingRoomList() -> AnyPublisher<[Domain.ChattingRoom], any Error> {
         Just([ChattingRoom.sample0])
             .setFailureType(to: Error.self)
-            .delay(for: .seconds(1), scheduler: RunLoop.main)
             .eraseToAnyPublisher()
     }
 
     public func postChatMessage(_ message: Domain.ChatMessage) -> AnyPublisher<Void, any Error> {
         fatalError()
+    }
+
+    public func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[Domain.LessonService], any Error> {
+        Just([
+            LessonService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
     }
 }
 #endif

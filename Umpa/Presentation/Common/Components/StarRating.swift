@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct Rating: View {
+struct StarRating: View {
     let rating: Double
 
     var ratingString: String {
@@ -25,12 +25,12 @@ struct Rating: View {
 }
 
 #Preview {
-    Rating(5.0)
+    StarRating(5.0)
         .padding()
-    Rating(0)
+    StarRating(0)
         .padding()
-    Rating(1.8)
+    StarRating(1.8)
         .padding()
-    Rating(2.7)
+    StarRating(2.7)
         .padding()
 }

@@ -21,7 +21,7 @@ extension AccompanistService {
         price: 160_000,
         chargeDescription: nil,
         instruments: [
-            Domain.Major(name: "피아노"),
+            .piano,
         ],
         ensemblePolicy: EnsemblePolicy(freeCount: 2, price: 20_000),
         isServingMusicRecorded: true,
@@ -33,7 +33,7 @@ extension Student {
     public static let sample0 = Student(
         id: "student0",
         userType: .student,
-        major: Major(name: "피아노"),
+        major: .piano,
         name: "윤재원",
         username: "재운피터팬",
         profileImage: nil,
@@ -56,9 +56,8 @@ extension Teacher {
     public static let sample0 = Teacher(
         id: "teacher0",
         userType: .teacher,
-        major: Major(name: "피아노"),
+        major: .piano,
         name: "조성진",
-        username: "미스터초",
         profileImage: URL(string: "https://newsimg.hankookilbo.com/cms/articlerelease/2021/01/28/ce746895-10e3-4226-b841-9512ed90d746.jpg"),
         region: Region(regionalLocalGovernment: "서울", basicLocalGovernment: "연남동"),
         gender: .male,
@@ -84,9 +83,8 @@ extension Teacher {
     public static let sample1 = Teacher(
         id: "teacher1",
         userType: .teacher,
-        major: Major(name: "composition"),
-        name: "김현지",
-        username: "면지",
+        major: .composition,
+        name: "기면지",
         profileImage: nil,
         region: Region(regionalLocalGovernment: "서울시", basicLocalGovernment: "연남동"),
         gender: .female,
@@ -248,7 +246,7 @@ extension LessonService {
         음악에서 형식은 왜 중요하고 꼭 쓰지않아도 되는것인가
         제가 연구하고 가진 정보와 지식들을 모두 알려드립니다
         """,
-        subject: Major(name: "piano"),
+        subject: .piano,
         badges: [
             Badge(title: "학력 인증"),
             Badge(title: "시범 레슨 운영"),
@@ -257,7 +255,6 @@ extension LessonService {
         scheduleType: .byStudent,
         availableTimes: [],
         lessonStyle: .both,
-
         isAvailableOfflineCounseling: true,
         trialPolicy: .free,
         lessonTargets: [
@@ -367,22 +364,17 @@ extension AcceptanceReview {
         writer: .sample0,
         title: "서울예대 작곡 합격 후기",
         college: College(name: "서울예술대학교"),
-        major: Major(name: "피아노"),
+        major: .piano,
         images: [],
         likeCount: 372,
         comments: [
-            AcceptanceReview.Comment(
-                id: "acceptanceReviewCommentId0",
-                contents: "와 정말 축하해요~~~~!!!!",
-                writer: "student0"
-            ),
-            AcceptanceReview.Comment(
-                id: "acceptanceReviewCommentId1",
-                contents: "나도 합격하고 싶다...",
-                writer: "user1"
-            ),
+            .sample0,
+            .sample1,
+            .sample2,
         ],
-        taggedTeachers: ["teacher0"]
+        taggedTeachers: [
+            Teacher.sample0.id,
+        ]
     )
 }
 
@@ -390,20 +382,26 @@ extension AcceptanceReview.Comment {
     public static let sample0 = AcceptanceReview.Comment(
         id: "acceptanceReviewComment0",
         contents: "ㅊㅊㅊㅊㅊㅊㅊㅊㅊ",
-        writer: "student0"
+        writer: Student.sample0.id
     )
 
     public static let sample1 = AcceptanceReview.Comment(
         id: "acceptanceReviewComment1",
         contents: "와 정말 축하해요~~~~!!!!",
-        writer: "student0"
+        writer: Student.sample0.id
+    )
+
+    public static let sample2 = AcceptanceReview.Comment(
+        id: "acceptanceReviewComment2",
+        contents: "나도 합격하고 싶다...",
+        writer: Student.sample0.id
     )
 }
 
 extension MentoringPost {
     public static let sample0 = MentoringPost(
         id: "mentoringPost0",
-        author: "teacher0",
+        author: Teacher.sample0.id,
         created: .now,
         title: "실용음악 입시생이라면 누구나 알고 있는 앨범 10개",
         contents:

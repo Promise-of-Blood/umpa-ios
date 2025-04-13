@@ -11,7 +11,6 @@ protocol SignUpInteractor {
 
 struct DefaultSignUpInteractor: SignUpInteractor {
     @Injected(\.appState) private var appState
-    @Injected(\.umpaApi) private var umpaApi
 
     // TODO: 네트워크 요청 에러 시 처리 로직 추가 (Ex: Binding<Error?> 사용하여 Finish 화면의 error state 업데이트)
     func signUp(with model: SignUpModel) async {

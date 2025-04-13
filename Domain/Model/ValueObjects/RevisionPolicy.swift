@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// 수정 정책
 public struct RevisionPolicy: Hashable {
     public let freeCount: Int
     public let price: Int

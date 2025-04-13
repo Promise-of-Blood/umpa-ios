@@ -54,26 +54,30 @@ public struct AccompanistService: SinglePriceService {
     }
 }
 
-public struct EnsemblePolicy: Hashable {
-    public let freeCount: Int
-    public let price: Int
+extension AccompanistService {
+    /// 합주 정책
+    public struct EnsemblePolicy: Hashable {
+        public let freeCount: Int
+        public let price: Int
 
-    public init(freeCount: Int, price: Int) {
-        self.freeCount = freeCount
-        self.price = price
-    }
-}
-
-public struct EnsemblePlace: OptionSet, Hashable {
-    public let rawValue: UInt8
-
-    public init(rawValue: UInt8) {
-        self.rawValue = rawValue
+        public init(freeCount: Int, price: Int) {
+            self.freeCount = freeCount
+            self.price = price
+        }
     }
 
-    public static let privateStudio = EnsemblePlace(rawValue: 1 << 0)
-    public static let rentalStudio = EnsemblePlace(rawValue: 1 << 1)
-    public static let studentPreference = EnsemblePlace(rawValue: 1 << 2)
+    /// 합주 장소
+    public struct EnsemblePlace: OptionSet, Hashable {
+        public let rawValue: UInt8
 
-    public static let all: EnsemblePlace = [.privateStudio, .rentalStudio, .studentPreference]
+        public init(rawValue: UInt8) {
+            self.rawValue = rawValue
+        }
+
+        public static let privateStudio = EnsemblePlace(rawValue: 1 << 0)
+        public static let rentalStudio = EnsemblePlace(rawValue: 1 << 1)
+        public static let studentPreference = EnsemblePlace(rawValue: 1 << 2)
+
+        public static let all: EnsemblePlace = [.privateStudio, .rentalStudio, .studentPreference]
+    }
 }

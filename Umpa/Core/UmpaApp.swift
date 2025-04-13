@@ -35,13 +35,6 @@ struct UmpaApp: App {
 }
 
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        #if MOCK
-        Container.shared.signUpInteractor.register { MockSignUpInteractor() }
-        #endif
-        return true
-    }
-
     func application(
         _ application: UIApplication,
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data

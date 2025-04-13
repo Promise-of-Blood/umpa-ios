@@ -7,8 +7,13 @@ import SwiftUI
 import Utility
 
 protocol ChatInteractor {
+    /// 채팅방 목록을 로드합니다.
     func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id)
+
+    /// 주어진 `service`에 대해 처음 채팅을 시작합니다.
     func startChatting(with service: any Service)
+
+    /// 주어진 `id`의 채팅방으로 이동합니다.
     func enterChattingRoom(with id: ChattingRoom.Id)
 }
 
@@ -16,8 +21,9 @@ struct DefaultChatInteractor: ChatInteractor {
     @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
 
+    let cancelBag = CancelBag()
+
     func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id) {
-        let cancelBag = CancelBag()
         chattingRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
         serverRepository.fetchChattingRoomList()
             .mapError { _ in

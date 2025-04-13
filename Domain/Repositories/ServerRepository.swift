@@ -2,7 +2,7 @@
 
 import Combine
 
-public protocol Repository {
+public protocol ServerRepository {
     func fetchMajorList() -> AnyPublisher<[Major], Error>
 
     func fetchReview() -> AnyPublisher<Review, Error>
@@ -13,7 +13,7 @@ public protocol Repository {
     func fetchAllAcceptanceReviewList() -> AnyPublisher<[AcceptanceReview], Error>
     func fetchHotAcceptanceReviewList() -> AnyPublisher<[AcceptanceReview], Error>
 
-    func fetchAcceptanceReviewCommentList(by id: AcceptanceReview.Id) -> AnyPublisher<[AcceptanceReview.Comment], Error>
+    func fetchAcceptanceReviewCommentList(by id: AcceptanceReview.ID) -> AnyPublisher<[AcceptanceReview.Comment], Error>
 
     func fetchPost() -> AnyPublisher<Post, Error>
     func fetchPostList(with filter: Post.Filter) -> AnyPublisher<[Post], Error>
@@ -25,7 +25,12 @@ public protocol Repository {
     func fetchStudentData() -> AnyPublisher<Student, Error>
     func fetchTeacherData() -> AnyPublisher<Teacher, Error>
 
-    func fetchAllServiceList() -> AnyPublisher<[any Service], Error>
+    func fetchAllLessonAndServiceList() -> AnyPublisher<[any Service], Error>
+
+    func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[LessonService], Error>
+    func fetchMyServiceList(with: AccessToken) -> AnyPublisher<[any Service], Error>
+
+    /// 모든 레슨 목록을 가져옵니다.
     func fetchLessonServiceList() -> AnyPublisher<[LessonService], Error>
     func fetchAccompanistServiceList() -> AnyPublisher<[AccompanistService], Error>
     func fetchScoreCreationServiceList() -> AnyPublisher<[ScoreCreationService], Error>
@@ -39,7 +44,7 @@ public protocol Repository {
 
     func fetchFavoriteServiceList() -> AnyPublisher<[any Service], Error>
 
-    func postLessonService(_ lessonService: LessonService) -> AnyPublisher<Void, Error>
+    func postLessonService(_ lessonService: LessonServiceCreateData) -> AnyPublisher<Void, Error>
     func postAccompanistService(_ accompanistService: AccompanistService) -> AnyPublisher<Void, Error>
     func postCompositionService(_ compositionService: ScoreCreationService) -> AnyPublisher<Void, Error>
     func postMusicCreationService(_ musicCreationService: MusicCreationService) -> AnyPublisher<Void, Error>

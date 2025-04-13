@@ -2,6 +2,7 @@
 
 import Foundation
 
+/// 소요 기간
 public struct Turnaround: Hashable {
     public let minDate: UnitDate
     public let maxDate: UnitDate

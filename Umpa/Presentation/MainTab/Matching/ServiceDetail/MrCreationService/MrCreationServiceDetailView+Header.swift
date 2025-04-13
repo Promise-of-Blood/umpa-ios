@@ -30,7 +30,7 @@ extension MrCreationServiceDetailView {
                             .font(.pretendardRegular(size: fs(12)))
                             .foregroundStyle(UmpaColor.mediumGray)
                         spacingDot
-                        Rating(service.rating)
+                        StarRating(service.rating)
                     }
 
                     ServiceDetailPricePerUnit(model: .init(price: service.price, unitType: .song))

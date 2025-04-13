@@ -16,29 +16,29 @@ struct ChattingView: View {
     }
 
     var body: some View {
-        content
-            .errorAlert($chattingRoomList)
-            .onAppear(perform: reloadChattingRoomList)
-
-        Button("에러 발생") {
-            chattingRoomList = .failed(.fakeError)
+        NavigationStack(path: $appState.routing.chattingNavigationPath) {
+            content
         }
-    }   
+        .errorAlert($chattingRoomList)
+        .onAppear(perform: reloadChattingRoomList)
+    }
 
     @ViewBuilder
     var content: some View {
-        NavigationStack(path: $appState.routing.chattingNavigationPath) {
-            switch chattingRoomList {
-            case .notRequested:
-                Text("")
-                    .onAppear(perform: reloadChattingRoomList)
-            case .isLoading:
-                ProgressView()
-            case .loaded(let chattingRoomList):
-                loadedView(chattingRoomList)
-            case .failed:
-                loadedView([])
-            }
+        switch chattingRoomList {
+        case .notRequested:
+            Text("")
+                .onAppear(perform: reloadChattingRoomList)
+        case .isLoading:
+            ProgressView()
+        case .loaded(let chattingRoomList):
+            loadedView(chattingRoomList)
+        case .failed:
+            loadedView([])
+        }
+
+        Button("에러 발생") {
+            chattingRoomList = .failed(.fakeError)
         }
     }
 
