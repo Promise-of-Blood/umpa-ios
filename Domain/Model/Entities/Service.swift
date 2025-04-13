@@ -5,7 +5,7 @@ import Foundation
 public protocol Service: Identifiable, Hashable {
     typealias Id = String
 
-    var id: Id? { get }
+    var id: Id { get }
     var type: ServiceType { get }
     var title: String { get }
     var thumbnail: URL? { get }
@@ -37,7 +37,7 @@ public struct AnyService: Service {
     }
 
     // Service 프로퍼티들 (내부 박스로 전달)
-    public var id: String? { box.id }
+    public var id: String { box.id }
     public var type: ServiceType { box.type }
     public var title: String { box.title }
     public var thumbnail: URL? { box.thumbnail }
@@ -62,7 +62,7 @@ public struct AnyService: Service {
 
 /// 내부 추상 클래스로서, 실제 Service 인스턴스에 대한 호출을 추상화합니다.
 private class _AbstractServiceBox: Service {
-    var id: String? { fatalError("Must override") }
+    var id: String { fatalError("Must override") }
     var type: ServiceType { fatalError("Must override") }
     var title: String { fatalError("Must override") }
     var thumbnail: URL? { fatalError("Must override") }
@@ -93,7 +93,7 @@ private final class _ServiceBox<Base: Service>: _AbstractServiceBox {
         self.base = base
     }
 
-    override var id: String? { base.id }
+    override var id: String { base.id }
     override var type: ServiceType { base.type }
     override var title: String { base.title }
     override var thumbnail: URL? { base.thumbnail }

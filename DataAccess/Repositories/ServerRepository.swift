@@ -9,6 +9,14 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
+    public func postReview(_ review: Domain.ReviewCreateData) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
+    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+        fatalError()
+    }
+
     public func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[Domain.LessonService], any Error> {
         fatalError()
     }
@@ -156,6 +164,20 @@ public struct StubServerRepository {
 }
 
 extension StubServerRepository: ServerRepository {
+    public func postReview(_ review: Domain.ReviewCreateData) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
+    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+        Just([
+            AccompanistService.sample0,
+            ScoreCreationService.sample0,
+            MusicCreationService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
+    }
+
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -165,8 +187,7 @@ extension StubServerRepository: ServerRepository {
         ]
 
         let favoriteServices = allServices.filter { service in
-            guard let serviceId = service.id else { return false }
-            return Student.sample0.favoriteServices.contains(serviceId)
+            Student.sample0.favoriteServices.contains(service.id)
         }
 
         return Just(favoriteServices)

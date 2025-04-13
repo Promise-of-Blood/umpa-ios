@@ -79,10 +79,13 @@ enum ChattingViewError: LocalizedError {
     }
 }
 
+#if MOCK
+
 #Preview {
     @Injected(\.appState) var appState
     appState.userData.currenteUser = Student.sample0
 
-    return
-        ChattingView()
+    return ChattingView()
 }
+
+#endif

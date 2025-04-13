@@ -8,6 +8,8 @@ public protocol ServerRepository {
     func fetchReview() -> AnyPublisher<Review, Error>
     func fetchReviewList() -> AnyPublisher<[Review], Error>
 
+    func postReview(_ review: ReviewCreateData) -> AnyPublisher<Void, Error>
+
     func fetchAcceptanceReview() -> AnyPublisher<AcceptanceReview, Error>
     func fetchAcceptanceReviewList(by id: String) -> AnyPublisher<[AcceptanceReview], Error>
     func fetchAllAcceptanceReviewList() -> AnyPublisher<[AcceptanceReview], Error>

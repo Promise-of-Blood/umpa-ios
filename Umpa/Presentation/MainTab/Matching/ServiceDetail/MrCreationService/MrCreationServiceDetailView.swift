@@ -39,9 +39,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
                 height: bottomActionBarHeight,
                 isLiked: false, // TODO: isLiked 를 받아와야 함
                 likeButtonAction: { isLiked in
-                    if let serviceId = service.id {
-                        serviceInteractor.markAsLike(isLiked, for: serviceId)
-                    }
+                    serviceInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
                     chatInteractor.startChatting(with: service)
@@ -89,6 +87,8 @@ extension MrCreationServiceDetailView {
 
 #Preview {
     NavigationStack {
+        #if MOCK
         MrCreationServiceDetailView(service: .sample0)
+        #endif
     }
 }

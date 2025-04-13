@@ -24,5 +24,7 @@ struct ChattingRoomView: View {
 }
 
 #Preview {
-    ChattingRoomView(chattingRoom: .sample0)
+    #if MOCK
+        ChattingRoomView(chattingRoom: .sample0)
+    #endif
 }

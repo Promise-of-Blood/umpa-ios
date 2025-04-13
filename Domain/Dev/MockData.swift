@@ -186,7 +186,7 @@ extension Review {
     public static let sample0 = Review(
         id: "review0",
         createdAt: .now,
-        rating: 5.0,
+        rating: Rating(amount: 5.0),
         writer: .sample0,
         content:
         """
@@ -200,7 +200,7 @@ extension Review {
     public static let sample1 = Review(
         id: "review1",
         createdAt: .now,
-        rating: 4.5,
+        rating: Rating(amount: 4.5),
         writer: .sample0,
         content:
         """

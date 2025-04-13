@@ -84,8 +84,10 @@ struct TeacherOverviewTabContent: View {
     }
 }
 
+#if MOCK
 #Preview {
     TeacherOverviewTabContent(teacher: .sample0)
         .padding()
         .background(.gray)
 }
+#endif

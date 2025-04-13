@@ -14,5 +14,7 @@ extension MrCreationServiceDetailView {
 }
 
 #Preview {
+    #if MOCK
     MrCreationServiceDetailView.ServiceOverviewTabContent(service: .sample0)
+    #endif
 }

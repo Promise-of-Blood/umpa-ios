@@ -51,6 +51,7 @@ struct ListContent: View {
     }
 }
 
+#if MOCK
 #Preview(traits: .sizeThatFitsLayout) {
     ListContent(model: .sample1)
         .frame(width: 300)
@@ -70,3 +71,4 @@ struct ListContent: View {
     }
     .padding()
 }
+#endif

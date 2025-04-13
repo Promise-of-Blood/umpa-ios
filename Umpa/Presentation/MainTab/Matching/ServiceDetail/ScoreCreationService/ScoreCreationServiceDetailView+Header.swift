@@ -88,6 +88,7 @@ extension ScoreCreationServiceDetailView {
     }
 }
 
+#if MOCK
 #Preview {
     @Previewable @State var tabSelection = 1
 
@@ -95,3 +96,4 @@ extension ScoreCreationServiceDetailView {
         .padding()
         .background(.black)
 }
+#endif

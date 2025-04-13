@@ -36,24 +36,16 @@ struct DefaultServiceInteractor {
 
 extension DefaultServiceInteractor: ServiceInteractor {
     func loadMyLessonList(_ lessonList: Binding<[Domain.LessonService]>) {
-        guard let accessToken = keychainRepository.getAccessToken() else {
-            lessonList.wrappedValue = []
-            return
-        }
-
-        serverRepository.fetchMyLessonList(with: accessToken)
+        keychainRepository.getAccessToken()
+            .flatMap(serverRepository.fetchMyLessonList(with:))
             .replaceError(with: [])
             .sink(lessonList)
             .store(in: cancelBag)
     }
 
     func loadMyServiceList(_ serviceList: Binding<[any Domain.Service]>) {
-        guard let accessToken = keychainRepository.getAccessToken() else {
-            serviceList.wrappedValue = []
-            return
-        }
-
-        serverRepository.fetchMyServiceList(with: accessToken)
+        keychainRepository.getAccessToken()
+            .flatMap(serverRepository.fetchMyServiceList(with:))
             .replaceError(with: [])
             .sink(serviceList)
             .store(in: cancelBag)
@@ -126,6 +118,13 @@ extension DefaultServiceInteractor: ServiceInteractor {
     }
 
     func markAsLike(_ isLiked: Bool, for id: Service.Id) {
-        fatalError()
+        print("Like \(isLiked) for \(id)")
+//        likeSubject
+//            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
+//            .print()
+//            .sink { isLiked in
+//
+//            }
+//            .store(in: cancelBag)
     }
 }

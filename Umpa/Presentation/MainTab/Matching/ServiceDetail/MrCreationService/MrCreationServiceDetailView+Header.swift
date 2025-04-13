@@ -80,7 +80,9 @@ extension MrCreationServiceDetailView {
 #Preview {
     @Previewable @State var tabSelection = 1
 
+    #if MOCK
     MrCreationServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
         .padding()
         .background(.black)
+    #endif
 }

@@ -24,7 +24,7 @@ protocol AcceptanceReviewInteractor {
 struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
 
     func loadHotAcceptanceReviews(_ acceptanceReviews: Binding<[AcceptanceReview]>) {
         serverRepository.fetchHotAcceptanceReviewList()

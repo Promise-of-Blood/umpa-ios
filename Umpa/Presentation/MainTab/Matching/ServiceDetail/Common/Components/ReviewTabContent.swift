@@ -258,6 +258,8 @@ extension ReviewTabContent {
     }
 }
 
+#if MOCK
 #Preview(traits: .sizeThatFitsLayout) {
     ReviewTabContent(service: LessonService.sample0)
 }
+#endif
