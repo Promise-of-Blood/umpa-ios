@@ -9,6 +9,10 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
+    public func updateLikeStatus(_ isLiked: Bool, for id: String) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
     public func postReview(_ review: Domain.ReviewCreateData) -> AnyPublisher<Void, any Error> {
         fatalError()
     }
@@ -164,6 +168,12 @@ public struct StubServerRepository {
 }
 
 extension StubServerRepository: ServerRepository {
+    public func updateLikeStatus(_ isLiked: Bool, for id: String) -> AnyPublisher<Void, any Error> {
+        Just(())
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
     public func postReview(_ review: Domain.ReviewCreateData) -> AnyPublisher<Void, any Error> {
         fatalError()
     }

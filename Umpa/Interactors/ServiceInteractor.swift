@@ -118,13 +118,10 @@ extension DefaultServiceInteractor: ServiceInteractor {
     }
 
     func markAsLike(_ isLiked: Bool, for id: Service.Id) {
-        print("Like \(isLiked) for \(id)")
-//        likeSubject
-//            .debounce(for: .seconds(2), scheduler: DispatchQueue.main)
-//            .print()
-//            .sink { isLiked in
-//
-//            }
-//            .store(in: cancelBag)
+        serverRepository.updateLikeStatus(isLiked, for: id)
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+            .replaceError(with: ())
+            .sink { _ in }
+            .store(in: cancelBag)
     }
 }

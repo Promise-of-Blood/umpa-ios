@@ -54,4 +54,6 @@ public protocol ServerRepository {
     func fetchChattingRoomList() -> AnyPublisher<[ChattingRoom], Error>
 
     func postChatMessage(_ message: ChatMessage) -> AnyPublisher<Void, Error>
+
+    func updateLikeStatus(_ isLiked: Bool, for id: Service.Id) -> AnyPublisher<Void, Error>
 }
