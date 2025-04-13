@@ -23,15 +23,20 @@ extension Container {
             .scope(.singleton)
     }
 
-    var serverRepository: Factory<Repository> {
+    var serverRepository: Factory<ServerRepository> {
         Factory(self) {
-            #if DEBUG
-            return StubRepository()
+            #if MOCK
+            return StubServerRepository()
             #else
             return DefaultServerRepository()
             #endif
         }
         .scope(.singleton)
+    }
+
+    var keychainRepository: Factory<KeychainRepository> {
+        Factory(self) { DefaultKeychainRepository() }
+            .scope(.singleton)
     }
 }
 
@@ -45,7 +50,7 @@ extension Container {
 
     var signUpInteractor: Factory<SignUpInteractor> {
         Factory(self) {
-            #if DEBUG
+            #if MOCK
             MockSignUpInteractor()
             #else
             DefaultSignUpInteractor()

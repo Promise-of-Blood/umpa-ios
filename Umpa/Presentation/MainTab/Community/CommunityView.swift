@@ -27,7 +27,9 @@ struct CommunityView: View {
     @State private var selection = 0
 
     var body: some View {
-        content
+        NavigationStack {
+            content
+        }
     }
 
     var content: some View {

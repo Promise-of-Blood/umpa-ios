@@ -2,7 +2,7 @@
 
 import Combine
 
-public protocol Repository {
+public protocol ServerRepository {
     func fetchMajorList() -> AnyPublisher<[Major], Error>
 
     func fetchReview() -> AnyPublisher<Review, Error>
@@ -25,7 +25,12 @@ public protocol Repository {
     func fetchStudentData() -> AnyPublisher<Student, Error>
     func fetchTeacherData() -> AnyPublisher<Teacher, Error>
 
-    func fetchAllServiceList() -> AnyPublisher<[any Service], Error>
+    func fetchAllLessonAndServiceList() -> AnyPublisher<[any Service], Error>
+
+    func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[LessonService], Error>
+    func fetchMyServiceList(with: AccessToken) -> AnyPublisher<[any Service], Error>
+
+    /// 모든 레슨 목록을 가져옵니다.
     func fetchLessonServiceList() -> AnyPublisher<[LessonService], Error>
     func fetchAccompanistServiceList() -> AnyPublisher<[AccompanistService], Error>
     func fetchScoreCreationServiceList() -> AnyPublisher<[ScoreCreationService], Error>

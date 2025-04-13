@@ -14,7 +14,7 @@ struct ChatInteractorTests {
 
     init() {
         Container.shared.reset()
-        Container.shared.serverRepository.register { StubRepository() }
+        Container.shared.serverRepository.register { StubServerRepository() }
     }
 
     @Test func loadChattingRoomList() async throws {

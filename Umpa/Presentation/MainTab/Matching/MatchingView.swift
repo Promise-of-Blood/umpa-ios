@@ -17,15 +17,10 @@ struct MatchingView: View {
             content
         }
         .onAppear {
-            Task {
-                serviceInteractor.load(
-                    $serviceList,
-                    for: appState.userData.teacherFinding.selectedService
-                )
-            } catch: { error in
-                // FIXME: Handle error
-                print(error)
-            }
+            serviceInteractor.load(
+                $serviceList,
+                for: appState.userData.teacherFinding.selectedService
+            )
         }
     }
 

@@ -4,11 +4,15 @@ import Combine
 import Domain
 import Foundation
 
-public struct DefaultRepository {
+public struct DefaultServerRepository {
     public init() {}
 }
 
-extension DefaultRepository: Repository {
+extension DefaultServerRepository: ServerRepository {
+    public func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[Domain.LessonService], any Error> {
+        fatalError()
+    }
+
     public func fetchAcceptanceReviewCommentList(by id: Domain.AcceptanceReview.ID) -> AnyPublisher<[Domain.AcceptanceReview.Comment], any Error> {
         fatalError()
     }
@@ -97,7 +101,7 @@ extension DefaultRepository: Repository {
         fatalError("fetchTeacherData() has not been implemented")
     }
 
-    public func fetchAllServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         fatalError("fetchAllServiceList() has not been implemented")
     }
 
@@ -146,12 +150,12 @@ extension DefaultRepository: Repository {
     }
 }
 
-#if DEBUG
-public struct StubRepository {
+#if MOCK
+public struct StubServerRepository {
     public init() {}
 }
 
-extension StubRepository: Repository {
+extension StubServerRepository: ServerRepository {
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -171,9 +175,11 @@ extension StubRepository: Repository {
     }
 
     public func fetchLessonServiceList() -> AnyPublisher<[Domain.LessonService], any Error> {
-        Just([LessonService.sample0])
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        Just([
+            LessonService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
     }
 
     public func fetchAccompanistServiceList() -> AnyPublisher<[Domain.AccompanistService], any Error> {
@@ -315,7 +321,7 @@ extension StubRepository: Repository {
             .eraseToAnyPublisher()
     }
 
-    public func fetchAllServiceList() -> AnyPublisher<[any Service], any Error> {
+    public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Service], any Error> {
         Just<[any Service]>([
             LessonService.sample0,
             AccompanistService.sample0,
@@ -323,7 +329,6 @@ extension StubRepository: Repository {
             MusicCreationService.sample0,
         ])
         .setFailureType(to: Error.self)
-        .delay(for: 0.5, scheduler: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
 
@@ -379,6 +384,14 @@ extension StubRepository: Repository {
 
     public func postChatMessage(_ message: Domain.ChatMessage) -> AnyPublisher<Void, any Error> {
         fatalError()
+    }
+
+    public func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[Domain.LessonService], any Error> {
+        Just([
+            LessonService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
     }
 }
 #endif

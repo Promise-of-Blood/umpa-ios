@@ -2,7 +2,7 @@
 
 import Foundation
 
-#if DEBUG
+#if MOCK
 extension AccompanistService {
     public static let sample0 = AccompanistService(
         id: "accompanistService0",

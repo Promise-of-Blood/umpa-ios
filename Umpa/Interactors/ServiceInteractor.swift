@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Combine
 import Domain
 import Factory
 import Foundation
@@ -14,17 +15,49 @@ protocol ServiceInteractor {
     func load(_ services: Binding<[any Service]>)
     func load(_ services: Binding<[any Service]>, for serviceType: ServiceType)
     func loadFavoriteServices(_ services: Binding<[any Service]>)
+
+    func loadMyLessonList(_ lessonList: Binding<[LessonService]>)
+    func loadMyServiceList(_ serviceList: Binding<[any Service]>)
+
     func post(_ lessonService: LessonService)
     func post(_ accompanistService: AccompanistService)
     func post(_ compositionService: ScoreCreationService)
     func post(_ musicCreationService: MusicCreationService)
+
     func markAsLike(_ isLiked: Bool, for id: Service.Id)
 }
 
-struct DefaultServiceInteractor: ServiceInteractor {
+struct DefaultServiceInteractor {
     @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.keychainRepository) private var keychainRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
+}
+
+extension DefaultServiceInteractor: ServiceInteractor {
+    func loadMyLessonList(_ lessonList: Binding<[Domain.LessonService]>) {
+        guard let accessToken = keychainRepository.getAccessToken() else {
+            lessonList.wrappedValue = []
+            return
+        }
+
+        serverRepository.fetchMyLessonList(with: accessToken)
+            .replaceError(with: [])
+            .sink(lessonList)
+            .store(in: cancelBag)
+    }
+
+    func loadMyServiceList(_ serviceList: Binding<[any Domain.Service]>) {
+        guard let accessToken = keychainRepository.getAccessToken() else {
+            serviceList.wrappedValue = []
+            return
+        }
+
+        serverRepository.fetchMyServiceList(with: accessToken)
+            .replaceError(with: [])
+            .sink(serviceList)
+            .store(in: cancelBag)
+    }
 
     func load(_ lessonServices: Binding<[LessonService]>) {
         serverRepository.fetchLessonServiceList()
@@ -55,14 +88,14 @@ struct DefaultServiceInteractor: ServiceInteractor {
     }
 
     func load(_ services: Binding<[any Service]>) {
-        serverRepository.fetchAllServiceList()
+        serverRepository.fetchAllLessonAndServiceList()
             .replaceError(with: [])
             .sink(services)
             .store(in: cancelBag)
     }
 
     func load(_ services: Binding<[any Service]>, for serviceType: ServiceType) {
-        serverRepository.fetchAllServiceList()
+        serverRepository.fetchAllLessonAndServiceList()
             .replaceError(with: [])
             .map { $0.filter { $0.type == serviceType } }
             .sink(services)
