@@ -87,7 +87,7 @@ extension MainTabView {
 #if MOCK
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.currenteUser = Student.sample0
+    appState.userData.currentUser = Student.sample0
 
     return
         MainTabView()

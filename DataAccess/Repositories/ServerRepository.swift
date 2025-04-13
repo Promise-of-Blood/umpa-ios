@@ -9,6 +9,14 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
+    public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
+        fatalError()
+    }
+
+    public func fetchChattingRoom(for id: String) -> AnyPublisher<Domain.ChattingRoom?, any Error> {
+        fatalError()
+    }
+
     public func updateLikeStatus(_ isLiked: Bool, for id: String) -> AnyPublisher<Void, any Error> {
         fatalError()
     }
@@ -168,6 +176,23 @@ public struct StubServerRepository {
 }
 
 extension StubServerRepository: ServerRepository {
+    public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
+        Just(ChattingRoom.sample0)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
+    public func fetchChattingRoom(for id: String) -> AnyPublisher<Domain.ChattingRoom?, any Error> {
+        let chattingRoomList = [ChattingRoom.sample0]
+        let matchedChattingRoom = chattingRoomList.first { chattingRoom in
+            chattingRoom.relatedService.id == id
+        }
+
+        return Just(matchedChattingRoom)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
     public func updateLikeStatus(_ isLiked: Bool, for id: String) -> AnyPublisher<Void, any Error> {
         Just(())
             .setFailureType(to: Error.self)

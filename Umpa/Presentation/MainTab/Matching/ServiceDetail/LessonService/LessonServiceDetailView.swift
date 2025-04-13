@@ -7,7 +7,6 @@ import SwiftUI
 
 struct LessonServiceDetailView: ServiceDetailView {
     @InjectedObject(\.appState) private var appState
-
     @Injected(\.chatInteractor) private var chatInteractor
     @Injected(\.serviceInteractor) private var serviceInteractor
 
@@ -24,6 +23,9 @@ struct LessonServiceDetailView: ServiceDetailView {
     var body: some View {
         content
             .modifier(NavigationBackButton(.arrowBack))
+            .navigationDestination(for: ChattingRoom.self) { chattingRoom in
+                ChattingRoomView(chattingRoom: chattingRoom)
+            }
     }
 
     @ViewBuilder
@@ -45,7 +47,10 @@ struct LessonServiceDetailView: ServiceDetailView {
                     serviceInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
-                    chatInteractor.startChatting(with: service)
+                    chatInteractor.startChatting(
+                        with: service,
+                        navigationPath: $appState.routing.teacherFindingNavigationPath
+                    )
                 }
             )
         }
@@ -90,8 +95,12 @@ extension LessonServiceDetailView {
 
 #if MOCK
 #Preview {
-    NavigationStack {
-        LessonServiceDetailView(service: .sample0)
-    }
+    @Injected(\.appState) var appState
+    appState.userData.currentUser = Student.sample0
+
+    return
+        NavigationStack {
+            LessonServiceDetailView(service: .sample0)
+        }
 }
 #endif

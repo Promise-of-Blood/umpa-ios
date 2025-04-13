@@ -18,6 +18,9 @@ struct ChattingView: View {
     var body: some View {
         NavigationStack(path: $appState.routing.chattingNavigationPath) {
             content
+                .navigationDestination(for: ChattingRoom.self) { chattingRoom in
+                    ChattingRoomView(chattingRoom: chattingRoom)
+                }
         }
         .errorAlert($chattingRoomList)
         .onAppear(perform: reloadChattingRoomList)
@@ -47,16 +50,13 @@ struct ChattingView: View {
             NavigationLink(value: chattingRoomList[index]) {
                 Text(chattingRoom.relatedService.author.name)
             }
-            .navigationDestination(for: ChattingRoom.self) { chattingRoom in
-                ChattingRoomView(chattingRoom: chattingRoom)
-            }
         }
     }
 
     func reloadChattingRoomList() {
         chatInteractor.load(
             $chattingRoomList,
-            for: appState.userData.currenteUser!.id
+            for: appState.userData.currentUser!.id
         )
     }
 }
@@ -83,7 +83,7 @@ enum ChattingViewError: LocalizedError {
 
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.currenteUser = Student.sample0
+    appState.userData.currentUser = Student.sample0
 
     return ChattingView()
 }

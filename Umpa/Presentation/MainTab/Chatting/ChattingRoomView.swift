@@ -20,6 +20,9 @@ struct ChattingRoomView: View {
     var content: some View {
         Text(chattingRoom.relatedService.author.name)
         Text(chattingRoom.student.name)
+        ForEach(chattingRoom.messages) { message in
+            Text(message.text)
+        }
     }
 }
 

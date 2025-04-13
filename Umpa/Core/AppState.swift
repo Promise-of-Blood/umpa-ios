@@ -12,6 +12,7 @@ final class AppState: ObservableObject {
 struct ViewRouting {
     var currentTab: MainViewTabType = .home
     var chattingNavigationPath = NavigationPath()
+    var teacherFindingNavigationPath = NavigationPath()
 }
 
 struct UserData {
@@ -22,11 +23,11 @@ struct UserData {
 
     var teacherFinding = TeacherFinding()
 
-    var currenteUser: (any User)?
+    var currentUser: (any User)?
     var majorList: [String] = []
 
     var isLoggedIn: Bool {
-        currenteUser != nil
+        currentUser != nil
     }
 }
 

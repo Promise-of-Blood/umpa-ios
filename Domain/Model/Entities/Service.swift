@@ -58,6 +58,18 @@ public struct AnyService: Service {
     }
 }
 
+extension AnyService {
+    /// 래핑된 Service 인스턴스를 요청된 타입으로 다운캐스팅해서 반환합니다.
+    /// - Parameter type: 복원하고자 하는 Service의 구체 타입
+    /// - Returns: 다운캐스팅에 성공하면 해당 타입의 Service 인스턴스, 실패하면 nil
+    public func unwrap<T: Service>(as type: T.Type = T.self) -> T? {
+        if let concreteBox = box as? _ServiceBox<T> {
+            return concreteBox.base
+        }
+        return nil
+    }
+}
+
 // MARK: - 내부 박스 정의
 
 /// 내부 추상 클래스로서, 실제 Service 인스턴스에 대한 호출을 추상화합니다.
