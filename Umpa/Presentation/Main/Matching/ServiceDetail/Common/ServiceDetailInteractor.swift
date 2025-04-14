@@ -15,13 +15,13 @@ protocol ServiceDetailInteractor {
     func load(_ musicCreationService: Binding<MusicCreationService>, by id: Service.Id)
 }
 
-struct DefaultServiceDetailInteractor {
+struct ServiceDetailInteractorImpl {
     @Injected(\.serverRepository) private var serverRepository
 
     private let cancelBag = CancelBag()
 }
 
-extension DefaultServiceDetailInteractor: ServiceDetailInteractor {
+extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
     func markAsLike(_ isLiked: Bool, for id: Service.Id) {
         serverRepository.updateLikeStatus(isLiked, for: id)
             .debounce(for: .seconds(1), scheduler: DispatchQueue.main)

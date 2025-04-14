@@ -10,7 +10,7 @@ protocol MentoringInteractor {
     func load(_ mentoringPosts: Binding<[MentoringPost]>)
 }
 
-struct DefaultMentoringInteractor: MentoringInteractor {
+struct MentoringInteractorImpl: MentoringInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
     private let cancelBag = CancelBag()

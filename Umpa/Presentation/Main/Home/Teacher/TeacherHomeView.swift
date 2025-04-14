@@ -7,26 +7,28 @@ import SwiftUI
 
 private let contentHorizontalPadding: CGFloat = fs(28)
 
-struct HomeView: View {
+struct TeacherHomeView: View {
     @State private var isPresentingMyProfile = false
 
     var body: some View {
         NavigationStack {
-            GeometryReader { geometry in
-                ZStack(alignment: .bottomTrailing) {
-                    ScrollView {
-                        VStack(spacing: fs(34)) {
-                            header
-                            content
-                        }
-                        .frame(width: geometry.size.width)
-                        .padding(.vertical, fs(20))
-                    }
-                    .padding(.top, 1) // 네비게이션 바 유지를 위함
-                    calendarButton
-                        .offset(x: fs(-28), y: fs(-25))
+            content
+        }
+    }
+
+    var content: some View {
+        ZStack(alignment: .bottomTrailing) {
+            ScrollView {
+                VStack(spacing: fs(34)) {
+                    header
+                    homeContent
                 }
+                .frame(maxWidth: .fill)
+                .padding(.vertical, fs(20))
             }
+            .padding(.top, 1) // 네비게이션 바 유지를 위함
+            calendarButton
+                .offset(x: fs(-28), y: fs(-25))
         }
     }
 
@@ -56,7 +58,7 @@ struct HomeView: View {
         .padding(.horizontal, contentHorizontalPadding)
     }
 
-    var content: some View {
+    var homeContent: some View {
         VStack(spacing: fs(30)) {
             TeacherFindingSection()
             Banner(bannerResources: [
@@ -129,8 +131,8 @@ private struct TeacherFindingSection: View {
                                 if index == 0 {
                                     Button {
                                         appState.routing.currentTab = .matching
-                                        appState.userData.teacherFinding.selectedService = .lesson
-                                        appState.userData.teacherFinding.selectedSubject = nil
+                                        appState.userData.teacherFinder.selectedService = .lesson
+                                        appState.userData.teacherFinder.selectedSubject = nil
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),
@@ -140,8 +142,8 @@ private struct TeacherFindingSection: View {
                                 } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
                                         appState.routing.currentTab = .matching
-                                        appState.userData.teacherFinding.selectedService = .lesson
-                                        appState.userData.teacherFinding.selectedSubject = subject
+                                        appState.userData.teacherFinder.selectedService = .lesson
+                                        appState.userData.teacherFinder.selectedSubject = subject
                                     } label: {
                                         TeacherFindingCarouselItem(
                                             imageResource: ImageResource(name: "", bundle: .main),
@@ -270,52 +272,9 @@ private struct CommunitySection: View {
     }
 }
 
-// private struct LatestQuestionsRow: View {
-//    @Injected(\.questionInteractor) private var questionInteractor
-//
-//    @State private var questions: [Question] = []
-//
-//    var body: some View {
-//        content
-//            .onAppear {
-//                Task {
-//                    try? await questionInteractor.load($questions)
-//                }
-//            }
-//    }
-//
-//    var content: some View {
-//        VStack(spacing: fs(10)) {
-//            HStack {
-//                Text("가장 최근에 올라온 질문")
-//                    .foregroundStyle(UmpaColor.darkGray)
-//                    .font(UmpaFont.h3Kr)
-//                Spacer()
-//                SeeAllButton()
-//            }
-//            VStack(spacing: fs(9)) {
-//                IndexingForEach(questions) { index, question in
-//                    NavigationLink {
-//                        QuestionDetailView(question: question)
-//                    } label: {
-//                        ListContent(model: question.toListContentModel())
-//                    }
-//                    if index < questions.count - 1 {
-//                        HorizontalDivider(thickness: fs(1.25), color: .white)
-//                    }
-//                }
-//            }
-//            .padding(.horizontal, fs(15))
-//            .padding(.vertical, fs(14))
-//            .background(UmpaColor.baseColor, in: RoundedRectangle(cornerRadius: fs(15)))
-//        }
-//        .padding(.horizontal, contentHorizontalPadding)
-//    }
-// }
-
 #Preview {
     TabView {
-        HomeView()
+        TeacherHomeView()
             .tabItem {
                 MainTabView.TabLabel(category: .home)
             }
@@ -340,7 +299,7 @@ private struct CommunitySection: View {
 
 #Preview("iPhoneSE", traits: .iPhoneSE) {
     TabView {
-        HomeView()
+        TeacherHomeView()
             .tabItem {
                 MainTabView.TabLabel(category: .home)
             }

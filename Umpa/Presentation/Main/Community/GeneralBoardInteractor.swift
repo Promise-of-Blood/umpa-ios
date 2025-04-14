@@ -12,7 +12,7 @@ protocol GeneralBoardInteractor {
     func post(_ post: Post)
 }
 
-struct DefaultGeneralBoardInteractor: GeneralBoardInteractor {
+struct GeneralBoardInteractorImpl: GeneralBoardInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
     private let cancelBag = CancelBag()

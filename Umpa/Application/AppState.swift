@@ -12,17 +12,17 @@ final class AppState: ObservableObject {
 struct ViewRouting {
     var currentTab: MainViewTabType = .home
     var chatNavigationPath = NavigationPath()
-    var teacherFindingNavigationPath = NavigationPath()
+    var teacherFinderNavigationPath = NavigationPath()
     var myServicesNavigationPath = NavigationPath()
 }
 
 struct UserData {
-    struct TeacherFinding {
+    struct TeacherFinder {
         var selectedService: ServiceType = .lesson
         var selectedSubject: Subject?
     }
 
-    var teacherFinding = TeacherFinding()
+    var teacherFinder = TeacherFinder()
 
     var currentUser: (any User)?
     var majorList: [String] = []

@@ -19,13 +19,13 @@ protocol ServiceListInteractor {
     func loadFavoriteServices(_ services: Binding<[any Service]>)
 }
 
-struct DefaultServiceListInteractor {
+struct ServiceListInteractorImpl {
     @Injected(\.serverRepository) private var serverRepository
 
     private let cancelBag = CancelBag()
 }
 
-extension DefaultServiceListInteractor: ServiceListInteractor {
+extension ServiceListInteractorImpl: ServiceListInteractor {
     func loadFavoriteServices(_ services: Binding<[any Service]>) {
         serverRepository.fetchFavoriteServiceList()
             .replaceError(with: [])

@@ -9,6 +9,14 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
+    public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+        fatalError()
+    }
+
+    public func fetchMyNotificationList(with: Domain.AccessToken) -> AnyPublisher<[Domain.UmpaNotification], any Error> {
+        fatalError()
+    }
+
     public func fetchLessonDetail(by id: Domain.LessonService.Id) -> AnyPublisher<Domain.LessonService, any Error> {
         fatalError()
     }

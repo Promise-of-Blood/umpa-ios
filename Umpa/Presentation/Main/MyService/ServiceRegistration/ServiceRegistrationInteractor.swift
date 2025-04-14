@@ -14,14 +14,14 @@ protocol ServiceRegistrationInteractor {
     func post(_ musicCreationService: MusicCreationServiceCreateData)
 }
 
-struct DefaultServiceRegistrationInteractor {
+struct ServiceRegistrationInteractorImpl {
     @Injected(\.serverRepository) private var serverRepository
     @Injected(\.keychainRepository) private var keychainRepository
 
     private let cancelBag = CancelBag()
 }
 
-extension DefaultServiceRegistrationInteractor: ServiceRegistrationInteractor {
+extension ServiceRegistrationInteractorImpl: ServiceRegistrationInteractor {
     func post(_ accompanistService: Domain.AccompanistServiceCreateData) {
         fatalError()
     }

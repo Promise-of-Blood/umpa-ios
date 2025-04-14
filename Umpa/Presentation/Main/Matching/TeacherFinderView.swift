@@ -3,11 +3,11 @@
 import Factory
 import SwiftUI
 
-struct MatchingView: View {
+struct TeacherFinderView: View {
     @InjectedObject(\.appState) private var appState
 
     var body: some View {
-        NavigationStack(path: $appState.routing.teacherFindingNavigationPath) {
+        NavigationStack(path: $appState.routing.teacherFinderNavigationPath) {
             content
         }
     }
@@ -18,5 +18,5 @@ struct MatchingView: View {
 }
 
 #Preview {
-    MatchingView()
+    TeacherFinderView()
 }

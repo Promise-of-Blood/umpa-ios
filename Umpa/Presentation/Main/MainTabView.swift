@@ -13,12 +13,12 @@ struct MainTabView: View {
 
     var content: some View {
         TabView(selection: $appState.routing.currentTab) {
-            HomeView()
+            TeacherHomeView()
                 .tabItem {
                     MainTabView.TabLabel(category: .home)
                 }
                 .tag(MainViewTabType.home)
-            MatchingView()
+            TeacherFinderView()
                 .tabItem {
                     MainTabView.TabLabel(category: .matching)
                 }

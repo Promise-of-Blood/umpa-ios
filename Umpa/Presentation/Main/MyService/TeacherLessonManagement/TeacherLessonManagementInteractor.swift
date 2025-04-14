@@ -15,7 +15,7 @@ protocol TeacherLessonManagementInteractor {
     func executeCommissionPayment(for id: LessonService.Id)
 }
 
-struct DefaultTeacherLessonManagementInteractor {
+struct TeacherLessonManagementInteractorImpl {
     @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
     @Injected(\.keychainRepository) private var keychainRepository
@@ -23,7 +23,7 @@ struct DefaultTeacherLessonManagementInteractor {
     private let cancelBag = CancelBag()
 }
 
-extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInteractor {
+extension TeacherLessonManagementInteractorImpl: TeacherLessonManagementInteractor {
     func executeCommissionPayment(for id: Domain.LessonService.Id) {
         fatalError()
     }

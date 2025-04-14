@@ -60,52 +60,57 @@ extension Container {
     }
 
     var reviewInteractor: Factory<ReviewInteractor> {
-        Factory(self) { DefaultReviewInteractor() }
+        Factory(self) { ReviewInteractorImpl() }
             .scope(.shared)
     }
 
     var acceptanceReviewInteractor: Factory<AcceptanceReviewInteractor> {
-        Factory(self) { DefaultAcceptanceReviewInteractor() }
+        Factory(self) { AcceptanceReviewInteractorImpl() }
             .scope(.shared)
     }
 
     var serviceRegistrationInteractor: Factory<ServiceRegistrationInteractor> {
-        Factory(self) { DefaultServiceRegistrationInteractor() }
+        Factory(self) { ServiceRegistrationInteractorImpl() }
             .scope(.shared)
     }
 
     var chatInteractor: Factory<ChatInteractor> {
-        Factory(self) { DefaultChatInteractor() }
+        Factory(self) { ChatInteractorImpl() }
             .scope(.shared)
     }
 
     var generalBoardInteractor: Factory<GeneralBoardInteractor> {
-        Factory(self) { DefaultGeneralBoardInteractor() }
+        Factory(self) { GeneralBoardInteractorImpl() }
             .scope(.shared)
     }
 
     var mentoringInteractor: Factory<MentoringInteractor> {
-        Factory(self) { DefaultMentoringInteractor() }
+        Factory(self) { MentoringInteractorImpl() }
             .scope(.shared)
     }
 
     var serviceListInteractor: Factory<ServiceListInteractor> {
-        Factory(self) { DefaultServiceListInteractor() }
+        Factory(self) { ServiceListInteractorImpl() }
             .scope(.shared)
     }
 
     var serviceDetailInteractor: Factory<ServiceDetailInteractor> {
-        Factory(self) { DefaultServiceDetailInteractor() }
+        Factory(self) { ServiceDetailInteractorImpl() }
             .scope(.shared)
     }
 
     var teacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
-        Factory(self) { DefaultTeacherServiceManagementInteractor() }
+        Factory(self) { TeacherServiceManagementInteractorImpl() }
             .scope(.shared)
     }
 
     var teacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
-        Factory(self) { DefaultTeacherLessonManagementInteractor() }
+        Factory(self) { TeacherLessonManagementInteractorImpl() }
+            .scope(.shared)
+    }
+
+    var notificationInteractor: Factory<UmpaNotificationInteractor> {
+        Factory(self) { UmpaNotificationInteractorImpl() }
             .scope(.shared)
     }
 }
