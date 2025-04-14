@@ -48,7 +48,7 @@ struct ScoreCreationServiceDetailView: ServiceDetailView {
                 primaryButtonAction: {
                     chatInteractor.startChat(
                         with: service,
-                        navigationPath: $appState.routing.teacherFindingNavigationPath
+                        navigationPath: $appState.routing.teacherFinderNavigationPath
                     )
                 }
             )

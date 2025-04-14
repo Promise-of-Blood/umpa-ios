@@ -11,7 +11,7 @@ protocol ReviewInteractor {
     func save(_ review: ReviewCreateData)
 }
 
-struct DefaultReviewInteractor: ReviewInteractor {
+struct ReviewInteractorImpl: ReviewInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
     private let cancelBag = CancelBag()

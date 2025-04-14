@@ -13,7 +13,7 @@ protocol TeacherServiceManagementInteractor {
 //    func sendServiceConfirmationRequest
 }
 
-struct DefaultTeacherServiceManagementInteractor {
+struct TeacherServiceManagementInteractorImpl {
     @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
     @Injected(\.keychainRepository) private var keychainRepository
@@ -21,7 +21,7 @@ struct DefaultTeacherServiceManagementInteractor {
     private let cancelBag = CancelBag()
 }
 
-extension DefaultTeacherServiceManagementInteractor: TeacherServiceManagementInteractor {
+extension TeacherServiceManagementInteractorImpl: TeacherServiceManagementInteractor {
     func enterChatRoom(for id: Service.Id) {
         serverRepository.fetchChatRoom(for: id)
             .tryMap { chatRoom in

@@ -31,8 +31,13 @@ public protocol ServerRepository {
 
     func fetchAllLessonAndServiceList() -> AnyPublisher<[any Service], Error>
 
+    /// 내가 등록한 레슨 목록을 가져옵니다.
     func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[LessonService], Error>
+
+    /// 레슨을 제외하고 내가 등록한 모든 서비스 목록을 가져옵니다.
     func fetchMyServiceList(with: AccessToken) -> AnyPublisher<[any Service], Error>
+
+    func fetchMyLessonAndServiceList(with: AccessToken) -> AnyPublisher<[any Service], Error>
 
     /// 모든 레슨 목록을 가져옵니다.
     func fetchLessonServiceList() -> AnyPublisher<[LessonService], Error>
@@ -60,4 +65,6 @@ public protocol ServerRepository {
     func postChatMessage(_ message: ChatMessage) -> AnyPublisher<Void, Error>
 
     func updateLikeStatus(_ isLiked: Bool, for id: Service.Id) -> AnyPublisher<Void, Error>
+
+    func fetchMyNotificationList(with: AccessToken) -> AnyPublisher<[UmpaNotification], Error>
 }

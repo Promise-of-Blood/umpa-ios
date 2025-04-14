@@ -19,7 +19,7 @@ protocol ChatInteractor {
     func enterChatRoom(with id: ChatRoom.Id)
 }
 
-struct DefaultChatInteractor: ChatInteractor {
+struct ChatInteractorImpl: ChatInteractor {
     @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
 

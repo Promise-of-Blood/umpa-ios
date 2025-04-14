@@ -21,7 +21,7 @@ protocol AcceptanceReviewInteractor {
     func post(_ acceptanceReview: AcceptanceReview)
 }
 
-struct DefaultAcceptanceReviewInteractor: AcceptanceReviewInteractor {
+struct AcceptanceReviewInteractorImpl: AcceptanceReviewInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
     private let cancelBag = CancelBag()

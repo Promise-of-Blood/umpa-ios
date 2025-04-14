@@ -10,6 +10,27 @@ public struct StubServerRepository {
 }
 
 extension StubServerRepository: ServerRepository {
+    public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+        let allServices: [any Service] = [
+            LessonService.sample0,
+            AccompanistService.sample0,
+            ScoreCreationService.sample0,
+            MusicCreationService.sample0,
+        ]
+        return Just(allServices)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
+    public func fetchMyNotificationList(with: Domain.AccessToken) -> AnyPublisher<[Domain.UmpaNotification], any Error> {
+        let notifications: [Domain.UmpaNotification] = [
+            .init(id: "umpaNotification0", title: "Test Notification"),
+        ]
+        return Just(notifications)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
     public func postAcceptanceReviewComment(_ comment: Domain.AcceptanceReviewCommentCreateData) -> AnyPublisher<Void, any Error> {
         Just(())
             .setFailureType(to: Error.self)
