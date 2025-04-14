@@ -3,41 +3,38 @@
 import Domain
 import Factory
 import SwiftUI
-import Utility
 
-struct MatchingView: View {
-    @InjectedObject(\.appState) private var appState
-
-    @Injected(\.serviceInteractor) private var serviceInteractor
+struct ServiceListView: View {
+    @Injected(\.appState) private var appState
+    @Injected(\.serviceListInteractor) private var serviceListInteractor
 
     @State private var serviceList: [any Service] = []
 
     var body: some View {
-        NavigationStack(path: $appState.routing.teacherFindingNavigationPath) {
-            content
-                .navigationDestination(for: AnyService.self) { service in
-                    if let lesson = service.unwrap(as: LessonService.self) {
-                        LessonServiceDetailView(service: lesson)
-                    }
-                    if let accompanistService = service.unwrap(as: AccompanistService.self) {
-                        AccompanistServiceDetailView(service: accompanistService)
-                    }
-                    if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
-                        MrCreationServiceDetailView(service: musicCreationService)
-                    }
-                    if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
-                        ScoreCreationServiceDetailView(service: scoreCreationService)
-                    }
+        content
+            .onAppear {
+                serviceListInteractor.load(
+                    $serviceList,
+                    for: appState.userData.teacherFinding.selectedService
+                )
+            }
+            .navigationDestination(for: AnyService.self) { service in
+                if let lesson = service.unwrap(as: LessonService.self) {
+                    LessonServiceDetailView(service: lesson)
                 }
-        }
-        .onAppear {
-            serviceInteractor.load(
-                $serviceList,
-                for: appState.userData.teacherFinding.selectedService
-            )
-        }
+                if let accompanistService = service.unwrap(as: AccompanistService.self) {
+                    AccompanistServiceDetailView(service: accompanistService)
+                }
+                if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
+                    MrCreationServiceDetailView(service: musicCreationService)
+                }
+                if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
+                    ScoreCreationServiceDetailView(service: scoreCreationService)
+                }
+            }
     }
 
+    @ViewBuilder
     var content: some View {
         VStack(alignment: .leading) {
             Image(.umpaLogo)
@@ -59,7 +56,7 @@ struct MatchingView: View {
     }
 }
 
-extension MatchingView {
+extension ServiceListView {
     struct FilterButton: View {
         private let cornerRadius: CGFloat = 20
         private let foregroundColor = UmpaColor.lightGray
@@ -93,5 +90,5 @@ extension MatchingView {
 }
 
 #Preview {
-    MatchingView()
+    ServiceListView()
 }

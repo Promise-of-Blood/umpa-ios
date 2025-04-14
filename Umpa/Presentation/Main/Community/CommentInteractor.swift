@@ -8,7 +8,7 @@ import Utility
 
 protocol CommentInteractor {
     func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.ID)
-    func post(_ comment: AcceptanceReview.Comment)
+    func post(_ comment: AcceptanceReviewCommentCreateData)
 }
 
 struct DefaultCommentInteractor: CommentInteractor {
@@ -23,7 +23,13 @@ struct DefaultCommentInteractor: CommentInteractor {
             .store(in: cancelBag)
     }
 
-    func post(_ comment: AcceptanceReview.Comment) {
-        fatalError()
+    func post(_ comment: AcceptanceReviewCommentCreateData) {
+        serverRepository.postAcceptanceReviewComment(comment)
+            .sink { completion in
+                if let error = completion.error {
+                    // TODO: Handle error
+                }
+            } receiveValue: { _ in }
+            .store(in: cancelBag)
     }
 }

@@ -10,6 +10,12 @@ public struct StubServerRepository {
 }
 
 extension StubServerRepository: ServerRepository {
+    public func postAcceptanceReviewComment(_ comment: Domain.AcceptanceReviewCommentCreateData) -> AnyPublisher<Void, any Error> {
+        Just(())
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
     public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
         Just(ChattingRoom.sample0)
             .setFailureType(to: Error.self)
@@ -222,31 +228,31 @@ extension StubServerRepository: ServerRepository {
         .eraseToAnyPublisher()
     }
 
-    public func fetchLessonServiceDetail() -> AnyPublisher<Domain.LessonService, any Error> {
+    public func fetchLessonDetail(by id: Domain.LessonService.Id) -> AnyPublisher<Domain.LessonService, any Error> {
         Just(LessonService.sample0)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    public func fetchAccompanistServiceDetail() -> AnyPublisher<Domain.AccompanistService, any Error> {
+    public func fetchAccompanistServiceDetail(by id: String) -> AnyPublisher<Domain.AccompanistService, any Error> {
         Just(AccompanistService.sample0)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    public func fetchScoreCreationServiceDetail() -> AnyPublisher<Domain.ScoreCreationService, any Error> {
+    public func fetchScoreCreationServiceDetail(by id: String) -> AnyPublisher<Domain.ScoreCreationService, any Error> {
         Just(ScoreCreationService.sample0)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    public func fetchMusicCreationServiceDetail() -> AnyPublisher<Domain.MusicCreationService, any Error> {
+    public func fetchMusicCreationServiceDetail(by id: String) -> AnyPublisher<Domain.MusicCreationService, any Error> {
         Just(MusicCreationService.sample0)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    public func fetchServiceDetail() -> AnyPublisher<any Domain.Service, any Error> {
+    public func fetchServiceDetail(by id: String) -> AnyPublisher<any Domain.Service, any Error> {
         fatalError()
     }
 

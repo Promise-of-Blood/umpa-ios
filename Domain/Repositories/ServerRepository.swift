@@ -15,6 +15,8 @@ public protocol ServerRepository {
     func fetchAllAcceptanceReviewList() -> AnyPublisher<[AcceptanceReview], Error>
     func fetchHotAcceptanceReviewList() -> AnyPublisher<[AcceptanceReview], Error>
 
+    func postAcceptanceReviewComment(_ comment: AcceptanceReviewCommentCreateData) -> AnyPublisher<Void, Error>
+
     func fetchAcceptanceReviewCommentList(by id: AcceptanceReview.ID) -> AnyPublisher<[AcceptanceReview.Comment], Error>
 
     func fetchPost() -> AnyPublisher<Post, Error>
@@ -38,11 +40,11 @@ public protocol ServerRepository {
     func fetchScoreCreationServiceList() -> AnyPublisher<[ScoreCreationService], Error>
     func fetchMusicCreationServiceList() -> AnyPublisher<[MusicCreationService], Error>
 
-    func fetchLessonServiceDetail() -> AnyPublisher<LessonService, Error>
-    func fetchAccompanistServiceDetail() -> AnyPublisher<AccompanistService, Error>
-    func fetchScoreCreationServiceDetail() -> AnyPublisher<ScoreCreationService, Error>
-    func fetchMusicCreationServiceDetail() -> AnyPublisher<MusicCreationService, Error>
-    func fetchServiceDetail() -> AnyPublisher<any Service, Error>
+    func fetchLessonDetail(by id: LessonService.Id) -> AnyPublisher<LessonService, Error>
+    func fetchAccompanistServiceDetail(by id: Service.Id) -> AnyPublisher<AccompanistService, Error>
+    func fetchScoreCreationServiceDetail(by id: Service.Id) -> AnyPublisher<ScoreCreationService, Error>
+    func fetchMusicCreationServiceDetail(by id: Service.Id) -> AnyPublisher<MusicCreationService, Error>
+    func fetchServiceDetail(by id: Service.Id) -> AnyPublisher<any Service, Error>
 
     func fetchFavoriteServiceList() -> AnyPublisher<[any Service], Error>
 

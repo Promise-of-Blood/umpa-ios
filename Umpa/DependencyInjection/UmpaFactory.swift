@@ -88,6 +88,16 @@ extension Container {
         Factory(self) { DefaultMentoringInteractor() }
             .scope(.shared)
     }
+
+    var serviceListInteractor: Factory<ServiceListInteractor> {
+        Factory(self) { DefaultServiceListInteractor() }
+            .scope(.shared)
+    }
+
+    var serviceDetailInteractor: Factory<ServiceDetailInteractor> {
+        Factory(self) { DefaultServiceDetailInteractor() }
+            .scope(.shared)
+    }
 }
 
 // MARK: - ObservableObject

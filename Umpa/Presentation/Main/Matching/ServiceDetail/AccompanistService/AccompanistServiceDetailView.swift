@@ -8,7 +8,7 @@ import SwiftUI
 struct AccompanistServiceDetailView: ServiceDetailView {
     @InjectedObject(\.appState) private var appState
     @Injected(\.chatInteractor) private var chatInteractor
-    @Injected(\.serviceInteractor) private var serviceInteractor
+    @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
 
     let service: AccompanistService
 
@@ -39,7 +39,7 @@ struct AccompanistServiceDetailView: ServiceDetailView {
                 height: bottomActionBarHeight,
                 isLiked: false, // TODO: isLiked 를 받아와야 함
                 likeButtonAction: { isLiked in
-                    serviceInteractor.markAsLike(isLiked, for: service.id)
+                    serviceDetailInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
                     chatInteractor.startChatting(

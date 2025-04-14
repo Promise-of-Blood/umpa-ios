@@ -9,6 +9,30 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
+    public func fetchLessonDetail(by id: Domain.LessonService.Id) -> AnyPublisher<Domain.LessonService, any Error> {
+        fatalError()
+    }
+
+    public func fetchAccompanistServiceDetail(by id: String) -> AnyPublisher<Domain.AccompanistService, any Error> {
+        fatalError()
+    }
+
+    public func fetchScoreCreationServiceDetail(by id: String) -> AnyPublisher<Domain.ScoreCreationService, any Error> {
+        fatalError()
+    }
+
+    public func fetchMusicCreationServiceDetail(by id: String) -> AnyPublisher<Domain.MusicCreationService, any Error> {
+        fatalError()
+    }
+
+    public func fetchServiceDetail(by id: String) -> AnyPublisher<any Domain.Service, any Error> {
+        fatalError()
+    }
+
+    public func postAcceptanceReviewComment(_ comment: Domain.AcceptanceReviewCommentCreateData) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
     public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
         fatalError()
     }
@@ -123,26 +147,6 @@ extension DefaultServerRepository: ServerRepository {
 
     public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         fatalError("fetchAllServiceList() has not been implemented")
-    }
-
-    public func fetchLessonServiceDetail() -> AnyPublisher<Domain.LessonService, any Error> {
-        fatalError("fetchLessonServiceDetail() has not been implemented")
-    }
-
-    public func fetchAccompanistServiceDetail() -> AnyPublisher<Domain.AccompanistService, any Error> {
-        fatalError("fetchAccompanistServiceDetail() has not been implemented")
-    }
-
-    public func fetchScoreCreationServiceDetail() -> AnyPublisher<Domain.ScoreCreationService, any Error> {
-        fatalError("fetchCompositionServiceDetail() has not been implemented")
-    }
-
-    public func fetchMusicCreationServiceDetail() -> AnyPublisher<Domain.MusicCreationService, any Error> {
-        fatalError("fetchMusicCreationServiceDetail() has not been implemented")
-    }
-
-    public func fetchServiceDetail() -> AnyPublisher<any Domain.Service, any Error> {
-        fatalError("fetchServiceDetail() has not been implemented")
     }
 
     public func postLessonService(_ lessonService: Domain.LessonServiceCreateData) -> AnyPublisher<Void, any Error> {

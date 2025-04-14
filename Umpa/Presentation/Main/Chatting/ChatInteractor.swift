@@ -47,7 +47,7 @@ struct DefaultChatInteractor: ChatInteractor {
             ))
             .sink { completion in
                 if let error = completion.error {
-                    // error 처리
+                    // TODO: error 처리
                 }
             } receiveValue: { chattingRoom in
                 navigationPath.wrappedValue.append(chattingRoom)
@@ -59,7 +59,7 @@ struct DefaultChatInteractor: ChatInteractor {
         serverRepository.fetchChattingRoom(by: id)
             .sink { completion in
                 if let error = completion.error {
-                    // error 처리
+                    // TODO: error 처리
                 }
             } receiveValue: { chattingRoom in
                 appState.routing.chattingNavigationPath.append(chattingRoom)

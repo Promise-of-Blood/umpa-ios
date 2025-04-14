@@ -5,17 +5,17 @@ import Domain
 import Factory
 import SwiftUI
 
-struct MrCreationServiceDetailView: ServiceDetailView {
+struct LessonServiceDetailView: ServiceDetailView {
     @InjectedObject(\.appState) private var appState
     @Injected(\.chatInteractor) private var chatInteractor
-    @Injected(\.serviceInteractor) private var serviceInteractor
+    @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
 
-    let service: MusicCreationService
+    let service: LessonService
 
     var tabItems: [TabItem] {
-        service.sampleMusics.isEmpty
-            ? [.teacherOverview, .serviceOverview, .review]
-            : [.teacherOverview, .serviceOverview, .samplePreview, .review]
+        service.curriculum.isEmpty
+            ? [.teacherOverview, .lessonOverview, .review]
+            : [.teacherOverview, .lessonOverview, .curriculum, .review]
     }
 
     @State private var tabSelection = 0
@@ -28,6 +28,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
             }
     }
 
+    @ViewBuilder
     var content: some View {
         ZStack(alignment: .bottom) {
             ScrollView {
@@ -43,7 +44,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
                 height: bottomActionBarHeight,
                 isLiked: false, // TODO: isLiked 를 받아와야 함
                 likeButtonAction: { isLiked in
-                    serviceInteractor.markAsLike(isLiked, for: service.id)
+                    serviceDetailInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
                     chatInteractor.startChatting(
@@ -60,31 +61,31 @@ struct MrCreationServiceDetailView: ServiceDetailView {
         switch tabItems[tabSelection] {
         case .teacherOverview:
             TeacherOverviewTabContent(teacher: service.author)
-        case .serviceOverview:
-            ServiceOverviewTabContent(service: service)
-        case .samplePreview:
-            SamplePreviewTabContent(sampleMusics: service.sampleMusics)
+        case .lessonOverview:
+            LessonOverviewTabContent(service: service)
+        case .curriculum:
+            CurriculumTabContent(curriculumList: service.curriculum)
         case .review:
             ReviewTabContent(service: service)
         }
     }
 }
 
-extension MrCreationServiceDetailView {
+extension LessonServiceDetailView {
     enum TabItem {
         case teacherOverview
-        case serviceOverview
-        case samplePreview
+        case lessonOverview
+        case curriculum
         case review
 
         var name: String {
             switch self {
             case .teacherOverview:
                 return "선생님 소개"
-            case .serviceOverview:
-                return "서비스 안내"
-            case .samplePreview:
-                return "샘플 확인"
+            case .lessonOverview:
+                return "수업 소개"
+            case .curriculum:
+                return "커리큘럼"
             case .review:
                 return "리뷰"
             }
@@ -94,6 +95,12 @@ extension MrCreationServiceDetailView {
 
 #if MOCK
 #Preview {
-    MrCreationServiceDetailView(service: .sample0)
+    @Injected(\.appState) var appState
+    appState.userData.currentUser = Student.sample0
+
+    return
+        NavigationStack {
+            LessonServiceDetailView(service: .sample0)
+        }
 }
 #endif
