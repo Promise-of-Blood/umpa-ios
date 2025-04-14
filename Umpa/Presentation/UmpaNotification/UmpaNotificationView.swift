@@ -9,5 +9,5 @@ struct UmpaNotificationView: View {
 }
 
 #Preview {
-    NotificationView()
+    UmpaNotificationView()
 }

@@ -27,8 +27,6 @@ struct TeacherHomeView: View {
                 .padding(.vertical, fs(20))
             }
             .padding(.top, 1) // 네비게이션 바 유지를 위함
-            calendarButton
-                .offset(x: fs(-28), y: fs(-25))
         }
     }
 
@@ -67,24 +65,6 @@ struct TeacherHomeView: View {
                 .bannerSample1,
             ])
             .padding(.horizontal, contentHorizontalPadding)
-            CommunitySection()
-        }
-    }
-
-    var calendarButton: some View {
-        Button(action: {
-            // TODO: Implement
-        }) {
-            ZStack {
-                Circle()
-                    .frame(width: fs(50), height: fs(50))
-                    .foregroundStyle(UmpaColor.mainBlue)
-                Image(.calendarIcon)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundStyle(Color(hex: "EFEFEF"))
-                    .frame(width: fs(32), height: fs(29))
-            }
         }
     }
 }
@@ -130,7 +110,7 @@ private struct TeacherFindingSection: View {
                                 let index = page * itemsPerPage + row * gridColumnCount + column
                                 if index == 0 {
                                     Button {
-                                        appState.routing.currentTab = .matching
+                                        appState.routing.currentTab = .teacherFinder
                                         appState.userData.teacherFinder.selectedService = .lesson
                                         appState.userData.teacherFinder.selectedSubject = nil
                                     } label: {
@@ -141,7 +121,7 @@ private struct TeacherFindingSection: View {
                                     }
                                 } else if let subject = Subject.allCases[safe: index - 1] {
                                     Button {
-                                        appState.routing.currentTab = .matching
+                                        appState.routing.currentTab = .teacherFinder
                                         appState.userData.teacherFinder.selectedService = .lesson
                                         appState.userData.teacherFinder.selectedSubject = subject
                                     } label: {
@@ -170,108 +150,6 @@ private struct TeacherFindingSection: View {
     }
 }
 
-private struct CommunitySection: View {
-    @Injected(\.acceptanceReviewInteractor) private var acceptanceReviewInteractor
-
-    var body: some View {
-        content
-    }
-
-    var content: some View {
-        VStack(spacing: fs(14)) {
-            Text("음파 커뮤니티")
-                .font(UmpaFont.h2Kr)
-                .foregroundStyle(Color(hex: "121214"))
-                .frame(maxWidth: .fill, alignment: .leading)
-                .padding(.horizontal, contentHorizontalPadding)
-            VStack(spacing: fs(16)) {
-                acceptanceReviewsRow
-                informationSharingRow
-//                LatestQuestionsRow()
-                mentoringRow
-            }
-        }
-        .frame(maxWidth: .fill)
-    }
-
-    var acceptanceReviewsRow: some View {
-        VStack(spacing: fs(10)) {
-            HStack {
-                Text("지금 인기있는 합격 후기")
-                    .foregroundStyle(UmpaColor.darkGray)
-                    .font(UmpaFont.h3Kr)
-                Spacer()
-                SeeAllButton()
-            }
-            .padding(.horizontal, contentHorizontalPadding)
-            .frame(maxWidth: .fill)
-            ScrollView(.horizontal) {
-                HStack {
-                    Spacer(minLength: contentHorizontalPadding)
-                    HStack(spacing: fs(5)) {
-                        Card(model: .sample1)
-                        Card(model: .sample1)
-                        Card(model: .sample1)
-                        Card(model: .sample1)
-                    }
-                    Spacer(minLength: contentHorizontalPadding)
-                }
-            }
-            .scrollIndicators(.never)
-        }
-    }
-
-    var informationSharingRow: some View {
-        VStack(spacing: fs(10)) {
-            HStack {
-                Text("방금 올라온 정보 공유")
-                    .foregroundStyle(UmpaColor.darkGray)
-                    .font(UmpaFont.h3Kr)
-                Spacer()
-                SeeAllButton()
-            }
-            VStack(spacing: fs(9)) {
-                ListContent(model: .sample1)
-                HorizontalDivider(thickness: fs(1.25), color: .white)
-                ListContent(model: .sample1)
-                HorizontalDivider(thickness: fs(1.25), color: .white)
-                ListContent(model: .sample1)
-            }
-            .padding(.horizontal, fs(15))
-            .padding(.vertical, fs(14))
-            .background(UmpaColor.baseColor, in: RoundedRectangle(cornerRadius: fs(15)))
-        }
-        .padding(.horizontal, contentHorizontalPadding)
-    }
-
-    var mentoringRow: some View {
-        VStack(spacing: fs(10)) {
-            HStack {
-                Text("방금 등록된 멘토링 글")
-                    .foregroundStyle(UmpaColor.darkGray)
-                    .font(UmpaFont.h3Kr)
-                Spacer()
-                SeeAllButton()
-            }
-            .padding(.horizontal, contentHorizontalPadding)
-            .frame(maxWidth: .fill)
-            ScrollView(.horizontal) {
-                HStack {
-                    Spacer(minLength: contentHorizontalPadding)
-                    HStack(spacing: fs(5)) {
-                        Card(model: .sample1)
-                        Card(model: .sample1)
-                        Card(model: .sample1)
-                        Card(model: .sample1)
-                    }
-                    Spacer(minLength: contentHorizontalPadding)
-                }
-            }
-            .scrollIndicators(.never)
-        }
-    }
-}
-
 #Preview {
     TabView {
         TeacherHomeView()
@@ -281,7 +159,7 @@ private struct CommunitySection: View {
             .tag(0)
         Color.blue
             .tabItem {
-                MainTabView.TabLabel(category: .matching)
+                MainTabView.TabLabel(category: .teacherFinder)
             }
             .tag(1)
         Color.yellow
@@ -306,7 +184,7 @@ private struct CommunitySection: View {
             .tag(0)
         Color.blue
             .tabItem {
-                MainTabView.TabLabel(category: .matching)
+                MainTabView.TabLabel(category: .teacherFinder)
             }
             .tag(1)
         Color.yellow

@@ -64,11 +64,6 @@ extension Container {
             .scope(.shared)
     }
 
-    var acceptanceReviewInteractor: Factory<AcceptanceReviewInteractor> {
-        Factory(self) { AcceptanceReviewInteractorImpl() }
-            .scope(.shared)
-    }
-
     var serviceRegistrationInteractor: Factory<ServiceRegistrationInteractor> {
         Factory(self) { ServiceRegistrationInteractorImpl() }
             .scope(.shared)
@@ -76,16 +71,6 @@ extension Container {
 
     var chatInteractor: Factory<ChatInteractor> {
         Factory(self) { ChatInteractorImpl() }
-            .scope(.shared)
-    }
-
-    var generalBoardInteractor: Factory<GeneralBoardInteractor> {
-        Factory(self) { GeneralBoardInteractorImpl() }
-            .scope(.shared)
-    }
-
-    var mentoringInteractor: Factory<MentoringInteractor> {
-        Factory(self) { MentoringInteractorImpl() }
             .scope(.shared)
     }
 

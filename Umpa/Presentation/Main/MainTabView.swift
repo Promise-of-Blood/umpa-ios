@@ -20,26 +20,21 @@ struct MainTabView: View {
                 .tag(MainViewTabType.home)
             TeacherFinderView()
                 .tabItem {
-                    MainTabView.TabLabel(category: .matching)
+                    MainTabView.TabLabel(category: .teacherFinder)
                 }
-                .tag(MainViewTabType.matching)
-            CommunityView()
-                .tabItem {
-                    MainTabView.TabLabel(category: .community)
-                }
-                .tag(MainViewTabType.community)
+                .tag(MainViewTabType.teacherFinder)
             ChatView()
                 .tabItem {
                     MainTabView.TabLabel(category: .chat)
                 }
-                .tag(MainViewTabType.chatting)
+                .tag(MainViewTabType.chat)
         }
     }
 }
 
 enum TabCategory {
     case home
-    case matching
+    case teacherFinder
     case community
     case chat
 
@@ -47,7 +42,7 @@ enum TabCategory {
         switch self {
         case .home:
             return "홈"
-        case .matching:
+        case .teacherFinder:
             return "매칭서비스"
         case .community:
             return "커뮤니티"
@@ -61,7 +56,7 @@ enum TabCategory {
         switch self {
         case .home:
             return ImageResource(name: "home", bundle: .main)
-        case .matching:
+        case .teacherFinder:
             return ImageResource(name: "matching", bundle: .main)
         case .community:
             return ImageResource(name: "community", bundle: .main)
