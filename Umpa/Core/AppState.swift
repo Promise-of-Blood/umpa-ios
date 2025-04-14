@@ -11,8 +11,9 @@ final class AppState: ObservableObject {
 
 struct ViewRouting {
     var currentTab: MainViewTabType = .home
-    var chattingNavigationPath = NavigationPath()
+    var chatNavigationPath = NavigationPath()
     var teacherFindingNavigationPath = NavigationPath()
+    var myServicesNavigationPath = NavigationPath()
 }
 
 struct UserData {

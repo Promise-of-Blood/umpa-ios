@@ -16,19 +16,19 @@ extension StubServerRepository: ServerRepository {
             .eraseToAnyPublisher()
     }
 
-    public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
-        Just(ChattingRoom.sample0)
+    public func fetchChatRoom(by id: Domain.ChatRoom.Id) -> AnyPublisher<Domain.ChatRoom, any Error> {
+        Just(ChatRoom.sample0)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
 
-    public func fetchChattingRoom(for id: String) -> AnyPublisher<Domain.ChattingRoom?, any Error> {
-        let chattingRoomList = [ChattingRoom.sample0]
-        let matchedChattingRoom = chattingRoomList.first { chattingRoom in
-            chattingRoom.relatedService.id == id
+    public func fetchChatRoom(for id: String) -> AnyPublisher<Domain.ChatRoom?, any Error> {
+        let chatRoomList = [ChatRoom.sample0]
+        let matchedChatRoom = chatRoomList.first { chatRoom in
+            chatRoom.relatedService.id == id
         }
 
-        return Just(matchedChattingRoom)
+        return Just(matchedChatRoom)
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }
@@ -280,8 +280,8 @@ extension StubServerRepository: ServerRepository {
             .eraseToAnyPublisher()
     }
 
-    public func fetchChattingRoomList() -> AnyPublisher<[Domain.ChattingRoom], any Error> {
-        Just([ChattingRoom.sample0])
+    public func fetchChatRoomList() -> AnyPublisher<[Domain.ChatRoom], any Error> {
+        Just([ChatRoom.sample0])
             .setFailureType(to: Error.self)
             .eraseToAnyPublisher()
     }

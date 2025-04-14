@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct ChattingRoom: Identifiable, Hashable {
+public struct ChatRoom: Identifiable, Hashable {
     public typealias Id = String
 
     public let id: Id?

@@ -114,9 +114,9 @@ extension Teacher {
     )
 }
 
-extension ChattingRoom {
-    public static let sample0 = ChattingRoom(
-        id: "chattingRoom0",
+extension ChatRoom {
+    public static let sample0 = ChatRoom(
+        id: "chatRoom0",
         student: .sample0,
         relatedService: LessonService.sample0.toAnyService(),
         messages: [

@@ -8,15 +8,15 @@ import Utility
 
 protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.
-    func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id)
+    func load(_ chattingRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>, for id: User.Id)
 
     /// 주어진 `service`에 대해 채팅을 시작합니다.
     ///
     /// 이미 만들어진 채팅방이 있을 경우 해당 채팅방으로 이동합니다.
-    func startChatting(with service: any Service, navigationPath: Binding<NavigationPath>)
+    func startChat(with service: any Service, navigationPath: Binding<NavigationPath>)
 
     /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
-    func enterChattingRoom(with id: ChattingRoom.Id)
+    func enterChattingRoom(with id: ChatRoom.Id)
 }
 
 struct DefaultChatInteractor: ChatInteractor {
@@ -25,21 +25,21 @@ struct DefaultChatInteractor: ChatInteractor {
 
     private let cancelBag = CancelBag()
 
-    func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id) {
-        chattingRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        serverRepository.fetchChattingRoomList()
+    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>, for id: User.Id) {
+        chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
+        serverRepository.fetchChatRoomList()
             .mapError { _ in
-                ChattingViewError.fakeError
+                ChatInteractorError.fakeError
             }
-            .sinkToLoadable(chattingRoomList)
+            .sinkToLoadable(chatRoomList)
             .store(in: cancelBag)
     }
 
-    func startChatting(with service: any Service, navigationPath: Binding<NavigationPath>) {
+    func startChat(with service: any Service, navigationPath: Binding<NavigationPath>) {
         guard let student = appState.userData.currentUser as? Student else { return }
 
-        serverRepository.fetchChattingRoom(for: service.id)
-            .replaceNil(with: ChattingRoom(
+        serverRepository.fetchChatRoom(for: service.id)
+            .replaceNil(with: ChatRoom(
                 id: nil,
                 student: student,
                 relatedService: service.toAnyService(),
@@ -55,15 +55,33 @@ struct DefaultChatInteractor: ChatInteractor {
             .store(in: cancelBag)
     }
 
-    func enterChattingRoom(with id: ChattingRoom.Id) {
-        serverRepository.fetchChattingRoom(by: id)
+    func enterChattingRoom(with id: ChatRoom.Id) {
+        serverRepository.fetchChatRoom(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: error 처리
                 }
             } receiveValue: { chattingRoom in
-                appState.routing.chattingNavigationPath.append(chattingRoom)
+                appState.routing.chatNavigationPath.append(chattingRoom)
             }
             .store(in: cancelBag)
+    }
+}
+
+enum ChatInteractorError: LocalizedError {
+    case fakeError
+
+    var errorDescription: String? {
+        switch self {
+        case .fakeError:
+            return "Fake Error errorDescription"
+        }
+    }
+
+    var recoverySuggestion: String? {
+        switch self {
+        case .fakeError:
+            return "Fake Error recoverySuggestion"
+        }
     }
 }

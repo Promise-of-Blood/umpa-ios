@@ -18,13 +18,13 @@ struct ChatInteractorTests {
     }
 
     @Test func loadChattingRoomList() async throws {
-        let chattingRoomList = BindingWithPublisher(
-            Loadable<[ChattingRoom], ChattingViewError>.notRequested
+        let chatRoomList = BindingWithPublisher(
+            Loadable<[ChatRoom], ChatInteractorError>.notRequested
         )
 
-        chatInteractor.load(chattingRoomList.binding, for: "")
+        chatInteractor.load(chatRoomList.binding, for: "")
 
-        let value = await chattingRoomList.updatesRecorder.values.first(where: { _ in true })
+        let value = await chatRoomList.updatesRecorder.values.first(where: { _ in true })
 
         #expect(value?.count == 3)
     }

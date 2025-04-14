@@ -33,11 +33,11 @@ extension DefaultServerRepository: ServerRepository {
         fatalError()
     }
 
-    public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
+    public func fetchChatRoom(by id: Domain.ChatRoom.Id) -> AnyPublisher<Domain.ChatRoom, any Error> {
         fatalError()
     }
 
-    public func fetchChattingRoom(for id: String) -> AnyPublisher<Domain.ChattingRoom?, any Error> {
+    public func fetchChatRoom(for id: String) -> AnyPublisher<Domain.ChatRoom?, any Error> {
         fatalError()
     }
 
@@ -165,7 +165,7 @@ extension DefaultServerRepository: ServerRepository {
         fatalError("postMusicCreationService() has not been implemented")
     }
 
-    public func fetchChattingRoomList() -> AnyPublisher<[Domain.ChattingRoom], any Error> {
+    public func fetchChatRoomList() -> AnyPublisher<[Domain.ChatRoom], any Error> {
         fatalError()
     }
 

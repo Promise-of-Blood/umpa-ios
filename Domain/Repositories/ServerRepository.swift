@@ -53,9 +53,9 @@ public protocol ServerRepository {
     func postCompositionService(_ compositionService: ScoreCreationService) -> AnyPublisher<Void, Error>
     func postMusicCreationService(_ musicCreationService: MusicCreationService) -> AnyPublisher<Void, Error>
 
-    func fetchChattingRoomList() -> AnyPublisher<[ChattingRoom], Error>
-    func fetchChattingRoom(for id: Service.Id) -> AnyPublisher<ChattingRoom?, Error>
-    func fetchChattingRoom(by id: ChattingRoom.Id) -> AnyPublisher<ChattingRoom, Error>
+    func fetchChatRoomList() -> AnyPublisher<[ChatRoom], Error>
+    func fetchChatRoom(for id: Service.Id) -> AnyPublisher<ChatRoom?, Error>
+    func fetchChatRoom(by id: ChatRoom.Id) -> AnyPublisher<ChatRoom, Error>
 
     func postChatMessage(_ message: ChatMessage) -> AnyPublisher<Void, Error>
 

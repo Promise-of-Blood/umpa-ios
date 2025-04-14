@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct ChattingRoomCreateData {
+public struct ChatRoomCreateData {
     public let relatedService: any Service
 
     public init(relatedService: some Service) {

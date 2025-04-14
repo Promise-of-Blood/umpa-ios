@@ -23,8 +23,8 @@ struct ScoreCreationServiceDetailView: ServiceDetailView {
     var body: some View {
         content
             .modifier(NavigationBackButton(.arrowBack))
-            .navigationDestination(for: ChattingRoom.self) { chattingRoom in
-                ChattingRoomView(chattingRoom: chattingRoom)
+            .navigationDestination(for: ChatRoom.self) { chatRoom in
+                ChatRoomView(chatRoom: chatRoom)
             }
     }
 
@@ -46,7 +46,7 @@ struct ScoreCreationServiceDetailView: ServiceDetailView {
                     serviceDetailInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
-                    chatInteractor.startChatting(
+                    chatInteractor.startChat(
                         with: service,
                         navigationPath: $appState.routing.teacherFindingNavigationPath
                     )

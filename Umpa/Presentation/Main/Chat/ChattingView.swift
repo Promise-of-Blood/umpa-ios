@@ -9,26 +9,26 @@ struct ChattingView: View {
 
     @Injected(\.chatInteractor) private var chatInteractor
 
-    @State private var chattingRoomList: Loadable<[ChattingRoom], ChattingViewError>
+    @State private var chatRoomList: Loadable<[ChatRoom], ChatInteractorError>
 
-    init(chattingRoomList: Loadable<[ChattingRoom], ChattingViewError> = .notRequested) {
-        _chattingRoomList = .init(initialValue: chattingRoomList)
+    init(chatRoomList: Loadable<[ChatRoom], ChatInteractorError> = .notRequested) {
+        _chatRoomList = .init(initialValue: chatRoomList)
     }
 
     var body: some View {
-        NavigationStack(path: $appState.routing.chattingNavigationPath) {
+        NavigationStack(path: $appState.routing.chatNavigationPath) {
             content
-                .navigationDestination(for: ChattingRoom.self) { chattingRoom in
-                    ChattingRoomView(chattingRoom: chattingRoom)
+                .navigationDestination(for: ChatRoom.self) { chattingRoom in
+                    ChatRoomView(chatRoom: chattingRoom)
                 }
         }
-        .errorAlert($chattingRoomList)
+        .errorAlert($chatRoomList)
         .onAppear(perform: reloadChattingRoomList)
     }
 
     @ViewBuilder
     var content: some View {
-        switch chattingRoomList {
+        switch chatRoomList {
         case .notRequested:
             Text("")
                 .onAppear(perform: reloadChattingRoomList)
@@ -41,11 +41,11 @@ struct ChattingView: View {
         }
 
         Button("에러 발생") {
-            chattingRoomList = .failed(.fakeError)
+            chatRoomList = .failed(.fakeError)
         }
     }
 
-    func loadedView(_ chattingRoomList: [ChattingRoom]) -> some View {
+    func loadedView(_ chattingRoomList: [ChatRoom]) -> some View {
         IndexingForEach(chattingRoomList) { index, chattingRoom in
             NavigationLink(value: chattingRoomList[index]) {
                 Text(chattingRoom.relatedService.author.name)
@@ -55,27 +55,9 @@ struct ChattingView: View {
 
     func reloadChattingRoomList() {
         chatInteractor.load(
-            $chattingRoomList,
+            $chatRoomList,
             for: appState.userData.currentUser!.id
         )
-    }
-}
-
-enum ChattingViewError: LocalizedError {
-    case fakeError
-
-    var errorDescription: String? {
-        switch self {
-        case .fakeError:
-            return "Fake Error errorDescription"
-        }
-    }
-
-    var recoverySuggestion: String? {
-        switch self {
-        case .fakeError:
-            return "Fake Error recoverySuggestion"
-        }
     }
 }
 
