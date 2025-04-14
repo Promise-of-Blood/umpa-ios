@@ -69,8 +69,8 @@ extension Container {
             .scope(.shared)
     }
 
-    var serviceInteractor: Factory<ServiceInteractor> {
-        Factory(self) { DefaultServiceInteractor() }
+    var serviceRegistrationInteractor: Factory<ServiceRegistrationInteractor> {
+        Factory(self) { DefaultServiceRegistrationInteractor() }
             .scope(.shared)
     }
 
@@ -86,6 +86,26 @@ extension Container {
 
     var mentoringInteractor: Factory<MentoringInteractor> {
         Factory(self) { DefaultMentoringInteractor() }
+            .scope(.shared)
+    }
+
+    var serviceListInteractor: Factory<ServiceListInteractor> {
+        Factory(self) { DefaultServiceListInteractor() }
+            .scope(.shared)
+    }
+
+    var serviceDetailInteractor: Factory<ServiceDetailInteractor> {
+        Factory(self) { DefaultServiceDetailInteractor() }
+            .scope(.shared)
+    }
+
+    var teacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
+        Factory(self) { DefaultTeacherServiceManagementInteractor() }
+            .scope(.shared)
+    }
+
+    var teacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
+        Factory(self) { DefaultTeacherLessonManagementInteractor() }
             .scope(.shared)
     }
 }
