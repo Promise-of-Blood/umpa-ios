@@ -8,13 +8,13 @@ import Utility
 
 protocol ReviewInteractor {
     func load(_ reviews: Binding<[Review]>, for id: Service.Id)
-    func save(_ review: Review)
+    func save(_ review: ReviewCreateData)
 }
 
 struct DefaultReviewInteractor: ReviewInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
 
     func load(_ reviews: Binding<[Review]>, for id: Service.Id) {
         serverRepository.fetchReviewList()
@@ -23,7 +23,10 @@ struct DefaultReviewInteractor: ReviewInteractor {
             .store(in: cancelBag)
     }
 
-    func save(_ review: Review) {
-        fatalError()
+    func save(_ review: ReviewCreateData) {
+        serverRepository.postReview(review)
+            .replaceError(with: ())
+            .sink { _ in }
+            .store(in: cancelBag)
     }
 }

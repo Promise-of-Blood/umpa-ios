@@ -13,8 +13,22 @@ struct MatchingView: View {
     @State private var serviceList: [any Service] = []
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $appState.routing.teacherFindingNavigationPath) {
             content
+                .navigationDestination(for: AnyService.self) { service in
+                    if let lesson = service.unwrap(as: LessonService.self) {
+                        LessonServiceDetailView(service: lesson)
+                    }
+                    if let accompanistService = service.unwrap(as: AccompanistService.self) {
+                        AccompanistServiceDetailView(service: accompanistService)
+                    }
+                    if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
+                        MrCreationServiceDetailView(service: musicCreationService)
+                    }
+                    if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
+                        ScoreCreationServiceDetailView(service: scoreCreationService)
+                    }
+                }
         }
         .onAppear {
             serviceInteractor.load(
@@ -36,33 +50,8 @@ struct MatchingView: View {
             }
             Text(appState.userData.teacherFinding.selectedService.name)
             ForEach(serviceList, id: \.id) { service in
-                switch service {
-                case let lessonService as LessonService:
-                    NavigationLink {
-                        LessonServiceDetailView(service: lessonService)
-                    } label: {
-                        ServiceListItem(model: service.toServiceListItemModel())
-                    }
-                case let accompanistService as AccompanistService:
-                    NavigationLink {
-                        AccompanistServiceDetailView(service: accompanistService)
-                    } label: {
-                        ServiceListItem(model: service.toServiceListItemModel())
-                    }
-                case let musicCreationService as MusicCreationService:
-                    NavigationLink {
-                        MrCreationServiceDetailView(service: musicCreationService)
-                    } label: {
-                        ServiceListItem(model: service.toServiceListItemModel())
-                    }
-                case let scoreCreationService as ScoreCreationService:
-                    NavigationLink {
-                        ScoreCreationServiceDetailView(service: scoreCreationService)
-                    } label: {
-                        ServiceListItem(model: service.toServiceListItemModel())
-                    }
-                default:
-                    preconditionFailure("\(type(of: service)) 타입이 처리되지 않았습니다.")
+                NavigationLink(value: service.toAnyService()) {
+                    ServiceListItem(model: service.toServiceListItemModel())
                 }
             }
         }

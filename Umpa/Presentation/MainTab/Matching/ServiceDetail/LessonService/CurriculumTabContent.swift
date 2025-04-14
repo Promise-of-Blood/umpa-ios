@@ -38,6 +38,7 @@ extension LessonServiceDetailView {
     }
 }
 
+#if MOCK
 #Preview {
     ScrollView {
         LessonServiceDetailView.CurriculumTabContent(curriculumList: LessonService.sample0.curriculum)
@@ -45,3 +46,4 @@ extension LessonServiceDetailView {
     .padding()
     .background(.black)
 }
+#endif

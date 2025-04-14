@@ -40,6 +40,7 @@ struct PricePerUnit: View {
     }
 }
 
+#if MOCK
 #Preview(traits: .sizeThatFitsLayout) {
     PricePerUnit(model: .example1)
     PricePerUnit(model: .example2)
@@ -49,6 +50,7 @@ struct PricePerUnit: View {
     )
     PricePerUnit(model: .example4)
 }
+#endif
 
 #if MOCK
 extension PricePerUnit.Model {

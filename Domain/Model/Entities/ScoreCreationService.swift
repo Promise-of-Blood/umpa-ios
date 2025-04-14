@@ -3,7 +3,7 @@
 import Foundation
 
 public struct ScoreCreationService: Service {
-    public let id: String?
+    public let id: Id
     public let type: ServiceType
     public let title: String
     public let thumbnail: URL?
@@ -21,7 +21,7 @@ public struct ScoreCreationService: Service {
     public let sampleSheets: [SampleSheet]
 
     public init(
-        id: String?,
+        id: Id,
         type: ServiceType,
         title: String,
         thumbnail: URL?,

@@ -7,7 +7,7 @@ public struct Review: Identifiable, Hashable {
 
     public let id: Id?
     public let createdAt: Date
-    public let rating: Double
+    public let rating: Rating
     public let writer: Student
     public let content: String
     public let images: [URL?]
@@ -15,7 +15,7 @@ public struct Review: Identifiable, Hashable {
     public init(
         id: Id?,
         createdAt: Date,
-        rating: Double,
+        rating: Rating,
         writer: Student,
         content: String,
         images: [URL?]

@@ -68,6 +68,7 @@ struct ReviewCardModel {
     #endif
 }
 
+#if MOCK
 #Preview(traits: .sizeThatFitsLayout) {
     ScrollView(.horizontal) {
         HStack {
@@ -81,3 +82,4 @@ struct ReviewCardModel {
     }
     .scrollIndicators(.hidden)
 }
+#endif

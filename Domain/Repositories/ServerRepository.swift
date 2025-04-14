@@ -8,6 +8,8 @@ public protocol ServerRepository {
     func fetchReview() -> AnyPublisher<Review, Error>
     func fetchReviewList() -> AnyPublisher<[Review], Error>
 
+    func postReview(_ review: ReviewCreateData) -> AnyPublisher<Void, Error>
+
     func fetchAcceptanceReview() -> AnyPublisher<AcceptanceReview, Error>
     func fetchAcceptanceReviewList(by id: String) -> AnyPublisher<[AcceptanceReview], Error>
     func fetchAllAcceptanceReviewList() -> AnyPublisher<[AcceptanceReview], Error>
@@ -50,6 +52,10 @@ public protocol ServerRepository {
     func postMusicCreationService(_ musicCreationService: MusicCreationService) -> AnyPublisher<Void, Error>
 
     func fetchChattingRoomList() -> AnyPublisher<[ChattingRoom], Error>
+    func fetchChattingRoom(for id: Service.Id) -> AnyPublisher<ChattingRoom?, Error>
+    func fetchChattingRoom(by id: ChattingRoom.Id) -> AnyPublisher<ChattingRoom, Error>
 
     func postChatMessage(_ message: ChatMessage) -> AnyPublisher<Void, Error>
+
+    func updateLikeStatus(_ isLiked: Bool, for id: Service.Id) -> AnyPublisher<Void, Error>
 }

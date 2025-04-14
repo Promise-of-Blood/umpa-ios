@@ -15,7 +15,7 @@ protocol GeneralBoardInteractor {
 struct DefaultGeneralBoardInteractor: GeneralBoardInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
 
     func load(_ boards: Binding<[Post]>, filter: Post.Filter) {
         serverRepository.fetchPostList(with: filter)

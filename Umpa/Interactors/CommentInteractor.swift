@@ -14,7 +14,7 @@ protocol CommentInteractor {
 struct DefaultCommentInteractor: CommentInteractor {
     @Injected(\.serverRepository) private var serverRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
 
     func load(_ comments: Binding<[AcceptanceReview.Comment]>, for id: AcceptanceReview.ID) {
         serverRepository.fetchAcceptanceReviewCommentList(by: id)

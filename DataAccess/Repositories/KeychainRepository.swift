@@ -1,28 +1,47 @@
 // Created for Umpa in 2025
 
+import Combine
 import Domain
 import Foundation
 
+enum KeychainRepositoryError: Error {
+    case notSaved(OSStatus)
+    case notFound(OSStatus)
+}
+
 public struct DefaultKeychainRepository {
     public init() {
-        accessTokenKey = Bundle.main.object(forInfoDictionaryKey: "KEYCHAIN_ACCESS_TOKEN_KEY_RELEASE") as! String
+        let infoDictionaryKey = "KEYCHAIN_ACCESS_TOKEN_KEY_RELEASE"
+        guard let key = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String else {
+            fatalError("해당 Info.plist 키가 존재하지 않습니다.")
+        }
+        accessTokenKey = key
     }
 
     private let accessTokenKey: String
 }
 
 extension DefaultKeychainRepository: KeychainRepository {
-    public func save(_ token: Domain.AccessToken) {
+    public func save(_ token: Domain.AccessToken) -> AnyPublisher<Void, any Error> {
         let data = Data(token.utf8)
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: accessTokenKey,
             kSecValueData: data,
         ]
-        SecItemAdd(query as CFDictionary, nil)
+        let status = SecItemAdd(query as CFDictionary, nil)
+
+        if status == errSecSuccess {
+            return Just(())
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        } else {
+            return Fail(error: KeychainRepositoryError.notSaved(status))
+                .eraseToAnyPublisher()
+        }
     }
 
-    public func getAccessToken() -> Domain.AccessToken? {
+    public func getAccessToken() -> AnyPublisher<Domain.AccessToken, any Error> {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: accessTokenKey,
@@ -32,10 +51,17 @@ extension DefaultKeychainRepository: KeychainRepository {
         var dataTypeRef: AnyObject?
         let status = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
 
-        if status == errSecSuccess, let data = dataTypeRef as? Data {
-            return String(data: data, encoding: .utf8)
+        if status == errSecSuccess,
+           let data = dataTypeRef as? Data,
+           let token = String(data: data, encoding: .utf8)
+        {
+            return Just(token)
+                .setFailureType(to: Error.self)
+                .eraseToAnyPublisher()
+        } else {
+            return Fail(error: KeychainRepositoryError.notFound(status))
+                .eraseToAnyPublisher()
         }
-        return nil
     }
 }
 
@@ -48,12 +74,21 @@ public final class StubKeychainRepository {
 }
 
 extension StubKeychainRepository: KeychainRepository {
-    public func save(_ token: Domain.AccessToken) {
+    public func save(_ token: Domain.AccessToken) -> AnyPublisher<Void, any Error> {
         accessToken = token
+        return Just(())
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
 
-    public func getAccessToken() -> Domain.AccessToken? {
-        accessToken
+    public func getAccessToken() -> AnyPublisher<Domain.AccessToken, any Error> {
+        guard let accessToken = accessToken else {
+            return Fail(error: KeychainRepositoryError.notFound(-1))
+                .eraseToAnyPublisher()
+        }
+        return Just(accessToken)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
     }
 }
 

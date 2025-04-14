@@ -39,8 +39,10 @@ extension ScoreCreationServiceDetailView {
     }
 }
 
+#if MOCK
 #Preview {
     ScoreCreationServiceDetailView.SamplePreviewTabContent(
         sampleSheets: ScoreCreationService.sample0.sampleSheets
     )
 }
+#endif

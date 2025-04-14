@@ -9,6 +9,26 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
+    public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
+        fatalError()
+    }
+
+    public func fetchChattingRoom(for id: String) -> AnyPublisher<Domain.ChattingRoom?, any Error> {
+        fatalError()
+    }
+
+    public func updateLikeStatus(_ isLiked: Bool, for id: String) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
+    public func postReview(_ review: Domain.ReviewCreateData) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
+    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+        fatalError()
+    }
+
     public func fetchMyLessonList(with: AccessToken) -> AnyPublisher<[Domain.LessonService], any Error> {
         fatalError()
     }
@@ -156,6 +176,43 @@ public struct StubServerRepository {
 }
 
 extension StubServerRepository: ServerRepository {
+    public func fetchChattingRoom(by id: Domain.ChattingRoom.Id) -> AnyPublisher<Domain.ChattingRoom, any Error> {
+        Just(ChattingRoom.sample0)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
+    public func fetchChattingRoom(for id: String) -> AnyPublisher<Domain.ChattingRoom?, any Error> {
+        let chattingRoomList = [ChattingRoom.sample0]
+        let matchedChattingRoom = chattingRoomList.first { chattingRoom in
+            chattingRoom.relatedService.id == id
+        }
+
+        return Just(matchedChattingRoom)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
+    public func updateLikeStatus(_ isLiked: Bool, for id: String) -> AnyPublisher<Void, any Error> {
+        Just(())
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+    }
+
+    public func postReview(_ review: Domain.ReviewCreateData) -> AnyPublisher<Void, any Error> {
+        fatalError()
+    }
+
+    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+        Just([
+            AccompanistService.sample0,
+            ScoreCreationService.sample0,
+            MusicCreationService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
+    }
+
     public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
         let allServices: [any Service] = [
             LessonService.sample0,
@@ -165,8 +222,7 @@ extension StubServerRepository: ServerRepository {
         ]
 
         let favoriteServices = allServices.filter { service in
-            guard let serviceId = service.id else { return false }
-            return Student.sample0.favoriteServices.contains(serviceId)
+            Student.sample0.favoriteServices.contains(service.id)
         }
 
         return Just(favoriteServices)

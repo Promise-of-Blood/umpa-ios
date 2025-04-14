@@ -10,10 +10,12 @@ protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.
     func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id)
 
-    /// 주어진 `service`에 대해 처음 채팅을 시작합니다.
-    func startChatting(with service: any Service)
+    /// 주어진 `service`에 대해 채팅을 시작합니다.
+    ///
+    /// 이미 만들어진 채팅방이 있을 경우 해당 채팅방으로 이동합니다.
+    func startChatting(with service: any Service, navigationPath: Binding<NavigationPath>)
 
-    /// 주어진 `id`의 채팅방으로 이동합니다.
+    /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
     func enterChattingRoom(with id: ChattingRoom.Id)
 }
 
@@ -21,7 +23,7 @@ struct DefaultChatInteractor: ChatInteractor {
     @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
 
     func load(_ chattingRoomList: Binding<Loadable<[ChattingRoom], ChattingViewError>>, for id: User.Id) {
         chattingRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
@@ -33,27 +35,35 @@ struct DefaultChatInteractor: ChatInteractor {
             .store(in: cancelBag)
     }
 
-    /// 주어진 `service`에 대해 채팅을 시작합니다.
-    ///
-    /// 이미 만들어진 채팅방이 있을 경우 해당 채팅방으로 이동합니다.
-    func startChatting(with service: any Service) {
-        guard let student = appState.userData.currenteUser as? Student else { return }
+    func startChatting(with service: any Service, navigationPath: Binding<NavigationPath>) {
+        guard let student = appState.userData.currentUser as? Student else { return }
 
-        let chattingRoom = ChattingRoom(
-            id: nil,
-            student: student,
-            relatedService: service.toAnyService(),
-            messages: []
-        )
-
-        // TODO: 채팅방이 이미 존재하는지 확인하고, 존재한다면 해당 채팅방으로 이동하는 로직 추가 필요
-
-        appState.routing.currentTab = .chatting
-        appState.routing.chattingNavigationPath.removeAll()
-        appState.routing.chattingNavigationPath.append(chattingRoom)
+        serverRepository.fetchChattingRoom(for: service.id)
+            .replaceNil(with: ChattingRoom(
+                id: nil,
+                student: student,
+                relatedService: service.toAnyService(),
+                messages: []
+            ))
+            .sink { completion in
+                if let error = completion.error {
+                    // error 처리
+                }
+            } receiveValue: { chattingRoom in
+                navigationPath.wrappedValue.append(chattingRoom)
+            }
+            .store(in: cancelBag)
     }
 
     func enterChattingRoom(with id: ChattingRoom.Id) {
-        fatalError()
+        serverRepository.fetchChattingRoom(by: id)
+            .sink { completion in
+                if let error = completion.error {
+                    // error 처리
+                }
+            } receiveValue: { chattingRoom in
+                appState.routing.chattingNavigationPath.append(chattingRoom)
+            }
+            .store(in: cancelBag)
     }
 }

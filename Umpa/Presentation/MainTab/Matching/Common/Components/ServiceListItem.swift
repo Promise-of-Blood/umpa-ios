@@ -91,6 +91,7 @@ extension Service {
     }
 }
 
+#if MOCK
 #Preview(traits: .sizeThatFitsLayout) {
     ServiceListItem(model: ServiceListItem.Model.example1)
         .frame(width: 280)
@@ -103,6 +104,7 @@ extension Service {
         .padding()
         .border(Color.black)
 }
+#endif
 
 #if MOCK
 extension ServiceListItem.Model {

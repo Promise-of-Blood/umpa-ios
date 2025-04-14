@@ -38,6 +38,7 @@ struct LessonInfo: View {
     }
 }
 
+#if MOCK
 #Preview(traits: .sizeThatFitsLayout) {
     LessonInfo(model: .example0)
         .frame(width: 160)
@@ -53,6 +54,7 @@ struct LessonInfo: View {
         .padding()
         .border(Color.black)
 }
+#endif
 
 #if MOCK
 extension LessonInfo.Model {

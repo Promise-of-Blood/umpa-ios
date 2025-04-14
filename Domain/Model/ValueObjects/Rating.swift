@@ -2,6 +2,10 @@
 
 import Foundation
 
-public struct Rating {
-    public let amount: Int
+public struct Rating: Hashable {
+    public let amount: Float
+
+    public init(amount: Float) {
+        self.amount = amount
+    }
 }

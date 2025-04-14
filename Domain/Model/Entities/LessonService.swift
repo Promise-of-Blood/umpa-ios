@@ -3,7 +3,7 @@
 import Foundation
 
 public struct LessonService: SinglePriceService {
-    public let id: String?
+    public let id: String
     public let type: ServiceType
     public let title: String
     public let thumbnail: URL?
@@ -26,7 +26,7 @@ public struct LessonService: SinglePriceService {
     public let status: LessonStatus
 
     public init(
-        id: String?,
+        id: String,
         type: ServiceType,
         title: String,
         thumbnail: URL?,

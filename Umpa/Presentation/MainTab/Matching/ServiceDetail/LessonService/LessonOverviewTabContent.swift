@@ -28,6 +28,8 @@ extension LessonServiceDetailView {
     }
 }
 
+#if MOCK
 #Preview {
     LessonServiceDetailView.LessonOverviewTabContent(service: .sample0)
 }
+#endif
