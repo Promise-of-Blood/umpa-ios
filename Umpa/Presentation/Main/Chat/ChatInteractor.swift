@@ -8,7 +8,7 @@ import Utility
 
 protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.
-    func load(_ chattingRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>, for id: User.Id)
+    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>, for id: User.Id)
 
     /// 주어진 `service`에 대해 채팅을 시작합니다.
     ///
@@ -16,7 +16,7 @@ protocol ChatInteractor {
     func startChat(with service: any Service, navigationPath: Binding<NavigationPath>)
 
     /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
-    func enterChattingRoom(with id: ChatRoom.Id)
+    func enterChatRoom(with id: ChatRoom.Id)
 }
 
 struct DefaultChatInteractor: ChatInteractor {
@@ -49,20 +49,20 @@ struct DefaultChatInteractor: ChatInteractor {
                 if let error = completion.error {
                     // TODO: error 처리
                 }
-            } receiveValue: { chattingRoom in
-                navigationPath.wrappedValue.append(chattingRoom)
+            } receiveValue: { chatRoom in
+                navigationPath.wrappedValue.append(chatRoom)
             }
             .store(in: cancelBag)
     }
 
-    func enterChattingRoom(with id: ChatRoom.Id) {
+    func enterChatRoom(with id: ChatRoom.Id) {
         serverRepository.fetchChatRoom(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: error 처리
                 }
-            } receiveValue: { chattingRoom in
-                appState.routing.chatNavigationPath.append(chattingRoom)
+            } receiveValue: { chatRoom in
+                appState.routing.chatNavigationPath.append(chatRoom)
             }
             .store(in: cancelBag)
     }

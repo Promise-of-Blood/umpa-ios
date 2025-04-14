@@ -49,6 +49,20 @@ extension DefaultTeacherServiceManagementInteractor: TeacherServiceManagementInt
     }
 }
 
-enum TeacherServiceManagementInteractorError: Error {
+enum TeacherServiceManagementInteractorError: LocalizedError {
     case noChatRoomForServiceId
+
+    var errorDescription: String? {
+        switch self {
+        case .noChatRoomForServiceId:
+            return "해당 서비스에 대한 채팅방을 찾을 수 없습니다."
+        }
+    }
+
+    var recoverySuggestion: String? {
+        switch self {
+        case .noChatRoomForServiceId:
+            return "서비스 제공자에게 문의하거나 다시 시도해보세요."
+        }
+    }
 }

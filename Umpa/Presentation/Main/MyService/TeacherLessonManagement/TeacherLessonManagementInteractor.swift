@@ -12,6 +12,7 @@ protocol TeacherLessonManagementInteractor {
     func enterChatRoom(for id: Service.Id)
     func closeLesson(by id: LessonService.Id)
 //    func sendLessonConfirmationRequest
+    func executeCommissionPayment(for id: LessonService.Id)
 }
 
 struct DefaultTeacherLessonManagementInteractor {
@@ -23,6 +24,10 @@ struct DefaultTeacherLessonManagementInteractor {
 }
 
 extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInteractor {
+    func executeCommissionPayment(for id: Domain.LessonService.Id) {
+        fatalError()
+    }
+
     func closeLesson(by id: Domain.LessonService.Id) {
         fatalError()
     }
@@ -54,6 +59,20 @@ extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInter
     }
 }
 
-enum TeacherLessonManagementInteractorError: Error {
+enum TeacherLessonManagementInteractorError: LocalizedError {
     case noChatRoomForLessonId
+
+    var errorDescription: String? {
+        switch self {
+        case .noChatRoomForLessonId:
+            return "해당 레슨에 대한 채팅방을 찾을 수 없습니다."
+        }
+    }
+
+    var recoverySuggestion: String? {
+        switch self {
+        case .noChatRoomForLessonId:
+            return "레슨 제공자에게 문의하거나 다시 시도해보세요."
+        }
+    }
 }

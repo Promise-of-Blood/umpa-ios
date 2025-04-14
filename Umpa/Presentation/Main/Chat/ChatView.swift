@@ -4,7 +4,7 @@ import Domain
 import Factory
 import SwiftUI
 
-struct ChattingView: View {
+struct ChatView: View {
     @InjectedObject(\.appState) private var appState
 
     @Injected(\.chatInteractor) private var chatInteractor
@@ -18,12 +18,12 @@ struct ChattingView: View {
     var body: some View {
         NavigationStack(path: $appState.routing.chatNavigationPath) {
             content
-                .navigationDestination(for: ChatRoom.self) { chattingRoom in
-                    ChatRoomView(chatRoom: chattingRoom)
+                .navigationDestination(for: ChatRoom.self) { chatRoom in
+                    ChatRoomView(chatRoom: chatRoom)
                 }
         }
         .errorAlert($chatRoomList)
-        .onAppear(perform: reloadChattingRoomList)
+        .onAppear(perform: reloadChatRoomList)
     }
 
     @ViewBuilder
@@ -31,11 +31,11 @@ struct ChattingView: View {
         switch chatRoomList {
         case .notRequested:
             Text("")
-                .onAppear(perform: reloadChattingRoomList)
+                .onAppear(perform: reloadChatRoomList)
         case .isLoading:
             ProgressView()
-        case .loaded(let chattingRoomList):
-            loadedView(chattingRoomList)
+        case .loaded(let chatRoomList):
+            loadedView(chatRoomList)
         case .failed:
             loadedView([])
         }
@@ -45,15 +45,15 @@ struct ChattingView: View {
         }
     }
 
-    func loadedView(_ chattingRoomList: [ChatRoom]) -> some View {
-        IndexingForEach(chattingRoomList) { index, chattingRoom in
-            NavigationLink(value: chattingRoomList[index]) {
-                Text(chattingRoom.relatedService.author.name)
+    func loadedView(_ chatRoomList: [ChatRoom]) -> some View {
+        IndexingForEach(chatRoomList) { index, chatRoom in
+            NavigationLink(value: chatRoomList[index]) {
+                Text(chatRoom.relatedService.author.name)
             }
         }
     }
 
-    func reloadChattingRoomList() {
+    func reloadChatRoomList() {
         chatInteractor.load(
             $chatRoomList,
             for: appState.userData.currentUser!.id
@@ -67,7 +67,7 @@ struct ChattingView: View {
     @Injected(\.appState) var appState
     appState.userData.currentUser = Student.sample0
 
-    return ChattingView()
+    return ChatView()
 }
 
 #endif

@@ -332,7 +332,7 @@ private struct CommunitySection: View {
             .tag(2)
         Color.red
             .tabItem {
-                MainTabView.TabLabel(category: .chatting)
+                MainTabView.TabLabel(category: .chat)
             }
             .tag(3)
     }
@@ -357,7 +357,7 @@ private struct CommunitySection: View {
             .tag(2)
         Color.red
             .tabItem {
-                MainTabView.TabLabel(category: .chatting)
+                MainTabView.TabLabel(category: .chat)
             }
             .tag(3)
     }

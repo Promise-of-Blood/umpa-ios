@@ -4,7 +4,11 @@ import SwiftUI
 
 struct MyServiceView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("내 서비스 목록")
+                .font(.headline)
+            // 여기에 서비스 목록 표시 로직 추가
+        }
     }
 }
 

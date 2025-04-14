@@ -28,9 +28,9 @@ struct MainTabView: View {
                     MainTabView.TabLabel(category: .community)
                 }
                 .tag(MainViewTabType.community)
-            ChattingView()
+            ChatView()
                 .tabItem {
-                    MainTabView.TabLabel(category: .chatting)
+                    MainTabView.TabLabel(category: .chat)
                 }
                 .tag(MainViewTabType.chatting)
         }
@@ -41,7 +41,7 @@ enum TabCategory {
     case home
     case matching
     case community
-    case chatting
+    case chat
 
     var title: String {
         switch self {
@@ -51,7 +51,7 @@ enum TabCategory {
             return "매칭서비스"
         case .community:
             return "커뮤니티"
-        case .chatting:
+        case .chat:
             return "채팅"
         }
     }
@@ -65,8 +65,8 @@ enum TabCategory {
             return ImageResource(name: "matching", bundle: .main)
         case .community:
             return ImageResource(name: "community", bundle: .main)
-        case .chatting:
-            return ImageResource(name: "chatting", bundle: .main)
+        case .chat:
+            return ImageResource(name: "chat", bundle: .main)
         }
     }
 }

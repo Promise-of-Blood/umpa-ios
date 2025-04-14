@@ -17,7 +17,7 @@ struct ChatInteractorTests {
         Container.shared.serverRepository.register { StubServerRepository() }
     }
 
-    @Test func loadChattingRoomList() async throws {
+    @Test func loadChatRoomList() async throws {
         let chatRoomList = BindingWithPublisher(
             Loadable<[ChatRoom], ChatInteractorError>.notRequested
         )
