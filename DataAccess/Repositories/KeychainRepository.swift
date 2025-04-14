@@ -31,7 +31,7 @@ extension DefaultKeychainRepository: KeychainRepository {
         ]
         let status = SecItemAdd(query as CFDictionary, nil)
 
-        if status != errSecSuccess {
+        if status == errSecSuccess {
             return Just(())
                 .setFailureType(to: Error.self)
                 .eraseToAnyPublisher()
