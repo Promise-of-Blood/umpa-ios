@@ -54,10 +54,7 @@ struct ChatView: View {
     }
 
     func reloadChatRoomList() {
-        chatInteractor.load(
-            $chatRoomList,
-            for: appState.userData.currentUser!.id
-        )
+        chatInteractor.load($chatRoomList)
     }
 }
 
@@ -65,7 +62,7 @@ struct ChatView: View {
 
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.currentUser = Student.sample0
+    appState.userData.login.currentUser = Student.sample0
 
     return ChatView()
 }

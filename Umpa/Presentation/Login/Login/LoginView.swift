@@ -5,6 +5,8 @@
 //  Created by 공명선 on 1/10/25.
 //
 
+import AuthenticationServices
+import Factory
 import SwiftUI
 
 enum LoginType {
@@ -15,6 +17,9 @@ enum LoginType {
 }
 
 struct LoginView: View {
+    @Environment(\.authorizationController) private var authorizationController
+    @Injected(\.loginInteractor) private var loginInteractor
+
     @State private var path: [LoginType] = []
 
     var body: some View {
@@ -62,6 +67,7 @@ struct LoginView: View {
     }
 
     func loginWithKakao() {
+        loginInteractor.loginWithKakao()
         #if RELEASE
             fatalError()
         #endif
@@ -69,6 +75,7 @@ struct LoginView: View {
     }
 
     func loginWithNaver() {
+        loginInteractor.loginWithNaver()
         #if RELEASE
             fatalError()
         #endif
@@ -76,6 +83,7 @@ struct LoginView: View {
     }
 
     func loginWithGoogle() {
+        loginInteractor.loginWithGoogle()
         #if RELEASE
             fatalError()
         #endif

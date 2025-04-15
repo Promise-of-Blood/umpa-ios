@@ -13,7 +13,7 @@ struct MyProfileView: View {
         }
         Text("MyProfile")
         Button(action: {
-            appState.userData.currentUser = nil
+            appState.userData.login.currentUser = nil
         }) {
             Text("로그아웃")
         }

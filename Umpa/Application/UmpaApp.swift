@@ -19,7 +19,7 @@ struct UmpaApp: App {
     var body: some Scene {
         WindowGroup {
             if appState.system.isSplashFinished {
-                if appState.userData.isLoggedIn {
+                if appState.userData.login.isLoggedIn {
                     MainTabView()
                 } else {
                     LoginView()

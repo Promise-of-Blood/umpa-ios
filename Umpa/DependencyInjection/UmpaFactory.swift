@@ -38,6 +38,16 @@ extension Container {
         Factory(self) { DefaultKeychainRepository() }
             .scope(.singleton)
     }
+
+    var useCase: Factory<UseCase> {
+        Factory(self) {
+            UseCaseImpl(
+                serverRepository: self.serverRepository(),
+                keychainRepository: self.keychainRepository()
+            )
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - Interactor
@@ -48,12 +58,17 @@ extension Container {
             .scope(.singleton)
     }
 
+    var loginInteractor: Factory<LoginInteractor> {
+        Factory(self) { LoginInteractorImpl() }
+            .scope(.shared)
+    }
+
     var signUpInteractor: Factory<SignUpInteractor> {
         Factory(self) {
             #if MOCK
             MockSignUpInteractor()
             #else
-            DefaultSignUpInteractor()
+            SignUpInteractorImpl()
             #endif
         }
         .scope(.shared)
