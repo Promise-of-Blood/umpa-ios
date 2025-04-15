@@ -20,66 +20,59 @@ struct MainTabView: View {
                 .tag(MainViewTabType.home)
             TeacherFinderView()
                 .tabItem {
-                    MainTabView.TabLabel(category: .matching)
+                    MainTabView.TabLabel(category: .teacherFinder)
                 }
-                .tag(MainViewTabType.matching)
-            CommunityView()
-                .tabItem {
-                    MainTabView.TabLabel(category: .community)
-                }
-                .tag(MainViewTabType.community)
+                .tag(MainViewTabType.teacherFinder)
             ChatView()
                 .tabItem {
                     MainTabView.TabLabel(category: .chat)
                 }
-                .tag(MainViewTabType.chatting)
-        }
-    }
-}
-
-enum TabCategory {
-    case home
-    case matching
-    case community
-    case chat
-
-    var title: String {
-        switch self {
-        case .home:
-            return "홈"
-        case .matching:
-            return "매칭서비스"
-        case .community:
-            return "커뮤니티"
-        case .chat:
-            return "채팅"
-        }
-    }
-
-    // TODO: 실제 리소스로 변경
-    var imageResource: ImageResource {
-        switch self {
-        case .home:
-            return ImageResource(name: "home", bundle: .main)
-        case .matching:
-            return ImageResource(name: "matching", bundle: .main)
-        case .community:
-            return ImageResource(name: "community", bundle: .main)
-        case .chat:
-            return ImageResource(name: "chat", bundle: .main)
+                .tag(MainViewTabType.chat)
         }
     }
 }
 
 extension MainTabView {
     struct TabLabel: View {
-        let category: TabCategory
+        let category: MainViewTabType
 
         var body: some View {
             VStack {
                 Image(category.imageResource)
                 Text(category.title)
             }
+        }
+    }
+}
+
+extension MainViewTabType {
+    var title: String {
+        switch self {
+        case .home:
+            return "홈"
+        case .teacherFinder:
+            return "선생님찾기"
+        case .community:
+            return "커뮤니티"
+        case .chat:
+            return "채팅"
+        case .myProfile:
+            return "내정보"
+        }
+    }
+
+    var imageResource: ImageResource {
+        switch self {
+        case .home:
+            return ImageResource(name: "home", bundle: .main)
+        case .teacherFinder:
+            return ImageResource(name: "teacherFinder", bundle: .main)
+        case .community:
+            return ImageResource(name: "community", bundle: .main)
+        case .chat:
+            return ImageResource(name: "chat", bundle: .main)
+        case .myProfile:
+            return ImageResource(name: "myProfile", bundle: .main)
         }
     }
 }

@@ -38,7 +38,8 @@ struct System {
 
 enum MainViewTabType: Int {
     case home = 0
-    case matching
+    case teacherFinder
     case community
-    case chatting
+    case chat
+    case myProfile
 }
