@@ -32,49 +32,47 @@ struct MainTabView: View {
     }
 }
 
-enum TabCategory {
-    case home
-    case teacherFinder
-    case community
-    case chat
-
-    var title: String {
-        switch self {
-        case .home:
-            return "홈"
-        case .teacherFinder:
-            return "매칭서비스"
-        case .community:
-            return "커뮤니티"
-        case .chat:
-            return "채팅"
-        }
-    }
-
-    // TODO: 실제 리소스로 변경
-    var imageResource: ImageResource {
-        switch self {
-        case .home:
-            return ImageResource(name: "home", bundle: .main)
-        case .teacherFinder:
-            return ImageResource(name: "matching", bundle: .main)
-        case .community:
-            return ImageResource(name: "community", bundle: .main)
-        case .chat:
-            return ImageResource(name: "chat", bundle: .main)
-        }
-    }
-}
-
 extension MainTabView {
     struct TabLabel: View {
-        let category: TabCategory
+        let category: MainViewTabType
 
         var body: some View {
             VStack {
                 Image(category.imageResource)
                 Text(category.title)
             }
+        }
+    }
+}
+
+extension MainViewTabType {
+    var title: String {
+        switch self {
+        case .home:
+            return "홈"
+        case .teacherFinder:
+            return "선생님찾기"
+        case .community:
+            return "커뮤니티"
+        case .chat:
+            return "채팅"
+        case .myProfile:
+            return "내정보"
+        }
+    }
+
+    var imageResource: ImageResource {
+        switch self {
+        case .home:
+            return ImageResource(name: "home", bundle: .main)
+        case .teacherFinder:
+            return ImageResource(name: "teacherFinder", bundle: .main)
+        case .community:
+            return ImageResource(name: "community", bundle: .main)
+        case .chat:
+            return ImageResource(name: "chat", bundle: .main)
+        case .myProfile:
+            return ImageResource(name: "myProfile", bundle: .main)
         }
     }
 }
