@@ -8,7 +8,7 @@ import Utility
 
 protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.
-    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>, for id: User.Id)
+    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>)
 
     /// 주어진 `service`에 대해 채팅을 시작합니다.
     ///
@@ -25,7 +25,7 @@ struct ChatInteractorImpl: ChatInteractor {
 
     private let cancelBag = CancelBag()
 
-    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>, for id: User.Id) {
+    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>) {
         chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
         serverRepository.fetchChatRoomList()
             .mapError { _ in
@@ -36,7 +36,7 @@ struct ChatInteractorImpl: ChatInteractor {
     }
 
     func startChat(with service: any Service, navigationPath: Binding<NavigationPath>) {
-        guard let student = appState.userData.currentUser as? Student else { return }
+        guard let student = appState.userData.login.currentUser as? Student else { return }
 
         serverRepository.fetchChatRoom(for: service.id)
             .replaceNil(with: ChatRoom(

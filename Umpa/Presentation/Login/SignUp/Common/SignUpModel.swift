@@ -3,10 +3,11 @@
 import Domain
 import SwiftUI
 
-class SignUpModel: ObservableObject {
+final class SignUpModel: ObservableObject {
+    var socialLoginType: SocialLoginType?
     @Published var name: String = ""
     @Published var nickname: String = ""
-    @Published var userType: UserType = .student
+    @Published var userType: UserType?
     @Published var major: String?
     @Published var wantedCollege1: String?
     @Published var wantedCollege2: String?

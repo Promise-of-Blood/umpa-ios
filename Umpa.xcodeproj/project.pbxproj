@@ -183,7 +183,7 @@
 		DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
-				UmpaComponent.h,
+				Components.h,
 			);
 			target = DAB64B5C2D89CA5A00319429 /* Components */;
 		};

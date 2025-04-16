@@ -8,12 +8,19 @@ struct MyProfileView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
+        NavigationStack {
+            content
+        }
+    }
+
+    @ViewBuilder
+    var content: some View {
         Button(action: { dismiss() }) {
             Text("X")
         }
         Text("MyProfile")
         Button(action: {
-            appState.userData.currentUser = nil
+            appState.reset()
         }) {
             Text("로그아웃")
         }

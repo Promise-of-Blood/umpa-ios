@@ -13,11 +13,15 @@ struct MainTabView: View {
 
     var content: some View {
         TabView(selection: $appState.routing.currentTab) {
-            TeacherHomeView()
-                .tabItem {
-                    MainTabView.TabLabel(category: .home)
-                }
-                .tag(MainViewTabType.home)
+            if let userType = try? appState.userData.login.userType,
+               userType == .teacher
+            {
+                TeacherHomeView()
+                    .tabItem {
+                        MainTabView.TabLabel(category: .teacherHome)
+                    }
+                    .tag(MainViewTabType.teacherHome)
+            }
             TeacherFinderView()
                 .tabItem {
                     MainTabView.TabLabel(category: .teacherFinder)
@@ -28,6 +32,11 @@ struct MainTabView: View {
                     MainTabView.TabLabel(category: .chat)
                 }
                 .tag(MainViewTabType.chat)
+            MyProfileView()
+                .tabItem {
+                    MainTabView.TabLabel(category: .myProfile)
+                }
+                .tag(MainViewTabType.myProfile)
         }
     }
 }
@@ -48,7 +57,7 @@ extension MainTabView {
 extension MainViewTabType {
     var title: String {
         switch self {
-        case .home:
+        case .teacherHome:
             return "홈"
         case .teacherFinder:
             return "선생님찾기"
@@ -63,7 +72,7 @@ extension MainViewTabType {
 
     var imageResource: ImageResource {
         switch self {
-        case .home:
+        case .teacherHome:
             return ImageResource(name: "home", bundle: .main)
         case .teacherFinder:
             return ImageResource(name: "teacherFinder", bundle: .main)
@@ -80,7 +89,7 @@ extension MainViewTabType {
 #if MOCK
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.currentUser = Student.sample0
+    appState.userData.login.currentUser = Student.sample0
 
     return
         MainTabView()

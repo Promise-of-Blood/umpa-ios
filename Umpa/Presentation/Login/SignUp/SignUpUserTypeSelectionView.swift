@@ -7,6 +7,10 @@ import SwiftUI
 struct SignUpUserTypeSelectionView: View {
     @InjectedObject(\.signUpModel) private var signUpModel
 
+    init(socialLoginType: SocialLoginType) {
+        signUpModel.socialLoginType = socialLoginType
+    }
+
     var body: some View {
         content
             .modifier(NavigationBackButton(.arrowBack))
@@ -30,18 +34,29 @@ struct SignUpUserTypeSelectionView: View {
                 }
             }
             Spacer()
-            NavigationLink {
-                switch signUpModel.userType {
-                case .student:
+            switch signUpModel.userType {
+            case .student:
+                NavigationLink {
                     SignUpNicknameInputView()
-                case .teacher:
-                    SignUpNameInputView()
+                } label: {
+                    bottomNextButton
                 }
-            } label: {
-                Text("다음")
-                    .modifier(BottomButton())
+            case .teacher:
+                NavigationLink {
+                    SignUpNameInputView()
+                } label: {
+                    bottomNextButton
+                }
+            case .none:
+                bottomNextButton
+                    .disabled(true)
             }
         }
+    }
+
+    var bottomNextButton: some View {
+        Text("다음")
+            .modifier(BottomButton())
     }
 
     func didTapStudentButton() {
@@ -78,12 +93,12 @@ private struct UserTypeSelectionButton: ViewModifier {
 
 #Preview {
     NavigationStack {
-        SignUpUserTypeSelectionView()
+        SignUpUserTypeSelectionView(socialLoginType: .apple)
     }
 }
 
 #Preview(traits: .iPhoneSE) {
     NavigationStack {
-        SignUpUserTypeSelectionView()
+        SignUpUserTypeSelectionView(socialLoginType: .apple)
     }
 }
