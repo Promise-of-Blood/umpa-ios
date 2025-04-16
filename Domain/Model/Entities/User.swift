@@ -2,12 +2,12 @@
 
 import Foundation
 
-public enum UserType {
+@frozen public enum UserType {
     case student
     case teacher
 }
 
-public enum Gender {
+@frozen public enum Gender {
     case male
     case female
 }

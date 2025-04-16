@@ -16,6 +16,7 @@ protocol LoginInteractor {
 }
 
 struct LoginInteractorImpl {
+    @Injected(\.appState) private var appState
     @Injected(\.serverRepository) private var serverRepository
     @Injected(\.useCase) private var useCase
 }
@@ -34,7 +35,11 @@ extension LoginInteractorImpl: LoginInteractor {
                 let fullName = appleIDCredential.fullName
                 let email = appleIDCredential.email
 
-                useCase.loginWithApple()
+//                useCase.loginWithApple()
+                #if MOCK
+                appState.userData.login.currentUser = Student.sample0
+                appState.routing.currentTab = .teacherFinder
+                #endif
             default:
                 break
             }
@@ -42,14 +47,26 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 
     func loginWithKakao() {
-        useCase.loginWithKakao()
+//        useCase.loginWithKakao()
+        #if MOCK
+        appState.userData.login.currentUser = Student.sample0
+        appState.routing.currentTab = .teacherFinder
+        #endif
     }
 
     func loginWithNaver() {
-        useCase.loginWithNaver()
+//        useCase.loginWithNaver()
+        #if MOCK
+        appState.userData.login.currentUser = Student.sample0
+        appState.routing.currentTab = .teacherFinder
+        #endif
     }
 
     func loginWithGoogle() {
-        useCase.loginWithGoogle()
+//        useCase.loginWithGoogle()
+        #if MOCK
+        appState.userData.login.currentUser = Teacher.sample0
+        appState.routing.currentTab = .teacherHome
+        #endif
     }
 }

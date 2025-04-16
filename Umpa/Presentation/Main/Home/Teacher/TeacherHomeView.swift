@@ -154,7 +154,7 @@ private struct TeacherFindingSection: View {
     TabView {
         TeacherHomeView()
             .tabItem {
-                MainTabView.TabLabel(category: .home)
+                MainTabView.TabLabel(category: .teacherHome)
             }
             .tag(0)
         Color.blue
@@ -179,7 +179,7 @@ private struct TeacherFindingSection: View {
     TabView {
         TeacherHomeView()
             .tabItem {
-                MainTabView.TabLabel(category: .home)
+                MainTabView.TabLabel(category: .teacherHome)
             }
             .tag(0)
         Color.blue

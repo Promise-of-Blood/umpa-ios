@@ -3,6 +3,7 @@
 import Domain
 import Factory
 import Foundation
+import Utility
 
 protocol SignUpInteractor {
     @MainActor func signUp(with model: SignUpModel) async
@@ -10,6 +11,9 @@ protocol SignUpInteractor {
 
 struct SignUpInteractorImpl {
     @Injected(\.appState) private var appState
+    @Injected(\.useCase) private var useCase
+
+    private let cancelBag = CancelBag()
 }
 
 extension SignUpInteractorImpl: SignUpInteractor {
@@ -20,14 +24,17 @@ extension SignUpInteractorImpl: SignUpInteractor {
         // Convert to API model
         // model.toApiModel()
 
-        // Request signUp
-        // let result = await umpaApi.signUp(requestModel)
+        useCase.signUp()
+            .sink { completion in
+                if let error = completion.error {
+                    // TODO: Handle error
+                }
+            } receiveValue: { user in
+                appState.userData.login.currentUser = user
+            }
+            .store(in: cancelBag)
 
-//        appState.isLoggedIn = true
-
-//        Container.shared.manager.reset(scope: .signUpSession)
-
-        fatalError()
+        Container.shared.manager.reset(scope: .signUpSession)
     }
 }
 

@@ -9,7 +9,7 @@ import AuthenticationServices
 import Factory
 import SwiftUI
 
-enum LoginType {
+enum SocialLoginType {
     case kakao
     case naver
     case google
@@ -18,29 +18,32 @@ enum LoginType {
 
 struct LoginView: View {
     @Environment(\.authorizationController) private var authorizationController
+    @InjectedObject(\.appState) private var appState
     @Injected(\.loginInteractor) private var loginInteractor
 
-    @State private var path: [LoginType] = []
-
     var body: some View {
-        NavigationStack(path: $path) {
-            VStack {
-                Image(.umpaLogo)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 240)
-                    .padding(.top, 120)
-                Text("당신의 음악 파트너")
-                    .font(.system(size: 22))
-                    .foregroundStyle(UmpaColor.lightGray)
-                    .padding(10)
-                Spacer()
-                loginButtons
-                    // FIXME: 개발용 임시 코드
-                    .navigationDestination(for: LoginType.self) { _ in
-                        SignUpUserTypeSelectionView()
-                    }
-            }
+        NavigationStack(path: $appState.routing.loginNavigationPath) {
+            content
+                .navigationDestination(for: SocialLoginType.self) { socialLoginType in
+                    SignUpUserTypeSelectionView(socialLoginType: socialLoginType)
+                }
+        }
+    }
+
+    @ViewBuilder
+    var content: some View {
+        VStack {
+            Image(.umpaLogo)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 240)
+                .padding(.top, 120)
+            Text("당신의 음악 파트너")
+                .font(.system(size: 22))
+                .foregroundStyle(UmpaColor.lightGray)
+                .padding(10)
+            Spacer()
+            loginButtons
         }
     }
 
@@ -68,26 +71,14 @@ struct LoginView: View {
 
     func loginWithKakao() {
         loginInteractor.loginWithKakao()
-        #if RELEASE
-            fatalError()
-        #endif
-        path.append(.kakao)
     }
 
     func loginWithNaver() {
         loginInteractor.loginWithNaver()
-        #if RELEASE
-            fatalError()
-        #endif
-        path.append(.naver)
     }
 
     func loginWithGoogle() {
         loginInteractor.loginWithGoogle()
-        #if RELEASE
-            fatalError()
-        #endif
-        path.append(.google)
     }
 }
 

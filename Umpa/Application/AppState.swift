@@ -7,19 +7,25 @@ final class AppState: ObservableObject {
     @Published var userData = UserData()
     @Published var routing = Routing()
     @Published var system = System()
+
+    func reset() {
+        userData = UserData()
+        routing = Routing()
+    }
 }
 
 // MARK: - Routing
 
 struct Routing {
-    var currentTab: MainViewTabType = .home
+    var currentTab: MainViewTabType = .teacherFinder
     var chatNavigationPath = NavigationPath()
     var teacherFinderNavigationPath = NavigationPath()
     var myServicesNavigationPath = NavigationPath()
+    var loginNavigationPath = NavigationPath()
 }
 
 enum MainViewTabType: Int {
-    case home = 0
+    case teacherHome = 0
     case teacherFinder
     case community
     case chat

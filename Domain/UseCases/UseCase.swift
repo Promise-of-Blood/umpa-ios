@@ -7,6 +7,8 @@ public protocol UseCase {
     func loginWithKakao() -> AnyPublisher<any User, Error>
     func loginWithGoogle() -> AnyPublisher<any User, Error>
     func loginWithNaver() -> AnyPublisher<any User, Error>
+
+    func signUp() -> AnyPublisher<any User, Error>
 }
 
 public struct UseCaseImpl {
@@ -39,6 +41,12 @@ extension UseCaseImpl: UseCase {
     }
 
     public func loginWithNaver() -> AnyPublisher<any User, any Error> {
+        fatalError()
+    }
+
+    public func signUp() -> AnyPublisher<any User, any Error> {
+//        keychainRepository.save(<#T##token: AccessToken##AccessToken#>)
+
         fatalError()
     }
 }

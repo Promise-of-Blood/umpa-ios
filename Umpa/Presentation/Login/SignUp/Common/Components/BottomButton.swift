@@ -3,6 +3,8 @@
 import SwiftUI
 
 struct BottomButton: ViewModifier {
+    @Environment(\.isEnabled) var isEnabled
+
     func body(content: Content) -> some View {
         content
             .font(.system(size: 22))
@@ -10,7 +12,7 @@ struct BottomButton: ViewModifier {
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, idealHeight: 71)
             .fixedSize(horizontal: false, vertical: true)
-            .background(UmpaColor.main, in: RoundedRectangle(cornerRadius: 12))
+            .background(isEnabled ? UmpaColor.main : Color.gray, in: RoundedRectangle(cornerRadius: 12))
             .padding()
     }
 }
