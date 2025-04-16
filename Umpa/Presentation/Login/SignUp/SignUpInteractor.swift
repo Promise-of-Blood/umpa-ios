@@ -6,7 +6,7 @@ import Foundation
 import Utility
 
 protocol SignUpInteractor {
-    @MainActor func signUp(with model: SignUpModel) async
+    func completeSignUp(with model: SignUpModel)
 }
 
 struct SignUpInteractorImpl {
@@ -18,7 +18,7 @@ struct SignUpInteractorImpl {
 
 extension SignUpInteractorImpl: SignUpInteractor {
     // TODO: 네트워크 요청 에러 시 처리 로직 추가 (Ex: Binding<Error?> 사용하여 Finish 화면의 error state 업데이트)
-    func signUp(with model: SignUpModel) async {
+    func completeSignUp(with model: SignUpModel) {
         // TODO: Implement
 
         // Convert to API model
@@ -38,11 +38,11 @@ extension SignUpInteractorImpl: SignUpInteractor {
     }
 }
 
-#if MOCK
+#if DEBUG
 struct MockSignUpInteractor: SignUpInteractor {
     @Injected(\.appState) private var appState
 
-    func signUp(with model: SignUpModel) async {
+    func completeSignUp(with model: SignUpModel) {
         appState.userData.login.currentUser = Student.sample0
         Container.shared.manager.reset(scope: .signUpSession)
     }

@@ -38,7 +38,7 @@ extension LessonServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     ScrollView {
         LessonServiceDetailView.CurriculumTabContent(curriculumList: LessonService.sample0.curriculum)

@@ -16,12 +16,14 @@ final class AppState: ObservableObject {
 
 // MARK: - Routing
 
-struct Routing {
-    var currentTab: MainViewTabType = .teacherFinder
-    var chatNavigationPath = NavigationPath()
-    var teacherFinderNavigationPath = NavigationPath()
-    var myServicesNavigationPath = NavigationPath()
-    var loginNavigationPath = NavigationPath()
+extension AppState {
+    struct Routing {
+        var currentTab: MainViewTabType = .teacherFinder
+        var chatNavigationPath = NavigationPath()
+        var teacherFinderNavigationPath = NavigationPath()
+        var myServicesNavigationPath = NavigationPath()
+        var loginNavigationPath = NavigationPath()
+    }
 }
 
 enum MainViewTabType: Int {
@@ -34,7 +36,18 @@ enum MainViewTabType: Int {
 
 // MARK: - UserData
 
-struct UserData {
+extension AppState {
+    struct UserData {
+        var teacherFinder = TeacherFinder()
+        var login = Login()
+
+        var majorList: [String] = []
+
+        fileprivate init() {}
+    }
+}
+
+extension AppState.UserData {
     struct TeacherFinder {
         var selectedService: ServiceType = .lesson
         var selectedSubject: Subject?
@@ -45,28 +58,31 @@ struct UserData {
     struct Login {
         var currentUser: (any User)?
 
-        var isLoggedIn: Bool {
-            currentUser != nil
-        }
-
-        var userType: UserType {
-            get throws {
-                guard let currentUser else {
-                    throw UserDataError.userNotLoggedIn
-                }
-                return currentUser.userType
-            }
-        }
-
         fileprivate init() {}
     }
+}
 
-    var teacherFinder = TeacherFinder()
-    var login = Login()
+extension AppState.UserData.Login {
+    var isLoggedIn: Bool {
+        currentUser != nil
+    }
 
-    var majorList: [String] = []
+    var userType: UserType {
+        get throws {
+            guard let currentUser else {
+                throw UserDataError.userNotLoggedIn
+            }
+            return currentUser.userType
+        }
+    }
 
-    fileprivate init() {}
+    var isTeacher: Bool {
+        (try? userType) == .teacher
+    }
+
+    var isStudent: Bool {
+        (try? userType) == .student
+    }
 }
 
 enum UserDataError: Error {
@@ -75,6 +91,8 @@ enum UserDataError: Error {
 
 // MARK: - System
 
-struct System {
-    var isSplashFinished = false
+extension AppState {
+    struct System {
+        var isSplashFinished = false
+    }
 }

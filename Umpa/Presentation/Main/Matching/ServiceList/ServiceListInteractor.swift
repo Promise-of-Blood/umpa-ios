@@ -8,25 +8,24 @@ import SwiftUI
 import Utility
 
 protocol ServiceListInteractor {
-    func loadAll(_ serviceList: Binding<[any Service]>)
-    func load(_ serviceList: Binding<[any Service]>, for serviceType: ServiceType)
+    func loadAll(_ serviceList: Binding<[AnyService]>)
+    func load(_ serviceList: Binding<[AnyService]>, for serviceType: ServiceType)
 
     func load(_ lessonServices: Binding<[LessonService]>)
     func load(_ accompanistServices: Binding<[AccompanistService]>)
     func load(_ compositionServices: Binding<[ScoreCreationService]>)
     func load(_ musicCreationServices: Binding<[MusicCreationService]>)
 
-    func loadFavoriteServices(_ services: Binding<[any Service]>)
+    func loadFavoriteServices(_ services: Binding<[AnyService]>)
 }
 
 struct ServiceListInteractorImpl {
-    @Injected(\.serverRepository) private var serverRepository
-
-    private let cancelBag = CancelBag()
+    let serverRepository: ServerRepository
+    let cancelBag = CancelBag()
 }
 
 extension ServiceListInteractorImpl: ServiceListInteractor {
-    func loadFavoriteServices(_ services: Binding<[any Service]>) {
+    func loadFavoriteServices(_ services: Binding<[AnyService]>) {
         serverRepository.fetchFavoriteServiceList()
             .replaceError(with: [])
             .sink(services)
@@ -61,17 +60,37 @@ extension ServiceListInteractorImpl: ServiceListInteractor {
             .store(in: cancelBag)
     }
 
-    func loadAll(_ serviceList: Binding<[any Service]>) {
+    func loadAll(_ serviceList: Binding<[AnyService]>) {
         serverRepository.fetchAllLessonAndServiceList()
             .replaceError(with: [])
             .sink(serviceList)
             .store(in: cancelBag)
     }
 
-    func load(_ serviceList: Binding<[any Service]>, for serviceType: ServiceType) {
-        serverRepository.fetchAllLessonAndServiceList()
+    func load(_ serviceList: Binding<[AnyService]>, for serviceType: ServiceType) {
+        var anyServiceList: AnyPublisher<[AnyService], Error>
+
+        switch serviceType {
+        case .lesson:
+            anyServiceList = serverRepository.fetchLessonServiceList()
+                .map { $0.map { $0.eraseToAnyService() } }
+                .eraseToAnyPublisher()
+        case .accompanist:
+            anyServiceList = serverRepository.fetchAccompanistServiceList()
+                .map { $0.map { $0.eraseToAnyService() } }
+                .eraseToAnyPublisher()
+        case .scoreCreation:
+            anyServiceList = serverRepository.fetchScoreCreationServiceList()
+                .map { $0.map { $0.eraseToAnyService() } }
+                .eraseToAnyPublisher()
+        case .mrCreation:
+            anyServiceList = serverRepository.fetchMusicCreationServiceList()
+                .map { $0.map { $0.eraseToAnyService() } }
+                .eraseToAnyPublisher()
+        }
+
+        anyServiceList
             .replaceError(with: [])
-            .map { $0.filter { $0.type == serviceType } }
             .sink(serviceList)
             .store(in: cancelBag)
     }

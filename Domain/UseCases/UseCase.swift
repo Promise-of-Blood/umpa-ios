@@ -9,6 +9,8 @@ public protocol UseCase {
     func loginWithNaver() -> AnyPublisher<any User, Error>
 
     func signUp() -> AnyPublisher<any User, Error>
+
+    func checkAccountLinkedSocialId() -> AnyPublisher<(any User)?, Error>
 }
 
 public struct UseCaseImpl {
@@ -25,6 +27,10 @@ public struct UseCaseImpl {
 }
 
 extension UseCaseImpl: UseCase {
+    public func checkAccountLinkedSocialId() -> AnyPublisher<(any User)?, any Error> {
+        fatalError()
+    }
+
     public func loginWithApple() -> AnyPublisher<any User, any Error> {
 //        serverRepository
 //        keychainRepository.save(<#T##token: AccessToken##AccessToken#>)
@@ -52,5 +58,57 @@ extension UseCaseImpl: UseCase {
 }
 
 public enum UseCaseError: Error {
-    case loginError
+//    case loginError
 }
+
+//#if DEBUG
+//public final class UseCaseMock: UseCase {
+//    public init() {}
+//
+//    var isLoginAsStudent: Bool!
+//    var isLoginAsTeacher: Bool!
+//
+//    public func setStubToLoginAs(_ userType: UserType) {
+//        switch userType {
+//        case .student:
+//            isLoginAsStudent = true
+//            isLoginAsTeacher = false
+//        case .teacher:
+//            isLoginAsStudent = false
+//            isLoginAsTeacher = true
+//        }
+//    }
+//
+//    public func setStubToLoginFailed() {
+//        isLoginAsStudent = false
+//        isLoginAsTeacher = false
+//    }
+//
+//    public func loginWithApple() -> AnyPublisher<any User, any Error> {
+//        if isLoginAsStudent {}
+//        Just(Student.sample0)
+//            .setFailureType(to: Error.self)
+//            .eraseToAnyPublisher()
+//    }
+//
+//    public func loginWithKakao() -> AnyPublisher<any User, any Error> {
+//        <#code#>
+//    }
+//
+//    public func loginWithGoogle() -> AnyPublisher<any User, any Error> {
+//        <#code#>
+//    }
+//
+//    public func loginWithNaver() -> AnyPublisher<any User, any Error> {
+//        <#code#>
+//    }
+//
+//    public func signUp() -> AnyPublisher<any User, any Error> {
+//        <#code#>
+//    }
+//
+//    public func checkAccountLinkedSocialId() -> AnyPublisher<(any User)?, any Error> {
+//        <#code#>
+//    }
+//}
+//#endif

@@ -2,7 +2,7 @@
 
 import Foundation
 
-#if MOCK
+#if DEBUG
 extension AccompanistService {
     public static let sample0 = AccompanistService(
         id: "accompanistService0",
@@ -118,7 +118,7 @@ extension ChatRoom {
     public static let sample0 = ChatRoom(
         id: "chatRoom0",
         student: .sample0,
-        relatedService: LessonService.sample0.toAnyService(),
+        relatedService: LessonService.sample0.eraseToAnyService(),
         messages: [
             ChatMessage.sample0,
             ChatMessage.sample1,

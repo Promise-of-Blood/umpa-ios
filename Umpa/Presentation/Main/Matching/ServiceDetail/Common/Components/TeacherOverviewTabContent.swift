@@ -84,7 +84,7 @@ struct TeacherOverviewTabContent: View {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     TeacherOverviewTabContent(teacher: .sample0)
         .padding()

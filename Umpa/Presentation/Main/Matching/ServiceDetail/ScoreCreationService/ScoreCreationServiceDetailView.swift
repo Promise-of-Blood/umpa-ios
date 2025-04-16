@@ -47,7 +47,7 @@ struct ScoreCreationServiceDetailView: ServiceDetailView {
                 },
                 primaryButtonAction: {
                     chatInteractor.startChat(
-                        with: service,
+                        with: service.eraseToAnyService(),
                         navigationPath: $appState.routing.teacherFinderNavigationPath
                     )
                 }
@@ -65,7 +65,7 @@ struct ScoreCreationServiceDetailView: ServiceDetailView {
         case .samplePreview:
             SamplePreviewTabContent(sampleSheets: service.sampleSheets)
         case .review:
-            ReviewTabContent(service: service)
+            ReviewTabContent(service: service.eraseToAnyService())
         }
     }
 }
@@ -92,7 +92,7 @@ extension ScoreCreationServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     ScoreCreationServiceDetailView(service: .sample0)
 }

@@ -8,7 +8,7 @@ import SwiftUI
 import Utility
 
 protocol TeacherHomeInteractor {
-    func fetchMyLessonAndServiceList(_ list: LoadableBinding<[any Domain.Service]>)
+    func fetchMyLessonAndServiceList(_ list: LoadableBinding<[AnyService]>)
 }
 
 struct TeacherHomeInteractorImpl {
@@ -17,7 +17,7 @@ struct TeacherHomeInteractorImpl {
 }
 
 extension TeacherHomeInteractorImpl: TeacherHomeInteractor {
-    func fetchMyLessonAndServiceList(_ list: LoadableBinding<[any Domain.Service]>) {
+    func fetchMyLessonAndServiceList(_ list: LoadableBinding<[AnyService]>) {
         let cancelBag = CancelBag()
         list.wrappedValue.setIsLoading(cancelBag: cancelBag)
         keychainRepository.getAccessToken()

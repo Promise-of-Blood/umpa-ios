@@ -43,7 +43,7 @@ struct AccompanistServiceDetailView: ServiceDetailView {
                 },
                 primaryButtonAction: {
                     chatInteractor.startChat(
-                        with: service,
+                        with: service.eraseToAnyService(),
                         navigationPath: $appState.routing.teacherFinderNavigationPath
                     )
                 }
@@ -59,7 +59,7 @@ struct AccompanistServiceDetailView: ServiceDetailView {
         case .accompanimentOverview:
             ServiceOverviewTabContent(service: service)
         case .review:
-            ReviewTabContent(service: service)
+            ReviewTabContent(service: service.eraseToAnyService())
         }
     }
 }
@@ -83,7 +83,7 @@ extension AccompanistServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     AccompanistServiceDetailView(service: .sample0)
 }

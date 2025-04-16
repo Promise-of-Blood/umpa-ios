@@ -48,31 +48,30 @@ extension Service {
         case .accompanist: .school
         case .scoreCreation: .sheet
         case .mrCreation: .song
-        @unknown default:
-            .unknown
         }
 
         let price: Int
-        switch self.type {
+
+        let service = self.cleaerAnyServiceIfExisted()
+        switch service.type {
         case .lesson, .accompanist, .mrCreation:
-            if let service = (self as? any SinglePriceService) {
-                price = service.price
+            if let singlePriceService = (service as? any SinglePriceService) {
+                price = singlePriceService.price
             } else {
                 // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
+                assertionFailure("여기로 오면 안됨;;")
                 price = 0
             }
         case .scoreCreation:
-            if let service = self as? ScoreCreationService,
-               let firstPrice = service.pricesByMajor.first?.price
+            if let scoreCreationService = service as? ScoreCreationService,
+               let firstPrice = scoreCreationService.pricesByMajor.first?.price
             {
                 price = firstPrice
             } else {
                 // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
+                assertionFailure("여기로 오면 안됨;;")
                 price = 0
             }
-        @unknown default:
-            // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
-            price = 0
         }
 
         return ServiceListItem.Model(
@@ -91,7 +90,7 @@ extension Service {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview(traits: .sizeThatFitsLayout) {
     ServiceListItem(model: ServiceListItem.Model.example1)
         .frame(width: 280)
@@ -106,7 +105,7 @@ extension Service {
 }
 #endif
 
-#if MOCK
+#if DEBUG
 extension ServiceListItem.Model {
     static let example1 = ServiceListItem.Model(
         title: "가고 싶은 학교 무조건 가는 방법",

@@ -51,7 +51,7 @@ struct ReviewCardModel {
     let likeCount: Int
     let commentCount: Int
 
-    #if MOCK
+    #if DEBUG
     static let sample1 = ReviewCardModel(
         imageResource: ImageResource(name: "sample_image", bundle: .main),
         title: "서울예대 최종 합격 후기",
@@ -68,7 +68,7 @@ struct ReviewCardModel {
     #endif
 }
 
-#if MOCK
+#if DEBUG
 #Preview(traits: .sizeThatFitsLayout) {
     ScrollView(.horizontal) {
         HStack {

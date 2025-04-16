@@ -58,7 +58,7 @@ struct ChatView: View {
     }
 }
 
-#if MOCK
+#if DEBUG
 
 #Preview {
     @Injected(\.appState) var appState

@@ -48,7 +48,7 @@ struct LessonServiceDetailView: ServiceDetailView {
                 },
                 primaryButtonAction: {
                     chatInteractor.startChat(
-                        with: service,
+                        with: service.eraseToAnyService(),
                         navigationPath: $appState.routing.teacherFinderNavigationPath
                     )
                 }
@@ -66,7 +66,7 @@ struct LessonServiceDetailView: ServiceDetailView {
         case .curriculum:
             CurriculumTabContent(curriculumList: service.curriculum)
         case .review:
-            ReviewTabContent(service: service)
+            ReviewTabContent(service: service.eraseToAnyService())
         }
     }
 }
@@ -93,7 +93,7 @@ extension LessonServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     @Injected(\.appState) var appState
     appState.userData.login.currentUser = Student.sample0

@@ -47,7 +47,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
                 },
                 primaryButtonAction: {
                     chatInteractor.startChat(
-                        with: service,
+                        with: service.eraseToAnyService(),
                         navigationPath: $appState.routing.teacherFinderNavigationPath
                     )
                 }
@@ -65,7 +65,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
         case .samplePreview:
             SamplePreviewTabContent(sampleMusics: service.sampleMusics)
         case .review:
-            ReviewTabContent(service: service)
+            ReviewTabContent(service: service.eraseToAnyService())
         }
     }
 }
@@ -92,7 +92,7 @@ extension MrCreationServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     MrCreationServiceDetailView(service: .sample0)
 }

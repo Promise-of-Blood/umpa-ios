@@ -11,7 +11,7 @@ struct ListContent: View {
         let likeCount: Int
         let commentCount: Int
 
-        #if MOCK
+        #if DEBUG
         static let sample1 = Model(
             id: "sample1",
             title: "제 9회 한국음악예술재단 주최 음파 경연대회 공모 요강 어서 빨리빨리!!!!",
@@ -51,7 +51,7 @@ struct ListContent: View {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview(traits: .sizeThatFitsLayout) {
     ListContent(model: .sample1)
         .frame(width: 300)

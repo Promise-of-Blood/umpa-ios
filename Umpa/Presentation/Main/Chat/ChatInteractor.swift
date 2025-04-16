@@ -13,18 +13,19 @@ protocol ChatInteractor {
     /// 주어진 `service`에 대해 채팅을 시작합니다.
     ///
     /// 이미 만들어진 채팅방이 있을 경우 해당 채팅방으로 이동합니다.
-    func startChat(with service: any Service, navigationPath: Binding<NavigationPath>)
+    func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>)
 
     /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
     func enterChatRoom(with id: ChatRoom.Id)
 }
 
-struct ChatInteractorImpl: ChatInteractor {
-    @Injected(\.appState) private var appState
-    @Injected(\.serverRepository) private var serverRepository
+struct ChatInteractorImpl {
+    let appState: AppState
+    let serverRepository: ServerRepository
+    let cancelBag = CancelBag()
+}
 
-    private let cancelBag = CancelBag()
-
+extension ChatInteractorImpl: ChatInteractor {
     func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>) {
         chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
         serverRepository.fetchChatRoomList()
@@ -35,14 +36,14 @@ struct ChatInteractorImpl: ChatInteractor {
             .store(in: cancelBag)
     }
 
-    func startChat(with service: any Service, navigationPath: Binding<NavigationPath>) {
+    func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>) {
         guard let student = appState.userData.login.currentUser as? Student else { return }
 
         serverRepository.fetchChatRoom(for: service.id)
             .replaceNil(with: ChatRoom(
                 id: nil,
                 student: student,
-                relatedService: service.toAnyService(),
+                relatedService: service,
                 messages: []
             ))
             .sink { completion in

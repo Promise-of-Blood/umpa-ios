@@ -64,6 +64,7 @@ struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            // TODO: Apple 로그인 버튼 구현 예정
         }
         .padding(.horizontal, 30)
         .padding(.bottom, 30)

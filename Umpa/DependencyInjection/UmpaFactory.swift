@@ -25,7 +25,7 @@ extension Container {
 
     var serverRepository: Factory<ServerRepository> {
         Factory(self) {
-            #if MOCK
+            #if DEBUG
             return StubServerRepository()
             #else
             return DefaultServerRepository()
@@ -65,7 +65,7 @@ extension Container {
 
     var signUpInteractor: Factory<SignUpInteractor> {
         Factory(self) {
-            #if MOCK
+            #if DEBUG
             MockSignUpInteractor()
             #else
             SignUpInteractorImpl()
@@ -85,13 +85,20 @@ extension Container {
     }
 
     var chatInteractor: Factory<ChatInteractor> {
-        Factory(self) { ChatInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            ChatInteractorImpl(
+                appState: self.appState(),
+                serverRepository: self.serverRepository()
+            )
+        }
+        .scope(.shared)
     }
 
     var serviceListInteractor: Factory<ServiceListInteractor> {
-        Factory(self) { ServiceListInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            ServiceListInteractorImpl(serverRepository: self.serverRepository())
+        }
+        .scope(.shared)
     }
 
     var serviceDetailInteractor: Factory<ServiceDetailInteractor> {

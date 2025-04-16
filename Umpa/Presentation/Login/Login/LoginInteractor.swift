@@ -36,7 +36,7 @@ extension LoginInteractorImpl: LoginInteractor {
                 let email = appleIDCredential.email
 
 //                useCase.loginWithApple()
-                #if MOCK
+                #if DEBUG
                 appState.userData.login.currentUser = Student.sample0
                 appState.routing.currentTab = .teacherFinder
                 #endif
@@ -48,7 +48,7 @@ extension LoginInteractorImpl: LoginInteractor {
 
     func loginWithKakao() {
 //        useCase.loginWithKakao()
-        #if MOCK
+        #if DEBUG
         appState.userData.login.currentUser = Student.sample0
         appState.routing.currentTab = .teacherFinder
         #endif
@@ -56,7 +56,7 @@ extension LoginInteractorImpl: LoginInteractor {
 
     func loginWithNaver() {
 //        useCase.loginWithNaver()
-        #if MOCK
+        #if DEBUG
         appState.userData.login.currentUser = Student.sample0
         appState.routing.currentTab = .teacherFinder
         #endif
@@ -64,7 +64,7 @@ extension LoginInteractorImpl: LoginInteractor {
 
     func loginWithGoogle() {
 //        useCase.loginWithGoogle()
-        #if MOCK
+        #if DEBUG
         appState.userData.login.currentUser = Teacher.sample0
         appState.routing.currentTab = .teacherHome
         #endif

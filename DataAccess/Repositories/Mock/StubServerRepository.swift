@@ -4,18 +4,18 @@ import Combine
 import Domain
 import Foundation
 
-#if MOCK
+#if DEBUG
 public struct StubServerRepository {
     public init() {}
 }
 
 extension StubServerRepository: ServerRepository {
-    public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
-        let allServices: [any Service] = [
-            LessonService.sample0,
-            AccompanistService.sample0,
-            ScoreCreationService.sample0,
-            MusicCreationService.sample0,
+    public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[AnyService], any Error> {
+        let allServices: [AnyService] = [
+            LessonService.sample0.eraseToAnyService(),
+            AccompanistService.sample0.eraseToAnyService(),
+            ScoreCreationService.sample0.eraseToAnyService(),
+            MusicCreationService.sample0.eraseToAnyService(),
         ]
         return Just(allServices)
             .setFailureType(to: Error.self)
@@ -64,22 +64,22 @@ extension StubServerRepository: ServerRepository {
         fatalError()
     }
 
-    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[AnyService], any Error> {
         Just([
-            AccompanistService.sample0,
-            ScoreCreationService.sample0,
-            MusicCreationService.sample0,
+            AccompanistService.sample0.eraseToAnyService(),
+            ScoreCreationService.sample0.eraseToAnyService(),
+            MusicCreationService.sample0.eraseToAnyService(),
         ])
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()
     }
 
-    public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
-        let allServices: [any Service] = [
-            LessonService.sample0,
-            AccompanistService.sample0,
-            ScoreCreationService.sample0,
-            MusicCreationService.sample0,
+    public func fetchFavoriteServiceList() -> AnyPublisher<[AnyService], any Error> {
+        let allServices: [AnyService] = [
+            LessonService.sample0.eraseToAnyService(),
+            AccompanistService.sample0.eraseToAnyService(),
+            ScoreCreationService.sample0.eraseToAnyService(),
+            MusicCreationService.sample0.eraseToAnyService(),
         ]
 
         let favoriteServices = allServices.filter { service in
@@ -202,11 +202,6 @@ extension StubServerRepository: ServerRepository {
             postList = [
                 .sample0,
             ]
-        // 예상하지 못한 경우 모든 게시물 반환
-        @unknown default:
-            postList = [
-                .sample0,
-            ]
         }
 
         return Just(postList)
@@ -238,12 +233,12 @@ extension StubServerRepository: ServerRepository {
             .eraseToAnyPublisher()
     }
 
-    public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Service], any Error> {
-        Just<[any Service]>([
-            LessonService.sample0,
-            AccompanistService.sample0,
-            ScoreCreationService.sample0,
-            MusicCreationService.sample0,
+    public func fetchAllLessonAndServiceList() -> AnyPublisher<[AnyService], any Error> {
+        Just<[AnyService]>([
+            LessonService.sample0.eraseToAnyService(),
+            AccompanistService.sample0.eraseToAnyService(),
+            ScoreCreationService.sample0.eraseToAnyService(),
+            MusicCreationService.sample0.eraseToAnyService(),
         ])
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()
@@ -273,7 +268,7 @@ extension StubServerRepository: ServerRepository {
             .eraseToAnyPublisher()
     }
 
-    public func fetchServiceDetail(by id: String) -> AnyPublisher<any Domain.Service, any Error> {
+    public func fetchServiceDetail(by id: String) -> AnyPublisher<AnyService, any Error> {
         fatalError()
     }
 

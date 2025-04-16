@@ -21,8 +21,15 @@ public protocol SinglePriceService: Service {
 }
 
 extension Service {
-    public func toAnyService() -> AnyService {
+    public func eraseToAnyService() -> AnyService {
         return AnyService(self)
+    }
+
+    public func cleaerAnyServiceIfExisted() -> any Service {
+        if let anyService = self as? AnyService {
+            return anyService.unboxed()
+        }
+        return self
     }
 }
 
@@ -62,11 +69,21 @@ extension AnyService {
     /// 래핑된 Service 인스턴스를 요청된 타입으로 다운캐스팅해서 반환합니다.
     /// - Parameter type: 복원하고자 하는 Service의 구체 타입
     /// - Returns: 다운캐스팅에 성공하면 해당 타입의 Service 인스턴스, 실패하면 nil
-    public func unwrap<T: Service>(as type: T.Type = T.self) -> T? {
+    public func unwrap<T: Service>(as type: T.Type) -> T? {
+        if let nestedAnyBox = box as? _ServiceBox<AnyService> {
+            return nestedAnyBox.base.unwrap(as: type)
+        }
+
         if let concreteBox = box as? _ServiceBox<T> {
             return concreteBox.base
         }
+
         return nil
+    }
+
+    /// 내부에 래핑된 Service 인스턴스를 `(any Service)` 타입으로 반환합니다.
+    public func unboxed() -> any Service {
+        return box.unboxed()
     }
 }
 
@@ -93,6 +110,10 @@ private class _AbstractServiceBox: Service {
     }
 
     static func == (lhs: _AbstractServiceBox, rhs: _AbstractServiceBox) -> Bool {
+        fatalError("Must override")
+    }
+
+    func unboxed() -> any Service {
         fatalError("Must override")
     }
 }
@@ -126,5 +147,14 @@ private final class _ServiceBox<Base: Service>: _AbstractServiceBox {
             return base == otherBox.base
         }
         return false
+    }
+
+    /// 내부에 보관된 Service 인스턴스를 재귀적으로 언박싱하여 (any Service) 타입으로 반환합니다.
+    override func unboxed() -> any Service {
+        if let nestedAny = base as? AnyService {
+            // 재귀적으로 nestedAny 내부의 원본 Service를 반환
+            return nestedAny.unboxed()
+        }
+        return base
     }
 }

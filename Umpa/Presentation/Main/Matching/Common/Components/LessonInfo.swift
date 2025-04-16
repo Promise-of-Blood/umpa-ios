@@ -38,7 +38,7 @@ struct LessonInfo: View {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview(traits: .sizeThatFitsLayout) {
     LessonInfo(model: .example0)
         .frame(width: 160)
@@ -56,7 +56,7 @@ struct LessonInfo: View {
 }
 #endif
 
-#if MOCK
+#if DEBUG
 extension LessonInfo.Model {
     static let example0 = LessonInfo.Model(
         teacher: "으음파 선생님",

@@ -4,8 +4,8 @@ import Factory
 import SwiftUI
 
 struct SignUpFinishView: View {
-    @InjectedObject(\.appState) private var appState
     @Injected(\.signUpInteractor) private var signUpInteractor
+
     @Injected(\.signUpModel) private var signUpModel
 
     var body: some View {
@@ -19,9 +19,7 @@ struct SignUpFinishView: View {
                 .modifier(TitleText())
             Spacer()
             Button(action: {
-                Task {
-                    await signUpInteractor.signUp(with: signUpModel)
-                }
+                signUpInteractor.completeSignUp(with: signUpModel)
             }) {
                 Text("회원 가입 완료")
                     .modifier(BottomButton())
