@@ -12,7 +12,7 @@ protocol UmpaNotificationInteractor {
 }
 
 struct UmpaNotificationInteractorImpl {
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.stubServerRepository) private var serverRepository
     @Injected(\.keychainRepository) private var keychainRepository
 }
 

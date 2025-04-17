@@ -13,15 +13,41 @@ protocol ServiceDetailInteractor {
     func load(_ accompanistService: Binding<AccompanistService>, by id: Service.Id)
     func load(_ scoreCreationService: Binding<ScoreCreationService>, by id: Service.Id)
     func load(_ musicCreationService: Binding<MusicCreationService>, by id: Service.Id)
+
+    /// 주어진 `service`에 대해 채팅을 시작합니다.
+    ///
+    /// 이미 만들어진 채팅방이 있을 경우 해당 채팅방으로 이동합니다.
+    func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>)
 }
 
 struct ServiceDetailInteractorImpl {
-    @Injected(\.serverRepository) private var serverRepository
+    let appState: AppState
+    let serverRepository: ServerRepository
 
-    private let cancelBag = CancelBag()
+    let cancelBag = CancelBag()
 }
 
 extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
+    func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>) {
+        guard let student = appState.userData.login.currentUser?.unwrap(as: Student.self) else { return }
+
+        serverRepository.fetchChatRoom(for: service.id)
+            .replaceNil(with: ChatRoom(
+                id: nil,
+                student: student,
+                relatedService: service,
+                messages: []
+            ))
+            .sink { completion in
+                if let error = completion.error {
+                    // TODO: error 처리
+                }
+            } receiveValue: { chatRoom in
+                navigationPath.wrappedValue.append(chatRoom)
+            }
+            .store(in: cancelBag)
+    }
+
     func markAsLike(_ isLiked: Bool, for id: Service.Id) {
         serverRepository.updateLikeStatus(isLiked, for: id)
             .debounce(for: .seconds(1), scheduler: DispatchQueue.main)

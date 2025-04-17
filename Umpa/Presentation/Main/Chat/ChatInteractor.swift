@@ -10,11 +10,6 @@ protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.
     func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>)
 
-    /// 주어진 `service`에 대해 채팅을 시작합니다.
-    ///
-    /// 이미 만들어진 채팅방이 있을 경우 해당 채팅방으로 이동합니다.
-    func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>)
-
     /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
     func enterChatRoom(with id: ChatRoom.Id)
 }
@@ -22,6 +17,7 @@ protocol ChatInteractor {
 struct ChatInteractorImpl {
     let appState: AppState
     let serverRepository: ServerRepository
+
     let cancelBag = CancelBag()
 }
 
@@ -33,26 +29,6 @@ extension ChatInteractorImpl: ChatInteractor {
                 ChatInteractorError.fakeError
             }
             .sinkToLoadable(chatRoomList)
-            .store(in: cancelBag)
-    }
-
-    func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>) {
-        guard let student = appState.userData.login.currentUser as? Student else { return }
-
-        serverRepository.fetchChatRoom(for: service.id)
-            .replaceNil(with: ChatRoom(
-                id: nil,
-                student: student,
-                relatedService: service,
-                messages: []
-            ))
-            .sink { completion in
-                if let error = completion.error {
-                    // TODO: error 처리
-                }
-            } receiveValue: { chatRoom in
-                navigationPath.wrappedValue.append(chatRoom)
-            }
             .store(in: cancelBag)
     }
 

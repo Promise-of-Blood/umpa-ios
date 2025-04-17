@@ -19,7 +19,7 @@ enum SocialLoginType {
 struct LoginView: View {
     @Environment(\.authorizationController) private var authorizationController
     @InjectedObject(\.appState) private var appState
-    @Injected(\.loginInteractor) private var loginInteractor
+    @Injected(\.mockLoginInteractor) private var loginInteractor
 
     var body: some View {
         NavigationStack(path: $appState.routing.loginNavigationPath) {

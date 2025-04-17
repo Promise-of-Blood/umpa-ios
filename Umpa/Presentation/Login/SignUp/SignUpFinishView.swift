@@ -4,7 +4,7 @@ import Factory
 import SwiftUI
 
 struct SignUpFinishView: View {
-    @Injected(\.signUpInteractor) private var signUpInteractor
+    @Injected(\.mockSignUpInteractor) private var signUpInteractor
 
     @Injected(\.signUpModel) private var signUpModel
 

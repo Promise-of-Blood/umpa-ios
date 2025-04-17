@@ -21,6 +21,7 @@ protocol ServiceListInteractor {
 
 struct ServiceListInteractorImpl {
     let serverRepository: ServerRepository
+
     let cancelBag = CancelBag()
 }
 

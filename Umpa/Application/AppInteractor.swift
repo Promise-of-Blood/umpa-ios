@@ -11,7 +11,7 @@ protocol AppInteractor {
 
 struct DefaultAppInteractor: AppInteractor {
     @Injected(\.appState) private var appState
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.stubServerRepository) private var serverRepository
 
     private let cancelBag = CancelBag()
 

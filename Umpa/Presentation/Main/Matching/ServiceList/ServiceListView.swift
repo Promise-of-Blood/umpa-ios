@@ -6,7 +6,7 @@ import SwiftUI
 
 struct ServiceListView: View {
     @Injected(\.appState) private var appState
-    @Injected(\.serviceListInteractor) private var serviceListInteractor
+    @Injected(\.stubServiceListInteractor) private var serviceListInteractor
 
     @State private var serviceList: [AnyService] = []
 

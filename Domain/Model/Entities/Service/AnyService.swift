@@ -2,40 +2,8 @@
 
 import Foundation
 
-public protocol Service: Identifiable, Hashable {
-    typealias Id = String
-
-    var id: Id { get }
-    var type: ServiceType { get }
-    var title: String { get }
-    var thumbnail: URL? { get }
-    var rating: Double { get }
-    var author: Teacher { get }
-    var acceptanceReviews: [AcceptanceReview] { get }
-    var reviews: [Review] { get }
-    var serviceDescription: String { get }
-}
-
-public protocol SinglePriceService: Service {
-    var price: Int { get }
-}
-
-extension Service {
-    public func eraseToAnyService() -> AnyService {
-        return AnyService(self)
-    }
-
-    public func cleaerAnyServiceIfExisted() -> any Service {
-        if let anyService = self as? AnyService {
-            return anyService.unboxed()
-        }
-        return self
-    }
-}
-
 /// 타입 소거(type erasure)를 사용하여 Service 프로토콜을 만족하면서도 Hashable을 제공하는 래퍼 타입.
 public struct AnyService: Service {
-    // 내부에 캡슐화된 박스
     private let box: _AbstractServiceBox
 
     /// Service를 준수하는 임의의 인스턴스를 래핑합니다.
@@ -53,8 +21,6 @@ public struct AnyService: Service {
     public var acceptanceReviews: [AcceptanceReview] { box.acceptanceReviews }
     public var reviews: [Review] { box.reviews }
     public var serviceDescription: String { box.serviceDescription }
-
-    // MARK: - Hashable
 
     public func hash(into hasher: inout Hasher) {
         box.hash(into: &hasher)
@@ -156,5 +122,18 @@ private final class _ServiceBox<Base: Service>: _AbstractServiceBox {
             return nestedAny.unboxed()
         }
         return base
+    }
+}
+
+extension Service {
+    public func eraseToAnyService() -> AnyService {
+        return AnyService(self)
+    }
+
+    public func cleaerAnyServiceIfExisted() -> any Service {
+        if let anyService = self as? AnyService {
+            return anyService.unboxed()
+        }
+        return self
     }
 }

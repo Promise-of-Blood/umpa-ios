@@ -56,7 +56,7 @@ extension AppState.UserData {
     }
 
     struct Login {
-        var currentUser: (any User)?
+        var currentUser: AnyUser?
 
         fileprivate init() {}
     }

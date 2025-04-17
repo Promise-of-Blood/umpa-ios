@@ -87,9 +87,8 @@ extension MainViewTabType {
 #if DEBUG
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.login.currentUser = Student.sample0
+    appState.userData.login.currentUser = Student.sample0.eraseToAnyUser()
 
-    return
-        MainTabView()
+    return MainTabView()
 }
 #endif

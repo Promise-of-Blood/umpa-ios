@@ -25,11 +25,7 @@ extension Container {
 
     var serverRepository: Factory<ServerRepository> {
         Factory(self) {
-            #if DEBUG
-            return StubServerRepository()
-            #else
-            return DefaultServerRepository()
-            #endif
+            DefaultServerRepository()
         }
         .scope(.singleton)
     }
@@ -59,17 +55,22 @@ extension Container {
     }
 
     var loginInteractor: Factory<LoginInteractor> {
-        Factory(self) { LoginInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            LoginInteractorImpl(
+                appState: self.appState(),
+                serverRepository: self.serverRepository(),
+                useCase: self.useCase()
+            )
+        }
+        .scope(.shared)
     }
 
     var signUpInteractor: Factory<SignUpInteractor> {
         Factory(self) {
-            #if DEBUG
-            MockSignUpInteractor()
-            #else
-            SignUpInteractorImpl()
-            #endif
+            SignUpInteractorImpl(
+                appState: self.appState(),
+                useCase: self.useCase()
+            )
         }
         .scope(.shared)
     }
@@ -102,8 +103,13 @@ extension Container {
     }
 
     var serviceDetailInteractor: Factory<ServiceDetailInteractor> {
-        Factory(self) { ServiceDetailInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            ServiceDetailInteractorImpl(
+                appState: self.appState(),
+                serverRepository: self.serverRepository()
+            )
+        }
+        .scope(.shared)
     }
 
     var teacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
@@ -130,3 +136,74 @@ extension Container {
             .scope(.signUpSession)
     }
 }
+
+// MARK: - Mock
+
+#if DEBUG
+
+extension Container {
+    var mockServerRepository: Factory<ServerRepository> {
+        Factory(self) { MockServerRepository() }
+            .scope(.singleton)
+    }
+
+    var stubServerRepository: Factory<ServerRepository> {
+        Factory(self) { StubServerRepository() }
+            .scope(.singleton)
+    }
+
+    var mockUseCase: Factory<UseCase> {
+        Factory(self) { MockUseCase() }
+            .scope(.singleton)
+    }
+
+    var mockLoginInteractor: Factory<LoginInteractor> {
+        Factory(self) {
+            LoginInteractorImpl(
+                appState: self.appState(),
+                serverRepository: self.mockServerRepository(),
+                useCase: self.mockUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var mockSignUpInteractor: Factory<SignUpInteractor> {
+        Factory(self) {
+            SignUpInteractorImpl(
+                appState: self.appState(),
+                useCase: self.mockUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubServiceListInteractor: Factory<ServiceListInteractor> {
+        Factory(self) {
+            ServiceListInteractorImpl(serverRepository: self.stubServerRepository())
+        }
+        .scope(.shared)
+    }
+
+    var stubChatInteractor: Factory<ChatInteractor> {
+        Factory(self) {
+            ChatInteractorImpl(
+                appState: self.appState(),
+                serverRepository: self.stubServerRepository()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubServiceDetailInteractor: Factory<ServiceDetailInteractor> {
+        Factory(self) {
+            ServiceDetailInteractorImpl(
+                appState: self.appState(),
+                serverRepository: self.stubServerRepository()
+            )
+        }
+        .scope(.shared)
+    }
+}
+
+#endif

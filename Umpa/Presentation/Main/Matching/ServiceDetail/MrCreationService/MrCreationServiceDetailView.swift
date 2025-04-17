@@ -7,8 +7,7 @@ import SwiftUI
 
 struct MrCreationServiceDetailView: ServiceDetailView {
     @InjectedObject(\.appState) private var appState
-    @Injected(\.chatInteractor) private var chatInteractor
-    @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
+    @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
 
     let service: MusicCreationService
 
@@ -46,7 +45,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
                     serviceDetailInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
-                    chatInteractor.startChat(
+                    serviceDetailInteractor.startChat(
                         with: service.eraseToAnyService(),
                         navigationPath: $appState.routing.teacherFinderNavigationPath
                     )

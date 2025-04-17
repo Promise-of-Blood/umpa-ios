@@ -12,7 +12,7 @@ protocol ReviewInteractor {
 }
 
 struct ReviewInteractorImpl: ReviewInteractor {
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.stubServerRepository) private var serverRepository
 
     private let cancelBag = CancelBag()
 
