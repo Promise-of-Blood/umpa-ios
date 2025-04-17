@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA017A432DB120B10015DD8F /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DA017A422DB120B10015DD8F /* KakaoSDK */; };
+		DA017A452DB120B10015DD8F /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DA017A442DB120B10015DD8F /* KakaoSDKAuth */; };
+		DA017A472DB120B10015DD8F /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = DA017A462DB120B10015DD8F /* KakaoSDKUser */; };
 		DA1E76942DAF78FE001FDAB3 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = DA1E76932DAF78FE001FDAB3 /* Mockable */; };
 		DA1E76962DAF792A001FDAB3 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = DA1E76952DAF792A001FDAB3 /* Mockable */; };
 		DA1E76982DAF794E001FDAB3 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = DA1E76972DAF794E001FDAB3 /* Mockable */; };
@@ -273,6 +276,9 @@
 				DA9E60C32D902959009319A0 /* Factory in Frameworks */,
 				DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */,
 				DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */,
+				DA017A432DB120B10015DD8F /* KakaoSDK in Frameworks */,
+				DA017A452DB120B10015DD8F /* KakaoSDKAuth in Frameworks */,
+				DA017A472DB120B10015DD8F /* KakaoSDKUser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +425,9 @@
 			packageProductDependencies = (
 				DA9E60C22D902959009319A0 /* Factory */,
 				DA1E76972DAF794E001FDAB3 /* Mockable */,
+				DA017A422DB120B10015DD8F /* KakaoSDK */,
+				DA017A442DB120B10015DD8F /* KakaoSDKAuth */,
+				DA017A462DB120B10015DD8F /* KakaoSDKUser */,
 			);
 			productName = Umpa;
 			productReference = 0C9CD41C2D31062B003F4455 /* Umpa.app */;
@@ -610,6 +619,7 @@
 			packageReferences = (
 				DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */,
 				DA1E76922DAF78FE001FDAB3 /* XCRemoteSwiftPackageReference "Mockable" */,
+				DA017A412DB120B10015DD8F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0C9CD41D2D31062B003F4455 /* Products */;
@@ -1531,6 +1541,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DA017A412DB120B10015DD8F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		DA1E76922DAF78FE001FDAB3 /* XCRemoteSwiftPackageReference "Mockable" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Kolos65/Mockable.git";
@@ -1550,6 +1568,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DA017A422DB120B10015DD8F /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA017A412DB120B10015DD8F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		DA017A442DB120B10015DD8F /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA017A412DB120B10015DD8F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		DA017A462DB120B10015DD8F /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA017A412DB120B10015DD8F /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
 		DA1E76932DAF78FE001FDAB3 /* Mockable */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DA1E76922DAF78FE001FDAB3 /* XCRemoteSwiftPackageReference "Mockable" */;

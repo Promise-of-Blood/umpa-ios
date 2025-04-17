@@ -2,6 +2,8 @@
 
 import DataAccess
 import Factory
+import KakaoSDKAuth
+import KakaoSDKCommon
 import SwiftUI
 
 @main
@@ -10,6 +12,10 @@ struct UmpaApp: App {
 
     @InjectedObject(\.appState) private var appState
     @Injected(\.appInteractor) private var appInteractor
+
+    init() {
+        KakaoSDK.initSDK(appKey: "NATIVE_APP_KEY")
+    }
 
     var body: some Scene {
         WindowGroup {
