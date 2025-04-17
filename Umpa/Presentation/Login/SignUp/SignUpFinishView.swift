@@ -6,7 +6,7 @@ import SwiftUI
 struct SignUpFinishView: View {
     @Injected(\.mockSignUpInteractor) private var signUpInteractor
 
-    @Injected(\.signUpModel) private var signUpModel
+    @ObservedObject var signUpModel: SignUpModel
 
     var body: some View {
         content
@@ -29,5 +29,5 @@ struct SignUpFinishView: View {
 }
 
 #Preview {
-    SignUpFinishView()
+    SignUpFinishView(signUpModel: SignUpModel(socialLoginType: .apple))
 }

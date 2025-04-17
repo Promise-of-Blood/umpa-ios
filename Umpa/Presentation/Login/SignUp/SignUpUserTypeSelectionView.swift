@@ -6,10 +6,10 @@ import Factory
 import SwiftUI
 
 struct SignUpUserTypeSelectionView: View {
-    @InjectedObject(\.signUpModel) private var signUpModel
+    @StateObject private var signUpModel: SignUpModel
 
     init(socialLoginType: SocialLoginType) {
-        signUpModel.socialLoginType = socialLoginType
+        _signUpModel = StateObject(wrappedValue: SignUpModel(socialLoginType: socialLoginType))
     }
 
     var body: some View {
@@ -38,13 +38,13 @@ struct SignUpUserTypeSelectionView: View {
             switch signUpModel.userType {
             case .student:
                 NavigationLink {
-                    SignUpNicknameInputView()
+                    SignUpNicknameInputView(signUpModel: signUpModel)
                 } label: {
                     bottomNextButton
                 }
             case .teacher:
                 NavigationLink {
-                    SignUpNameInputView()
+                    SignUpNameInputView(signUpModel: signUpModel)
                 } label: {
                     bottomNextButton
                 }

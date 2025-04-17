@@ -5,7 +5,7 @@ import Factory
 import SwiftUI
 
 struct SignUpDreamCollegesSelectionView: View {
-    @InjectedObject(\.signUpModel) private var signUpModel
+    @ObservedObject var signUpModel: SignUpModel
 
     var body: some View {
         content
@@ -33,7 +33,7 @@ struct SignUpDreamCollegesSelectionView: View {
             }
             Spacer()
             NavigationLink {
-                SignUpFinishView()
+                SignUpFinishView(signUpModel: signUpModel)
             } label: {
                 Text("다음")
                     .modifier(BottomButton())
@@ -44,6 +44,6 @@ struct SignUpDreamCollegesSelectionView: View {
 
 #Preview {
     NavigationStack {
-        SignUpDreamCollegesSelectionView()
+        SignUpDreamCollegesSelectionView(signUpModel: SignUpModel(socialLoginType: .apple))
     }
 }

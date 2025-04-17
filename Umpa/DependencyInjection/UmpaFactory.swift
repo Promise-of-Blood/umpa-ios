@@ -136,15 +136,6 @@ extension Container {
     }
 }
 
-// MARK: - ObservableObject
-
-extension Container {
-    var signUpModel: Factory<SignUpModel> {
-        Factory(self) { SignUpModel() }
-            .scope(.signUpSession)
-    }
-}
-
 // MARK: - Mock
 
 #if DEBUG
