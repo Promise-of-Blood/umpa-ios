@@ -4,3 +4,6 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
 #include "Common.xcconfig"
+
+// Common
+APP_DISPLAY_NAME = 음파_Debug

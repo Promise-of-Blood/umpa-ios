@@ -4,3 +4,15 @@
 // https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
 
 #include "Secrets.xcconfig"
+
+// Common
+APP_DISPLAY_NAME = 음파
+
+// Naver Login
+NidAppName = $(APP_DISPLAY_NAME) // 애플리케이션 이름
+
+NidClientID = $(NAVER_CLIENT_ID) // 클라이언트 아이디
+
+NidClientSecret = $(NAVER_CLIENT_SECRET) // 클라이언트 시크릿
+
+NidUrlScheme = naver$(NAVER_CLIENT_ID) // 콜백 URL Scheme
