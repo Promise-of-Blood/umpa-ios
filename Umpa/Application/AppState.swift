@@ -23,6 +23,7 @@ extension AppState {
         var teacherFinderNavigationPath = NavigationPath()
         var myServicesNavigationPath = NavigationPath()
         var loginNavigationPath = NavigationPath()
+        var myProfileNavigationPath = NavigationPath()
     }
 }
 

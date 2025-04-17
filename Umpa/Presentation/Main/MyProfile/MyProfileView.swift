@@ -4,12 +4,17 @@ import Factory
 import SwiftUI
 
 struct MyProfileView: View {
+    @InjectedObject(\.appState) private var appState
     @Injected(\.myProfileInteractor) private var myProfileInteractor
+
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $appState.routing.myProfileNavigationPath) {
             content
+                .navigationDestination(for: String.self) { _ in
+                    TestView()
+                }
         }
     }
 
@@ -19,10 +24,9 @@ struct MyProfileView: View {
             Text("X")
         }
         Text("MyProfile")
-        Button(action: {
-            myProfileInteractor.logout()
-        }) {
-            Text("로그아웃")
+
+        NavigationLink(value: "Test") {
+            Text("이동")
         }
 
         List {
@@ -36,6 +40,17 @@ struct MyProfileView: View {
                 .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
+    }
+}
+
+struct TestView: View {
+    @Injected(\.myProfileInteractor) private var myProfileInteractor
+    var body: some View {
+        Button(action: {
+            myProfileInteractor.logout()
+        }) {
+            Text("로그아웃")
+        }
     }
 }
 
