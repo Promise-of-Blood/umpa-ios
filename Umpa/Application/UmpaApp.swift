@@ -14,7 +14,7 @@ struct UmpaApp: App {
     @Injected(\.appInteractor) private var appInteractor
 
     init() {
-        KakaoSDK.initSDK(appKey: "NATIVE_APP_KEY")
+        initKakaoSDK()
     }
 
     var body: some Scene {
@@ -32,6 +32,13 @@ struct UmpaApp: App {
                     }
             }
         }
+    }
+
+    private func initKakaoSDK() {
+        guard let appKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY") as? String else {
+            return
+        }
+        KakaoSDK.initSDK(appKey: appKey)
     }
 }
 
