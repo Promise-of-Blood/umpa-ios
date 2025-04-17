@@ -17,7 +17,7 @@ protocol TeacherLessonManagementInteractor {
 
 struct TeacherLessonManagementInteractorImpl {
     @Injected(\.appState) private var appState
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.stubServerRepository) private var serverRepository
     @Injected(\.keychainRepository) private var keychainRepository
 
     private let cancelBag = CancelBag()

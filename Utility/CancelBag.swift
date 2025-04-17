@@ -24,7 +24,7 @@
 import Combine
 
 public final class CancelBag {
-    fileprivate(set) var subscriptions = [any Cancellable]()
+    fileprivate(set) var subscriptions = Set<AnyCancellable>()
 
     public var subscriptionCount: Int {
         subscriptions.count
@@ -37,10 +37,8 @@ public final class CancelBag {
     }
 }
 
-extension Cancellable {
+extension AnyCancellable {
     public func store(in cancelBag: CancelBag) {
-        cancelBag.subscriptions.append(self)
+        cancelBag.subscriptions.insert(self)
     }
 }
-
-extension Task: @retroactive Cancellable {}

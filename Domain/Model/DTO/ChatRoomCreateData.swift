@@ -3,9 +3,9 @@
 import Foundation
 
 public struct ChatRoomCreateData {
-    public let relatedService: any Service
+    public let relatedService: AnyService
 
-    public init(relatedService: some Service) {
+    public init(relatedService: AnyService) {
         self.relatedService = relatedService
     }
 }

@@ -6,9 +6,9 @@ import SwiftUI
 
 struct ServiceListView: View {
     @Injected(\.appState) private var appState
-    @Injected(\.serviceListInteractor) private var serviceListInteractor
+    @Injected(\.stubServiceListInteractor) private var serviceListInteractor
 
-    @State private var serviceList: [any Service] = []
+    @State private var serviceList: [AnyService] = []
 
     var body: some View {
         content
@@ -22,13 +22,13 @@ struct ServiceListView: View {
                 if let lesson = service.unwrap(as: LessonService.self) {
                     LessonServiceDetailView(service: lesson)
                 }
-                if let accompanistService = service.unwrap(as: AccompanistService.self) {
+                else if let accompanistService = service.unwrap(as: AccompanistService.self) {
                     AccompanistServiceDetailView(service: accompanistService)
                 }
-                if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
+                else if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
                     MrCreationServiceDetailView(service: musicCreationService)
                 }
-                if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
+                else if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
                     ScoreCreationServiceDetailView(service: scoreCreationService)
                 }
             }
@@ -47,7 +47,7 @@ struct ServiceListView: View {
             }
             Text(appState.userData.teacherFinder.selectedService.name)
             ForEach(serviceList, id: \.id) { service in
-                NavigationLink(value: service.toAnyService()) {
+                NavigationLink(value: service) {
                     ServiceListItem(model: service.toServiceListItemModel())
                 }
             }

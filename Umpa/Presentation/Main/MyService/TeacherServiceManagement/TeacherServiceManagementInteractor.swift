@@ -8,14 +8,14 @@ import SwiftUI
 import Utility
 
 protocol TeacherServiceManagementInteractor {
-    func loadMyServiceList(_ serviceList: Binding<[any Service]>)
+    func loadMyServiceList(_ serviceList: Binding<[AnyService]>)
     func enterChatRoom(for id: Service.Id)
 //    func sendServiceConfirmationRequest
 }
 
 struct TeacherServiceManagementInteractorImpl {
     @Injected(\.appState) private var appState
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.stubServerRepository) private var serverRepository
     @Injected(\.keychainRepository) private var keychainRepository
 
     private let cancelBag = CancelBag()
@@ -40,7 +40,7 @@ extension TeacherServiceManagementInteractorImpl: TeacherServiceManagementIntera
             .store(in: cancelBag)
     }
 
-    func loadMyServiceList(_ serviceList: Binding<[any Domain.Service]>) {
+    func loadMyServiceList(_ serviceList: Binding<[AnyService]>) {
         keychainRepository.getAccessToken()
             .flatMap(serverRepository.fetchMyServiceList(with:))
             .replaceError(with: [])

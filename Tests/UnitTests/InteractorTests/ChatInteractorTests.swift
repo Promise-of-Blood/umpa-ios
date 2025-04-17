@@ -1,31 +1,51 @@
 // Created for Umpa in 2025
 
 import Combine
-import DataAccess
 import Domain
-import Factory
+import Mockable
 import Testing
 @testable import Umpa
 import Utility
 
 @Suite(.tags(.interactor))
-struct ChatInteractorTests {
-    @Injected(\.chatInteractor) private var chatInteractor
+final class ChatInteractorTests {
+    var sut: ChatInteractor!
+    var mockServerRepository: MockServerRepository!
 
     init() {
-        Container.shared.reset()
-        Container.shared.serverRepository.register { StubServerRepository() }
+        mockServerRepository = MockServerRepository()
+        sut = ChatInteractorImpl(
+            appState: AppState(),
+            serverRepository: mockServerRepository
+        )
     }
+}
 
+extension ChatInteractorTests {
     @Test func loadChatRoomList() async throws {
+        // Given
+        let mockData = [ChatRoom.sample0]
+        let mockDataPublisher = Just(mockData)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
         let chatRoomList = BindingWithPublisher(
             Loadable<[ChatRoom], ChatInteractorError>.notRequested
         )
 
-        chatInteractor.load(chatRoomList.binding, for: "")
+        given(mockServerRepository)
+            .fetchChatRoomList().willReturn(mockDataPublisher)
 
-        let value = await chatRoomList.updatesRecorder.values.first(where: { _ in true })
+        // When
+        sut.load(chatRoomList.binding)
 
-        #expect(value?.count == 3)
+        // Then
+        let recorded = await chatRoomList.updatesRecorder.values.first(where: { _ in true })
+        #expect(recorded == [
+            .notRequested,
+            .isLoading(last: nil, cancelBag: CancelBag()),
+            .loaded(mockData)
+        ])
+        verify(mockServerRepository)
+            .fetchChatRoomList().called(.once)
     }
 }

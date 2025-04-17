@@ -67,7 +67,7 @@ struct ChatRoomView: View {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     ChatRoomView(chatRoom: .sample0)
 }

@@ -65,7 +65,7 @@ extension DefaultKeychainRepository: KeychainRepository {
     }
 }
 
-#if MOCK
+#if DEBUG
 
 public final class StubKeychainRepository {
     public init() {}

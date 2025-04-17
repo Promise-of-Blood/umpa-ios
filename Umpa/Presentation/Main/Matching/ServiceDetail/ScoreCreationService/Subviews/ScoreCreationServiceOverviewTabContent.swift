@@ -13,7 +13,7 @@ extension ScoreCreationServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     ScoreCreationServiceDetailView.ServiceOverviewTabContent(service: .sample0)
 }

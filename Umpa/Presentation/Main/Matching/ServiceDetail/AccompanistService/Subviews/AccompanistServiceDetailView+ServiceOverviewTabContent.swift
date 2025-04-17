@@ -14,7 +14,7 @@ extension AccompanistServiceDetailView {
 }
 
 #Preview {
-    #if MOCK
+    #if DEBUG
     AccompanistServiceDetailView.ServiceOverviewTabContent(service: .sample0)
     #endif
 }

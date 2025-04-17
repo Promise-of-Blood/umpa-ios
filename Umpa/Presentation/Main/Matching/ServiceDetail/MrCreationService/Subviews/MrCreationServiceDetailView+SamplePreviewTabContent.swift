@@ -49,7 +49,7 @@ extension MrCreationServiceDetailView {
 }
 
 #Preview {
-    #if MOCK
+    #if DEBUG
     MrCreationServiceDetailView.SamplePreviewTabContent(
         sampleMusics: MusicCreationService.sample0.sampleMusics
     )

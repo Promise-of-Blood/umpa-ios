@@ -28,7 +28,7 @@ extension LessonServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     LessonServiceDetailView.LessonOverviewTabContent(service: .sample0)
 }

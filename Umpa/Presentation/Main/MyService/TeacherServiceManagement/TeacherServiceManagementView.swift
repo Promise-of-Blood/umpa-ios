@@ -7,7 +7,7 @@ import SwiftUI
 struct TeacherServiceManagementView: View {
     @Injected(\.teacherServiceManagementInteractor) private var teacherServiceManagementInteractor
 
-    @State private var serviceList: [any Service] = []
+    @State private var serviceList: [AnyService] = []
 
     var body: some View {
         content

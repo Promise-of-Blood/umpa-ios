@@ -6,7 +6,7 @@ import SwiftUI
 struct ReviewTabContent: View {
     @State private var selectedTab: InnerTab = .review
 
-    let service: any Service
+    let service: AnyService
 
     var body: some View {
         content
@@ -258,8 +258,8 @@ extension ReviewTabContent {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview(traits: .sizeThatFitsLayout) {
-    ReviewTabContent(service: LessonService.sample0)
+    ReviewTabContent(service: LessonService.sample0.eraseToAnyService())
 }
 #endif

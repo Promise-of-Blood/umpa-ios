@@ -5,6 +5,7 @@ import Combine
 import Domain
 import Factory
 import Foundation
+import Mockable
 import SwiftUI
 import Utility
 
@@ -16,9 +17,47 @@ protocol LoginInteractor {
 }
 
 struct LoginInteractorImpl {
-    @Injected(\.appState) private var appState
-    @Injected(\.serverRepository) private var serverRepository
-    @Injected(\.useCase) private var useCase
+    let appState: AppState
+    let serverRepository: ServerRepository
+    let useCase: UseCase
+
+    let cancelBag = CancelBag()
+
+    init(
+        appState: AppState,
+        serverRepository: ServerRepository,
+        useCase: UseCase
+    ) {
+        self.appState = appState
+        self.serverRepository = serverRepository
+        self.useCase = useCase
+
+        #if DEBUG
+        if let mockUseCase = useCase as? MockUseCase {
+            given(mockUseCase)
+                .loginWithApple().willReturn(
+                    Just(Student.sample0.eraseToAnyUser())
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                )
+                .loginWithKakao().willReturn(
+                    Just(Student.sample0.eraseToAnyUser())
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                )
+                .loginWithGoogle().willReturn(
+                    Just(Teacher.sample0.eraseToAnyUser())
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                )
+                .loginWithKakao().willReturn(
+                    Just(Student.sample0.eraseToAnyUser())
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                )
+        }
+        #endif
+    }
 }
 
 extension LoginInteractorImpl: LoginInteractor {
@@ -35,11 +74,22 @@ extension LoginInteractorImpl: LoginInteractor {
                 let fullName = appleIDCredential.fullName
                 let email = appleIDCredential.email
 
-//                useCase.loginWithApple()
-                #if MOCK
-                appState.userData.login.currentUser = Student.sample0
-                appState.routing.currentTab = .teacherFinder
-                #endif
+                useCase.loginWithApple()
+                    .sink { completion in
+                        if let error = completion.error {
+                            // TODO: Handle error
+                            // 로그인 실패
+                        }
+                    } receiveValue: { user in
+                        appState.userData.login.currentUser = user
+                        switch user.userType {
+                        case .student:
+                            appState.routing.currentTab = .teacherFinder
+                        case .teacher:
+                            appState.routing.currentTab = .teacherHome
+                        }
+                    }
+                    .store(in: cancelBag)
             default:
                 break
             }
@@ -47,26 +97,59 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 
     func loginWithKakao() {
-//        useCase.loginWithKakao()
-        #if MOCK
-        appState.userData.login.currentUser = Student.sample0
-        appState.routing.currentTab = .teacherFinder
-        #endif
+        useCase.loginWithKakao()
+            .sink { completion in
+                if let error = completion.error {
+                    // TODO: Handle error
+                    // 로그인 실패
+                }
+            } receiveValue: { user in
+                appState.userData.login.currentUser = user
+                switch user.userType {
+                case .student:
+                    appState.routing.currentTab = .teacherFinder
+                case .teacher:
+                    appState.routing.currentTab = .teacherHome
+                }
+            }
+            .store(in: cancelBag)
     }
 
     func loginWithNaver() {
-//        useCase.loginWithNaver()
-        #if MOCK
-        appState.userData.login.currentUser = Student.sample0
-        appState.routing.currentTab = .teacherFinder
-        #endif
+        useCase.loginWithNaver()
+            .sink { completion in
+                if let error = completion.error {
+                    // TODO: Handle error
+                    // 로그인 실패
+                }
+            } receiveValue: { user in
+                appState.userData.login.currentUser = user
+                switch user.userType {
+                case .student:
+                    appState.routing.currentTab = .teacherFinder
+                case .teacher:
+                    appState.routing.currentTab = .teacherHome
+                }
+            }
+            .store(in: cancelBag)
     }
 
     func loginWithGoogle() {
-//        useCase.loginWithGoogle()
-        #if MOCK
-        appState.userData.login.currentUser = Teacher.sample0
-        appState.routing.currentTab = .teacherHome
-        #endif
+        useCase.loginWithGoogle()
+            .sink { completion in
+                if let error = completion.error {
+                    // TODO: Handle error
+                    // 로그인 실패
+                }
+            } receiveValue: { user in
+                appState.userData.login.currentUser = user
+                switch user.userType {
+                case .student:
+                    appState.routing.currentTab = .teacherFinder
+                case .teacher:
+                    appState.routing.currentTab = .teacherHome
+                }
+            }
+            .store(in: cancelBag)
     }
 }

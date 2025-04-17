@@ -88,7 +88,7 @@ extension ScoreCreationServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     @Previewable @State var tabSelection = 1
 

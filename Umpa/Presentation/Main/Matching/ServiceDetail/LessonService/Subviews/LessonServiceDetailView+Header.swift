@@ -86,7 +86,7 @@ extension LessonServiceDetailView {
 #Preview {
     @Previewable @State var tabSelection = 1
 
-    #if MOCK
+    #if DEBUG
     LessonServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
         .padding()
         .background(.black)

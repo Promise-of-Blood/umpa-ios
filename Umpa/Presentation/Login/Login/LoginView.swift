@@ -19,7 +19,7 @@ enum SocialLoginType {
 struct LoginView: View {
     @Environment(\.authorizationController) private var authorizationController
     @InjectedObject(\.appState) private var appState
-    @Injected(\.loginInteractor) private var loginInteractor
+    @Injected(\.mockLoginInteractor) private var loginInteractor
 
     var body: some View {
         NavigationStack(path: $appState.routing.loginNavigationPath) {
@@ -64,6 +64,7 @@ struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            // TODO: Apple 로그인 버튼 구현 예정
         }
         .padding(.horizontal, 30)
         .padding(.bottom, 30)

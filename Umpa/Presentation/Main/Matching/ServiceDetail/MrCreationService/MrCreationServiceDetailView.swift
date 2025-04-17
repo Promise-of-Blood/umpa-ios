@@ -7,8 +7,7 @@ import SwiftUI
 
 struct MrCreationServiceDetailView: ServiceDetailView {
     @InjectedObject(\.appState) private var appState
-    @Injected(\.chatInteractor) private var chatInteractor
-    @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
+    @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
 
     let service: MusicCreationService
 
@@ -46,8 +45,8 @@ struct MrCreationServiceDetailView: ServiceDetailView {
                     serviceDetailInteractor.markAsLike(isLiked, for: service.id)
                 },
                 primaryButtonAction: {
-                    chatInteractor.startChat(
-                        with: service,
+                    serviceDetailInteractor.startChat(
+                        with: service.eraseToAnyService(),
                         navigationPath: $appState.routing.teacherFinderNavigationPath
                     )
                 }
@@ -65,7 +64,7 @@ struct MrCreationServiceDetailView: ServiceDetailView {
         case .samplePreview:
             SamplePreviewTabContent(sampleMusics: service.sampleMusics)
         case .review:
-            ReviewTabContent(service: service)
+            ReviewTabContent(service: service.eraseToAnyService())
         }
     }
 }
@@ -92,7 +91,7 @@ extension MrCreationServiceDetailView {
     }
 }
 
-#if MOCK
+#if DEBUG
 #Preview {
     MrCreationServiceDetailView(service: .sample0)
 }

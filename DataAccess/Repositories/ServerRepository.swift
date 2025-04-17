@@ -9,7 +9,7 @@ public struct DefaultServerRepository {
 }
 
 extension DefaultServerRepository: ServerRepository {
-    public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[AnyService], any Error> {
         fatalError()
     }
 
@@ -33,7 +33,7 @@ extension DefaultServerRepository: ServerRepository {
         fatalError()
     }
 
-    public func fetchServiceDetail(by id: String) -> AnyPublisher<any Domain.Service, any Error> {
+    public func fetchServiceDetail(by id: String) -> AnyPublisher<AnyService, any Error> {
         fatalError()
     }
 
@@ -57,7 +57,7 @@ extension DefaultServerRepository: ServerRepository {
         fatalError()
     }
 
-    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchMyServiceList(with: Domain.AccessToken) -> AnyPublisher<[AnyService], any Error> {
         fatalError()
     }
 
@@ -93,7 +93,7 @@ extension DefaultServerRepository: ServerRepository {
         fatalError()
     }
 
-    public func fetchFavoriteServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchFavoriteServiceList() -> AnyPublisher<[AnyService], any Error> {
         fatalError()
     }
 
@@ -153,7 +153,7 @@ extension DefaultServerRepository: ServerRepository {
         fatalError("fetchTeacherData() has not been implemented")
     }
 
-    public func fetchAllLessonAndServiceList() -> AnyPublisher<[any Domain.Service], any Error> {
+    public func fetchAllLessonAndServiceList() -> AnyPublisher<[AnyService], any Error> {
         fatalError("fetchAllServiceList() has not been implemented")
     }
 
