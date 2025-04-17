@@ -4,7 +4,7 @@ import Factory
 import SwiftUI
 
 struct MyProfileView: View {
-    @Injected(\.appState) private var appState
+    @Injected(\.myProfileInteractor) private var myProfileInteractor
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -20,7 +20,7 @@ struct MyProfileView: View {
         }
         Text("MyProfile")
         Button(action: {
-            appState.reset()
+            myProfileInteractor.logout()
         }) {
             Text("로그아웃")
         }

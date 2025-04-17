@@ -126,6 +126,15 @@ extension Container {
         Factory(self) { UmpaNotificationInteractorImpl() }
             .scope(.shared)
     }
+
+    var myProfileInteractor: Factory<MyProfileInteractor> {
+        Factory(self) {
+            MyProfileInteractorImpl(
+                appState: self.appState()
+            )
+        }
+        .scope(.shared)
+    }
 }
 
 // MARK: - ObservableObject
