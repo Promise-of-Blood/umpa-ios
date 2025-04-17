@@ -6,18 +6,13 @@
 //
 
 import AuthenticationServices
+import Domain
 import Factory
 import SwiftUI
 
-enum SocialLoginType {
-    case kakao
-    case naver
-    case google
-    case apple
-}
-
 struct LoginView: View {
     @Environment(\.authorizationController) private var authorizationController
+
     @InjectedObject(\.appState) private var appState
     @Injected(\.mockLoginInteractor) private var loginInteractor
 
@@ -64,7 +59,11 @@ struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            // TODO: Apple 로그인 버튼 구현 예정
+            Button(action: loginWithApple) {
+                Image(systemName: "apple.logo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
         }
         .padding(.horizontal, 30)
         .padding(.bottom, 30)
@@ -80,6 +79,10 @@ struct LoginView: View {
 
     func loginWithGoogle() {
         loginInteractor.loginWithGoogle()
+    }
+
+    func loginWithApple() {
+        loginInteractor.loginWithApple(with: authorizationController)
     }
 }
 

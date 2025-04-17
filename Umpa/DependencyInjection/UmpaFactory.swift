@@ -58,7 +58,6 @@ extension Container {
         Factory(self) {
             LoginInteractorImpl(
                 appState: self.appState(),
-                serverRepository: self.serverRepository(),
                 useCase: self.useCase()
             )
         }
@@ -170,7 +169,6 @@ extension Container {
         Factory(self) {
             LoginInteractorImpl(
                 appState: self.appState(),
-                serverRepository: self.mockServerRepository(),
                 useCase: self.mockUseCase()
             )
         }
