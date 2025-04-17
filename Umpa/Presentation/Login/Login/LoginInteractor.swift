@@ -151,6 +151,7 @@ extension LoginInteractorImpl {
 
     private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
         useCase.checkAccountLinkedSocialId(with: socialIdData)
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error
