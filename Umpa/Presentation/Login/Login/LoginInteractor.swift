@@ -5,9 +5,19 @@ import Combine
 import Domain
 import Factory
 import Foundation
+import KakaoSDKAuth
+import KakaoSDKUser
 import Mockable
 import SwiftUI
 import Utility
+
+enum LoginInteractorError: LocalizedError {
+    enum KakaoLoginFailedReason {
+        case missingOauthToken
+    }
+
+    case kakaoLoginFailed(KakaoLoginFailedReason)
+}
 
 protocol LoginInteractor {
     func loginWithApple(with authorizationController: AuthorizationController)
@@ -76,7 +86,7 @@ extension LoginInteractorImpl: LoginInteractor {
 //                let email = appleIDCredential.email
 
                 let socialIdData = SocialIdData(socialLoginType: .apple)
-                tryLogin(with: socialIdData)
+                tryUmpaLogin(with: socialIdData)
                     .store(in: cancelBag)
             default:
                 assertionFailure()
@@ -87,24 +97,59 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 
     func loginWithKakao() {
-        let socialIdData = SocialIdData(socialLoginType: .kakao)
-        tryLogin(with: socialIdData)
-            .store(in: cancelBag)
+        Task {
+            let (oauthToken, error) = await _loginWithKakao()
+
+            if let error = error {
+                throw error
+            }
+
+            guard let oauthToken else {
+                throw LoginInteractorError.kakaoLoginFailed(.missingOauthToken)
+            }
+
+            print(oauthToken.idToken)
+
+            let socialIdData = SocialIdData(socialLoginType: .kakao)
+            tryUmpaLogin(with: socialIdData)
+                .store(in: cancelBag)
+        } catch: { error in
+            print(error)
+        }
     }
 
     func loginWithNaver() {
         let socialIdData = SocialIdData(socialLoginType: .naver)
-        tryLogin(with: socialIdData)
+        tryUmpaLogin(with: socialIdData)
             .store(in: cancelBag)
     }
 
     func loginWithGoogle() {
         let socialIdData = SocialIdData(socialLoginType: .google)
-        tryLogin(with: socialIdData)
+        tryUmpaLogin(with: socialIdData)
             .store(in: cancelBag)
     }
+}
 
-    private func tryLogin(with socialIdData: SocialIdData) -> AnyCancellable {
+extension LoginInteractorImpl {
+    @MainActor
+    private func _loginWithKakao() async -> (OAuthToken?, Error?) {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            return await withCheckedContinuation { continuation in
+                UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+                    continuation.resume(returning: (oauthToken, error))
+                }
+            }
+        } else {
+            return await withCheckedContinuation { continuation in
+                UserApi.shared.loginWithKakaoAccount { oauthToken, error in
+                    continuation.resume(returning: (oauthToken, error))
+                }
+            }
+        }
+    }
+
+    private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
         useCase.checkAccountLinkedSocialId(with: socialIdData)
             .sink { completion in
                 if let error = completion.error {

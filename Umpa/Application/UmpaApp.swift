@@ -19,18 +19,28 @@ struct UmpaApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if appState.system.isSplashFinished {
-                if appState.userData.login.isLoggedIn {
-                    MainTabView()
-                } else {
-                    LoginView()
-                }
-            } else {
-                SplashView()
-                    .onAppear {
-                        appInteractor.loadMajorList()
+            mainWindow
+                .onOpenURL { url in
+                    if AuthApi.isKakaoTalkLoginUrl(url) {
+                        _ = AuthController.handleOpenUrl(url: url)
                     }
+                }
+        }
+    }
+
+    @ViewBuilder
+    var mainWindow: some View {
+        if appState.system.isSplashFinished {
+            if appState.userData.login.isLoggedIn {
+                MainTabView()
+            } else {
+                LoginView()
             }
+        } else {
+            SplashView()
+                .onAppear {
+                    appInteractor.loadMajorList()
+                }
         }
     }
 
