@@ -4,6 +4,7 @@ import DataAccess
 import Factory
 import KakaoSDKAuth
 import KakaoSDKCommon
+import NidThirdPartyLogin
 import SwiftUI
 
 @main
@@ -14,7 +15,8 @@ struct UmpaApp: App {
     @Injected(\.appInteractor) private var appInteractor
 
     init() {
-        initKakaoSDK()
+        prepareKakaoLogin()
+        prepareNaverLogin()
     }
 
     var body: some Scene {
@@ -23,6 +25,10 @@ struct UmpaApp: App {
                 .onOpenURL { url in
                     if AuthApi.isKakaoTalkLoginUrl(url) {
                         _ = AuthController.handleOpenUrl(url: url)
+                        return
+                    }
+                    if NidOAuth.shared.handleURL(url) == true {
+                        return
                     }
                 }
         }
@@ -43,12 +49,21 @@ struct UmpaApp: App {
                 }
         }
     }
+}
 
-    private func initKakaoSDK() {
+// MARK: - Private Methods
+
+extension UmpaApp {
+    private func prepareKakaoLogin() {
         guard let appKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY") as? String else {
             return
         }
         KakaoSDK.initSDK(appKey: appKey)
+    }
+
+    private func prepareNaverLogin() {
+        NidOAuth.shared.initialize()
+        NidOAuth.shared.setLoginBehavior(.appPreferredWithInAppBrowserFallback)
     }
 }
 

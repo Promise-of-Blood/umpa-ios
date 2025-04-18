@@ -8,6 +8,7 @@ import Foundation
 import KakaoSDKAuth
 import KakaoSDKUser
 import Mockable
+import NidThirdPartyLogin
 import SwiftUI
 import Utility
 
@@ -19,6 +20,7 @@ enum LoginInteractorError: LocalizedError {
     case kakaoLoginFailed(KakaoLoginFailedReason)
 }
 
+@MainActor
 protocol LoginInteractor {
     func loginWithApple(with authorizationController: AuthorizationController)
     func loginWithKakao()
@@ -98,16 +100,7 @@ extension LoginInteractorImpl: LoginInteractor {
 
     func loginWithKakao() {
         Task {
-            let (oauthToken, error) = await _loginWithKakao()
-
-            if let error = error {
-                throw error
-            }
-
-            guard let oauthToken else {
-                throw LoginInteractorError.kakaoLoginFailed(.missingOauthToken)
-            }
-
+            let oauthToken = try await _loginWithKakao()
             print(oauthToken.idToken)
 
             let socialIdData = SocialIdData(socialLoginType: .kakao)
@@ -119,9 +112,19 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 
     func loginWithNaver() {
-        let socialIdData = SocialIdData(socialLoginType: .naver)
-        tryUmpaLogin(with: socialIdData)
-            .store(in: cancelBag)
+        Task {
+            let loginResult = try await NidOAuth.shared.requestLogin()
+            let accessToken = loginResult.accessToken.tokenString
+            let profileResult = try await NidOAuth.shared.getUserProfile(accessToken: accessToken)
+            let id = profileResult["id"]
+            print("Id: ", id)
+
+            let socialIdData = SocialIdData(socialLoginType: .naver)
+            tryUmpaLogin(with: socialIdData)
+                .store(in: cancelBag)
+        } catch: { error in
+            print("Error: ", error.localizedDescription)
+        }
     }
 
     func loginWithGoogle() {
@@ -133,22 +136,39 @@ extension LoginInteractorImpl: LoginInteractor {
 
 extension LoginInteractorImpl {
     @MainActor
-    private func _loginWithKakao() async -> (OAuthToken?, Error?) {
+    private func _loginWithKakao() async throws -> OAuthToken {
         if UserApi.isKakaoTalkLoginAvailable() {
-            return await withCheckedContinuation { continuation in
+            return try await withCheckedThrowingContinuation { continuation in
                 UserApi.shared.loginWithKakaoTalk { oauthToken, error in
-                    continuation.resume(returning: (oauthToken, error))
+                    if let error {
+                        continuation.resume(throwing: error)
+                        return
+                    }
+                    guard let oauthToken else {
+                        continuation.resume(throwing: LoginInteractorError.kakaoLoginFailed(.missingOauthToken))
+                        return
+                    }
+                    continuation.resume(returning: oauthToken)
                 }
             }
         } else {
-            return await withCheckedContinuation { continuation in
+            return try await withCheckedThrowingContinuation { continuation in
                 UserApi.shared.loginWithKakaoAccount { oauthToken, error in
-                    continuation.resume(returning: (oauthToken, error))
+                    if let error {
+                        continuation.resume(throwing: error)
+                        return
+                    }
+                    guard let oauthToken else {
+                        continuation.resume(throwing: LoginInteractorError.kakaoLoginFailed(.missingOauthToken))
+                        return
+                    }
+                    continuation.resume(returning: oauthToken)
                 }
             }
         }
     }
 
+    @MainActor
     private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
         useCase.checkAccountLinkedSocialId(with: socialIdData)
             .receive(on: DispatchQueue.main)
@@ -156,7 +176,7 @@ extension LoginInteractorImpl {
                 if let error = completion.error {
                     // TODO: Handle error
                 }
-            } receiveValue: { user in
+            } receiveValue: { [appState] user in
                 if let user {
                     appState.userData.login.currentUser = user
                     switch user.userType {
@@ -166,8 +186,40 @@ extension LoginInteractorImpl {
                         appState.routing.currentTab = .teacherHome
                     }
                 } else {
-                    appState.routing.loginNavigationPath.append(SocialLoginType.apple)
+                    appState.routing.loginNavigationPath.append(socialIdData.socialLoginType)
                 }
             }
+    }
+}
+
+// MARK: - NidOAuth + Swift Concurrency
+
+extension NidOAuth {
+    @MainActor
+    func requestLogin() async throws -> LoginResult {
+        return try await withCheckedThrowingContinuation { continuation in
+            requestLogin { result in
+                switch result {
+                case .success(let loginResult):
+                    continuation.resume(returning: loginResult)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
+    }
+
+    @MainActor
+    func getUserProfile(accessToken: String) async throws -> [String: String] {
+        return try await withCheckedThrowingContinuation { continuation in
+            getUserProfile(accessToken: accessToken) { result in
+                switch result {
+                case .success(let profileResult):
+                    continuation.resume(returning: profileResult)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+            }
+        }
     }
 }
