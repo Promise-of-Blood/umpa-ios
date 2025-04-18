@@ -1553,8 +1553,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		DA017DA92DB149D90015DD8F /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios-swift" */ = {

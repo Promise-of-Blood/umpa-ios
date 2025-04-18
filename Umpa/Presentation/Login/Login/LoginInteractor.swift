@@ -168,6 +168,7 @@ extension LoginInteractorImpl {
         }
     }
 
+    @MainActor
     private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
         useCase.checkAccountLinkedSocialId(with: socialIdData)
             .receive(on: DispatchQueue.main)
@@ -175,7 +176,7 @@ extension LoginInteractorImpl {
                 if let error = completion.error {
                     // TODO: Handle error
                 }
-            } receiveValue: { user in
+            } receiveValue: { [appState] user in
                 if let user {
                     appState.userData.login.currentUser = user
                     switch user.userType {
@@ -185,7 +186,7 @@ extension LoginInteractorImpl {
                         appState.routing.currentTab = .teacherHome
                     }
                 } else {
-                    appState.routing.loginNavigationPath.append(SocialLoginType.apple)
+                    appState.routing.loginNavigationPath.append(socialIdData.socialLoginType)
                 }
             }
     }
@@ -194,6 +195,7 @@ extension LoginInteractorImpl {
 // MARK: - NidOAuth + Swift Concurrency
 
 extension NidOAuth {
+    @MainActor
     func requestLogin() async throws -> LoginResult {
         return try await withCheckedThrowingContinuation { continuation in
             requestLogin { result in
@@ -207,6 +209,7 @@ extension NidOAuth {
         }
     }
 
+    @MainActor
     func getUserProfile(accessToken: String) async throws -> [String: String] {
         return try await withCheckedThrowingContinuation { continuation in
             getUserProfile(accessToken: accessToken) { result in
