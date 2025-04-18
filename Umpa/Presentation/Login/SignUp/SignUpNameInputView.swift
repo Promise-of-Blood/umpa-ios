@@ -5,7 +5,7 @@ import Factory
 import SwiftUI
 
 struct SignUpNameInputView: View {
-    @InjectedObject(\.signUpModel) private var signUpModel
+    @ObservedObject var signUpModel: SignUpModel
 
     @FocusState private var isFocused: Bool
 
@@ -25,7 +25,7 @@ struct SignUpNameInputView: View {
             }
             Spacer()
             NavigationLink {
-                SignUpMajorSelectionView()
+                SignUpMajorSelectionView(signUpModel: signUpModel)
             } label: {
                 Text("다음")
                     .modifier(BottomButton())
@@ -57,6 +57,6 @@ struct SignUpNameInputView: View {
 
 #Preview {
     NavigationStack {
-        SignUpNameInputView()
+        SignUpNameInputView(signUpModel: SignUpModel(socialLoginType: .apple))
     }
 }

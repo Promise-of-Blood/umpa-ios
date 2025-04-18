@@ -58,7 +58,6 @@ extension Container {
         Factory(self) {
             LoginInteractorImpl(
                 appState: self.appState(),
-                serverRepository: self.serverRepository(),
                 useCase: self.useCase()
             )
         }
@@ -126,14 +125,14 @@ extension Container {
         Factory(self) { UmpaNotificationInteractorImpl() }
             .scope(.shared)
     }
-}
 
-// MARK: - ObservableObject
-
-extension Container {
-    var signUpModel: Factory<SignUpModel> {
-        Factory(self) { SignUpModel() }
-            .scope(.signUpSession)
+    var myProfileInteractor: Factory<MyProfileInteractor> {
+        Factory(self) {
+            MyProfileInteractorImpl(
+                appState: self.appState()
+            )
+        }
+        .scope(.shared)
     }
 }
 
@@ -161,7 +160,6 @@ extension Container {
         Factory(self) {
             LoginInteractorImpl(
                 appState: self.appState(),
-                serverRepository: self.mockServerRepository(),
                 useCase: self.mockUseCase()
             )
         }

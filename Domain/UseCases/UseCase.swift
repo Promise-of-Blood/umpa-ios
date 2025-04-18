@@ -5,14 +5,9 @@ import Mockable
 
 @Mockable
 public protocol UseCase {
-    func loginWithApple() -> AnyPublisher<AnyUser, Error>
-    func loginWithKakao() -> AnyPublisher<AnyUser, Error>
-    func loginWithGoogle() -> AnyPublisher<AnyUser, Error>
-    func loginWithNaver() -> AnyPublisher<AnyUser, Error>
-
     func signUp() -> AnyPublisher<AnyUser, Error>
 
-    func checkAccountLinkedSocialId() -> AnyPublisher<AnyUser?, Error>
+    func checkAccountLinkedSocialId(with socialIdData: SocialIdData) -> AnyPublisher<AnyUser?, Error>
 }
 
 public struct UseCaseImpl {
@@ -29,26 +24,7 @@ public struct UseCaseImpl {
 }
 
 extension UseCaseImpl: UseCase {
-    public func checkAccountLinkedSocialId() -> AnyPublisher<AnyUser?, any Error> {
-        fatalError()
-    }
-
-    public func loginWithApple() -> AnyPublisher<AnyUser, any Error> {
-//        serverRepository
-//        keychainRepository.save(<#T##token: AccessToken##AccessToken#>)
-
-        fatalError()
-    }
-
-    public func loginWithKakao() -> AnyPublisher<AnyUser, any Error> {
-        fatalError()
-    }
-
-    public func loginWithGoogle() -> AnyPublisher<AnyUser, any Error> {
-        fatalError()
-    }
-
-    public func loginWithNaver() -> AnyPublisher<AnyUser, any Error> {
+    public func checkAccountLinkedSocialId(with socialIdData: SocialIdData) -> AnyPublisher<AnyUser?, Error> {
         fatalError()
     }
 
