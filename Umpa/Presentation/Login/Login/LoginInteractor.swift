@@ -6,6 +6,7 @@ import Core
 import Domain
 import Factory
 import Foundation
+import GoogleSignIn
 import KakaoSDKAuth
 import KakaoSDKUser
 import Mockable
@@ -129,9 +130,24 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 
     func loginWithGoogle() {
-        let socialIdData = SocialIdData(socialLoginType: .google)
-        tryUmpaLogin(with: socialIdData)
-            .store(in: cancelBag)
+        guard let presentingVC = UIApplication.shared.keyRootViewController else {
+            UmpaLogger.log("No presenting view controller")
+            return
+        }
+
+        Task {
+            let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: presentingVC)
+            UmpaLogger.log(result.serverAuthCode ?? "")
+            let user = result.user
+            UmpaLogger.log(user.idToken?.tokenString ?? "")
+            UmpaLogger.log(user.profile?.name ?? "")
+
+            let socialIdData = SocialIdData(socialLoginType: .google)
+            tryUmpaLogin(with: socialIdData)
+                .store(in: cancelBag)
+        } catch: { error in
+            UmpaLogger.log(error.localizedDescription, level: .error)
+        }
     }
 }
 
