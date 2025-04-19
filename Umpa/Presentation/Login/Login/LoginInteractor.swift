@@ -2,6 +2,7 @@
 
 import AuthenticationServices
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
@@ -10,7 +11,6 @@ import KakaoSDKUser
 import Mockable
 import NidThirdPartyLogin
 import SwiftUI
-import Core
 
 enum LoginInteractorError: LocalizedError {
     enum KakaoLoginFailedReason {
@@ -29,22 +29,22 @@ protocol LoginInteractor {
 }
 
 struct LoginInteractorImpl {
-    let appState: AppState
-    let useCase: UseCase
+    private let appState: AppState
+    private let checkAccountLinkedSocialId: CheckAccountLinkedSocialIdUseCase
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
 
     init(
         appState: AppState,
-        useCase: UseCase
+        checkAccountLinkedSocialIdUseCase: CheckAccountLinkedSocialIdUseCase
     ) {
         self.appState = appState
-        self.useCase = useCase
+        self.checkAccountLinkedSocialId = checkAccountLinkedSocialIdUseCase
 
         #if DEBUG
-        if let mockUseCase = useCase as? MockUseCase {
-            given(mockUseCase)
-                .checkAccountLinkedSocialId(with: .matching { data in
+        if let mockCheckAccountLinkedSocialIdUseCase = checkAccountLinkedSocialIdUseCase as? MockCheckAccountLinkedSocialIdUseCase {
+            given(mockCheckAccountLinkedSocialIdUseCase)
+                .callAsFunction(with: .matching { data in
                     data.socialLoginType == .kakao
                 })
                 .willReturn(
@@ -52,7 +52,7 @@ struct LoginInteractorImpl {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 )
-                .checkAccountLinkedSocialId(with: .matching { data in
+                .callAsFunction(with: .matching { data in
                     data.socialLoginType == .naver
                 })
                 .willReturn(
@@ -60,7 +60,7 @@ struct LoginInteractorImpl {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 )
-                .checkAccountLinkedSocialId(with: .matching { data in
+                .callAsFunction(with: .matching { data in
                     data.socialLoginType == .google
                 })
                 .willReturn(
@@ -170,7 +170,7 @@ extension LoginInteractorImpl {
 
     @MainActor
     private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
-        useCase.checkAccountLinkedSocialId(with: socialIdData)
+        checkAccountLinkedSocialId(with: socialIdData)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if let error = completion.error {

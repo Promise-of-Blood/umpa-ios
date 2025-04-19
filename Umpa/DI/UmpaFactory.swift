@@ -50,11 +50,20 @@ extension Container {
 
     // MARK: - UseCase
 
-    var useCase: Factory<UseCase> {
+    var signUpUseCase: Factory<SignUpUseCase> {
         Factory(self) {
-            UseCaseImpl(
+            DefaultSignUpUseCase(
                 serverRepository: self.serverRepository(),
-                keychainRepository: self.jwtRepository()
+                jwtRepository: self.jwtRepository()
+            )
+        }
+        .scope(.singleton)
+    }
+
+    var checkAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
+        Factory(self) {
+            DefaultCheckAccountLinkedSocialIdUseCase(
+                serverRepository: self.serverRepository()
             )
         }
         .scope(.singleton)
@@ -89,7 +98,7 @@ extension Container {
         Factory(self) {
             LoginInteractorImpl(
                 appState: self.appState(),
-                useCase: self.useCase()
+                checkAccountLinkedSocialIdUseCase: self.checkAccountLinkedSocialIdUseCase()
             )
         }
         .scope(.shared)
@@ -99,7 +108,7 @@ extension Container {
         Factory(self) {
             SignUpInteractorImpl(
                 appState: self.appState(),
-                useCase: self.useCase()
+                signUpUseCase: self.signUpUseCase()
             )
         }
         .scope(.shared)
@@ -182,8 +191,13 @@ extension Container {
             .scope(.singleton)
     }
 
-    var mockUseCase: Factory<UseCase> {
-        Factory(self) { MockUseCase() }
+    var mockSignUpUseCase: Factory<SignUpUseCase> {
+        Factory(self) { MockSignUpUseCase() }
+            .scope(.singleton)
+    }
+
+    var mockCheckAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
+        Factory(self) { MockCheckAccountLinkedSocialIdUseCase() }
             .scope(.singleton)
     }
 
@@ -191,7 +205,7 @@ extension Container {
         Factory(self) {
             LoginInteractorImpl(
                 appState: self.appState(),
-                useCase: self.mockUseCase()
+                checkAccountLinkedSocialIdUseCase: self.mockCheckAccountLinkedSocialIdUseCase()
             )
         }
         .scope(.shared)
@@ -201,7 +215,7 @@ extension Container {
         Factory(self) {
             SignUpInteractorImpl(
                 appState: self.appState(),
-                useCase: self.mockUseCase()
+                signUpUseCase: self.mockSignUpUseCase()
             )
         }
         .scope(.shared)
