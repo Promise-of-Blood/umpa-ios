@@ -1,9 +1,9 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Factory
 import Foundation
-import Core
 
 protocol AppInteractor {
     func loadMajorList()
@@ -11,7 +11,12 @@ protocol AppInteractor {
 
 struct DefaultAppInteractor: AppInteractor {
     @Injected(\.appState) private var appState
+
+    #if DEBUG
     @Injected(\.stubServerRepository) private var serverRepository
+    #else
+    @Injected(\.serverRepository) private var serverRepository
+    #endif
 
     private let cancelBag = CancelBag()
 
