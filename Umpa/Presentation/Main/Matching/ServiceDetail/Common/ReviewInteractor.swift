@@ -1,10 +1,10 @@
 // Created for Umpa in 2025
 
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
 protocol ReviewInteractor {
     func load(_ reviews: Binding<[Review]>, for id: Service.Id)
@@ -12,7 +12,11 @@ protocol ReviewInteractor {
 }
 
 struct ReviewInteractorImpl: ReviewInteractor {
+    #if DEBUG
     @Injected(\.stubServerRepository) private var serverRepository
+    #else
+    @Injected(\.serverRepository) private var serverRepository
+    #endif
 
     private let cancelBag = CancelBag()
 

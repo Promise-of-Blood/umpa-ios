@@ -7,7 +7,11 @@ import SwiftUI
 struct ChatView: View {
     @InjectedObject(\.appState) private var appState
 
+    #if DEBUG
     @Injected(\.stubChatInteractor) private var chatInteractor
+    #else
+    @Injected(\.chatInteractor) private var chatInteractor
+    #endif
 
     @State private var chatRoomList: Loadable<[ChatRoom], ChatInteractorError>
 
@@ -59,12 +63,10 @@ struct ChatView: View {
 }
 
 #if DEBUG
-
 #Preview {
     @Injected(\.appState) var appState
     appState.userData.login.currentUser = Student.sample0.eraseToAnyUser()
 
     return ChatView()
 }
-
 #endif

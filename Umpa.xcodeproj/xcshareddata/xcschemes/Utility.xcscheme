@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DAB64B732D89CBB400319429"
-               BuildableName = "Utility.framework"
-               BlueprintName = "Utility"
+               BuildableName = "Core.framework"
+               BlueprintName = "Core"
                ReferencedContainer = "container:Umpa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -51,8 +51,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DAB64B732D89CBB400319429"
-            BuildableName = "Utility.framework"
-            BlueprintName = "Utility"
+            BuildableName = "Core.framework"
+            BlueprintName = "Core"
             ReferencedContainer = "container:Umpa.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

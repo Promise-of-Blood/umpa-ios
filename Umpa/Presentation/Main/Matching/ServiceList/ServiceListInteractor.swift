@@ -1,12 +1,13 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
+@MainActor
 protocol ServiceListInteractor {
     func loadAll(_ serviceList: Binding<[AnyService]>)
     func load(_ serviceList: Binding<[AnyService]>, for serviceType: ServiceType)
@@ -19,13 +20,17 @@ protocol ServiceListInteractor {
     func loadFavoriteServices(_ services: Binding<[AnyService]>)
 }
 
-struct ServiceListInteractorImpl {
-    let serverRepository: ServerRepository
+struct DefaultServiceListInteractor {
+    private let serverRepository: ServerRepository
 
-    let cancelBag = CancelBag()
+    private let cancelBag = CancelBag()
+
+    init(serverRepository: ServerRepository) {
+        self.serverRepository = serverRepository
+    }
 }
 
-extension ServiceListInteractorImpl: ServiceListInteractor {
+extension DefaultServiceListInteractor: ServiceListInteractor {
     func loadFavoriteServices(_ services: Binding<[AnyService]>) {
         serverRepository.fetchFavoriteServiceList()
             .replaceError(with: [])

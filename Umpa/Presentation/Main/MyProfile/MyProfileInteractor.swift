@@ -4,15 +4,20 @@ import Foundation
 import KakaoSDKUser
 import NidThirdPartyLogin
 
+@MainActor
 protocol MyProfileInteractor {
     func logout()
 }
 
-struct MyProfileInteractorImpl {
-    let appState: AppState
+struct DefaultMyProfileInteractor {
+    private let appState: AppState
+
+    init(appState: AppState) {
+        self.appState = appState
+    }
 }
 
-extension MyProfileInteractorImpl: MyProfileInteractor {
+extension DefaultMyProfileInteractor: MyProfileInteractor {
     func logout() {
         appState.reset()
         NidOAuth.shared.logout()

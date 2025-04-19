@@ -5,7 +5,7 @@ import Domain
 import Mockable
 import Testing
 @testable import Umpa
-import Utility
+import Core
 
 @Suite(.tags(.interactor))
 final class ServiceListInteractorTests {
@@ -14,7 +14,7 @@ final class ServiceListInteractorTests {
 
     init() {
         mockServerRepository = MockServerRepository()
-        sut = ServiceListInteractorImpl(serverRepository: mockServerRepository)
+        sut = DefaultServiceListInteractor(serverRepository: mockServerRepository)
     }
 }
 
