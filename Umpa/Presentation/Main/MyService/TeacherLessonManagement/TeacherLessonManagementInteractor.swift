@@ -7,6 +7,7 @@ import Factory
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol TeacherLessonManagementInteractor {
     func loadMyLessonList(_ lessonList: Binding<[LessonService]>)
     func enterChatRoom(for id: Service.Id)
@@ -15,15 +16,27 @@ protocol TeacherLessonManagementInteractor {
     func executeCommissionPayment(for id: LessonService.Id)
 }
 
-struct TeacherLessonManagementInteractorImpl {
-    @Injected(\.appState) private var appState
-    @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.getAccessTokenUseCase) private var getAccessToken
+struct DefaultTeacherLessonManagementInteractor {
+    private var appState: AppState
+
+    private var serverRepository: ServerRepository
+
+    private var getAccessToken: GetAccessTokenUseCase
 
     private let cancelBag = CancelBag()
+
+    init(
+        appState: AppState,
+        serverRepository: ServerRepository,
+        getAccessTokenUseCase: GetAccessTokenUseCase
+    ) {
+        self.appState = appState
+        self.serverRepository = serverRepository
+        self.getAccessToken = getAccessTokenUseCase
+    }
 }
 
-extension TeacherLessonManagementInteractorImpl: TeacherLessonManagementInteractor {
+extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInteractor {
     func executeCommissionPayment(for id: Domain.LessonService.Id) {
         fatalError()
     }

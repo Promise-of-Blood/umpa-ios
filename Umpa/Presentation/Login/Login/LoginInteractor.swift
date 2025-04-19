@@ -30,6 +30,7 @@ protocol LoginInteractor {
 
 struct LoginInteractorImpl {
     private let appState: AppState
+
     private let checkAccountLinkedSocialId: CheckAccountLinkedSocialIdUseCase
 
     private let cancelBag = CancelBag()

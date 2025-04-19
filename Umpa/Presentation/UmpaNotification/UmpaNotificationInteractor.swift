@@ -7,17 +7,25 @@ import Factory
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol UmpaNotificationInteractor {
     func load(_ notificationList: LoadableBinding<[UmpaNotification]>)
 }
 
-struct UmpaNotificationInteractorImpl {
-    @Injected(\.stubServerRepository) private var serverRepository
-//    @Injected(\.keychainRepository) private var keychainRepository
-    @Injected(\.getAccessTokenUseCase) private var getAccessToken
+struct DefaultUmpaNotificationInteractor {
+    private var serverRepository: ServerRepository
+    private var getAccessToken: GetAccessTokenUseCase
+
+    init(
+        serverRepository: ServerRepository,
+        getAccessTokenUseCase: GetAccessTokenUseCase
+    ) {
+        self.serverRepository = serverRepository
+        self.getAccessToken = getAccessTokenUseCase
+    }
 }
 
-extension UmpaNotificationInteractorImpl: UmpaNotificationInteractor {
+extension DefaultUmpaNotificationInteractor: UmpaNotificationInteractor {
     func load(_ notificationList: LoadableBinding<[Domain.UmpaNotification]>) {
         let cancelBag = CancelBag()
         notificationList.wrappedValue.setIsLoading(cancelBag: cancelBag)

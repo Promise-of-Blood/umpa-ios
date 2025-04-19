@@ -5,7 +5,7 @@ import Factory
 import SwiftUI
 
 struct TeacherLessonManagementView: View {
-    @Injected(\.teacherLessonManagementInteractor) private var teacherLessonManagementInteractor
+    @Injected(\.stubTeacherLessonManagementInteractor) private var teacherLessonManagementInteractor
 
     @State private var lessonList: [LessonService] = []
 

@@ -8,6 +8,8 @@ import SwiftUI
 private let contentHorizontalPadding: CGFloat = fs(28)
 
 struct TeacherHomeView: View {
+    @Injected(\.stubTeacherHomeInteractor) private var teacherHomeInteractor
+
     @State private var isPresentingMyProfile = false
 
     var body: some View {

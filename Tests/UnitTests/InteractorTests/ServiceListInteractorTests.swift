@@ -14,7 +14,7 @@ final class ServiceListInteractorTests {
 
     init() {
         mockServerRepository = MockServerRepository()
-        sut = ServiceListInteractorImpl(serverRepository: mockServerRepository)
+        sut = DefaultServiceListInteractor(serverRepository: mockServerRepository)
     }
 }
 

@@ -7,21 +7,34 @@ import Factory
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol TeacherServiceManagementInteractor {
     func loadMyServiceList(_ serviceList: Binding<[AnyService]>)
     func enterChatRoom(for id: Service.Id)
 //    func sendServiceConfirmationRequest
 }
 
-struct TeacherServiceManagementInteractorImpl {
-    @Injected(\.appState) private var appState
-    @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.getAccessTokenUseCase) private var getAccessToken
+struct DefaultTeacherServiceManagementInteractor {
+    private var appState: AppState
+
+    private var serverRepository: ServerRepository
+
+    private var getAccessToken: GetAccessTokenUseCase
 
     private let cancelBag = CancelBag()
+
+    init(
+        appState: AppState,
+        serverRepository: ServerRepository,
+        getAccessTokenUseCase: GetAccessTokenUseCase
+    ) {
+        self.appState = appState
+        self.serverRepository = serverRepository
+        self.getAccessToken = getAccessTokenUseCase
+    }
 }
 
-extension TeacherServiceManagementInteractorImpl: TeacherServiceManagementInteractor {
+extension DefaultTeacherServiceManagementInteractor: TeacherServiceManagementInteractor {
     func enterChatRoom(for id: Service.Id) {
         serverRepository.fetchChatRoom(for: id)
             .tryMap { chatRoom in

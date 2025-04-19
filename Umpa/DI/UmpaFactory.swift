@@ -120,8 +120,12 @@ extension Container {
     }
 
     var serviceRegistrationInteractor: Factory<ServiceRegistrationInteractor> {
-        Factory(self) { ServiceRegistrationInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            DefaultServiceRegistrationInteractor(
+                serverRepository: self.serverRepository(),
+            )
+        }
+        .scope(.shared)
     }
 
     var chatInteractor: Factory<ChatInteractor> {
@@ -136,7 +140,7 @@ extension Container {
 
     var serviceListInteractor: Factory<ServiceListInteractor> {
         Factory(self) {
-            ServiceListInteractorImpl(serverRepository: self.serverRepository())
+            DefaultServiceListInteractor(serverRepository: self.serverRepository())
         }
         .scope(.shared)
     }
@@ -152,23 +156,50 @@ extension Container {
     }
 
     var teacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
-        Factory(self) { TeacherServiceManagementInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            DefaultTeacherServiceManagementInteractor(
+                appState: self.appState(),
+                serverRepository: self.serverRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
     }
 
     var teacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
-        Factory(self) { TeacherLessonManagementInteractorImpl() }
-            .scope(.shared)
+        Factory(self) {
+            DefaultTeacherLessonManagementInteractor(
+                appState: self.appState(),
+                serverRepository: self.serverRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
     }
 
-    var notificationInteractor: Factory<UmpaNotificationInteractor> {
-        Factory(self) { UmpaNotificationInteractorImpl() }
-            .scope(.shared)
+    var teacherHomeInteractor: Factory<TeacherHomeInteractor> {
+        Factory(self) {
+            DefaultTeacherHomeInteractor(
+                serverRepository: self.serverRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var umpaNotificationInteractor: Factory<UmpaNotificationInteractor> {
+        Factory(self) {
+            DefaultUmpaNotificationInteractor(
+                serverRepository: self.serverRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase()
+            )
+        }
+        .scope(.shared)
     }
 
     var myProfileInteractor: Factory<MyProfileInteractor> {
         Factory(self) {
-            MyProfileInteractorImpl(
+            DefaultMyProfileInteractor(
                 appState: self.appState()
             )
         }
@@ -211,6 +242,16 @@ extension Container {
         .scope(.shared)
     }
 
+    var stubTeacherHomeInteractor: Factory<TeacherHomeInteractor> {
+        Factory(self) {
+            DefaultTeacherHomeInteractor(
+                serverRepository: self.stubServerRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
     var mockSignUpInteractor: Factory<SignUpInteractor> {
         Factory(self) {
             SignUpInteractorImpl(
@@ -223,7 +264,9 @@ extension Container {
 
     var stubServiceListInteractor: Factory<ServiceListInteractor> {
         Factory(self) {
-            ServiceListInteractorImpl(serverRepository: self.stubServerRepository())
+            DefaultServiceListInteractor(
+                serverRepository: self.stubServerRepository()
+            )
         }
         .scope(.shared)
     }
@@ -243,6 +286,38 @@ extension Container {
             ServiceDetailInteractorImpl(
                 appState: self.appState(),
                 serverRepository: self.stubServerRepository()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubTeacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
+        Factory(self) {
+            DefaultTeacherLessonManagementInteractor(
+                appState: self.appState(),
+                serverRepository: self.stubServerRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubTeacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
+        Factory(self) {
+            DefaultTeacherServiceManagementInteractor(
+                appState: self.appState(),
+                serverRepository: self.stubServerRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubUmpaNotificationInteractor: Factory<UmpaNotificationInteractor> {
+        Factory(self) {
+            DefaultUmpaNotificationInteractor(
+                serverRepository: self.stubServerRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase()
             )
         }
         .scope(.shared)

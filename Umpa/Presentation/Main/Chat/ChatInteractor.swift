@@ -1,11 +1,12 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import SwiftUI
-import Core
 
+@MainActor
 protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.
     func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>)
@@ -15,10 +16,16 @@ protocol ChatInteractor {
 }
 
 struct ChatInteractorImpl {
-    let appState: AppState
-    let serverRepository: ServerRepository
+    private let appState: AppState
 
-    let cancelBag = CancelBag()
+    private let serverRepository: ServerRepository
+
+    private let cancelBag = CancelBag()
+
+    init(appState: AppState, serverRepository: ServerRepository) {
+        self.appState = appState
+        self.serverRepository = serverRepository
+    }
 }
 
 extension ChatInteractorImpl: ChatInteractor {

@@ -7,16 +7,22 @@ import Factory
 import Foundation
 import SwiftUI
 
+@MainActor
 protocol TeacherHomeInteractor {
     func fetchMyLessonAndServiceList(_ list: LoadableBinding<[AnyService]>)
 }
 
-struct TeacherHomeInteractorImpl {
-    @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.getAccessTokenUseCase) private var getAccessToken
+struct DefaultTeacherHomeInteractor {
+    private let serverRepository: ServerRepository
+    private let getAccessToken: GetAccessTokenUseCase
+
+    init(serverRepository: ServerRepository, getAccessTokenUseCase: GetAccessTokenUseCase) {
+        self.serverRepository = serverRepository
+        self.getAccessToken = getAccessTokenUseCase
+    }
 }
 
-extension TeacherHomeInteractorImpl: TeacherHomeInteractor {
+extension DefaultTeacherHomeInteractor: TeacherHomeInteractor {
     func fetchMyLessonAndServiceList(_ list: LoadableBinding<[AnyService]>) {
         let cancelBag = CancelBag()
         list.wrappedValue.setIsLoading(cancelBag: cancelBag)

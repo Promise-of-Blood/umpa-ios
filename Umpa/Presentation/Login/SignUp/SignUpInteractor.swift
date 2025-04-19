@@ -7,6 +7,7 @@ import Factory
 import Foundation
 import Mockable
 
+@MainActor
 protocol SignUpInteractor {
     func completeSignUp(with model: SignUpModel)
 }
