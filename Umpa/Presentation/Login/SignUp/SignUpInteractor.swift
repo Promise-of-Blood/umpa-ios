@@ -5,7 +5,7 @@ import Domain
 import Factory
 import Foundation
 import Mockable
-import Utility
+import Core
 
 protocol SignUpInteractor {
     func completeSignUp(with model: SignUpModel)

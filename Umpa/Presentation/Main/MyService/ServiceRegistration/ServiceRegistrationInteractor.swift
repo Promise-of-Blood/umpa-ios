@@ -1,11 +1,11 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
 protocol ServiceRegistrationInteractor {
     func post(_ lessonService: LessonServiceCreateData)
@@ -16,7 +16,6 @@ protocol ServiceRegistrationInteractor {
 
 struct ServiceRegistrationInteractorImpl {
     @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.keychainRepository) private var keychainRepository
 
     private let cancelBag = CancelBag()
 }

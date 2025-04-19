@@ -5,7 +5,7 @@ import Domain
 import Mockable
 import Testing
 @testable import Umpa
-import Utility
+import Core
 
 @Suite(.tags(.interactor))
 final class ChatInteractorTests {

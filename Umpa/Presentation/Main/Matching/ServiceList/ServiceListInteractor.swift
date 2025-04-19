@@ -5,7 +5,7 @@ import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
+import Core
 
 protocol ServiceListInteractor {
     func loadAll(_ serviceList: Binding<[AnyService]>)

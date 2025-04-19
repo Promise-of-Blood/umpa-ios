@@ -10,18 +10,15 @@ extension Scope {
     static let mainSession = Cached()
 }
 
-// MARK: - Common
-
 extension Container {
+    // MARK: - Common
+
     var appState: Factory<AppState> {
         Factory(self) { AppState() }
             .scope(.singleton)
     }
 
-    var umpaApi: Factory<UmpaApi> {
-        Factory(self) { UmpaApi() }
-            .scope(.singleton)
-    }
+    // MARK: - Repository
 
     var serverRepository: Factory<ServerRepository> {
         Factory(self) {
@@ -30,25 +27,59 @@ extension Container {
         .scope(.singleton)
     }
 
-    var keychainRepository: Factory<KeychainRepository> {
-        Factory(self) { DefaultKeychainRepository() }
+    var jwtRepository: Factory<JwtRepository> {
+        Factory(self) {
+            DefaultJwtRepository(persistentStorage: self.keychainStorage())
+        }
+        .scope(.singleton)
+    }
+
+    // MARK: - DataAccess
+
+    var umpaApi: Factory<UmpaApi> {
+        Factory(self) { UmpaApi() }
             .scope(.singleton)
     }
+
+    var keychainStorage: Factory<PersistentStorage> {
+        Factory(self) {
+            KeychainStorage(serviceName: "com.pob.Umpa")
+        }
+        .scope(.singleton)
+    }
+
+    // MARK: - UseCase
 
     var useCase: Factory<UseCase> {
         Factory(self) {
             UseCaseImpl(
                 serverRepository: self.serverRepository(),
-                keychainRepository: self.keychainRepository()
+                keychainRepository: self.jwtRepository()
             )
         }
         .scope(.singleton)
     }
-}
 
-// MARK: - Interactor
+    var getAccessTokenUseCase: Factory<GetAccessTokenUseCase> {
+        Factory(self) {
+            DefaultGetAccessTokenUseCase(
+                jwtRepository: self.jwtRepository()
+            )
+        }
+        .scope(.singleton)
+    }
 
-extension Container {
+    var setAccessTokenUseCase: Factory<SetAccessTokenUseCase> {
+        Factory(self) {
+            DefaultSetAccessTokenUseCase(
+                jwtRepository: self.jwtRepository()
+            )
+        }
+        .scope(.singleton)
+    }
+
+    // MARK: - Interactor
+
     var appInteractor: Factory<AppInteractor> {
         Factory(self) { DefaultAppInteractor() }
             .scope(.singleton)

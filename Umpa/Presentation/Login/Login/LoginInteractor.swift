@@ -10,7 +10,7 @@ import KakaoSDKUser
 import Mockable
 import NidThirdPartyLogin
 import SwiftUI
-import Utility
+import Core
 
 enum LoginInteractorError: LocalizedError {
     enum KakaoLoginFailedReason {

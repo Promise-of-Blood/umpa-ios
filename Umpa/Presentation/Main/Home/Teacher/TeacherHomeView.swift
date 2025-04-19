@@ -89,65 +89,65 @@ private struct TeacherFindingSection: View {
             Text("선생님 찾기")
                 .font(UmpaFont.h2Kr)
                 .padding(.horizontal, contentHorizontalPadding)
-            VStack(spacing: fs(12)) {
-                carouselContent
-                DotsPagination(
-                    currentIndex: $currentIndex,
-                    pageCount: pageCount,
-                    appearance: .default
-                )
-            }
+//            VStack(spacing: fs(12)) {
+//                carouselContent
+//                DotsPagination(
+//                    currentIndex: $currentIndex,
+//                    pageCount: pageCount,
+//                    appearance: .default
+//                )
+//            }
         }
     }
 
-    var carouselContent: some View {
-        Carousel(currentIndex: $currentIndex) {
-            ForEach(0..<pageCount, id: \.self) { page in
-                Grid(alignment: .top, horizontalSpacing: fs(12), verticalSpacing: fs(20)) {
-                    ForEach(0..<gridRowCount, id: \.self) { row in
-                        GridRow {
-                            ForEach(0..<gridColumnCount, id: \.self) { column in
-                                let index = page * itemsPerPage + row * gridColumnCount + column
-                                if index == 0 {
-                                    Button {
-                                        appState.routing.currentTab = .teacherFinder
-                                        appState.userData.teacherFinder.selectedService = .lesson
-                                        appState.userData.teacherFinder.selectedSubject = nil
-                                    } label: {
-                                        TeacherFindingCarouselItem(
-                                            imageResource: ImageResource(name: "", bundle: .main),
-                                            caption: "전체보기"
-                                        )
-                                    }
-                                } else if let subject = Subject.allCases[safe: index - 1] {
-                                    Button {
-                                        appState.routing.currentTab = .teacherFinder
-                                        appState.userData.teacherFinder.selectedService = .lesson
-                                        appState.userData.teacherFinder.selectedSubject = subject
-                                    } label: {
-                                        TeacherFindingCarouselItem(
-                                            imageResource: ImageResource(name: "", bundle: .main),
-                                            caption: subject.name
-                                        )
-                                    }
-                                } else {
-                                    TeacherFindingCarouselItem(
-                                        imageResource: ImageResource(name: "", bundle: .main),
-                                        caption: ""
-                                    )
-                                    .hidden()
-                                }
-                            }
-                        }
-                    }
-                }
-                .tag(page)
-                .padding(.horizontal, contentHorizontalPadding)
-            }
-        }
-        // FIXME: 임시 높이, TabView를 사용하지 않는 Carousel 구현으로 해결 필요
-        .frame(height: fs(160))
-    }
+//    var carouselContent: some View {
+//        Carousel(currentIndex: $currentIndex) {
+//            ForEach(0..<pageCount, id: \.self) { page in
+//                Grid(alignment: .top, horizontalSpacing: fs(12), verticalSpacing: fs(20)) {
+//                    ForEach(0..<gridRowCount, id: \.self) { row in
+//                        GridRow {
+//                            ForEach(0..<gridColumnCount, id: \.self) { column in
+//                                let index = page * itemsPerPage + row * gridColumnCount + column
+//                                if index == 0 {
+//                                    Button {
+//                                        appState.routing.currentTab = .teacherFinder
+//                                        appState.userData.teacherFinder.selectedService = .lesson
+//                                        appState.userData.teacherFinder.selectedSubject = nil
+//                                    } label: {
+//                                        TeacherFindingCarouselItem(
+//                                            imageResource: ImageResource(name: "", bundle: .main),
+//                                            caption: "전체보기"
+//                                        )
+//                                    }
+//                                } else if let subject = Subject.allCases[safe: index - 1] {
+//                                    Button {
+//                                        appState.routing.currentTab = .teacherFinder
+//                                        appState.userData.teacherFinder.selectedService = .lesson
+//                                        appState.userData.teacherFinder.selectedSubject = subject
+//                                    } label: {
+//                                        TeacherFindingCarouselItem(
+//                                            imageResource: ImageResource(name: "", bundle: .main),
+//                                            caption: subject.name
+//                                        )
+//                                    }
+//                                } else {
+//                                    TeacherFindingCarouselItem(
+//                                        imageResource: ImageResource(name: "", bundle: .main),
+//                                        caption: ""
+//                                    )
+//                                    .hidden()
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                .tag(page)
+//                .padding(.horizontal, contentHorizontalPadding)
+//            }
+//        }
+//        // FIXME: 임시 높이, TabView를 사용하지 않는 Carousel 구현으로 해결 필요
+//        .frame(height: fs(160))
+//    }
 }
 
 #Preview {

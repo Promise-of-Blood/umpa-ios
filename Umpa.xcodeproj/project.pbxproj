@@ -17,18 +17,20 @@
 		DAA0639F2DB3AABF006F8B68 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DAA0639E2DB3AABF006F8B68 /* KakaoSDK */; };
 		DAA063A12DB3AABF006F8B68 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAA063A02DB3AABF006F8B68 /* KakaoSDKAuth */; };
 		DAA063A32DB3AABF006F8B68 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = DAA063A22DB3AABF006F8B68 /* KakaoSDKUser */; };
+		DAA6525B2DB3D18200B218E6 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DAA6525A2DB3D18200B218E6 /* Factory */; };
+		DAA652602DB3D36300B218E6 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DAA6525F2DB3D36300B218E6 /* Factory */; };
 		DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; };
 		DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; };
-		DAB64B7B2D89CBB400319429 /* Utility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB64B7A2D89CBB400319429 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; };
+		DAB64B7B2D89CBB400319429 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB7199C2DA6363800F32BE2 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB719962DA6363800F32BE2 /* Domain.framework */; };
 		DAB7199D2DA6363800F32BE2 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB719962DA6363800F32BE2 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB719B52DA6374400F32BE2 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB719962DA6363800F32BE2 /* Domain.framework */; };
 		DAB719B62DA6374400F32BE2 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB719962DA6363800F32BE2 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DAB719B82DA6374500F32BE2 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; platformFilter = ios; };
-		DAB719B92DA6374500F32BE2 /* Utility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DAB719BA2DA6374700F32BE2 /* Utility.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; platformFilter = ios; };
-		DAB719BB2DA6374700F32BE2 /* Utility.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Utility.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB719B82DA6374500F32BE2 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; platformFilter = ios; };
+		DAB719B92DA6374500F32BE2 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DAB719BA2DA6374700F32BE2 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; platformFilter = ios; };
+		DAB719BB2DA6374700F32BE2 /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,7 +108,7 @@
 			files = (
 				DAB7199D2DA6363800F32BE2 /* Domain.framework in Embed Frameworks */,
 				DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */,
-				DAB64B7B2D89CBB400319429 /* Utility.framework in Embed Frameworks */,
+				DAB64B7B2D89CBB400319429 /* Core.framework in Embed Frameworks */,
 				DA7E35272D8D5B01001DD6AA /* DataAccess.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -119,7 +121,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				DAB719B62DA6374400F32BE2 /* Domain.framework in Embed Frameworks */,
-				DAB719B92DA6374500F32BE2 /* Utility.framework in Embed Frameworks */,
+				DAB719B92DA6374500F32BE2 /* Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -130,7 +132,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DAB719BB2DA6374700F32BE2 /* Utility.framework in Embed Frameworks */,
+				DAB719BB2DA6374700F32BE2 /* Core.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,16 +145,26 @@
 		0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7E35202D8D5B01001DD6AA /* DataAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB64B5D2D89CA5A00319429 /* Components.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Components.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DAB64B742D89CBB400319429 /* Utility.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utility.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAB64B742D89CBB400319429 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB719962DA6363800F32BE2 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DA017DD42DB20F5C0015DD8F /* Exceptions for "Umpa" folder in "DataAccess" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Resources/Licenses/Naver ID Login SDK for iOS Swift/LICENSE.txt",
+				"Resources/Licenses/Naver ID Login SDK for iOS Swift/NOTICE.txt",
+			);
+			target = DA7E351F2D8D5B01001DD6AA /* DataAccess */;
+		};
 		DA320E972D86734200FD7637 /* Exceptions for "Umpa" folder in "Umpa" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 				"Preview Content/Preview Assets.xcassets",
+				"Resources/Licenses/Naver ID Login SDK for iOS Swift/LICENSE.txt",
+				"Resources/Licenses/Naver ID Login SDK for iOS Swift/NOTICE.txt",
 			);
 			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
 		};
@@ -180,13 +192,6 @@
 			);
 			target = DA7E351F2D8D5B01001DD6AA /* DataAccess */;
 		};
-		DA9E5F8B2D8F179F009319A0 /* Exceptions for "Utility" folder in "Umpa" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Collection+safe.swift",
-			);
-			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
-		};
 		DAB64B682D89CA5A00319429 /* Exceptions for "Components" folder in "Components" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			publicHeaders = (
@@ -194,15 +199,12 @@
 			);
 			target = DAB64B5C2D89CA5A00319429 /* Components */;
 		};
-		DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */ = {
+		DAB64B7F2D89CBB400319429 /* Exceptions for "Core" folder in "Core" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Collection+safe.swift",
-			);
 			publicHeaders = (
-				Utility.h,
+				Core.h,
 			);
-			target = DAB64B732D89CBB400319429 /* Utility */;
+			target = DAB64B732D89CBB400319429 /* Core */;
 		};
 		DAB719A22DA6363800F32BE2 /* Exceptions for "Domain" folder in "Domain" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -218,6 +220,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				DA320E972D86734200FD7637 /* Exceptions for "Umpa" folder in "Umpa" target */,
+				DA017DD42DB20F5C0015DD8F /* Exceptions for "Umpa" folder in "DataAccess" target */,
 			);
 			path = Umpa;
 			sourceTree = "<group>";
@@ -247,13 +250,12 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		DAB64B752D89CBB400319429 /* Utility */ = {
+		DAB64B752D89CBB400319429 /* Core */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DA9E5F8B2D8F179F009319A0 /* Exceptions for "Utility" folder in "Umpa" target */,
-				DAB64B7F2D89CBB400319429 /* Exceptions for "Utility" folder in "Utility" target */,
+				DAB64B7F2D89CBB400319429 /* Exceptions for "Core" folder in "Core" target */,
 			);
-			path = Utility;
+			path = Core;
 			sourceTree = "<group>";
 		};
 		DAB719972DA6363800F32BE2 /* Domain */ = {
@@ -278,7 +280,7 @@
 				DA017DAB2DB149D90015DD8F /* NidThirdPartyLogin in Frameworks */,
 				DA9E60C32D902959009319A0 /* Factory in Frameworks */,
 				DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */,
-				DAB64B7A2D89CBB400319429 /* Utility.framework in Frameworks */,
+				DAB64B7A2D89CBB400319429 /* Core.framework in Frameworks */,
 				DAA063A32DB3AABF006F8B68 /* KakaoSDKUser in Frameworks */,
 				DAA063A12DB3AABF006F8B68 /* KakaoSDKAuth in Frameworks */,
 			);
@@ -303,8 +305,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAA6525B2DB3D18200B218E6 /* Factory in Frameworks */,
 				DAB719B52DA6374400F32BE2 /* Domain.framework in Frameworks */,
-				DAB719B82DA6374500F32BE2 /* Utility.framework in Frameworks */,
+				DAB719B82DA6374500F32BE2 /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,8 +329,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAA652602DB3D36300B218E6 /* Factory in Frameworks */,
 				DA1E76942DAF78FE001FDAB3 /* Mockable in Frameworks */,
-				DAB719BA2DA6374700F32BE2 /* Utility.framework in Frameworks */,
+				DAB719BA2DA6374700F32BE2 /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,8 +341,8 @@
 		0C9CD4132D31062B003F4455 = {
 			isa = PBXGroup;
 			children = (
-				DAB64B752D89CBB400319429 /* Utility */,
 				DAB64B5E2D89CA5A00319429 /* Components */,
+				DAB64B752D89CBB400319429 /* Core */,
 				DAB719972DA6363800F32BE2 /* Domain */,
 				DA7E35212D8D5B01001DD6AA /* DataAccess */,
 				0C9CD41E2D31062B003F4455 /* Umpa */,
@@ -355,7 +359,7 @@
 				0C9CD42C2D31062D003F4455 /* UmpaUnitTests.xctest */,
 				0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */,
 				DAB64B5D2D89CA5A00319429 /* Components.framework */,
-				DAB64B742D89CBB400319429 /* Utility.framework */,
+				DAB64B742D89CBB400319429 /* Core.framework */,
 				DA7E35202D8D5B01001DD6AA /* DataAccess.framework */,
 				DAB719962DA6363800F32BE2 /* Domain.framework */,
 			);
@@ -498,6 +502,7 @@
 			);
 			name = DataAccess;
 			packageProductDependencies = (
+				DAA6525A2DB3D18200B218E6 /* Factory */,
 			);
 			productName = Networking;
 			productReference = DA7E35202D8D5B01001DD6AA /* DataAccess.framework */;
@@ -526,9 +531,9 @@
 			productReference = DAB64B5D2D89CA5A00319429 /* Components.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DAB64B732D89CBB400319429 /* Utility */ = {
+		DAB64B732D89CBB400319429 /* Core */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAB64B7C2D89CBB400319429 /* Build configuration list for PBXNativeTarget "Utility" */;
+			buildConfigurationList = DAB64B7C2D89CBB400319429 /* Build configuration list for PBXNativeTarget "Core" */;
 			buildPhases = (
 				DAB64B6F2D89CBB400319429 /* Headers */,
 				DAB64B702D89CBB400319429 /* Sources */,
@@ -540,13 +545,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				DAB64B752D89CBB400319429 /* Utility */,
+				DAB64B752D89CBB400319429 /* Core */,
 			);
-			name = Utility;
+			name = Core;
 			packageProductDependencies = (
 			);
 			productName = Utility;
-			productReference = DAB64B742D89CBB400319429 /* Utility.framework */;
+			productReference = DAB64B742D89CBB400319429 /* Core.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DAB719952DA6363800F32BE2 /* Domain */ = {
@@ -570,6 +575,7 @@
 			name = Domain;
 			packageProductDependencies = (
 				DA1E76932DAF78FE001FDAB3 /* Mockable */,
+				DAA6525F2DB3D36300B218E6 /* Factory */,
 			);
 			productName = Domain;
 			productReference = DAB719962DA6363800F32BE2 /* Domain.framework */;
@@ -634,7 +640,7 @@
 				0C9CD42B2D31062D003F4455 /* UmpaUnitTests */,
 				0C9CD4352D31062D003F4455 /* UmpaUITests */,
 				DAB64B5C2D89CA5A00319429 /* Components */,
-				DAB64B732D89CBB400319429 /* Utility */,
+				DAB64B732D89CBB400319429 /* Core */,
 				DA7E351F2D8D5B01001DD6AA /* DataAccess */,
 				DAB719952DA6363800F32BE2 /* Domain */,
 			);
@@ -768,7 +774,7 @@
 		};
 		DAB64B792D89CBB400319429 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAB64B732D89CBB400319429 /* Utility */;
+			target = DAB64B732D89CBB400319429 /* Core */;
 			targetProxy = DAB64B782D89CBB400319429 /* PBXContainerItemProxy */;
 		};
 		DAB7199B2DA6363800F32BE2 /* PBXTargetDependency */ = {
@@ -779,13 +785,13 @@
 		DAB719A62DA636EC00F32BE2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = DAB64B732D89CBB400319429 /* Utility */;
+			target = DAB64B732D89CBB400319429 /* Core */;
 			targetProxy = DAB719A52DA636EC00F32BE2 /* PBXContainerItemProxy */;
 		};
 		DAB719AB2DA6370700F32BE2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
-			target = DAB64B732D89CBB400319429 /* Utility */;
+			target = DAB64B732D89CBB400319429 /* Core */;
 			targetProxy = DAB719AA2DA6370700F32BE2 /* PBXContainerItemProxy */;
 		};
 		DAB719B02DA6371700F32BE2 /* PBXTargetDependency */ = {
@@ -1528,7 +1534,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DAB64B7C2D89CBB400319429 /* Build configuration list for PBXNativeTarget "Utility" */ = {
+		DAB64B7C2D89CBB400319429 /* Build configuration list for PBXNativeTarget "Core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAB64B7D2D89CBB400319429 /* Debug */,
@@ -1623,6 +1629,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAA0639D2DB3AABF006F8B68 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKUser;
+		};
+		DAA6525A2DB3D18200B218E6 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		DAA6525F2DB3D36300B218E6 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

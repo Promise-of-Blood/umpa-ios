@@ -4,7 +4,7 @@ import Combine
 import Domain
 import Factory
 import SwiftUI
-import Utility
+import Core
 
 protocol ChatInteractor {
     /// 채팅방 목록을 로드합니다.

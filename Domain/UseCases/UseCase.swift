@@ -12,11 +12,11 @@ public protocol UseCase {
 
 public struct UseCaseImpl {
     let serverRepository: ServerRepository
-    let keychainRepository: KeychainRepository
+    let keychainRepository: JwtRepository
 
     public init(
         serverRepository: ServerRepository,
-        keychainRepository: KeychainRepository
+        keychainRepository: JwtRepository
     ) {
         self.serverRepository = serverRepository
         self.keychainRepository = keychainRepository
@@ -33,8 +33,4 @@ extension UseCaseImpl: UseCase {
 
         fatalError()
     }
-}
-
-public enum UseCaseError: Error {
-//    case loginError
 }

@@ -1,11 +1,11 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
 protocol TeacherServiceManagementInteractor {
     func loadMyServiceList(_ serviceList: Binding<[AnyService]>)
@@ -16,7 +16,7 @@ protocol TeacherServiceManagementInteractor {
 struct TeacherServiceManagementInteractorImpl {
     @Injected(\.appState) private var appState
     @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.keychainRepository) private var keychainRepository
+    @Injected(\.getAccessTokenUseCase) private var getAccessToken
 
     private let cancelBag = CancelBag()
 }
@@ -41,7 +41,11 @@ extension TeacherServiceManagementInteractorImpl: TeacherServiceManagementIntera
     }
 
     func loadMyServiceList(_ serviceList: Binding<[AnyService]>) {
-        keychainRepository.getAccessToken()
+        getAccessToken()
+            .tryMap { accessToken in
+                guard let accessToken else { throw UmpaError.missingAccessToken }
+                return accessToken
+            }
             .flatMap(serverRepository.fetchMyServiceList(with:))
             .replaceError(with: [])
             .sink(serviceList)

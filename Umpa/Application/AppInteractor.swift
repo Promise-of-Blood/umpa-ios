@@ -3,7 +3,7 @@
 import Combine
 import Factory
 import Foundation
-import Utility
+import Core
 
 protocol AppInteractor {
     func loadMajorList()

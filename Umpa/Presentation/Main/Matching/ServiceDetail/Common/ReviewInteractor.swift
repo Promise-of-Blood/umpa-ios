@@ -4,7 +4,7 @@ import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
+import Core
 
 protocol ReviewInteractor {
     func load(_ reviews: Binding<[Review]>, for id: Service.Id)

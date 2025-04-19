@@ -25,7 +25,7 @@
 import Combine
 import Foundation
 import SwiftUI
-import Utility
+import Core
 
 public typealias LoadableBinding<Value> = Binding<Loadable<Value, Error>>
 

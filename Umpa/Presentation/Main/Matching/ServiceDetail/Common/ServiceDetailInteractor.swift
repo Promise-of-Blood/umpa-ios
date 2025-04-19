@@ -5,7 +5,7 @@ import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
+import Core
 
 protocol ServiceDetailInteractor {
     func markAsLike(_ isLiked: Bool, for id: Service.Id)
