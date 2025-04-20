@@ -17,21 +17,24 @@ protocol TeacherLessonManagementInteractor {
 }
 
 struct DefaultTeacherLessonManagementInteractor {
-    private var appState: AppState
+    private let appState: AppState
 
-    private var serverRepository: ServerRepository
+    private let serviceRepository: ServiceRepository
+    private let chatRepository: ChatRepository
 
-    private var getAccessToken: GetAccessTokenUseCase
+    private let getAccessToken: GetAccessTokenUseCase
 
     private let cancelBag = CancelBag()
 
     init(
         appState: AppState,
-        serverRepository: ServerRepository,
+        serviceRepository: ServiceRepository,
+        chatRepository: ChatRepository,
         getAccessTokenUseCase: GetAccessTokenUseCase
     ) {
         self.appState = appState
-        self.serverRepository = serverRepository
+        self.serviceRepository = serviceRepository
+        self.chatRepository = chatRepository
         self.getAccessToken = getAccessTokenUseCase
     }
 }
@@ -46,7 +49,7 @@ extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInter
     }
 
     func enterChatRoom(for id: Service.Id) {
-        serverRepository.fetchChatRoom(for: id)
+        chatRepository.fetchChatRoom(for: id)
             .tryMap { chatRoom in
                 guard let chatRoom else {
                     throw TeacherLessonManagementInteractorError.noChatRoomForLessonId
@@ -69,7 +72,7 @@ extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInter
                 guard let accessToken else { throw UmpaError.missingAccessToken }
                 return accessToken
             }
-            .flatMap(serverRepository.fetchMyLessonList(with:))
+            .flatMap(serviceRepository.fetchMyLessonList(with:))
             .replaceError(with: [])
             .sink(lessonList)
             .store(in: cancelBag)

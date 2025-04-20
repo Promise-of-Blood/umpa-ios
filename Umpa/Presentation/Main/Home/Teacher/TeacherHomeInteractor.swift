@@ -13,11 +13,11 @@ protocol TeacherHomeInteractor {
 }
 
 struct DefaultTeacherHomeInteractor {
-    private let serverRepository: ServerRepository
+    private let serviceRepository: ServiceRepository
     private let getAccessToken: GetAccessTokenUseCase
 
-    init(serverRepository: ServerRepository, getAccessTokenUseCase: GetAccessTokenUseCase) {
-        self.serverRepository = serverRepository
+    init(serviceRepository: ServiceRepository, getAccessTokenUseCase: GetAccessTokenUseCase) {
+        self.serviceRepository = serviceRepository
         self.getAccessToken = getAccessTokenUseCase
     }
 }
@@ -31,7 +31,7 @@ extension DefaultTeacherHomeInteractor: TeacherHomeInteractor {
                 guard let accessToken else { throw UmpaError.missingAccessToken }
                 return accessToken
             }
-            .flatMap(serverRepository.fetchMyLessonAndServiceList(with:))
+            .flatMap(serviceRepository.fetchMyLessonAndServiceList(with:))
             .sinkToLoadable(list)
             .store(in: cancelBag)
     }

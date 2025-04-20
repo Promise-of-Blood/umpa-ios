@@ -3,7 +3,6 @@
 import DataAccess
 import Domain
 import Factory
-import SwiftUI
 
 extension Scope {
     static let signUpSession = Cached()
@@ -20,9 +19,9 @@ extension Container {
 
     // MARK: - Repository
 
-    var serverRepository: Factory<ServerRepository> {
+    var appRepository: Factory<AppRepository> {
         Factory(self) {
-            DefaultServerRepository()
+            DefaultAppRepository()
         }
         .scope(.singleton)
     }
@@ -30,6 +29,41 @@ extension Container {
     var jwtRepository: Factory<JwtRepository> {
         Factory(self) {
             DefaultJwtRepository(persistentStorage: self.keychainStorage())
+        }
+        .scope(.singleton)
+    }
+
+    var serviceRepository: Factory<ServiceRepository> {
+        Factory(self) {
+            DefaultServiceRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var chatRepository: Factory<ChatRepository> {
+        Factory(self) {
+            DefaultChatRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var reviewRepository: Factory<ReviewRepository> {
+        Factory(self) {
+            DefaultReviewRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var umpaNotificationRepository: Factory<UmpaNotificationRepository> {
+        Factory(self) {
+            DefaultUmpaNotificationRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var userRepository: Factory<UserRepository> {
+        Factory(self) {
+            DefaultUserRepository()
         }
         .scope(.singleton)
     }
@@ -43,7 +77,11 @@ extension Container {
 
     var keychainStorage: Factory<PersistentStorage> {
         Factory(self) {
+            #if DEBUG
+            KeychainStorage(serviceName: "com.pob.Umpa.Test.Debug")
+            #else
             KeychainStorage(serviceName: "com.pob.Umpa")
+            #endif
         }
         .scope(.singleton)
     }
@@ -53,7 +91,6 @@ extension Container {
     var signUpUseCase: Factory<SignUpUseCase> {
         Factory(self) {
             DefaultSignUpUseCase(
-                serverRepository: self.serverRepository(),
                 jwtRepository: self.jwtRepository()
             )
         }
@@ -63,7 +100,7 @@ extension Container {
     var checkAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
         Factory(self) {
             DefaultCheckAccountLinkedSocialIdUseCase(
-                serverRepository: self.serverRepository()
+                jwtRepository: self.jwtRepository()
             )
         }
         .scope(.singleton)
@@ -122,7 +159,7 @@ extension Container {
     var serviceRegistrationInteractor: Factory<ServiceRegistrationInteractor> {
         Factory(self) {
             DefaultServiceRegistrationInteractor(
-                serverRepository: self.serverRepository(),
+                serviceRepository: self.serviceRepository(),
             )
         }
         .scope(.shared)
@@ -132,7 +169,7 @@ extension Container {
         Factory(self) {
             DefaultChatInteractor(
                 appState: self.appState(),
-                serverRepository: self.serverRepository()
+                chatRepository: self.chatRepository(),
             )
         }
         .scope(.shared)
@@ -140,16 +177,19 @@ extension Container {
 
     var serviceListInteractor: Factory<ServiceListInteractor> {
         Factory(self) {
-            DefaultServiceListInteractor(serverRepository: self.serverRepository())
+            DefaultServiceListInteractor(
+                serviceRepository: self.serviceRepository(),
+            )
         }
         .scope(.shared)
     }
 
     var serviceDetailInteractor: Factory<ServiceDetailInteractor> {
         Factory(self) {
-            ServiceDetailInteractorImpl(
+            DefaultServiceDetailInteractor(
                 appState: self.appState(),
-                serverRepository: self.serverRepository()
+                serviceRepository: self.serviceRepository(),
+                chatRepository: self.chatRepository(),
             )
         }
         .scope(.shared)
@@ -159,7 +199,8 @@ extension Container {
         Factory(self) {
             DefaultTeacherServiceManagementInteractor(
                 appState: self.appState(),
-                serverRepository: self.serverRepository(),
+                serviceRepository: self.serviceRepository(),
+                chatRepository: self.chatRepository(),
                 getAccessTokenUseCase: self.getAccessTokenUseCase(),
             )
         }
@@ -170,7 +211,8 @@ extension Container {
         Factory(self) {
             DefaultTeacherLessonManagementInteractor(
                 appState: self.appState(),
-                serverRepository: self.serverRepository(),
+                serviceRepository: self.serviceRepository(),
+                chatRepository: self.chatRepository(),
                 getAccessTokenUseCase: self.getAccessTokenUseCase(),
             )
         }
@@ -180,7 +222,7 @@ extension Container {
     var teacherHomeInteractor: Factory<TeacherHomeInteractor> {
         Factory(self) {
             DefaultTeacherHomeInteractor(
-                serverRepository: self.serverRepository(),
+                serviceRepository: self.serviceRepository(),
                 getAccessTokenUseCase: self.getAccessTokenUseCase(),
             )
         }
@@ -190,7 +232,7 @@ extension Container {
     var umpaNotificationInteractor: Factory<UmpaNotificationInteractor> {
         Factory(self) {
             DefaultUmpaNotificationInteractor(
-                serverRepository: self.serverRepository(),
+                umpaNotificationRepository: self.umpaNotificationRepository(),
                 getAccessTokenUseCase: self.getAccessTokenUseCase()
             )
         }
@@ -206,122 +248,3 @@ extension Container {
         .scope(.shared)
     }
 }
-
-// MARK: - Mock
-
-#if DEBUG
-
-extension Container {
-    var mockServerRepository: Factory<ServerRepository> {
-        Factory(self) { MockServerRepository() }
-            .scope(.singleton)
-    }
-
-    var stubServerRepository: Factory<ServerRepository> {
-        Factory(self) { StubServerRepository() }
-            .scope(.singleton)
-    }
-
-    var mockSignUpUseCase: Factory<SignUpUseCase> {
-        Factory(self) { MockSignUpUseCase() }
-            .scope(.singleton)
-    }
-
-    var mockCheckAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
-        Factory(self) { MockCheckAccountLinkedSocialIdUseCase() }
-            .scope(.singleton)
-    }
-
-    var mockLoginInteractor: Factory<LoginInteractor> {
-        Factory(self) {
-            DefaultLoginInteractor(
-                appState: self.appState(),
-                checkAccountLinkedSocialIdUseCase: self.mockCheckAccountLinkedSocialIdUseCase()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubTeacherHomeInteractor: Factory<TeacherHomeInteractor> {
-        Factory(self) {
-            DefaultTeacherHomeInteractor(
-                serverRepository: self.stubServerRepository(),
-                getAccessTokenUseCase: self.getAccessTokenUseCase()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var mockSignUpInteractor: Factory<SignUpInteractor> {
-        Factory(self) {
-            SignUpInteractorImpl(
-                appState: self.appState(),
-                signUpUseCase: self.mockSignUpUseCase()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubServiceListInteractor: Factory<ServiceListInteractor> {
-        Factory(self) {
-            DefaultServiceListInteractor(
-                serverRepository: self.stubServerRepository()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubChatInteractor: Factory<ChatInteractor> {
-        Factory(self) {
-            DefaultChatInteractor(
-                appState: self.appState(),
-                serverRepository: self.stubServerRepository()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubServiceDetailInteractor: Factory<ServiceDetailInteractor> {
-        Factory(self) {
-            ServiceDetailInteractorImpl(
-                appState: self.appState(),
-                serverRepository: self.stubServerRepository()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubTeacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
-        Factory(self) {
-            DefaultTeacherLessonManagementInteractor(
-                appState: self.appState(),
-                serverRepository: self.stubServerRepository(),
-                getAccessTokenUseCase: self.getAccessTokenUseCase(),
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubTeacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
-        Factory(self) {
-            DefaultTeacherServiceManagementInteractor(
-                appState: self.appState(),
-                serverRepository: self.stubServerRepository(),
-                getAccessTokenUseCase: self.getAccessTokenUseCase(),
-            )
-        }
-        .scope(.shared)
-    }
-
-    var stubUmpaNotificationInteractor: Factory<UmpaNotificationInteractor> {
-        Factory(self) {
-            DefaultUmpaNotificationInteractor(
-                serverRepository: self.stubServerRepository(),
-                getAccessTokenUseCase: self.getAccessTokenUseCase()
-            )
-        }
-        .scope(.shared)
-    }
-}
-
-#endif

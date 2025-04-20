@@ -11,7 +11,6 @@ extension AccompanistService {
         thumbnail: nil,
         rating: 3.5,
         author: .sample0,
-        acceptanceReviews: [],
         reviews: [],
         serviceDescription:
         """
@@ -220,9 +219,6 @@ extension LessonService {
         thumbnail: nil,
         rating: 5.0,
         author: .sample0,
-        acceptanceReviews: [
-            .sample0,
-        ],
         reviews: [
             .sample0,
             .sample1,
@@ -286,7 +282,6 @@ extension MusicCreationService {
         thumbnail: nil,
         rating: 4.0,
         author: .sample0,
-        acceptanceReviews: [],
         reviews: [],
         serviceDescription:
         """
@@ -319,7 +314,6 @@ extension ScoreCreationService {
         thumbnail: nil,
         rating: 4.5,
         author: .sample0,
-        acceptanceReviews: [],
         reviews: [],
         serviceDescription:
         """
@@ -354,121 +348,6 @@ extension ScoreCreationService {
         sampleSheets: [
             SampleSheet(url: URL(string: "https://www.musicscore.co.kr/sample/samp7ys7f3ij9wkjid8eujfhsiud843dsijfowejfisojf3490fi0if0sjk09jkr039uf90u/8u4ojsjdjf430foeid409ijef923jerojfgojdofj894jjdsf934f90f40ufj390rfjds/sample_102000/sample_Y3Zp6CqGi2024040332204.jpg")),
         ]
-    )
-}
-
-extension AcceptanceReview {
-    public static let sample0 = AcceptanceReview(
-        id: "acceptanceReview0",
-        createdAt: .now,
-        writer: .sample0,
-        title: "서울예대 작곡 합격 후기",
-        college: College(name: "서울예술대학교"),
-        major: .piano,
-        images: [],
-        likeCount: 372,
-        comments: [
-            .sample0,
-            .sample1,
-            .sample2,
-        ],
-        taggedTeachers: [
-            Teacher.sample0.id,
-        ]
-    )
-}
-
-extension AcceptanceReview.Comment {
-    public static let sample0 = AcceptanceReview.Comment(
-        id: "acceptanceReviewComment0",
-        contents: "ㅊㅊㅊㅊㅊㅊㅊㅊㅊ",
-        writer: Student.sample0.id
-    )
-
-    public static let sample1 = AcceptanceReview.Comment(
-        id: "acceptanceReviewComment1",
-        contents: "와 정말 축하해요~~~~!!!!",
-        writer: Student.sample0.id
-    )
-
-    public static let sample2 = AcceptanceReview.Comment(
-        id: "acceptanceReviewComment2",
-        contents: "나도 합격하고 싶다...",
-        writer: Student.sample0.id
-    )
-}
-
-extension MentoringPost {
-    public static let sample0 = MentoringPost(
-        id: "mentoringPost0",
-        author: Teacher.sample0.id,
-        created: .now,
-        title: "실용음악 입시생이라면 누구나 알고 있는 앨범 10개",
-        contents:
-        """
-        안녕하세요! 
-        작곡 선생님 이수빈 입니다.
-        오늘은 꼭 알고있으면 좋을 앨범에 대해서 소개 하려고 합니다.
-        ...
-        """,
-        comments: [
-            .sample0,
-        ]
-    )
-}
-
-extension MentoringPost.Comment {
-    public static let sample0 = MentoringPost.Comment(
-        id: "mentoringPostComment0",
-        created: .now,
-        contents: "너무 좋은 글이네요",
-        writer: "student0"
-    )
-}
-
-extension Post {
-    public static let sample0 = Post(
-        id: "post0",
-        writer: "student0",
-        created: .now,
-        title: "오늘 선생님한테 엄청 혼났음",
-        contents: "샘한테 비밀로하고 몰래 롤 다섯판하고왔는데 샘이 op.gg들어가서 전적 확인해서 들킴",
-        images: [],
-        likeCount: 32,
-        comments: [
-            .sample0,
-        ],
-        isQuestion: false
-    )
-
-    public static let sample1 = Post(
-        id: "post1",
-        writer: "student0",
-        created: .now,
-        title: "하루에 연습 몇시간 씩 하시나요?",
-        contents: "ㅈㄱㄴ",
-        images: [],
-        likeCount: 3,
-        comments: [
-            .sample1,
-        ],
-        isQuestion: true
-    )
-}
-
-extension Post.Comment {
-    public static let sample0 = Post.Comment(
-        id: "postComment0",
-        writer: "student0",
-        created: .now,
-        contents: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"
-    )
-
-    public static let sample1 = Post.Comment(
-        id: "postComment1",
-        writer: "student0",
-        created: .now,
-        contents: "하루에 12시간 정도 하는 것 같아요"
     )
 }
 #endif

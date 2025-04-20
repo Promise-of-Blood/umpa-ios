@@ -1,11 +1,11 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Core
 
 protocol ServiceDetailInteractor {
     func markAsLike(_ isLiked: Bool, for id: Service.Id)
@@ -20,18 +20,26 @@ protocol ServiceDetailInteractor {
     func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>)
 }
 
-struct ServiceDetailInteractorImpl {
-    let appState: AppState
-    let serverRepository: ServerRepository
+struct DefaultServiceDetailInteractor {
+    private let appState: AppState
 
-    let cancelBag = CancelBag()
+    private let serviceRepository: ServiceRepository
+    private let chatRepository: ChatRepository
+
+    private let cancelBag = CancelBag()
+
+    init(appState: AppState, serviceRepository: ServiceRepository, chatRepository: ChatRepository) {
+        self.appState = appState
+        self.serviceRepository = serviceRepository
+        self.chatRepository = chatRepository
+    }
 }
 
-extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
+extension DefaultServiceDetailInteractor: ServiceDetailInteractor {
     func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>) {
         guard let student = appState.userData.login.currentUser?.unwrap(as: Student.self) else { return }
 
-        serverRepository.fetchChatRoom(for: service.id)
+        chatRepository.fetchChatRoom(for: service.id)
             .replaceNil(with: ChatRoom(
                 id: nil,
                 student: student,
@@ -49,7 +57,7 @@ extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
     }
 
     func markAsLike(_ isLiked: Bool, for id: Service.Id) {
-        serverRepository.updateLikeStatus(isLiked, for: id)
+        serviceRepository.updateLikeStatus(isLiked, for: id)
             .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
             .replaceError(with: ())
             .sink { _ in }
@@ -57,7 +65,7 @@ extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
     }
 
     func load(_ lesson: Binding<LessonService>, by id: LessonService.Id) {
-        serverRepository.fetchLessonDetail(by: id)
+        serviceRepository.fetchLessonDetail(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error
@@ -69,7 +77,7 @@ extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
     }
 
     func load(_ accompanistService: Binding<Domain.AccompanistService>, by id: Service.Id) {
-        serverRepository.fetchAccompanistServiceDetail(by: id)
+        serviceRepository.fetchAccompanistServiceDetail(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error
@@ -81,7 +89,7 @@ extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
     }
 
     func load(_ scoreCreationService: Binding<Domain.ScoreCreationService>, by id: Service.Id) {
-        serverRepository.fetchScoreCreationServiceDetail(by: id)
+        serviceRepository.fetchScoreCreationServiceDetail(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error
@@ -93,7 +101,7 @@ extension ServiceDetailInteractorImpl: ServiceDetailInteractor {
     }
 
     func load(_ musicCreationService: Binding<Domain.MusicCreationService>, by id: Service.Id) {
-        serverRepository.fetchMusicCreationServiceDetail(by: id)
+        serviceRepository.fetchMusicCreationServiceDetail(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error

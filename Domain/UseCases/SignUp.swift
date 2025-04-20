@@ -10,11 +10,9 @@ public protocol SignUpUseCase {
 }
 
 public struct DefaultSignUpUseCase {
-    private let serverRepository: ServerRepository
     private let jwtRepository: JwtRepository
 
-    public init(serverRepository: ServerRepository, jwtRepository: JwtRepository) {
-        self.serverRepository = serverRepository
+    public init(jwtRepository: JwtRepository) {
         self.jwtRepository = jwtRepository
     }
 }
