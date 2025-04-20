@@ -1,30 +1,33 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import Mockable
-import Utility
 
+@MainActor
 protocol SignUpInteractor {
     func completeSignUp(with model: SignUpModel)
 }
 
 struct SignUpInteractorImpl {
-    let appState: AppState
-    let useCase: UseCase
+    private let appState: AppState
+
+    private let signUp: SignUpUseCase
 
     let cancelBag = CancelBag()
 
-    init(appState: AppState, useCase: UseCase) {
+    init(appState: AppState, signUpUseCase: SignUpUseCase) {
         self.appState = appState
-        self.useCase = useCase
+        self.signUp = signUpUseCase
 
         #if DEBUG
-        if let mockUseCase = useCase as? MockUseCase {
-            given(mockUseCase)
-                .signUp().willReturn(
+        if let mockSignUpUseCase = signUpUseCase as? MockSignUpUseCase {
+            given(mockSignUpUseCase)
+                .callAsFunction()
+                .willReturn(
                     Just(Student.sample0.eraseToAnyUser())
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
@@ -42,7 +45,7 @@ extension SignUpInteractorImpl: SignUpInteractor {
         // Convert to API model
         // model.toApiModel()
 
-        useCase.signUp()
+        signUp()
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error

@@ -7,7 +7,12 @@ import SwiftUI
 
 struct MrCreationServiceDetailView: ServiceDetailView {
     @InjectedObject(\.appState) private var appState
+
+    #if DEBUG
     @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
+    #else
+    @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
+    #endif
 
     let service: MusicCreationService
 

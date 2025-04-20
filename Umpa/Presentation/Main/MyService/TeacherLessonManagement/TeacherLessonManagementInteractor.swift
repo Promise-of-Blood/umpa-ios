@@ -1,12 +1,13 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
+@MainActor
 protocol TeacherLessonManagementInteractor {
     func loadMyLessonList(_ lessonList: Binding<[LessonService]>)
     func enterChatRoom(for id: Service.Id)
@@ -15,15 +16,27 @@ protocol TeacherLessonManagementInteractor {
     func executeCommissionPayment(for id: LessonService.Id)
 }
 
-struct TeacherLessonManagementInteractorImpl {
-    @Injected(\.appState) private var appState
-    @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.keychainRepository) private var keychainRepository
+struct DefaultTeacherLessonManagementInteractor {
+    private var appState: AppState
+
+    private var serverRepository: ServerRepository
+
+    private var getAccessToken: GetAccessTokenUseCase
 
     private let cancelBag = CancelBag()
+
+    init(
+        appState: AppState,
+        serverRepository: ServerRepository,
+        getAccessTokenUseCase: GetAccessTokenUseCase
+    ) {
+        self.appState = appState
+        self.serverRepository = serverRepository
+        self.getAccessToken = getAccessTokenUseCase
+    }
 }
 
-extension TeacherLessonManagementInteractorImpl: TeacherLessonManagementInteractor {
+extension DefaultTeacherLessonManagementInteractor: TeacherLessonManagementInteractor {
     func executeCommissionPayment(for id: Domain.LessonService.Id) {
         fatalError()
     }
@@ -51,7 +64,11 @@ extension TeacherLessonManagementInteractorImpl: TeacherLessonManagementInteract
     }
 
     func loadMyLessonList(_ lessonList: Binding<[Domain.LessonService]>) {
-        keychainRepository.getAccessToken()
+        getAccessToken()
+            .tryMap { accessToken in
+                guard let accessToken else { throw UmpaError.missingAccessToken }
+                return accessToken
+            }
             .flatMap(serverRepository.fetchMyLessonList(with:))
             .replaceError(with: [])
             .sink(lessonList)

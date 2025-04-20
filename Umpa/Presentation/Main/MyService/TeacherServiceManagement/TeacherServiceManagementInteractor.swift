@@ -1,27 +1,40 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
+@MainActor
 protocol TeacherServiceManagementInteractor {
     func loadMyServiceList(_ serviceList: Binding<[AnyService]>)
     func enterChatRoom(for id: Service.Id)
 //    func sendServiceConfirmationRequest
 }
 
-struct TeacherServiceManagementInteractorImpl {
-    @Injected(\.appState) private var appState
-    @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.keychainRepository) private var keychainRepository
+struct DefaultTeacherServiceManagementInteractor {
+    private let appState: AppState
+
+    private let serverRepository: ServerRepository
+
+    private let getAccessToken: GetAccessTokenUseCase
 
     private let cancelBag = CancelBag()
+
+    init(
+        appState: AppState,
+        serverRepository: ServerRepository,
+        getAccessTokenUseCase: GetAccessTokenUseCase
+    ) {
+        self.appState = appState
+        self.serverRepository = serverRepository
+        self.getAccessToken = getAccessTokenUseCase
+    }
 }
 
-extension TeacherServiceManagementInteractorImpl: TeacherServiceManagementInteractor {
+extension DefaultTeacherServiceManagementInteractor: TeacherServiceManagementInteractor {
     func enterChatRoom(for id: Service.Id) {
         serverRepository.fetchChatRoom(for: id)
             .tryMap { chatRoom in
@@ -41,7 +54,11 @@ extension TeacherServiceManagementInteractorImpl: TeacherServiceManagementIntera
     }
 
     func loadMyServiceList(_ serviceList: Binding<[AnyService]>) {
-        keychainRepository.getAccessToken()
+        getAccessToken()
+            .tryMap { accessToken in
+                guard let accessToken else { throw UmpaError.missingAccessToken }
+                return accessToken
+            }
             .flatMap(serverRepository.fetchMyServiceList(with:))
             .replaceError(with: [])
             .sink(serviceList)

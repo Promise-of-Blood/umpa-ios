@@ -1,12 +1,13 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
 import SwiftUI
-import Utility
 
+@MainActor
 protocol ServiceRegistrationInteractor {
     func post(_ lessonService: LessonServiceCreateData)
     func post(_ accompanistService: AccompanistServiceCreateData)
@@ -14,14 +15,17 @@ protocol ServiceRegistrationInteractor {
     func post(_ musicCreationService: MusicCreationServiceCreateData)
 }
 
-struct ServiceRegistrationInteractorImpl {
-    @Injected(\.stubServerRepository) private var serverRepository
-    @Injected(\.keychainRepository) private var keychainRepository
+struct DefaultServiceRegistrationInteractor {
+    private let serverRepository: ServerRepository
 
     private let cancelBag = CancelBag()
+
+    init(serverRepository: ServerRepository) {
+        self.serverRepository = serverRepository
+    }
 }
 
-extension ServiceRegistrationInteractorImpl: ServiceRegistrationInteractor {
+extension DefaultServiceRegistrationInteractor: ServiceRegistrationInteractor {
     func post(_ accompanistService: Domain.AccompanistServiceCreateData) {
         fatalError()
     }

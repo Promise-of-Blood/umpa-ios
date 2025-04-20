@@ -1,6 +1,5 @@
 // Created for Umpa in 2025
 
-import DataAccess
 import Factory
 import KakaoSDKAuth
 import KakaoSDKCommon

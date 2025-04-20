@@ -2,6 +2,7 @@
 
 import AuthenticationServices
 import Combine
+import Core
 import Domain
 import Factory
 import Foundation
@@ -10,7 +11,6 @@ import KakaoSDKUser
 import Mockable
 import NidThirdPartyLogin
 import SwiftUI
-import Utility
 
 enum LoginInteractorError: LocalizedError {
     enum KakaoLoginFailedReason {
@@ -28,23 +28,24 @@ protocol LoginInteractor {
     func loginWithGoogle()
 }
 
-struct LoginInteractorImpl {
-    let appState: AppState
-    let useCase: UseCase
+struct DefaultLoginInteractor {
+    private let appState: AppState
 
-    let cancelBag = CancelBag()
+    private let checkAccountLinkedSocialId: CheckAccountLinkedSocialIdUseCase
+
+    private let cancelBag = CancelBag()
 
     init(
         appState: AppState,
-        useCase: UseCase
+        checkAccountLinkedSocialIdUseCase: CheckAccountLinkedSocialIdUseCase
     ) {
         self.appState = appState
-        self.useCase = useCase
+        self.checkAccountLinkedSocialId = checkAccountLinkedSocialIdUseCase
 
         #if DEBUG
-        if let mockUseCase = useCase as? MockUseCase {
-            given(mockUseCase)
-                .checkAccountLinkedSocialId(with: .matching { data in
+        if let mockCheckAccountLinkedSocialIdUseCase = checkAccountLinkedSocialIdUseCase as? MockCheckAccountLinkedSocialIdUseCase {
+            given(mockCheckAccountLinkedSocialIdUseCase)
+                .callAsFunction(with: .matching { data in
                     data.socialLoginType == .kakao
                 })
                 .willReturn(
@@ -52,7 +53,7 @@ struct LoginInteractorImpl {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 )
-                .checkAccountLinkedSocialId(with: .matching { data in
+                .callAsFunction(with: .matching { data in
                     data.socialLoginType == .naver
                 })
                 .willReturn(
@@ -60,7 +61,7 @@ struct LoginInteractorImpl {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 )
-                .checkAccountLinkedSocialId(with: .matching { data in
+                .callAsFunction(with: .matching { data in
                     data.socialLoginType == .google
                 })
                 .willReturn(
@@ -73,7 +74,7 @@ struct LoginInteractorImpl {
     }
 }
 
-extension LoginInteractorImpl: LoginInteractor {
+extension DefaultLoginInteractor: LoginInteractor {
     func loginWithApple(with authorizationController: AuthorizationController) {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
@@ -134,7 +135,7 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 }
 
-extension LoginInteractorImpl {
+extension DefaultLoginInteractor {
     @MainActor
     private func _loginWithKakao() async throws -> OAuthToken {
         if UserApi.isKakaoTalkLoginAvailable() {
@@ -170,7 +171,7 @@ extension LoginInteractorImpl {
 
     @MainActor
     private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
-        useCase.checkAccountLinkedSocialId(with: socialIdData)
+        checkAccountLinkedSocialId(with: socialIdData)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if let error = completion.error {
