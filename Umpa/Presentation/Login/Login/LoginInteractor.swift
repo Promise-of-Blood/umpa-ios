@@ -28,7 +28,7 @@ protocol LoginInteractor {
     func loginWithGoogle()
 }
 
-struct LoginInteractorImpl {
+struct DefaultLoginInteractor {
     private let appState: AppState
 
     private let checkAccountLinkedSocialId: CheckAccountLinkedSocialIdUseCase
@@ -74,7 +74,7 @@ struct LoginInteractorImpl {
     }
 }
 
-extension LoginInteractorImpl: LoginInteractor {
+extension DefaultLoginInteractor: LoginInteractor {
     func loginWithApple(with authorizationController: AuthorizationController) {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
@@ -135,7 +135,7 @@ extension LoginInteractorImpl: LoginInteractor {
     }
 }
 
-extension LoginInteractorImpl {
+extension DefaultLoginInteractor {
     @MainActor
     private func _loginWithKakao() async throws -> OAuthToken {
         if UserApi.isKakaoTalkLoginAvailable() {

@@ -75,6 +75,7 @@ public final class KeychainStorage: PersistentStorage {
             .extending(.account, value: key)
             .extending(key: kSecReturnAttributes, value: true)
             .extending(key: kSecReturnData, value: true)
+            .extending(key: kSecMatchLimit, value: kSecMatchLimitOne)
 
         var item: CFTypeRef?
         let status = SecItemCopyMatching(query.builtQuery, &item)

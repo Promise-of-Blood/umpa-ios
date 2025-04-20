@@ -14,16 +14,29 @@ import Foundation
 public final class UserDefaultsStorage: PersistentStorage {
     let defaults: UserDefaults
 
-    public init() {
-        self.defaults = UserDefaults.standard
+    public init(defaults: UserDefaults) {
+        self.defaults = defaults
     }
 
     public func set<T>(_ value: T, forKey key: String) throws where T: StorableItem {
-        defaults[key] = value
+        let data = try value.toData()
+        defaults.setValue(data, forKey: key)
     }
 
     public func load<T>(key: String) throws -> T? where T: StorableItem {
-        return defaults[key]
+        guard let value = defaults.value(forKey: key) else {
+            return nil
+        }
+
+        if let rawValue = value as? T {
+            return rawValue
+        }
+
+        guard let data = value as? Data else {
+            throw UserProfileStorageError.unknownData(value)
+        }
+
+        return try T.fromData(data)
     }
 
     public func remove(key: String) throws {
@@ -31,9 +44,6 @@ public final class UserDefaultsStorage: PersistentStorage {
     }
 }
 
-extension UserDefaults {
-    subscript<T: StorableItem>(key: String) -> T? {
-        get { value(forKey: key) as? T }
-        set { set(newValue, forKey: key) }
-    }
+enum UserProfileStorageError: Error {
+    case unknownData(Any)
 }
