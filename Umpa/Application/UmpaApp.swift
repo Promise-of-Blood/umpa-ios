@@ -15,6 +15,8 @@ struct UmpaApp: App {
     @InjectedObject(\.appState) private var appState
     @Injected(\.appInteractor) private var appInteractor
 
+    let cancelBag = CancelBag()
+
     init() {
         prepareKakaoLogin()
         prepareNaverLogin()
@@ -45,6 +47,9 @@ struct UmpaApp: App {
                     } catch {
                         UmpaLogger.log("Error restoring sign-in: \(error)", level: .error)
                     }
+                }
+                .onFirstAppear {
+                    NetworkMonitor.start()
                 }
         }
     }
