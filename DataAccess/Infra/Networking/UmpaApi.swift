@@ -10,7 +10,7 @@ public struct UmpaApi {
     }
 
     public init() {
-        let baseUrlString = Bundle.main.object(forInfoDictionaryKey: "BASE_URL") as! String
+        let baseUrlString = Bundle.main.infoPlist.string(forKey: .baseUrl)
         baseUrl = URL(string: baseUrlString)!
     }
 

@@ -75,9 +75,7 @@ struct UmpaApp: App {
 
 extension UmpaApp {
     private func prepareKakaoLogin() {
-        guard let appKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_NATIVE_APP_KEY") as? String else {
-            return
-        }
+        let appKey = Bundle.main.infoPlist.string(forKey: .kakaoNativeAppKey)
         KakaoSDK.initSDK(appKey: appKey)
     }
 
