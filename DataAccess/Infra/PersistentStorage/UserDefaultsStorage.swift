@@ -9,6 +9,7 @@
 // Copyright (c) 2025 Jaewon Yun
 // This file has been modified from the original version.
 
+import Core
 import Foundation
 
 public final class UserDefaultsStorage: PersistentStorage {
@@ -33,7 +34,8 @@ public final class UserDefaultsStorage: PersistentStorage {
         }
 
         guard let data = value as? Data else {
-            throw UserProfileStorageError.unknownData(value)
+            UmpaLogger.log("\(value) is an unknown value.", level: .error)
+            throw UserProfileStorageError.unknownValue(value)
         }
 
         return try T.fromData(data)
@@ -45,5 +47,5 @@ public final class UserDefaultsStorage: PersistentStorage {
 }
 
 enum UserProfileStorageError: Error {
-    case unknownData(Any)
+    case unknownValue(Any)
 }
