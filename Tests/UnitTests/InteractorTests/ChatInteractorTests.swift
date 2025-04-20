@@ -14,7 +14,7 @@ final class ChatInteractorTests {
 
     init() {
         mockServerRepository = MockServerRepository()
-        sut = ChatInteractorImpl(
+        sut = DefaultChatInteractor(
             appState: AppState(),
             serverRepository: mockServerRepository
         )
@@ -36,7 +36,7 @@ extension ChatInteractorTests {
             .fetchChatRoomList().willReturn(mockDataPublisher)
 
         // When
-        sut.load(chatRoomList.binding)
+        await sut.load(chatRoomList.binding)
 
         // Then
         let recorded = await chatRoomList.updatesRecorder.values.first(where: { _ in true })

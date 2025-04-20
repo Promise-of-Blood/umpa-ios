@@ -1,11 +1,11 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Mockable
 import Testing
 @testable import Umpa
-import Core
 
 @Suite(.tags(.interactor))
 final class ServiceListInteractorTests {
@@ -65,7 +65,7 @@ extension ServiceListInteractorTests {
         }
 
         // When
-        sut.load(serviceList.binding, for: serviceType)
+        await sut.load(serviceList.binding, for: serviceType)
 
         // Then
         let recorded = await serviceList.updatesRecorder.values.first(where: { _ in true })

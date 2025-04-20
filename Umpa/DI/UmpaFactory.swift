@@ -96,7 +96,7 @@ extension Container {
 
     var loginInteractor: Factory<LoginInteractor> {
         Factory(self) {
-            LoginInteractorImpl(
+            DefaultLoginInteractor(
                 appState: self.appState(),
                 checkAccountLinkedSocialIdUseCase: self.checkAccountLinkedSocialIdUseCase()
             )
@@ -130,7 +130,7 @@ extension Container {
 
     var chatInteractor: Factory<ChatInteractor> {
         Factory(self) {
-            ChatInteractorImpl(
+            DefaultChatInteractor(
                 appState: self.appState(),
                 serverRepository: self.serverRepository()
             )
@@ -234,7 +234,7 @@ extension Container {
 
     var mockLoginInteractor: Factory<LoginInteractor> {
         Factory(self) {
-            LoginInteractorImpl(
+            DefaultLoginInteractor(
                 appState: self.appState(),
                 checkAccountLinkedSocialIdUseCase: self.mockCheckAccountLinkedSocialIdUseCase()
             )
@@ -273,7 +273,7 @@ extension Container {
 
     var stubChatInteractor: Factory<ChatInteractor> {
         Factory(self) {
-            ChatInteractorImpl(
+            DefaultChatInteractor(
                 appState: self.appState(),
                 serverRepository: self.stubServerRepository()
             )

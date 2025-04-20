@@ -15,11 +15,11 @@ protocol TeacherServiceManagementInteractor {
 }
 
 struct DefaultTeacherServiceManagementInteractor {
-    private var appState: AppState
+    private let appState: AppState
 
-    private var serverRepository: ServerRepository
+    private let serverRepository: ServerRepository
 
-    private var getAccessToken: GetAccessTokenUseCase
+    private let getAccessToken: GetAccessTokenUseCase
 
     private let cancelBag = CancelBag()
 

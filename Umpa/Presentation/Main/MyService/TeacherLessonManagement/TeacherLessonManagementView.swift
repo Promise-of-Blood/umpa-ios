@@ -5,7 +5,11 @@ import Factory
 import SwiftUI
 
 struct TeacherLessonManagementView: View {
+    #if DEBUG
     @Injected(\.stubTeacherLessonManagementInteractor) private var teacherLessonManagementInteractor
+    #else
+    @Injected(\.teacherLessonManagementInteractor) private var teacherLessonManagementInteractor
+    #endif
 
     @State private var lessonList: [LessonService] = []
 

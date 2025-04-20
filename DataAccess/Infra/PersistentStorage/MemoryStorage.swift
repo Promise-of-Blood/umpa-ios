@@ -12,20 +12,30 @@
 import Foundation
 
 public final class MemoryStorage: PersistentStorage {
-    var storage: [String: Data] = [:]
+    private var storage: [String: Data] = [:]
+    private let lock = NSLock()
 
     public init() {}
 
     public func set<T: StorableItem>(_ value: T, forKey key: String) throws {
+        lock.lock()
+        defer { lock.unlock() }
+
         storage[key] = try value.toData()
     }
 
     public func load<T: StorableItem>(key: String) throws -> T? {
+        lock.lock()
+        defer { lock.unlock() }
+
         guard let data = storage[key] else { return nil }
         return try T.fromData(data)
     }
 
     public func remove(key: String) throws {
+        lock.lock()
+        defer { lock.unlock() }
+
         storage.removeValue(forKey: key)
     }
 }

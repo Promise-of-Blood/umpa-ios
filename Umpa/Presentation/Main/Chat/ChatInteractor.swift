@@ -15,7 +15,7 @@ protocol ChatInteractor {
     func enterChatRoom(with id: ChatRoom.Id)
 }
 
-struct ChatInteractorImpl {
+struct DefaultChatInteractor {
     private let appState: AppState
 
     private let serverRepository: ServerRepository
@@ -28,7 +28,7 @@ struct ChatInteractorImpl {
     }
 }
 
-extension ChatInteractorImpl: ChatInteractor {
+extension DefaultChatInteractor: ChatInteractor {
     func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>) {
         chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
         serverRepository.fetchChatRoomList()
