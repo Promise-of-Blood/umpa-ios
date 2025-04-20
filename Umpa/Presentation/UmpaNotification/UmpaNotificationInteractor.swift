@@ -13,14 +13,14 @@ protocol UmpaNotificationInteractor {
 }
 
 struct DefaultUmpaNotificationInteractor {
-    private var serverRepository: ServerRepository
+    private var umpaNotificationRepository: UmpaNotificationRepository
     private var getAccessToken: GetAccessTokenUseCase
 
     init(
-        serverRepository: ServerRepository,
+        umpaNotificationRepository: UmpaNotificationRepository,
         getAccessTokenUseCase: GetAccessTokenUseCase
     ) {
-        self.serverRepository = serverRepository
+        self.umpaNotificationRepository = umpaNotificationRepository
         self.getAccessToken = getAccessTokenUseCase
     }
 }
@@ -34,7 +34,7 @@ extension DefaultUmpaNotificationInteractor: UmpaNotificationInteractor {
                 guard let accessToken else { throw UmpaError.missingAccessToken }
                 return accessToken
             }
-            .flatMap(serverRepository.fetchMyNotificationList(with:))
+            .flatMap(umpaNotificationRepository.fetchMyNotificationList(with:))
             .sinkToLoadable(notificationList)
             .store(in: cancelBag)
     }

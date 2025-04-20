@@ -13,22 +13,22 @@ protocol ReviewInteractor {
 
 struct ReviewInteractorImpl: ReviewInteractor {
     #if DEBUG
-    @Injected(\.stubServerRepository) private var serverRepository
+    @Injected(\.stubReviewRepository) private var reviewRepository
     #else
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.reviewRepository) private var reviewRepository
     #endif
 
     private let cancelBag = CancelBag()
 
     func load(_ reviews: Binding<[Review]>, for id: Service.Id) {
-        serverRepository.fetchReviewList()
+        reviewRepository.fetchReviewList()
             .replaceError(with: [])
             .sink(reviews)
             .store(in: cancelBag)
     }
 
     func save(_ review: ReviewCreateData) {
-        serverRepository.postReview(review)
+        reviewRepository.postReview(review)
             .replaceError(with: ())
             .sink { _ in }
             .store(in: cancelBag)

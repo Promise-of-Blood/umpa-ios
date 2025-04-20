@@ -18,7 +18,6 @@ public struct AnyService: Service {
     public var thumbnail: URL? { box.thumbnail }
     public var rating: Double { box.rating }
     public var author: Teacher { box.author }
-    public var acceptanceReviews: [AcceptanceReview] { box.acceptanceReviews }
     public var reviews: [Review] { box.reviews }
     public var serviceDescription: String { box.serviceDescription }
 
@@ -63,7 +62,6 @@ private class _AbstractServiceBox: Service {
     var thumbnail: URL? { fatalError("Must override") }
     var rating: Double { fatalError("Must override") }
     var author: Teacher { fatalError("Must override") }
-    var acceptanceReviews: [AcceptanceReview] { fatalError("Must override") }
     var reviews: [Review] { fatalError("Must override") }
     var serviceDescription: String { fatalError("Must override") }
 
@@ -98,7 +96,6 @@ private final class _ServiceBox<Base: Service>: _AbstractServiceBox {
     override var thumbnail: URL? { base.thumbnail }
     override var rating: Double { base.rating }
     override var author: Teacher { base.author }
-    override var acceptanceReviews: [AcceptanceReview] { base.acceptanceReviews }
     override var reviews: [Review] { base.reviews }
     override var serviceDescription: String { base.serviceDescription }
 

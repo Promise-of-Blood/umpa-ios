@@ -10,10 +10,10 @@ public protocol CheckAccountLinkedSocialIdUseCase {
 }
 
 public struct DefaultCheckAccountLinkedSocialIdUseCase {
-    private let serverRepository: ServerRepository
+    private let jwtRepository: JwtRepository
 
-    public init(serverRepository: ServerRepository) {
-        self.serverRepository = serverRepository
+    public init(jwtRepository: JwtRepository) {
+        self.jwtRepository = jwtRepository
     }
 }
 

@@ -18,20 +18,20 @@ protocol ChatInteractor {
 struct DefaultChatInteractor {
     private let appState: AppState
 
-    private let serverRepository: ServerRepository
+    private let chatRepository: ChatRepository
 
     private let cancelBag = CancelBag()
 
-    init(appState: AppState, serverRepository: ServerRepository) {
+    init(appState: AppState, chatRepository: ChatRepository) {
         self.appState = appState
-        self.serverRepository = serverRepository
+        self.chatRepository = chatRepository
     }
 }
 
 extension DefaultChatInteractor: ChatInteractor {
     func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>) {
         chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        serverRepository.fetchChatRoomList()
+        chatRepository.fetchChatRoomList()
             .mapError { _ in
                 ChatInteractorError.fakeError
             }
@@ -40,7 +40,7 @@ extension DefaultChatInteractor: ChatInteractor {
     }
 
     func enterChatRoom(with id: ChatRoom.Id) {
-        serverRepository.fetchChatRoom(by: id)
+        chatRepository.fetchChatRoom(by: id)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: error 처리

@@ -13,15 +13,15 @@ struct DefaultAppInteractor: AppInteractor {
     @Injected(\.appState) private var appState
 
     #if DEBUG
-    @Injected(\.stubServerRepository) private var serverRepository
+    @Injected(\.stubAppRepository) private var appRepository
     #else
-    @Injected(\.serverRepository) private var serverRepository
+    @Injected(\.appRepository) private var appRepository
     #endif
 
     private let cancelBag = CancelBag()
 
     func loadMajorList() {
-        serverRepository.fetchMajorList()
+        appRepository.fetchMajorList()
             .replaceError(with: [])
             .flatMap { [appState] in
                 appState.userData.majorList = $0.map(\.name)

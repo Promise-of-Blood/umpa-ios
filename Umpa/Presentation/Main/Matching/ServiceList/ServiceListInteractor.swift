@@ -21,53 +21,53 @@ protocol ServiceListInteractor {
 }
 
 struct DefaultServiceListInteractor {
-    private let serverRepository: ServerRepository
+    private let serviceRepository: ServiceRepository
 
     private let cancelBag = CancelBag()
 
-    init(serverRepository: ServerRepository) {
-        self.serverRepository = serverRepository
+    init(serviceRepository: ServiceRepository) {
+        self.serviceRepository = serviceRepository
     }
 }
 
 extension DefaultServiceListInteractor: ServiceListInteractor {
     func loadFavoriteServices(_ services: Binding<[AnyService]>) {
-        serverRepository.fetchFavoriteServiceList()
+        serviceRepository.fetchFavoriteServiceList()
             .replaceError(with: [])
             .sink(services)
             .store(in: cancelBag)
     }
 
     func load(_ lessonServices: Binding<[LessonService]>) {
-        serverRepository.fetchLessonServiceList()
+        serviceRepository.fetchLessonServiceList()
             .replaceError(with: [])
             .sink(lessonServices)
             .store(in: cancelBag)
     }
 
     func load(_ accompanistServices: Binding<[AccompanistService]>) {
-        serverRepository.fetchAccompanistServiceList()
+        serviceRepository.fetchAccompanistServiceList()
             .replaceError(with: [])
             .sink(accompanistServices)
             .store(in: cancelBag)
     }
 
     func load(_ compositionServices: Binding<[ScoreCreationService]>) {
-        serverRepository.fetchScoreCreationServiceList()
+        serviceRepository.fetchScoreCreationServiceList()
             .replaceError(with: [])
             .sink(compositionServices)
             .store(in: cancelBag)
     }
 
     func load(_ musicCreationServices: Binding<[MusicCreationService]>) {
-        serverRepository.fetchMusicCreationServiceList()
+        serviceRepository.fetchMusicCreationServiceList()
             .replaceError(with: [])
             .sink(musicCreationServices)
             .store(in: cancelBag)
     }
 
     func loadAll(_ serviceList: Binding<[AnyService]>) {
-        serverRepository.fetchAllLessonAndServiceList()
+        serviceRepository.fetchAllLessonAndServiceList()
             .replaceError(with: [])
             .sink(serviceList)
             .store(in: cancelBag)
@@ -78,19 +78,19 @@ extension DefaultServiceListInteractor: ServiceListInteractor {
 
         switch serviceType {
         case .lesson:
-            anyServiceList = serverRepository.fetchLessonServiceList()
+            anyServiceList = serviceRepository.fetchLessonServiceList()
                 .map { $0.map { $0.eraseToAnyService() } }
                 .eraseToAnyPublisher()
         case .accompanist:
-            anyServiceList = serverRepository.fetchAccompanistServiceList()
+            anyServiceList = serviceRepository.fetchAccompanistServiceList()
                 .map { $0.map { $0.eraseToAnyService() } }
                 .eraseToAnyPublisher()
         case .scoreCreation:
-            anyServiceList = serverRepository.fetchScoreCreationServiceList()
+            anyServiceList = serviceRepository.fetchScoreCreationServiceList()
                 .map { $0.map { $0.eraseToAnyService() } }
                 .eraseToAnyPublisher()
         case .mrCreation:
-            anyServiceList = serverRepository.fetchMusicCreationServiceList()
+            anyServiceList = serviceRepository.fetchMusicCreationServiceList()
                 .map { $0.map { $0.eraseToAnyService() } }
                 .eraseToAnyPublisher()
         }

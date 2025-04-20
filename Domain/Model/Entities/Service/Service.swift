@@ -11,7 +11,6 @@ public protocol Service: Identifiable, Hashable {
     var thumbnail: URL? { get }
     var rating: Double { get }
     var author: Teacher { get }
-    var acceptanceReviews: [AcceptanceReview] { get }
     var reviews: [Review] { get }
     var serviceDescription: String { get }
 }

@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import Foundation
+import GoogleSignIn
 import KakaoSDKUser
 import NidThirdPartyLogin
 
@@ -26,5 +27,6 @@ extension DefaultMyProfileInteractor: MyProfileInteractor {
                 print(error)
             }
         }
+        GIDSignIn.sharedInstance.signOut()
     }
 }

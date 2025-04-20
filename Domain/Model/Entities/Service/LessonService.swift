@@ -9,7 +9,6 @@ public struct LessonService: SinglePriceService {
     public let thumbnail: URL?
     public let rating: Double
     public let author: Teacher
-    public let acceptanceReviews: [AcceptanceReview]
     public let reviews: [Review]
     public let serviceDescription: String
     public let subject: Major
@@ -32,7 +31,6 @@ public struct LessonService: SinglePriceService {
         thumbnail: URL?,
         rating: Double,
         author: Teacher,
-        acceptanceReviews: [AcceptanceReview],
         reviews: [Review],
         serviceDescription: String,
         subject: Major,
@@ -54,7 +52,6 @@ public struct LessonService: SinglePriceService {
         self.thumbnail = thumbnail
         self.rating = rating
         self.author = author
-        self.acceptanceReviews = acceptanceReviews
         self.reviews = reviews
         self.serviceDescription = serviceDescription
         self.subject = subject

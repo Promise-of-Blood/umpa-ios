@@ -27,12 +27,6 @@ struct ReviewTabContent: View {
                         }
                     }
                 }
-            case .acceptanceReview:
-                VStack(spacing: fs(16)) {
-                    ForEach(service.acceptanceReviews, id: \.id) { acceptanceReview in
-                        AcceptanceReviewCard(acceptanceReview: acceptanceReview)
-                    }
-                }
             }
         }
     }
@@ -47,15 +41,6 @@ struct ReviewTabContent: View {
                         ? .pretendardSemiBold(size: fs(12))
                         : .pretendardMedium(size: fs(12)))
                     .foregroundStyle(selectedTab == .review ? UmpaColor.main : UmpaColor.mediumGray)
-            }
-            Button(action: {
-                selectedTab = .acceptanceReview
-            }) {
-                Text("합격 후기")
-                    .font(selectedTab == .acceptanceReview
-                        ? .pretendardSemiBold(size: fs(12))
-                        : .pretendardMedium(size: fs(12)))
-                    .foregroundStyle(selectedTab == .acceptanceReview ? UmpaColor.main : UmpaColor.mediumGray)
             }
         }
         .frame(maxWidth: .fill, alignment: .leading)
@@ -93,7 +78,6 @@ struct ReviewTabContent: View {
 extension ReviewTabContent {
     enum InnerTab {
         case review
-        case acceptanceReview
     }
 }
 
@@ -193,66 +177,6 @@ extension ReviewTabContent {
                     .frame(width: fs(80), height: fs(80))
                     .clipShape(RoundedRectangle(cornerRadius: fs(5)))
                 }
-            }
-        }
-    }
-
-    struct AcceptanceReviewCard: View {
-        let acceptanceReview: AcceptanceReview
-
-        var createdAt: String {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy. MM. dd"
-            return formatter.string(from: acceptanceReview.createdAt)
-        }
-
-        private let imageSize: CGFloat = fs(80)
-
-        var body: some View {
-            content
-                .padding(fs(14))
-                .innerRoundedStroke(UmpaColor.lightLightGray, cornerRadius: fs(10), lineWidth: fs(1))
-        }
-
-        var content: some View {
-            VStack(alignment: .leading, spacing: fs(2)) {
-                VStack(alignment: .leading, spacing: fs(16)) {
-                    Text("커뮤니티/합격후기")
-                        .font(.pretendardRegular(size: fs(11)))
-                        .foregroundStyle(UmpaColor.mediumGray)
-                    HStack(alignment: .top, spacing: fs(13)) {
-                        AsyncImage(url: acceptanceReview.images.first) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                        .frame(width: imageSize, height: imageSize)
-                        VStack(alignment: .leading, spacing: fs(8)) {
-                            Text(acceptanceReview.title)
-                                .font(.pretendardSemiBold(size: fs(14)))
-                            Text(acceptanceReview.college.name)
-                                .font(.pretendardRegular(size: fs(11)))
-                                .foregroundStyle(UmpaColor.mediumGray)
-                            HStack(spacing: fs(4)) {
-                                Text(acceptanceReview.writer.name)
-                                    .font(.pretendardRegular(size: fs(11)))
-                                    .foregroundStyle(UmpaColor.mediumGray)
-                                Circle()
-                                    .frame(width: fs(1.5), height: fs(1.5))
-                                    .foregroundStyle(UmpaColor.mediumGray)
-                                Text(acceptanceReview.writer.major.name)
-                                    .font(.pretendardRegular(size: fs(11)))
-                                    .foregroundStyle(UmpaColor.mediumGray)
-                            }
-                        }
-                    }
-                }
-                Text(createdAt)
-                    .font(.pretendardRegular(size: fs(11)))
-                    .foregroundStyle(UmpaColor.mediumGray)
-                    .frame(maxWidth: .fill, alignment: .trailing)
             }
         }
     }

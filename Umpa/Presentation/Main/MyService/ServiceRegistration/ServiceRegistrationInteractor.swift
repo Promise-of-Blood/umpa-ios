@@ -16,18 +16,24 @@ protocol ServiceRegistrationInteractor {
 }
 
 struct DefaultServiceRegistrationInteractor {
-    private let serverRepository: ServerRepository
+    private let serviceRepository: ServiceRepository
 
     private let cancelBag = CancelBag()
 
-    init(serverRepository: ServerRepository) {
-        self.serverRepository = serverRepository
+    init(serviceRepository: ServiceRepository) {
+        self.serviceRepository = serviceRepository
     }
 }
 
 extension DefaultServiceRegistrationInteractor: ServiceRegistrationInteractor {
     func post(_ accompanistService: Domain.AccompanistServiceCreateData) {
-        fatalError()
+        serviceRepository.postAccompanistService(accompanistService)
+            .sink { completion in
+                if let error = completion.error {
+                    UmpaLogger.log(error.localizedDescription, level: .error)
+                }
+            } receiveValue: { _ in }
+            .store(in: cancelBag)
     }
 
     func post(_ compositionService: Domain.ScoreCreationServiceCreateData) {

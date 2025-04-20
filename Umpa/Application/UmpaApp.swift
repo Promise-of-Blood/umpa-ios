@@ -1,6 +1,8 @@
 // Created for Umpa in 2025
 
+import Core
 import Factory
+import GoogleSignIn
 import KakaoSDKAuth
 import KakaoSDKCommon
 import NidThirdPartyLogin
@@ -23,11 +25,25 @@ struct UmpaApp: App {
             mainWindow
                 .onOpenURL { url in
                     if AuthApi.isKakaoTalkLoginUrl(url) {
-                        _ = AuthController.handleOpenUrl(url: url)
+                        if !AuthController.handleOpenUrl(url: url) {
+                            UmpaLogger.log("카카오 리다이렉트 URL 처리 실패", level: .error)
+                        }
                         return
                     }
-                    if NidOAuth.shared.handleURL(url) == true {
+                    if NidOAuth.shared.handleURL(url) {
                         return
+                    }
+                    if GIDSignIn.sharedInstance.handle(url) {
+                        return
+                    }
+                }
+                .task {
+                    do {
+                        let user = try await GIDSignIn.sharedInstance.restorePreviousSignIn()
+                        // Check if `user` exists; otherwise, do something with `error`
+                        UmpaLogger.log(user.description, level: .debug)
+                    } catch {
+                        UmpaLogger.log("Error restoring sign-in: \(error)", level: .error)
                     }
                 }
         }
