@@ -21,7 +21,9 @@ extension Container {
 
     var appRepository: Factory<AppRepository> {
         Factory(self) {
-            DefaultAppRepository()
+            DefaultAppRepository(
+                network: self.network(),
+            )
         }
         .scope(.singleton)
     }
@@ -42,7 +44,9 @@ extension Container {
 
     var chatRepository: Factory<ChatRepository> {
         Factory(self) {
-            DefaultChatRepository()
+            DefaultChatRepository(
+                network: self.network(),
+            )
         }
         .scope(.singleton)
     }
@@ -70,11 +74,6 @@ extension Container {
 
     // MARK: - DataAccess
 
-    var umpaApi: Factory<UmpaApi> {
-        Factory(self) { UmpaApi() }
-            .scope(.singleton)
-    }
-
     var keychainStorage: Factory<PersistentStorage> {
         Factory(self) {
             #if DEBUG
@@ -82,6 +81,13 @@ extension Container {
             #else
             KeychainStorage(serviceName: "com.pob.Umpa")
             #endif
+        }
+        .scope(.singleton)
+    }
+
+    var network: Factory<Network> {
+        Factory(self) {
+            DefaultNetwork(session: .shared)
         }
         .scope(.singleton)
     }

@@ -3,17 +3,29 @@
 import Domain
 import Foundation
 
-public struct MajorResponse: Decodable {
-    public let id: Int
-    public let name: String
+struct GetMajorsRequest: NetworkRequest {
+    typealias Response = GetMajorsResponse
 
-    public init(id: Int, name: String) {
+    let baseUrl: URL = Constant.baseUrl
+    let path: String = "api/majors"
+    let header: HttpHeader = .empty()
+    let method: HttpMethod = .get
+    let body: Data? = nil
+}
+
+typealias GetMajorsResponse = [MajorDto]
+
+struct MajorDto: Decodable {
+    let id: Int
+    let name: String
+
+    init(id: Int, name: String) {
         self.id = id
         self.name = name
     }
 }
 
-extension MajorResponse {
+extension MajorDto {
     func toDomain() -> Major? {
         switch name {
         case "피아노":

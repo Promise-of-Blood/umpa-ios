@@ -35,5 +35,4 @@ public struct InfoPlist {
 public enum InfoPlistKey: String {
     case keychainAccessToken = "KEYCHAIN_ACCESS_TOKEN_KEY_RELEASE"
     case kakaoNativeAppKey = "KAKAO_NATIVE_APP_KEY"
-    case baseUrl = "BASE_URL"
 }
