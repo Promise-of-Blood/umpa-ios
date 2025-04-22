@@ -5,7 +5,11 @@ import Domain
 import Foundation
 
 public struct DefaultChatRepository {
-    public init() {}
+    private let network: Network
+
+    public init(network: Network) {
+        self.network = network
+    }
 }
 
 extension DefaultChatRepository: ChatRepository {
@@ -18,6 +22,8 @@ extension DefaultChatRepository: ChatRepository {
     }
 
     public func fetchChatRoom(by id: Domain.ChatRoom.Id) -> AnyPublisher<Domain.ChatRoom, any Error> {
+        let request = GetChatRoomRequest(id: id)
+        network.requestPublisher(request)
         fatalError()
     }
 
