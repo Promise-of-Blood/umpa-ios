@@ -3,7 +3,7 @@
 import Foundation
 
 public protocol NetworkRequest {
-    associatedtype Response: Decodable
+    associatedtype Response: NetworkResponse
 
     var baseUrl: URL { get }
     var path: String { get }
@@ -17,7 +17,7 @@ extension NetworkRequest {
         let url = baseUrl.appending(component: path)
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = method.rawValue
-        urlRequest.allHTTPHeaderFields = header.dictionary
+        urlRequest.allHTTPHeaderFields = header.toDictionary()
         urlRequest.httpBody = body
         return urlRequest
     }

@@ -3,12 +3,14 @@
 import Domain
 import Foundation
 
-public struct CollegeResponse: Decodable {
-    public let id: Int
-    public let name: String
+typealias GetCollegesResponse = [CollegeDto]
+
+struct CollegeDto: Decodable {
+    let id: Int
+    let name: String
 }
 
-extension CollegeResponse {
+extension CollegeDto {
     func toDomain() -> College {
         return College(name: name)
     }

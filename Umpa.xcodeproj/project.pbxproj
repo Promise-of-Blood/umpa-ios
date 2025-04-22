@@ -174,9 +174,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				TestHelpers.swift,
+				UnitTests/InfraTests/NetworkKitTests.swift,
+				UnitTests/InfraTests/UserDefaultsStorageTests.swift,
 				UnitTests/InteractorTests/ChatInteractorTests.swift,
 				UnitTests/InteractorTests/ServiceListInteractorTests.swift,
-				UnitTests/UserDefaultsStorageTests.swift,
 			);
 			target = 0C9CD42B2D31062D003F4455 /* UmpaUnitTests */;
 		};
