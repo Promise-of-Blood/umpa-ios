@@ -3,25 +3,21 @@
 import Domain
 import Foundation
 
-struct GetMajorsRequest: NetworkRequest {
-    typealias Response = GetMajorsResponse
-
-    let baseUrl: URL = Constant.baseUrl
-    let path: String = "api/majors"
-    let header: HttpHeader = .empty()
-    let method: HttpMethod = .get
-    let body: Data? = nil
-}
-
 typealias GetMajorsResponse = [MajorDto]
 
 struct MajorDto: Decodable {
     let id: Int
     let name: String
 
-    init(id: Int, name: String) {
-        self.id = id
-        self.name = name
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+    }
+
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.name = try container.decode(String.self, forKey: .name)
     }
 }
 

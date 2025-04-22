@@ -17,7 +17,7 @@ public struct HttpHeader {
         self.fields = []
     }
 
-    init(fields: [HttpHeaderField]) {
+    public init(fields: [HttpHeaderField]) {
         self.fields = fields
     }
 
@@ -29,11 +29,6 @@ public struct HttpHeader {
 public struct HttpHeaderField {
     let key: String
     let value: String
-
-    init(key: String, value: String) {
-        self.key = key
-        self.value = value
-    }
 }
 
 extension HttpHeaderField {

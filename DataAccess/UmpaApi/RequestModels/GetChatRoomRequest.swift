@@ -15,5 +15,3 @@ struct GetChatRoomRequest: NetworkRequest {
         path = "api/chatrooms/\(id)"
     }
 }
-
-struct GetChatRoomResponse: Decodable {}

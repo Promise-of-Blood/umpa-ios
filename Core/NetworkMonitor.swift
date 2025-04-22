@@ -16,8 +16,8 @@ import Network
 public final class NetworkMonitor {
     public static let shared = NetworkMonitor()
 
-    let queue: DispatchQueue
-    let monitor = NWPathMonitor()
+    private let queue: DispatchQueue
+    private let monitor = NWPathMonitor()
 
     @Published public private(set) var isEstablishedConnection: Bool = false
 
@@ -26,17 +26,19 @@ public final class NetworkMonitor {
 
         monitor.pathUpdateHandler = { [weak self] path in
             guard let self else { return }
-            if path.status == .satisfied {
-                self.isEstablishedConnection = true
-            } else {
-                self.isEstablishedConnection = false
-            }
+            self.isEstablishedConnection = path.status == .satisfied
         }
+    }
 
+    deinit {
+        stop()
+    }
+
+    public func start() {
         monitor.start(queue: queue)
     }
 
-    public static func start() {
-        _ = NetworkMonitor.shared
+    public func stop() {
+        monitor.cancel()
     }
 }
