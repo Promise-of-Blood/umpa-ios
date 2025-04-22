@@ -9,16 +9,18 @@ extension Scope {
     static let mainSession = Cached()
 }
 
-extension Container {
-    // MARK: - Common
+// MARK: - Common
 
+extension Container {
     var appState: Factory<AppState> {
         Factory(self) { AppState() }
             .scope(.singleton)
     }
+}
 
-    // MARK: - Repository
+// MARK: - Repository
 
+extension Container {
     private var appRepository: Factory<AppRepository> {
         Factory(self) {
             DefaultAppRepository(
@@ -71,9 +73,11 @@ extension Container {
         }
         .scope(.singleton)
     }
+}
 
-    // MARK: - DataAccess
+// MARK: - DataAccess
 
+extension Container {
     private var keychainStorage: Factory<PersistentStorage> {
         Factory(self) {
             #if DEBUG
@@ -91,14 +95,23 @@ extension Container {
         }
         .scope(.singleton)
     }
+}
 
-    // MARK: - UseCase
+// MARK: - UseCase
 
+extension Container {
     private var signUpUseCase: Factory<SignUpUseCase> {
         Factory(self) {
             DefaultSignUpUseCase(
                 jwtRepository: self.jwtRepository()
             )
+        }
+        .scope(.singleton)
+    }
+
+    private var sendPhoneVerificationCodeUseCase: Factory<SendPhoneVerificationCodeUseCase> {
+        Factory(self) {
+            DefaultSendPhoneVerificationCodeUseCase()
         }
         .scope(.singleton)
     }
@@ -129,12 +142,24 @@ extension Container {
         }
         .scope(.singleton)
     }
+}
 
-    // MARK: - Interactor
+// MARK: - Interactor
 
+extension Container {
     var appInteractor: Factory<AppInteractor> {
         Factory(self) { DefaultAppInteractor() }
             .scope(.singleton)
+    }
+
+    var phoneVerificationInteractor: Factory<PhoneVerificationInteractor> {
+        Factory(self) {
+            DefaultPhoneVerificationInteractor(
+                appState: self.appState(),
+                sendPhoneVerificationCode: self.sendPhoneVerificationCodeUseCase(),
+            )
+        }
+        .scope(.shared)
     }
 
     var loginInteractor: Factory<LoginInteractor> {
@@ -255,13 +280,13 @@ extension Container {
     }
 }
 
-// MARK: - Mock
-
 #if DEBUG
 
-extension Container {
-    // MARK: - Repository
+// MARK: - Mock
 
+// MARK: - Repository
+
+extension Container {
     var stubAppRepository: Factory<AppRepository> {
         Factory(self) {
             StubAppRepository()
@@ -296,9 +321,11 @@ extension Container {
         }
         .scope(.singleton)
     }
+}
 
-    // MARK: - UseCase
+// MARK: - UseCase
 
+extension Container {
     var mockSignUpUseCase: Factory<SignUpUseCase> {
         Factory(self) { MockSignUpUseCase() }
             .scope(.singleton)
@@ -309,6 +336,13 @@ extension Container {
             .scope(.singleton)
     }
 
+    var mockSendPhoneVerificationCodeUseCase: Factory<SendPhoneVerificationCodeUseCase> {
+        Factory(self) { MockSendPhoneVerificationCodeUseCase() }
+            .scope(.singleton)
+    }
+}
+
+extension Container {
     var mockLoginInteractor: Factory<LoginInteractor> {
         Factory(self) {
             DefaultLoginInteractor(
@@ -398,6 +432,16 @@ extension Container {
             DefaultUmpaNotificationInteractor(
                 umpaNotificationRepository: self.stubUmpaNotificationRepository(),
                 getAccessTokenUseCase: self.getAccessTokenUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var mockPhoneVerificationInteractor: Factory<PhoneVerificationInteractor> {
+        Factory(self) {
+            DefaultPhoneVerificationInteractor(
+                appState: self.appState(),
+                sendPhoneVerificationCode: self.mockSendPhoneVerificationCodeUseCase()
             )
         }
         .scope(.shared)

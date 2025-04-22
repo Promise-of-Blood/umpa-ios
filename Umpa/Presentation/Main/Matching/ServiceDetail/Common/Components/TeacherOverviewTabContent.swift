@@ -24,7 +24,7 @@ struct TeacherOverviewTabContent: View {
     var keyphraseText: some View {
         Text(teacher.keyphrase)
             .fontWithLineHeight(font: .pretendardSemiBold(size: fs(15)), lineHeight: fs(24))
-            .frame(maxWidth: .fill, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal, fs(6))
     }
 
@@ -50,7 +50,7 @@ struct TeacherOverviewTabContent: View {
                     }
                 }
             }
-            .frame(maxWidth: .fill, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
 
         return VStack(spacing: fs(24)) {
             header
@@ -80,7 +80,7 @@ struct TeacherOverviewTabContent: View {
                 }
             }
         }
-        .frame(maxWidth: .fill, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

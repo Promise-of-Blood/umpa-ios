@@ -78,7 +78,7 @@ struct ValueSettingsListItem: View {
 private struct SettingsListItemModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .frame(maxWidth: .fill, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.vertical, fs(12))
     }
 }

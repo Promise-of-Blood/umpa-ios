@@ -7,6 +7,7 @@ import Testing
 
 extension Tag {
     @Tag static var interactor: Tag
+    @Tag static var domain: Tag
 }
 
 struct BindingWithPublisher<Value> {

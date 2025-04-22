@@ -43,12 +43,12 @@ struct BottomActionBar: View {
                 Text("채팅 하기")
                     .font(.pretendardMedium(size: fs(15)))
                     .foregroundStyle(Color.white)
-                    .frame(maxWidth: .fill, idealHeight: buttonHeight)
+                    .frame(maxWidth: .infinity, idealHeight: buttonHeight)
                     .fixedSize(horizontal: false, vertical: true)
                     .background(UmpaColor.main, in: RoundedRectangle(cornerRadius: buttonsRadius))
             }
         }
-        .frame(maxWidth: .fill, idealHeight: buttonHeight)
+        .frame(maxWidth: .infinity, idealHeight: buttonHeight)
         .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal, fs(14))
         .padding(.vertical, fs(8))

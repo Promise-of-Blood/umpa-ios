@@ -29,7 +29,7 @@ struct TeacherHomeView: View {
                     header
                     homeContent
                 }
-                .frame(maxWidth: .fill)
+                .frame(maxWidth: .infinity)
                 .padding(.vertical, fs(20))
             }
             .padding(.top, 1) // 네비게이션 바 유지를 위함

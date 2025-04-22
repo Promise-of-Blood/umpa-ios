@@ -47,7 +47,7 @@ extension ScoreCreationServiceDetailView {
                     ServiceDetailPricePerUnit(model: .init(price: service.basePrice, unitType: .sheet))
                         .padding(.vertical, fs(2))
                 }
-                .frame(maxWidth: .fill, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, fs(30))
 
                 BottomLineSegmentedControl(
@@ -76,7 +76,7 @@ extension ScoreCreationServiceDetailView {
             } placeholder: {
                 Color.gray
             }
-            .frame(maxWidth: .fill, idealHeight: fs(374))
+            .frame(maxWidth: .infinity, idealHeight: fs(374))
             .fixedSize(horizontal: false, vertical: true)
         }
 

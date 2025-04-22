@@ -57,7 +57,7 @@ struct ServiceListView: View {
                 }
             }
         }
-        .frame(maxHeight: .fill, alignment: .top)
+        .frame(maxHeight: .infinity, alignment: .top)
     }
 }
 
