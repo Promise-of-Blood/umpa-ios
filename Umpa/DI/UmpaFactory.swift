@@ -19,7 +19,7 @@ extension Container {
 
     // MARK: - Repository
 
-    var appRepository: Factory<AppRepository> {
+    private var appRepository: Factory<AppRepository> {
         Factory(self) {
             DefaultAppRepository(
                 network: self.network(),
@@ -28,21 +28,21 @@ extension Container {
         .scope(.singleton)
     }
 
-    var jwtRepository: Factory<JwtRepository> {
+    private var jwtRepository: Factory<JwtRepository> {
         Factory(self) {
             DefaultJwtRepository(persistentStorage: self.keychainStorage())
         }
         .scope(.singleton)
     }
 
-    var serviceRepository: Factory<ServiceRepository> {
+    private var serviceRepository: Factory<ServiceRepository> {
         Factory(self) {
             DefaultServiceRepository()
         }
         .scope(.singleton)
     }
 
-    var chatRepository: Factory<ChatRepository> {
+    private var chatRepository: Factory<ChatRepository> {
         Factory(self) {
             DefaultChatRepository(
                 network: self.network(),
@@ -51,21 +51,21 @@ extension Container {
         .scope(.singleton)
     }
 
-    var reviewRepository: Factory<ReviewRepository> {
+    private var reviewRepository: Factory<ReviewRepository> {
         Factory(self) {
             DefaultReviewRepository()
         }
         .scope(.singleton)
     }
 
-    var umpaNotificationRepository: Factory<UmpaNotificationRepository> {
+    private var umpaNotificationRepository: Factory<UmpaNotificationRepository> {
         Factory(self) {
             DefaultUmpaNotificationRepository()
         }
         .scope(.singleton)
     }
 
-    var userRepository: Factory<UserRepository> {
+    private var userRepository: Factory<UserRepository> {
         Factory(self) {
             DefaultUserRepository()
         }
@@ -74,7 +74,7 @@ extension Container {
 
     // MARK: - DataAccess
 
-    var keychainStorage: Factory<PersistentStorage> {
+    private var keychainStorage: Factory<PersistentStorage> {
         Factory(self) {
             #if DEBUG
             KeychainStorage(serviceName: "com.pob.Umpa.Test.Debug")
@@ -85,7 +85,7 @@ extension Container {
         .scope(.singleton)
     }
 
-    var network: Factory<Network> {
+    private var network: Factory<Network> {
         Factory(self) {
             DefaultNetwork(session: .shared)
         }
@@ -94,7 +94,7 @@ extension Container {
 
     // MARK: - UseCase
 
-    var signUpUseCase: Factory<SignUpUseCase> {
+    private var signUpUseCase: Factory<SignUpUseCase> {
         Factory(self) {
             DefaultSignUpUseCase(
                 jwtRepository: self.jwtRepository()
@@ -103,7 +103,7 @@ extension Container {
         .scope(.singleton)
     }
 
-    var checkAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
+    private var checkAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
         Factory(self) {
             DefaultCheckAccountLinkedSocialIdUseCase(
                 jwtRepository: self.jwtRepository()
@@ -112,7 +112,7 @@ extension Container {
         .scope(.singleton)
     }
 
-    var getAccessTokenUseCase: Factory<GetAccessTokenUseCase> {
+    private var getAccessTokenUseCase: Factory<GetAccessTokenUseCase> {
         Factory(self) {
             DefaultGetAccessTokenUseCase(
                 jwtRepository: self.jwtRepository()
@@ -121,7 +121,7 @@ extension Container {
         .scope(.singleton)
     }
 
-    var setAccessTokenUseCase: Factory<SetAccessTokenUseCase> {
+    private var setAccessTokenUseCase: Factory<SetAccessTokenUseCase> {
         Factory(self) {
             DefaultSetAccessTokenUseCase(
                 jwtRepository: self.jwtRepository()
@@ -254,3 +254,154 @@ extension Container {
         .scope(.shared)
     }
 }
+
+// MARK: - Mock
+
+#if DEBUG
+
+extension Container {
+    // MARK: - Repository
+
+    var stubAppRepository: Factory<AppRepository> {
+        Factory(self) {
+            StubAppRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var stubServiceRepository: Factory<ServiceRepository> {
+        Factory(self) {
+            StubServiceRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var stubChatRepository: Factory<ChatRepository> {
+        Factory(self) {
+            StubChatRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var stubUmpaNotificationRepository: Factory<UmpaNotificationRepository> {
+        Factory(self) {
+            StubUmpaNotificationRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var stubReviewRepository: Factory<ReviewRepository> {
+        Factory(self) {
+            StubReviewRepository()
+        }
+        .scope(.singleton)
+    }
+
+    // MARK: - UseCase
+
+    var mockSignUpUseCase: Factory<SignUpUseCase> {
+        Factory(self) { MockSignUpUseCase() }
+            .scope(.singleton)
+    }
+
+    var mockCheckAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
+        Factory(self) { MockCheckAccountLinkedSocialIdUseCase() }
+            .scope(.singleton)
+    }
+
+    var mockLoginInteractor: Factory<LoginInteractor> {
+        Factory(self) {
+            DefaultLoginInteractor(
+                appState: self.appState(),
+                checkAccountLinkedSocialIdUseCase: self.mockCheckAccountLinkedSocialIdUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubTeacherHomeInteractor: Factory<TeacherHomeInteractor> {
+        Factory(self) {
+            DefaultTeacherHomeInteractor(
+                serviceRepository: self.stubServiceRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var mockSignUpInteractor: Factory<SignUpInteractor> {
+        Factory(self) {
+            SignUpInteractorImpl(
+                appState: self.appState(),
+                signUpUseCase: self.mockSignUpUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubServiceListInteractor: Factory<ServiceListInteractor> {
+        Factory(self) {
+            DefaultServiceListInteractor(
+                serviceRepository: self.stubServiceRepository(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubChatInteractor: Factory<ChatInteractor> {
+        Factory(self) {
+            DefaultChatInteractor(
+                appState: self.appState(),
+                chatRepository: self.stubChatRepository(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubServiceDetailInteractor: Factory<ServiceDetailInteractor> {
+        Factory(self) {
+            DefaultServiceDetailInteractor(
+                appState: self.appState(),
+                serviceRepository: self.stubServiceRepository(),
+                chatRepository: self.stubChatRepository(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubTeacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
+        Factory(self) {
+            DefaultTeacherLessonManagementInteractor(
+                appState: self.appState(),
+                serviceRepository: self.stubServiceRepository(),
+                chatRepository: self.stubChatRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubTeacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
+        Factory(self) {
+            DefaultTeacherServiceManagementInteractor(
+                appState: self.appState(),
+                serviceRepository: self.stubServiceRepository(),
+                chatRepository: self.stubChatRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase(),
+            )
+        }
+        .scope(.shared)
+    }
+
+    var stubUmpaNotificationInteractor: Factory<UmpaNotificationInteractor> {
+        Factory(self) {
+            DefaultUmpaNotificationInteractor(
+                umpaNotificationRepository: self.stubUmpaNotificationRepository(),
+                getAccessTokenUseCase: self.getAccessTokenUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+}
+
+#endif
