@@ -2,15 +2,16 @@
 
 import SwiftUI
 
-struct SignUpBottomButton: View {
+struct SignUpBottomButton<Content>: View where Content: View {
     @Environment(\.isEnabled) private var isEnabled
 
-    let text: String
     let action: () -> Void
+
+    @ViewBuilder let label: () -> Content
 
     var body: some View {
         Button(action: action) {
-            Text(text)
+            label()
                 .font(.pretendardBold(size: fs(20)))
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity, idealHeight: 71)
@@ -22,7 +23,9 @@ struct SignUpBottomButton: View {
 }
 
 #Preview {
-    SignUpBottomButton(text: "다음") {
+    SignUpBottomButton {
         print("Tapped!")
+    } label: {
+        Text("다음")
     }
 }

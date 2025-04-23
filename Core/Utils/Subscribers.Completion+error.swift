@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+// Copyright (c) 2025 Jaewon Yun
+// This file has been modified from the original version.
 
 import Combine
 
@@ -29,5 +31,12 @@ extension Subscribers.Completion {
         case let .failure(error): return error
         default: return nil
         }
+    }
+
+    public var isError: Bool {
+        if case .failure = self {
+            return true
+        }
+        return false
     }
 }

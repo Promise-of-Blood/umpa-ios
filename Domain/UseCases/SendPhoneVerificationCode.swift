@@ -6,7 +6,7 @@ import Mockable
 
 @Mockable
 public protocol SendPhoneVerificationCodeUseCase {
-    func callAsFunction() -> AnyPublisher<Void, Error>
+    func callAsFunction(to phoneNumber: PhoneNumber) -> AnyPublisher<Void, Error>
 }
 
 public struct DefaultSendPhoneVerificationCodeUseCase {
@@ -14,7 +14,7 @@ public struct DefaultSendPhoneVerificationCodeUseCase {
 }
 
 extension DefaultSendPhoneVerificationCodeUseCase: SendPhoneVerificationCodeUseCase {
-    public func callAsFunction() -> AnyPublisher<Void, Error> {
+    public func callAsFunction(to phoneNumber: PhoneNumber) -> AnyPublisher<Void, any Error> {
         fatalError()
     }
 }

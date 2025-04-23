@@ -142,6 +142,13 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    private var verifyPhoneVerificationCodeUseCase: Factory<VerifyPhoneVerificationCodeUseCase> {
+        Factory(self) {
+            DefaultVerifyPhoneVerificationCodeUseCase()
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - Interactor
@@ -157,6 +164,7 @@ extension Container {
             DefaultPhoneVerificationInteractor(
                 appState: self.appState(),
                 sendPhoneVerificationCode: self.sendPhoneVerificationCodeUseCase(),
+                verifyPhoneVerificationCode: self.verifyPhoneVerificationCodeUseCase()
             )
         }
         .scope(.shared)
@@ -340,6 +348,11 @@ extension Container {
         Factory(self) { MockSendPhoneVerificationCodeUseCase() }
             .scope(.singleton)
     }
+
+    var mockVerifyPhoneVerificationCodeUseCase: Factory<VerifyPhoneVerificationCodeUseCase> {
+        Factory(self) { MockVerifyPhoneVerificationCodeUseCase() }
+            .scope(.singleton)
+    }
 }
 
 extension Container {
@@ -441,7 +454,8 @@ extension Container {
         Factory(self) {
             DefaultPhoneVerificationInteractor(
                 appState: self.appState(),
-                sendPhoneVerificationCode: self.mockSendPhoneVerificationCodeUseCase()
+                sendPhoneVerificationCode: self.mockSendPhoneVerificationCodeUseCase(),
+                verifyPhoneVerificationCode: self.mockVerifyPhoneVerificationCodeUseCase()
             )
         }
         .scope(.shared)
