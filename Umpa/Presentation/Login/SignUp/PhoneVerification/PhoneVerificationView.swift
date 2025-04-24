@@ -214,7 +214,7 @@ struct PhoneVerificationView: View {
     private func formattedPhoneNumberInput(_ phoneNumber: String) -> String {
         let length = phoneNumber.count
         if length <= 3 {
-            return phoneNumber
+            return phoneNumber 
         } else if length <= 7 {
             let prefix = phoneNumber.prefix(3)
             let suffix = phoneNumber.dropFirst(3)
