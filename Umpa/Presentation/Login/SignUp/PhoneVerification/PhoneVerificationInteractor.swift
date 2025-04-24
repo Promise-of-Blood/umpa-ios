@@ -151,6 +151,7 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
         isVarifiedCode.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
         verifyPhoneVerificationCode(verificationCode)
+            .receive(on: DispatchQueue.main)
             .sink { completion in
                 if completion.isError {
                     isVarifiedCode.wrappedValue = .value(false)

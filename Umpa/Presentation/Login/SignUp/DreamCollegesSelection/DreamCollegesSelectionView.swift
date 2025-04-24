@@ -1,10 +1,9 @@
 // Created for Umpa in 2025
 
 import Components
-import Factory
 import SwiftUI
 
-struct SignUpDreamCollegesSelectionView: View {
+struct DreamCollegesSelectionView: View {
     @ObservedObject var signUpModel: SignUpModel
 
     var body: some View {
@@ -33,7 +32,7 @@ struct SignUpDreamCollegesSelectionView: View {
             }
             Spacer()
             NavigationLink {
-                SignUpFinishView(signUpModel: signUpModel)
+//                SignUpFinishView(signUpModel: signUpModel)
             } label: {
                 Text("다음")
                     .modifier(BottomButton())
@@ -44,6 +43,6 @@ struct SignUpDreamCollegesSelectionView: View {
 
 #Preview {
     NavigationStack {
-        SignUpDreamCollegesSelectionView(signUpModel: SignUpModel(socialLoginType: .apple))
+        DreamCollegesSelectionView(signUpModel: SignUpModel(socialLoginType: .apple))
     }
 }

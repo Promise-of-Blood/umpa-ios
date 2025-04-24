@@ -1,21 +1,26 @@
 // Created for Umpa in 2025
 
 import Components
-import DataAccess
 import Factory
 import SwiftUI
 
-struct SignUpMajorSelectionView: View {
+struct StudentMajorSelection: View {
     @InjectedObject(\.appState) private var appState
 
-    @ObservedObject var signUpModel: SignUpModel
+    @ObservedObject var studentSignUpModel: StudentSignUpModel
 
     var body: some View {
         content
-            .modifier(NavigationBackButton(.arrowBack))
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    DismissButton(.arrowBack)
+                        .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
+                }
+            }
             .onAppear {
-                if signUpModel.major == nil {
-                    signUpModel.major = appState.userData.majorList.first
+                if studentSignUpModel.major == nil {
+                    studentSignUpModel.major = appState.userData.majorList.first
                 }
             }
     }
@@ -26,7 +31,7 @@ struct SignUpMajorSelectionView: View {
                 .modifier(TitleText())
             Spacer()
             InputContentVStack {
-                Picker("Major", selection: $signUpModel.major) {
+                Picker("Major", selection: $studentSignUpModel.major) {
                     ForEach(appState.userData.majorList, id: \.self) { major in
                         Text(major).tag(major)
                     }
@@ -39,7 +44,7 @@ struct SignUpMajorSelectionView: View {
 //                } else {
 //                    SignUpFinishView()
 //                }
-                SignUpDreamCollegesSelectionView(signUpModel: signUpModel)
+//                DreamCollegesSelectionView(studentSignUpModel: studentSignUpModel)
             } label: {
                 Text("다음")
                     .modifier(BottomButton())
@@ -50,6 +55,6 @@ struct SignUpMajorSelectionView: View {
 
 #Preview {
     NavigationStack {
-        SignUpMajorSelectionView(signUpModel: SignUpModel(socialLoginType: .apple))
+//        StudentMajorSelection(studentSignUpModel: SignUpModel(socialLoginType: .apple))
     }
 }

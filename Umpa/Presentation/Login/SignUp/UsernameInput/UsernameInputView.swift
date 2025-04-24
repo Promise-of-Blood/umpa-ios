@@ -1,17 +1,31 @@
 // Created for Umpa in 2025
 
 import Components
+import Domain
 import Factory
 import SwiftUI
 
-struct SignUpNicknameInputView: View {
-    @ObservedObject var signUpModel: SignUpModel
+struct UsernameInputView: View {
+    @StateObject private var studentSignUpModel: StudentSignUpModel
 
     @FocusState private var isFocused: Bool
 
+    init(socialLoginType: SocialLoginType) {
+        _studentSignUpModel = StateObject(wrappedValue: StudentSignUpModel(socialLoginType: socialLoginType))
+    }
+
     var body: some View {
         content
-            .modifier(NavigationBackButton(.arrowBack))
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    DismissButton(.arrowBack)
+                        .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
+                }
+            }
+//            .navigationDestination(for: <#T##Hashable.Type#>) { <#Hashable#> in
+//                <#code#>
+//            }
     }
 
     var content: some View {
@@ -24,12 +38,12 @@ struct SignUpNicknameInputView: View {
                 nicknameTextField
             }
             Spacer()
-            NavigationLink {
-                SignUpMajorSelectionView(signUpModel: signUpModel)
-            } label: {
-                Text("다음")
-                    .modifier(BottomButton())
-            }
+//            NavigationLink {
+//                TeacherMajorSelectionView(signUpModel: signUpModel)
+//            } label: {
+//                Text("다음")
+//                    .modifier(BottomButton())
+//            }
         }
     }
 
@@ -39,7 +53,7 @@ struct SignUpNicknameInputView: View {
                 .foregroundStyle(UmpaColor.lightGray)
             TextField(
                 "닉네임",
-                text: $signUpModel.nickname,
+                text: $studentSignUpModel.username,
                 prompt: Text("닉네임을 입력해주세요")
             )
         }
@@ -57,6 +71,6 @@ struct SignUpNicknameInputView: View {
 
 #Preview {
     NavigationStack {
-        SignUpNicknameInputView(signUpModel: SignUpModel(socialLoginType: .apple))
+//        UsernameInputView(signUpModel: SignUpModel(socialLoginType: .apple))
     }
 }

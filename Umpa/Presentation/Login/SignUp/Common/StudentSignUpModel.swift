@@ -3,13 +3,10 @@
 import Domain
 import SwiftUI
 
-@available(*, deprecated,
-           message: "기획/구현 변경으로 인해 삭제 예정 : `StudentSignUpModel` or `TeacherSignUpModel`을 대신 사용하세요.")
-final class SignUpModel: ObservableObject {
+final class StudentSignUpModel: ObservableObject {
     let socialLoginType: SocialLoginType
     @Published var name: String = ""
-    @Published var nickname: String = ""
-    @Published var userType: UserType?
+    @Published var username: String = ""
     @Published var major: String?
     @Published var wantedCollege1: String?
     @Published var wantedCollege2: String?

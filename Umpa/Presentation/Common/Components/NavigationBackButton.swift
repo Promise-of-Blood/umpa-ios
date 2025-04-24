@@ -2,10 +2,11 @@
 
 import SwiftUI
 
-private struct NavigationBackButtonIcon: View {
+/// 탭하면 `dismiss`를 호출하는 버튼입니다.
+struct DismissButton: View {
     @Environment(\.dismiss) private var dismiss
 
-    private let buttonImage: ImageResource
+    let buttonImage: ImageResource
 
     init(_ buttonImage: ImageResource) {
         self.buttonImage = buttonImage
@@ -16,29 +17,29 @@ private struct NavigationBackButtonIcon: View {
             dismiss()
         } label: {
             Image(buttonImage)
-                .padding(.horizontal, 12)
         }
     }
 }
 
-public struct NavigationBackButton: ViewModifier {
+@available(*, deprecated, message: "추후 삭제 예정 : 잘못된 구현")
+struct NavigationBackButton: ViewModifier {
     private let buttonImage: ImageResource
 
-    public init(_ buttonImage: ImageResource) {
+    init(_ buttonImage: ImageResource) {
         self.buttonImage = buttonImage
     }
 
-    public func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
         content
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    NavigationBackButtonIcon(buttonImage)
+                    DismissButton(buttonImage)
                 }
             }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    NavigationBackButtonIcon(ImageResource(name: "arrow_back", bundle: .main))
+    DismissButton(ImageResource(name: "arrow_back", bundle: .main))
 }

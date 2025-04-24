@@ -23,10 +23,13 @@ enum LoginInteractorError: LocalizedError {
 
 @MainActor
 protocol LoginInteractor {
-    func loginWithApple(with authorizationController: AuthorizationController)
-    func loginWithKakao()
-    func loginWithNaver()
-    func loginWithGoogle()
+    func loginWithApple(
+        with authorizationController: AuthorizationController,
+        socialLoginType: Binding<SocialLoginType?>
+    )
+    func loginWithKakao(socialLoginType: Binding<SocialLoginType?>)
+    func loginWithNaver(socialLoginType: Binding<SocialLoginType?>)
+    func loginWithGoogle(socialLoginType: Binding<SocialLoginType?>)
 }
 
 struct DefaultLoginInteractor {
@@ -44,7 +47,13 @@ struct DefaultLoginInteractor {
         self.checkAccountLinkedSocialId = checkAccountLinkedSocialIdUseCase
 
         #if DEBUG
-        if let mockCheckAccountLinkedSocialIdUseCase = checkAccountLinkedSocialIdUseCase as? MockCheckAccountLinkedSocialIdUseCase {
+        setupMockBehavior()
+        #endif
+    }
+
+    #if DEBUG
+    private func setupMockBehavior() {
+        if let mockCheckAccountLinkedSocialIdUseCase = checkAccountLinkedSocialId as? MockCheckAccountLinkedSocialIdUseCase {
             given(mockCheckAccountLinkedSocialIdUseCase)
                 .callAsFunction(with: .matching { data in
                     data.socialLoginType == .kakao
@@ -71,12 +80,15 @@ struct DefaultLoginInteractor {
                         .eraseToAnyPublisher()
                 )
         }
-        #endif
     }
+    #endif
 }
 
 extension DefaultLoginInteractor: LoginInteractor {
-    func loginWithApple(with authorizationController: AuthorizationController) {
+    func loginWithApple(
+        with authorizationController: AuthorizationController,
+        socialLoginType: Binding<SocialLoginType?>
+    ) {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -90,7 +102,7 @@ extension DefaultLoginInteractor: LoginInteractor {
 //                let email = appleIDCredential.email
 
                 let socialIdData = SocialIdData(socialLoginType: .apple)
-                tryUmpaLogin(with: socialIdData)
+                attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
                     .store(in: cancelBag)
             default:
                 assertionFailure()
@@ -100,20 +112,20 @@ extension DefaultLoginInteractor: LoginInteractor {
         }
     }
 
-    func loginWithKakao() {
+    func loginWithKakao(socialLoginType: Binding<SocialLoginType?>) {
         Task {
             let oauthToken = try await _loginWithKakao()
             print(oauthToken.idToken)
 
             let socialIdData = SocialIdData(socialLoginType: .kakao)
-            tryUmpaLogin(with: socialIdData)
+            attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
                 .store(in: cancelBag)
         } catch: { error in
             print(error)
         }
     }
 
-    func loginWithNaver() {
+    func loginWithNaver(socialLoginType: Binding<SocialLoginType?>) {
         Task {
             let loginResult = try await NidOAuth.shared.requestLogin()
             let accessToken = loginResult.accessToken.tokenString
@@ -122,14 +134,14 @@ extension DefaultLoginInteractor: LoginInteractor {
             print("Id: ", id)
 
             let socialIdData = SocialIdData(socialLoginType: .naver)
-            tryUmpaLogin(with: socialIdData)
+            attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
                 .store(in: cancelBag)
         } catch: { error in
             print("Error: ", error.localizedDescription)
         }
     }
 
-    func loginWithGoogle() {
+    func loginWithGoogle(socialLoginType: Binding<SocialLoginType?>) {
         guard let presentingVC = UIApplication.shared.keyRootViewController else {
             UmpaLogger.log("No presenting view controller")
             return
@@ -143,13 +155,15 @@ extension DefaultLoginInteractor: LoginInteractor {
             UmpaLogger.log(user.profile?.name ?? "")
 
             let socialIdData = SocialIdData(socialLoginType: .google)
-            tryUmpaLogin(with: socialIdData)
+            attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
                 .store(in: cancelBag)
         } catch: { error in
             UmpaLogger.log(error.localizedDescription, level: .error)
         }
     }
 }
+
+// MARK: - Private Methods
 
 extension DefaultLoginInteractor {
     @MainActor
@@ -185,8 +199,12 @@ extension DefaultLoginInteractor {
         }
     }
 
+    /// 소셜 로그인 후 아이디 정보로 Umpa 로그인을 시도합니다.
     @MainActor
-    private func tryUmpaLogin(with socialIdData: SocialIdData) -> AnyCancellable {
+    private func attemptUmpaLogin(
+        with socialIdData: SocialIdData,
+        socialLoginType: Binding<SocialLoginType?>
+    ) -> AnyCancellable {
         checkAccountLinkedSocialId(with: socialIdData)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -195,17 +213,22 @@ extension DefaultLoginInteractor {
                 }
             } receiveValue: { [appState] user in
                 if let user {
-                    appState.userData.login.currentUser = user
-                    switch user.userType {
-                    case .student:
-                        appState.routing.currentTab = .teacherFinder
-                    case .teacher:
-                        appState.routing.currentTab = .teacherHome
-                    }
+                    loginByUser(user)
                 } else {
-                    appState.routing.loginNavigationPath.append(socialIdData.socialLoginType)
+                    socialLoginType.wrappedValue = socialIdData.socialLoginType
+                    appState.routing.loginNavigationPath.append(SignUpRoute.phoneNumberVerification)
                 }
             }
+    }
+
+    private func loginByUser(_ user: AnyUser) {
+        appState.userData.login.currentUser = user
+        switch user.userType {
+        case .student:
+            appState.routing.currentTab = .teacherFinder
+        case .teacher:
+            appState.routing.currentTab = .teacherHome
+        }
     }
 }
 

@@ -27,24 +27,33 @@ struct AcceptTermsView: View {
 
     var body: some View {
         content
+            .navigationDestination(for: SignUpRoute.self) { route in
+                if case .userTypeSelection = route {
+                    UserTypeSelectionView()
+                }
+            }
     }
 
-    @ViewBuilder
     var content: some View {
-        VStack(alignment: .leading, spacing: fs(70)) {
-            Text("약관을 확인해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, SignUpSharedUIConstant.titleTopPadding)
-            acceptSection
+        VStack {
+            VStack(alignment: .leading, spacing: fs(70)) {
+                Text("약관을 확인해주세요")
+                    .font(SignUpSharedUIConstant.titleFont)
+                    .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, SignUpSharedUIConstant.titleTopPadding)
+                acceptSection
+            }
+            .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+
+            Spacer()
+
+            SignUpBottomButton(action: interactor.moveToNext) {
+                Text("다음")
+            }
+            .disabled(!hasAcceptedAllTerms)
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
-        Spacer()
-        SignUpBottomButton(action: interactor.moveToNext) {
-            Text("다음")
-        }
-        .disabled(!hasAcceptedAllTerms)
+        .background(.white)
     }
 
     var acceptSection: some View {

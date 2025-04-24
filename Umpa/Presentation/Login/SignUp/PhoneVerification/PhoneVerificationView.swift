@@ -4,11 +4,23 @@ import Domain
 import Factory
 import SwiftUI
 
+/// 학생 또는 선생님 회원가입을 진행하기 전에 공통으로 필요한 데이터.
+final class PreSignUpData: ObservableObject {
+    let socialLoginType: SocialLoginType
+    @Published var userType: UserType?
+
+    init(socialLoginType: SocialLoginType) {
+        self.socialLoginType = socialLoginType
+    }
+}
+
 struct PhoneVerificationView: View {
     enum FocusField: Hashable {
         case phoneNumber
         case verificationCode
     }
+
+    @StateObject private var preSignUpData: PreSignUpData
 
     /// 하이픈(-)을 제외한 실제 전화번호 문자열 (01012345678)
     @State private var rawPhoneNumber: String = ""
@@ -48,6 +60,10 @@ struct PhoneVerificationView: View {
         return isSentVerificationCode.value || isSentVerificationCode.isLoading
     }
 
+    init(socialLoginType: SocialLoginType) {
+        self._preSignUpData = StateObject(wrappedValue: PreSignUpData(socialLoginType: socialLoginType))
+    }
+
     // MARK: View
 
     var body: some View {
@@ -58,9 +74,10 @@ struct PhoneVerificationView: View {
             }
             .navigationDestination(for: SignUpRoute.self) { route in
                 if case .acceptTerms = route {
-                    // AcceptTermsView()
+                    AcceptTermsView()
                 }
             }
+            .environmentObject(preSignUpData)
     }
 
     @ViewBuilder
@@ -275,5 +292,5 @@ private extension Int {
 }
 
 #Preview {
-    PhoneVerificationView()
+    PhoneVerificationView(socialLoginType: .kakao)
 }
