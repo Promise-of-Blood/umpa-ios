@@ -47,6 +47,12 @@ struct DefaultPhoneVerificationInteractor {
         self.verifyPhoneVerificationCode = verifyPhoneVerificationCode
 
         #if DEBUG
+        setupMockBehavior()
+        #endif
+    }
+
+    #if DEBUG
+    private func setupMockBehavior() {
         if let mockSendPhoneVerificationCodeUseCase =
             sendPhoneVerificationCode as? MockSendPhoneVerificationCodeUseCase
         {
@@ -72,8 +78,8 @@ struct DefaultPhoneVerificationInteractor {
                         .eraseToAnyPublisher()
                 }
         }
-        #endif
     }
+    #endif
 }
 
 extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {

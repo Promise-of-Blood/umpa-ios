@@ -50,7 +50,7 @@ public extension ValueLoadable {
 extension ValueLoadable: Equatable where Value: Equatable {
     public static func == (lhs: ValueLoadable<Value>, rhs: ValueLoadable<Value>) -> Bool {
         switch (lhs, rhs) {
-        // CancelBag 비교는 생략
+        // CancelBag은 동일성 비교의 의미가 없으므로 값만 비교합니다.
         case let (.isLoading(lhsV, _), .isLoading(rhsV, _)):
             return lhsV == rhsV
         case let (.value(lhsV), .value(rhsV)):

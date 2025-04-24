@@ -34,19 +34,18 @@ struct PhoneVerificationView: View {
 
     @FocusState private var focusField: FocusField?
 
+    #if DEBUG
     @Injected(\.mockPhoneVerificationInteractor)
+    #else
+    @Injected(\.phoneVerificationInteractor)
+    #endif
     private var interactor: PhoneVerificationInteractor
 
     private let sharedCornerRadius: CGFloat = fs(10)
 
-    /// 인증 코드를 보낸 직 후부터 `true`를 반환합니다.
+    /// 인증 코드를 보낸 직후부터 `true`를 반환합니다.
     private var isJustSentVerificationCode: Bool {
-        switch isSentVerificationCode {
-        case .value(let isSentVerificationCode):
-            return isSentVerificationCode
-        case .isLoading:
-            return true
-        }
+        return isSentVerificationCode.value || isSentVerificationCode.isLoading
     }
 
     // MARK: View
@@ -59,7 +58,7 @@ struct PhoneVerificationView: View {
             }
             .navigationDestination(for: SignUpRoute.self) { route in
                 if case .acceptTerms = route {
-                    // AccpetTermsView()
+                    // AcceptTermsView()
                 }
             }
     }
@@ -188,8 +187,8 @@ struct PhoneVerificationView: View {
             .keyboardType(.phonePad)
             .onChange(of: verificationCode) { _, newValue in
                 let digits = newValue.filter { $0.isNumber }
-                // 최대 6자리까지만 허용
-                verificationCode = String(digits.prefix(6))
+                let maxVerificationCodeLength = 6
+                verificationCode = String(digits.prefix(maxVerificationCodeLength))
             }
             CountdownText(endDate: $expirationTime, isExpired: $isExpired)
         }
@@ -217,12 +216,14 @@ struct PhoneVerificationView: View {
         if length <= 3 {
             return phoneNumber
         } else if length <= 7 {
-            let index = phoneNumber.index(phoneNumber.startIndex, offsetBy: 3)
-            return phoneNumber[..<index] + "-" + phoneNumber[index...]
+            let prefix = phoneNumber.prefix(3)
+            let suffix = phoneNumber.dropFirst(3)
+            return "\(prefix)-\(suffix)"
         } else {
-            let firstIndex = phoneNumber.index(phoneNumber.startIndex, offsetBy: 3)
-            let secondIndex = phoneNumber.index(phoneNumber.startIndex, offsetBy: 7)
-            return phoneNumber[..<firstIndex] + "-" + phoneNumber[firstIndex ..< secondIndex] + "-" + phoneNumber[secondIndex...]
+            let part1 = phoneNumber.prefix(3)
+            let part2 = phoneNumber.dropFirst(3).prefix(4)
+            let part3 = phoneNumber.dropFirst(7)
+            return "\(part1)-\(part2)-\(part3)"
         }
     }
 

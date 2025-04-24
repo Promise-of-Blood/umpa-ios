@@ -16,6 +16,8 @@ struct LoginView: View {
     @InjectedObject(\.appState) private var appState
     @Injected(\.loginInteractor) private var loginInteractor
 
+    private let socialLoginButtonSize: CGFloat = fs(60)
+
     var body: some View {
         NavigationStack(path: $appState.routing.loginNavigationPath) {
             content
@@ -60,18 +62,21 @@ struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .accessibilityLabel("카카오 로그인")
             Spacer()
             Button(action: loginInteractor.loginWithNaver) {
                 Image(.naverLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .accessibilityLabel("네이버 로그인")
             Spacer()
             Button(action: loginInteractor.loginWithGoogle) {
                 Image(.googleLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .accessibilityLabel("구글 로그인")
             Spacer()
             Button(action: {
                 loginInteractor.loginWithApple(with: authorizationController)
@@ -80,8 +85,9 @@ struct LoginView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .accessibilityLabel("애플 로그인")
         }
-        .frame(maxWidth: .infinity, idealHeight: fs(60))
+        .frame(maxWidth: .infinity, idealHeight: socialLoginButtonSize)
         .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal, fs(46))
         .padding(.bottom, fs(132))
