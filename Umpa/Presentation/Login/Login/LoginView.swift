@@ -14,7 +14,9 @@ struct LoginView: View {
     @Environment(\.authorizationController) private var authorizationController
 
     @InjectedObject(\.appState) private var appState
-    @Injected(\.mockLoginInteractor) private var loginInteractor
+    @Injected(\.loginInteractor) private var loginInteractor
+
+    private let socialLoginButtonSize: CGFloat = fs(60)
 
     var body: some View {
         NavigationStack(path: $appState.routing.loginNavigationPath) {
@@ -28,61 +30,67 @@ struct LoginView: View {
     @ViewBuilder
     var content: some View {
         VStack {
-            Image(.umpaLogo)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 240)
-                .padding(.top, 120)
-            Text("당신의 음악 파트너")
-                .font(.system(size: 22))
-                .foregroundStyle(UmpaColor.lightGray)
-                .padding(10)
+            VStack(spacing: fs(10)) {
+                Text("당신의 음악 파트너")
+                    .font(.pretendardBold(size: fs(20)))
+                    .foregroundStyle(Color.white)
+                    .padding(.top, fs(230))
+                Image(.umpaLogo)
+                    .renderingMode(.template)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: fs(200))
+                    .foregroundStyle(.white)
+            }
             Spacer()
-            loginButtons
+            VStack(spacing: fs(20)) {
+                Text("소셜계정으로 바로 시작하기")
+                    .font(.pretendardSemiBold(size: fs(16)))
+                    .foregroundStyle(.white)
+                loginButtons
+            }
+            .frame(maxWidth: .infinity)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(UmpaColor.mainBlue)
     }
 
     var loginButtons: some View {
-        VStack(spacing: 10) {
-            Button(action: loginWithKakao) {
-                Image(.kakaoLogin)
+        HStack(spacing: fs(4)) {
+            Button(action: loginInteractor.loginWithKakao) {
+                Image(.kakaoLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            Button(action: loginWithNaver) {
-                Image(.naverLogin)
+            .accessibilityLabel("카카오 로그인")
+            Spacer()
+            Button(action: loginInteractor.loginWithNaver) {
+                Image(.naverLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            Button(action: loginWithGoogle) {
-                Image(.googleLogin)
+            .accessibilityLabel("네이버 로그인")
+            Spacer()
+            Button(action: loginInteractor.loginWithGoogle) {
+                Image(.googleLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
-            Button(action: loginWithApple) {
-                Image(systemName: "apple.logo")
+            .accessibilityLabel("구글 로그인")
+            Spacer()
+            Button(action: {
+                loginInteractor.loginWithApple(with: authorizationController)
+            }) {
+                Image(.appleLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .accessibilityLabel("애플 로그인")
         }
-        .padding(.horizontal, 30)
-        .padding(.bottom, 30)
-    }
-
-    func loginWithKakao() {
-        loginInteractor.loginWithKakao()
-    }
-
-    func loginWithNaver() {
-        loginInteractor.loginWithNaver()
-    }
-
-    func loginWithGoogle() {
-        loginInteractor.loginWithGoogle()
-    }
-
-    func loginWithApple() {
-        loginInteractor.loginWithApple(with: authorizationController)
+        .frame(maxWidth: .infinity, idealHeight: socialLoginButtonSize)
+        .fixedSize(horizontal: false, vertical: true)
+        .padding(.horizontal, fs(46))
+        .padding(.bottom, fs(132))
     }
 }
 

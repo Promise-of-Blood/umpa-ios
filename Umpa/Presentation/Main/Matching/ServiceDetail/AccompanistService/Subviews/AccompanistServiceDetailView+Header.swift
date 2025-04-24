@@ -36,7 +36,7 @@ extension AccompanistServiceDetailView {
                     ServiceDetailPricePerUnit(model: .init(price: service.price, unitType: .school))
                         .padding(.vertical, fs(4))
                 }
-                .frame(maxWidth: .fill, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, fs(30))
 
                 BottomLineSegmentedControl(
@@ -65,7 +65,7 @@ extension AccompanistServiceDetailView {
             } placeholder: {
                 Color.gray
             }
-            .frame(maxWidth: .fill, idealHeight: fs(374))
+            .frame(maxWidth: .infinity, idealHeight: fs(374))
             .fixedSize(horizontal: false, vertical: true)
         }
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fde400;
+      }
+
+      .cls-2 {
+        fill-rule: evenodd;
+        opacity: .9;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" x="0" y="0" width="240" height="240" rx="120" ry="120"/>
+  <path class="cls-2" d="m120,72.56c-30.39,0-55.03,19.13-55.03,42.72,0,14.67,9.53,27.61,24.04,35.3l-6.11,22.41c-.54,1.99,1.72,3.56,3.45,2.41l26.76-17.75c2.26.22,4.55.35,6.89.35,30.39,0,55.03-19.13,55.03-42.72s-24.64-42.72-55.03-42.72Z"/>
+</svg>

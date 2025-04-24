@@ -43,7 +43,7 @@ struct ReviewTabContent: View {
                     .foregroundStyle(selectedTab == .review ? UmpaColor.main : UmpaColor.mediumGray)
             }
         }
-        .frame(maxWidth: .fill, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, fs(5))
         .padding(.horizontal, fs(8))
     }
@@ -99,17 +99,17 @@ extension ReviewTabContent {
                         VStack(alignment: .leading, spacing: fs(10)) {
                             Text(review.content)
                                 .fontWithLineHeight(font: .pretendardRegular(size: fs(11)), lineHeight: fs(18))
-                                .frame(maxWidth: .fill, alignment: .leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             Text("더보기")
                                 .font(.pretendardSemiBold(size: fs(10)))
                                 .underline()
                         }
-                        .frame(maxWidth: .fill)
+                        .frame(maxWidth: .infinity)
                         images
                     }
-                    .frame(maxWidth: .fill)
+                    .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .fill)
+                .frame(maxWidth: .infinity)
                 Text(createdAt)
                     .font(.pretendardRegular(size: fs(10)))
                     .foregroundStyle(UmpaColor.mediumGray)

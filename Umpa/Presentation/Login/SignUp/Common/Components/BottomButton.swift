@@ -3,12 +3,11 @@
 import SwiftUI
 
 struct BottomButton: ViewModifier {
-    @Environment(\.isEnabled) var isEnabled
+    @Environment(\.isEnabled) private var isEnabled
 
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 22))
-            .fontWeight(.medium)
+            .font(.pretendardBold(size: fs(20)))
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, idealHeight: 71)
             .fixedSize(horizontal: false, vertical: true)

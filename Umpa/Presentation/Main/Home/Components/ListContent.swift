@@ -38,7 +38,7 @@ struct ListContent: View {
                 .font(.pretendardMedium(size: 12))
                 .foregroundStyle(UmpaColor.darkGray)
                 .lineLimit(1)
-                .frame(maxWidth: .fill, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Text(model.timeText)
                     .font(.pretendardRegular(size: 10))
@@ -47,7 +47,7 @@ struct ListContent: View {
                 LikeCommentView(likeCount: model.likeCount, commentCount: model.commentCount)
             }
         }
-        .frame(maxWidth: .fill)
+        .frame(maxWidth: .infinity)
     }
 }
 

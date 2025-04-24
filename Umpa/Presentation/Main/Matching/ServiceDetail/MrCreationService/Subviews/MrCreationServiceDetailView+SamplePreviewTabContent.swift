@@ -19,11 +19,11 @@ extension MrCreationServiceDetailView {
                     ZStack {
                         if let url = sampleMusic.url {
                             VideoPlayer(player: AVPlayer(url: url))
-                                .frame(maxWidth: .fill, idealHeight: fs(172))
+                                .frame(maxWidth: .infinity, idealHeight: fs(172))
                                 .fixedSize(horizontal: false, vertical: true)
                         } else {
                             Text("재생할 수 없습니다.")
-                                .frame(maxWidth: .fill, idealHeight: fs(172))
+                                .frame(maxWidth: .infinity, idealHeight: fs(172))
                                 .background(Color.gray.opacity(0.2))
                         }
 //                        playButton

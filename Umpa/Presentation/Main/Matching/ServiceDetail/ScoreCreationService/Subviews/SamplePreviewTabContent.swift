@@ -19,7 +19,7 @@ extension ScoreCreationServiceDetailView {
                     } placeholder: {
                         Color.gray.opacity(0.5)
                     }
-                    .frame(maxWidth: .fill, idealHeight: fs(380))
+                    .frame(maxWidth: .infinity, idealHeight: fs(380))
                     .fixedSize(horizontal: false, vertical: true)
                     .overlay {
                         // TODO: 워터 마크 추가

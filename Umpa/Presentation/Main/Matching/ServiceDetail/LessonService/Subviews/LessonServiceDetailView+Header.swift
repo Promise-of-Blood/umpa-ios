@@ -27,7 +27,7 @@ extension LessonServiceDetailView {
                 } placeholder: {
                     Color.gray
                 }
-                .frame(maxWidth: .fill, idealHeight: fs(374))
+                .frame(maxWidth: .infinity, idealHeight: fs(374))
                 .fixedSize(horizontal: false, vertical: true)
 
                 VStack(alignment: .leading, spacing: fs(6)) {
@@ -54,7 +54,7 @@ extension LessonServiceDetailView {
                         BadgeView("시범 레슨 운영")
                     }
                 }
-                .frame(maxWidth: .fill, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, fs(30))
 
                 BottomLineSegmentedControl(
