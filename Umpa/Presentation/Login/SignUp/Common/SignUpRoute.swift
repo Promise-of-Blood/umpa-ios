@@ -5,4 +5,5 @@ import Foundation
 enum SignUpRoute: Hashable {
     case phoneNumberVerification
     case acceptTerms
+    case userTypeSelection
 }

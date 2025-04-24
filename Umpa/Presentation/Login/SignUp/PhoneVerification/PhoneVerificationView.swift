@@ -99,8 +99,8 @@ struct PhoneVerificationView: View {
     var header: some View {
         VStack(alignment: .leading, spacing: fs(24)) {
             Text("전화번호를 입력해주세요")
-                .font(.pretendardSemiBold(size: fs(24)))
-                .foregroundStyle(UmpaColor.darkBlue)
+                .font(SignUpSharedUIConstant.titleFont)
+                .foregroundStyle(SignUpSharedUIConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("음파 서비스를 이용하기 위해서 휴대전화번호 인증이 필요합니다. 번호는 외부에 노출되지 않습니다.")
                 .font(.pretendardRegular(size: fs(13)))
