@@ -286,6 +286,15 @@ extension Container {
         }
         .scope(.shared)
     }
+
+    var acceptTermsInteractor: Factory<AcceptTermsInteractor> {
+        Factory(self) {
+            DefaultAcceptTermsInteractor(
+                appState: self.appState()
+            )
+        }
+        .scope(.shared)
+    }
 }
 
 #if DEBUG
