@@ -14,7 +14,7 @@ struct SignUpBottomButton<Content>: View where Content: View {
             label()
                 .font(.pretendardBold(size: fs(20)))
                 .foregroundStyle(.white)
-                .frame(maxWidth: .infinity, idealHeight: 71)
+                .frame(maxWidth: .infinity, idealHeight: fs(60))
                 .fixedSize(horizontal: false, vertical: true)
                 .background(isEnabled ? UmpaColor.mainBlue : Color.gray, in: RoundedRectangle(cornerRadius: 12))
                 .padding()
