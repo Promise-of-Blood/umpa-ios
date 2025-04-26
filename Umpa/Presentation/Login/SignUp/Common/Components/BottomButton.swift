@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "더 이상 사용되지 않습니다. `SignUpBottomButton`을 사용하세요.")
 struct BottomButton: ViewModifier {
     @Environment(\.isEnabled) private var isEnabled
 

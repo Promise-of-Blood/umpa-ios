@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "더 이상 사용되지 않음, 삭제 예정")
 struct TitleText: ViewModifier {
     func body(content: Content) -> some View {
         content
