@@ -10,6 +10,8 @@ struct UserTypeSelectionView: View {
 
     @Injected(\.appState) private var appState
 
+    @State private var showAlert = false
+
     var body: some View {
         content
             .navigationBarBackButtonHidden()
@@ -26,6 +28,9 @@ struct UserTypeSelectionView: View {
                 if case .teacherMajorSelection = route {
                     TeacherMajorSelectionView(socialLoginType: preSignUpData.socialLoginType)
                 }
+            }
+            .alert("회원 유형을 선택해주세요", isPresented: $showAlert) {
+                Button("확인", role: .cancel) {}
             }
     }
 
@@ -70,7 +75,7 @@ struct UserTypeSelectionView: View {
                     appState.routing.loginNavigationPath.append(SignUpRoute.teacherMajorSelection)
                 case .none:
                     UmpaLogger.log("회원 유형이 선택되지 않고 다음 버튼이 눌림", level: .error)
-                    assertionFailure()
+                    showAlert = true
                 }
             } label: {
                 Text("다음")

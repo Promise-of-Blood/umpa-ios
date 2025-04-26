@@ -4,7 +4,7 @@ import Components
 import SwiftUI
 
 struct DreamCollegesSelectionView: View {
-    @ObservedObject var signUpModel: SignUpModel
+    @ObservedObject var studentSignUpModel: StudentSignUpModel
 
     var body: some View {
         content
@@ -43,6 +43,6 @@ struct DreamCollegesSelectionView: View {
 
 #Preview {
     NavigationStack {
-        DreamCollegesSelectionView(signUpModel: SignUpModel(socialLoginType: .apple))
+        DreamCollegesSelectionView(studentSignUpModel: StudentSignUpModel(socialLoginType: .apple))
     }
 }

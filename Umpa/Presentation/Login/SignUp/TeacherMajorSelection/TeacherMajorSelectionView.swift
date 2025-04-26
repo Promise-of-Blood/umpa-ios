@@ -45,7 +45,7 @@ struct TeacherMajorSelectionView: View {
 //                } else {
 //                    SignUpFinishView()
 //                }
-                DreamCollegesSelectionView(signUpModel: signUpModel)
+//                DreamCollegesSelectionView(signUpModel: signUpModel)
             } label: {
                 Text("다음")
                     .modifier(BottomButton())
