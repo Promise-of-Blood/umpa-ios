@@ -13,56 +13,38 @@ struct UmpaApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @InjectedObject(\.appState) private var appState
-    @Injected(\.appInteractor) private var appInteractor
+    #if DEBUG
+    @Injected(\.mockAppInteractor)
+    #else
+    @Injected(\.appInteractor)
+    #endif
+    private var appInteractor
 
     init() {
         NetworkMonitor.shared.start()
         prepareKakaoLogin()
         prepareNaverLogin()
+        prepareAppData()
     }
 
     var body: some Scene {
         WindowGroup {
             mainWindow
-                .onOpenURL { url in
-                    if AuthApi.isKakaoTalkLoginUrl(url) {
-                        if !AuthController.handleOpenUrl(url: url) {
-                            UmpaLogger.log("카카오 리다이렉트 URL 처리 실패", level: .error)
-                        }
-                        return
-                    }
-                    if NidOAuth.shared.handleURL(url) {
-                        return
-                    }
-                    if GIDSignIn.sharedInstance.handle(url) {
-                        return
-                    }
-                }
-                .task {
-                    do {
-                        let user = try await GIDSignIn.sharedInstance.restorePreviousSignIn()
-                        // Check if `user` exists; otherwise, do something with `error`
-                        UmpaLogger.log(user.description, level: .debug)
-                    } catch {
-                        UmpaLogger.log("Error restoring sign-in: \(error)", level: .error)
-                    }
-                }
+                .onOpenURL(perform: handleUrl)
+                .task(restorePreviousSignIn)
         }
     }
 
     @ViewBuilder
     var mainWindow: some View {
         if appState.system.isSplashFinished {
-            if appState.userData.login.isLoggedIn {
+            if appState.userData.loginInfo.isLoggedIn {
                 MainTabView()
             } else {
                 LoginView()
             }
         } else {
             SplashView()
-                .onAppear {
-                    appInteractor.loadMajorList()
-                }
         }
     }
 }
@@ -78,6 +60,37 @@ extension UmpaApp {
     private func prepareNaverLogin() {
         NidOAuth.shared.initialize()
         NidOAuth.shared.setLoginBehavior(.appPreferredWithInAppBrowserFallback)
+    }
+
+    private func handleUrl(_ url: URL) {
+        if AuthApi.isKakaoTalkLoginUrl(url) {
+            if !AuthController.handleOpenUrl(url: url) {
+                UmpaLogger.log("카카오 리다이렉트 URL 처리 실패", level: .error)
+            }
+            return
+        }
+        if NidOAuth.shared.handleURL(url) {
+            return
+        }
+        if GIDSignIn.sharedInstance.handle(url) {
+            return
+        }
+    }
+
+    @Sendable
+    private func restorePreviousSignIn() async {
+        do {
+            let user = try await GIDSignIn.sharedInstance.restorePreviousSignIn()
+            // Check if `user` exists; otherwise, do something with `error`
+            UmpaLogger.log(user.description, level: .debug)
+        } catch {
+            UmpaLogger.log("Error restoring sign-in: \(error)", level: .error)
+        }
+    }
+
+    private func prepareAppData() {
+        appInteractor.loadCollegeList()
+        appState.system.isSplashFinished = true
     }
 }
 

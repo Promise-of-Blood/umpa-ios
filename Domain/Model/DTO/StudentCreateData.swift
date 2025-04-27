@@ -7,18 +7,18 @@ public struct StudentCreateData {
     let name: String
     let username: String
     let major: Major
+    let dreamCollege0: String
     let dreamCollege1: String
     let dreamCollege2: String
-    let dreamCollege3: String
 
     public init?(
         socialLoginType: SocialLoginType,
         name: String,
         username: String,
         major: Major?,
+        dreamCollege0: String,
         dreamCollege1: String,
-        dreamCollege2: String,
-        dreamCollege3: String
+        dreamCollege2: String
     ) {
         guard let major else {
             return nil
@@ -28,9 +28,9 @@ public struct StudentCreateData {
         self.name = name
         self.username = username
         self.major = major
+        self.dreamCollege0 = dreamCollege0
         self.dreamCollege1 = dreamCollege1
         self.dreamCollege2 = dreamCollege2
-        self.dreamCollege3 = dreamCollege3
     }
 }
 

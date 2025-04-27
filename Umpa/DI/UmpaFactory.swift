@@ -72,6 +72,15 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    private var collegeRepository: Factory<CollegeRepository> {
+        Factory(self) {
+            DefaultCollegeRepository(
+                network: self.network()
+            )
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - DataAccess
@@ -154,8 +163,13 @@ extension Container {
 
 extension Container {
     var appInteractor: Factory<AppInteractor> {
-        Factory(self) { DefaultAppInteractor() }
-            .scope(.singleton)
+        Factory(self) {
+            DefaultAppInteractor(
+                appState: self.appState(),
+                collegeRepository: self.collegeRepository(),
+            )
+        }
+        .scope(.singleton)
     }
 
     var phoneVerificationInteractor: Factory<PhoneVerificationInteractor> {
@@ -327,6 +341,13 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    var mockCollegeRepository: Factory<CollegeRepository> {
+        Factory(self) {
+            MockCollegeRepository()
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - UseCase
@@ -361,6 +382,15 @@ extension Container {
 // MARK: - Interactor
 
 extension Container {
+    var mockAppInteractor: Factory<AppInteractor> {
+        Factory(self) {
+            DefaultAppInteractor(
+                appState: self.appState(),
+                collegeRepository: self.mockCollegeRepository()
+            )
+        }
+    }
+
     var mockStudentSignUpInteractor: Factory<StudentSignUpInteractor> {
         Factory(self) {
             DefaultStudentSignUpInteractor(

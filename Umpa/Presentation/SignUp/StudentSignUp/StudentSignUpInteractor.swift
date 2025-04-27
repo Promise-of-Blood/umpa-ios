@@ -70,8 +70,8 @@ extension DefaultStudentSignUpInteractor: StudentSignUpInteractor {
                 if let error = completion.error {
                     // TODO: Handle error
                 }
-            } receiveValue: { student in
-                appState.userData.login.currentUser = student.eraseToAnyUser()
+            } receiveValue: { [appState] student in
+                appState.userData.loginInfo.currentUser = student.eraseToAnyUser()
             }
             .store(in: cancelBag)
     }

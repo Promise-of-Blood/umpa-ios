@@ -108,7 +108,10 @@ struct StudentSignUpView: View {
                     .tag(progress)
                 case .dreamCollegeSelection:
                     VStack {
-                        DreamCollegesSelectionView(studentSignUpModel: studentSignUpModel)
+                        DreamCollegesSelectionView(
+                            studentSignUpModel: studentSignUpModel,
+                            isSatisfiedToNextStep: $isSatisfiedToNextStep,
+                        )
                         Spacer(minLength: 0)
                     }
                     .tag(progress)
