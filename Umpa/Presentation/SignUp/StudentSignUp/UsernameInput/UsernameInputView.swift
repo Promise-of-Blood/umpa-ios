@@ -9,6 +9,8 @@ struct UsernameInputView: View {
     @ObservedObject var studentSignUpModel: StudentSignUpModel
     @Binding var isSatisfiedToNextStep: Bool
 
+    @Binding var isDuplicatedUsername: Bool?
+
     @FocusState private var isUsernameFieldFocused: Bool
 
     // MARK: View
@@ -60,6 +62,7 @@ struct UsernameInputView: View {
 #Preview(traits: .sizeThatFitsLayout) {
     UsernameInputView(
         studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
-        isSatisfiedToNextStep: .constant(false)
+        isSatisfiedToNextStep: .constant(false),
+        isDuplicatedUsername: .constant(false)
     )
 }

@@ -403,6 +403,13 @@ extension Container {
         .scope(.shared)
     }
 
+    var mockTeacherSignUpInteractor: Factory<TeacherSignUpInteractor> {
+        Factory(self) {
+            DefaultTeacherSignUpInteractor()
+        }
+        .scope(.shared)
+    }
+
     var mockLoginInteractor: Factory<LoginInteractor> {
         Factory(self) {
             DefaultLoginInteractor(

@@ -93,6 +93,7 @@ struct StudentSignUpView: View {
                         UsernameInputView(
                             studentSignUpModel: studentSignUpModel,
                             isSatisfiedToNextStep: $isSatisfiedToNextStep,
+                            isDuplicatedUsername: $isDuplicatedUsername,
                         )
                         Spacer(minLength: 0)
                     }

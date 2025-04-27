@@ -22,3 +22,15 @@ extension TeacherSignUpModel {
         )
     }
 }
+
+extension TeacherSignUpModel: CustomDebugStringConvertible {
+    var debugDescription: String {
+        """
+        TeacherSignUpModel(
+            socialLoginType: \(socialLoginType),
+            name: \(name),
+            major: \(String(describing: major))
+        )
+        """
+    }
+}
