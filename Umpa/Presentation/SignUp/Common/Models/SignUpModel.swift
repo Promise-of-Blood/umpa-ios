@@ -11,9 +11,9 @@ final class SignUpModel: ObservableObject {
     @Published var nickname: String = ""
     @Published var userType: UserType?
     @Published var major: String?
-    @Published var wantedCollege1: String?
-    @Published var wantedCollege2: String?
-    @Published var wantedCollege3: String?
+    @Published var dreamCollege1: String?
+    @Published var dreamCollege2: String?
+    @Published var dreamCollege3: String?
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType

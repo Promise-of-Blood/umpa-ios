@@ -22,6 +22,6 @@ extension DefaultAcceptTermsInteractor: AcceptTermsInteractor {
         guard !hasMovedToNext else { return }
         hasMovedToNext = true
         appState.routing.loginNavigationPath.append(SignUpRoute.userTypeSelection)
-        UmpaLogger.log("회원 유형 선택 화면으로 이동")
+        UmpaLogger.log("회원 유형 선택 화면으로 이동", level: .debug)
     }
 }

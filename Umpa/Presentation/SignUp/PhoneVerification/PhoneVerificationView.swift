@@ -87,7 +87,7 @@ struct PhoneVerificationView: View {
             verificationSection
         }
         .frame(maxWidth: .infinity)
-        .padding(.top, SignUpSharedUIConstant.titleTopPadding)
+        .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithoutProgressView)
         .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
 
         Spacer()

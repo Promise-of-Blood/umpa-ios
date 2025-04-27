@@ -159,7 +159,7 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
             } receiveValue: { isVerified in
                 isVarifiedCode.wrappedValue = .value(isVerified)
                 if isVerified {
-                    UmpaLogger.log("전화번호 인증 성공(\(code)), 약관 동의 화면으로 이동")
+                    UmpaLogger.log("전화번호 인증 성공(\(code)), 약관 동의 화면으로 이동", level: .debug)
                     appState.routing.loginNavigationPath.append(SignUpRoute.acceptTerms)
                 }
             }

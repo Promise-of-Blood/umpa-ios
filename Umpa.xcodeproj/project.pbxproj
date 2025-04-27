@@ -176,6 +176,7 @@
 			membershipExceptions = (
 				TestHelpers.swift,
 				UnitTests/DomainTests/PhoneNumberTests.swift,
+				UnitTests/DomainTests/UsernameValidatorTests.swift,
 				UnitTests/InfraTests/NetworkKitTests.swift,
 				UnitTests/InfraTests/UserDefaultsStorageTests.swift,
 				UnitTests/InteractorTests/ChatInteractorTests.swift,

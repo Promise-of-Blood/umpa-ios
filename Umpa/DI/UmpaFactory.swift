@@ -5,7 +5,6 @@ import Domain
 import Factory
 
 extension Scope {
-    static let signUpSession = Cached()
     static let mainSession = Cached()
 }
 
@@ -100,9 +99,9 @@ extension Container {
 // MARK: - UseCase
 
 extension Container {
-    private var signUpUseCase: Factory<SignUpUseCase> {
+    private var signUpUseCase: Factory<StudentSignUpUseCase> {
         Factory(self) {
-            DefaultSignUpUseCase(
+            DefaultStudentSignUpUseCase(
                 jwtRepository: self.jwtRepository()
             )
         }
@@ -175,16 +174,6 @@ extension Container {
             DefaultLoginInteractor(
                 appState: self.appState(),
                 checkAccountLinkedSocialIdUseCase: self.checkAccountLinkedSocialIdUseCase()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var signUpInteractor: Factory<SignUpInteractor> {
-        Factory(self) {
-            SignUpInteractorImpl(
-                appState: self.appState(),
-                signUpUseCase: self.signUpUseCase()
             )
         }
         .scope(.shared)
@@ -343,8 +332,8 @@ extension Container {
 // MARK: - UseCase
 
 extension Container {
-    var mockSignUpUseCase: Factory<SignUpUseCase> {
-        Factory(self) { MockSignUpUseCase() }
+    var mockStudentSignUpUseCase: Factory<StudentSignUpUseCase> {
+        Factory(self) { MockStudentSignUpUseCase() }
             .scope(.singleton)
     }
 
@@ -362,9 +351,27 @@ extension Container {
         Factory(self) { MockVerifyPhoneVerificationCodeUseCase() }
             .scope(.singleton)
     }
+
+    var mockCheckAvailableUsernameUseCase: Factory<CheckAvailableUsernameUseCase> {
+        Factory(self) { MockCheckAvailableUsernameUseCase() }
+            .scope(.singleton)
+    }
 }
 
+// MARK: - Interactor
+
 extension Container {
+    var mockStudentSignUpInteractor: Factory<StudentSignUpInteractor> {
+        Factory(self) {
+            DefaultStudentSignUpInteractor(
+                appState: self.appState(),
+                signUp: self.mockStudentSignUpUseCase(),
+                checkAvailableUsername: self.mockCheckAvailableUsernameUseCase()
+            )
+        }
+        .scope(.shared)
+    }
+
     var mockLoginInteractor: Factory<LoginInteractor> {
         Factory(self) {
             DefaultLoginInteractor(
@@ -380,16 +387,6 @@ extension Container {
             DefaultTeacherHomeInteractor(
                 serviceRepository: self.stubServiceRepository(),
                 getAccessTokenUseCase: self.getAccessTokenUseCase()
-            )
-        }
-        .scope(.shared)
-    }
-
-    var mockSignUpInteractor: Factory<SignUpInteractor> {
-        Factory(self) {
-            SignUpInteractorImpl(
-                appState: self.appState(),
-                signUpUseCase: self.mockSignUpUseCase()
             )
         }
         .scope(.shared)

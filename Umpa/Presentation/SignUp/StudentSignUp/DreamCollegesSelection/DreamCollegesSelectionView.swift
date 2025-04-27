@@ -18,15 +18,12 @@ struct DreamCollegesSelectionView: View {
             Spacer()
             InputContentVStack(spacing: 10) {
                 VStack {
-                    InputFieldLabelText("학교 1")
                     // Picker
                 }
                 VStack {
-                    InputFieldLabelText("학교 2")
                     // Picker
                 }
                 VStack {
-                    InputFieldLabelText("학교 3")
                     // Picker
                 }
             }
