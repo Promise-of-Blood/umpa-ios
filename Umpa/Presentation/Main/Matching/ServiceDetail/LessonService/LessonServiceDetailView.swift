@@ -100,7 +100,7 @@ extension LessonServiceDetailView {
 #if DEBUG
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.login.currentUser = Student.sample0.eraseToAnyUser()
+    appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
     return
         NavigationStack {

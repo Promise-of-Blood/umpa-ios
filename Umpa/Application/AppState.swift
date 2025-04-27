@@ -39,8 +39,10 @@ enum MainViewTabType: Int {
 
 extension AppState {
     struct UserData {
-        var teacherFinder = TeacherFinder()
-        var login = Login()
+        var teacherFinderInfo = TeacherFinderInfo()
+        var loginInfo = LoginInfo()
+        
+        var collegeList: [String] = []
 
         @available(*, deprecated, renamed: "Major.allCases", message: "삭제 예정")
         var majorList: [String] = []
@@ -50,14 +52,14 @@ extension AppState {
 }
 
 extension AppState.UserData {
-    struct TeacherFinder {
+    struct TeacherFinderInfo {
         var selectedService: ServiceType = .lesson
         var selectedSubject: Subject?
 
         fileprivate init() {}
     }
 
-    struct Login {
+    struct LoginInfo {
         var currentUser: AnyUser?
 
         fileprivate init() {}
@@ -74,7 +76,7 @@ extension AppState {
 
 // MARK: - Conveniences
 
-extension AppState.UserData.Login {
+extension AppState.UserData.LoginInfo {
     var isLoggedIn: Bool {
         currentUser != nil
     }

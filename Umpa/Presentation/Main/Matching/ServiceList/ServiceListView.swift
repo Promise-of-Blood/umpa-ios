@@ -20,7 +20,7 @@ struct ServiceListView: View {
             .onAppear {
                 serviceListInteractor.load(
                     $serviceList,
-                    for: appState.userData.teacherFinder.selectedService
+                    for: appState.userData.teacherFinderInfo.selectedService
                 )
             }
             .navigationDestination(for: AnyService.self) { service in
@@ -50,7 +50,7 @@ struct ServiceListView: View {
                 FilterButton()
                 FilterButton()
             }
-            Text(appState.userData.teacherFinder.selectedService.name)
+            Text(appState.userData.teacherFinderInfo.selectedService.name)
             ForEach(serviceList, id: \.id) { service in
                 NavigationLink(value: service) {
                     ServiceListItem(model: service.toServiceListItemModel())

@@ -222,7 +222,7 @@ extension DefaultLoginInteractor {
     }
 
     private func loginByUser(_ user: AnyUser) {
-        appState.userData.login.currentUser = user
+        appState.userData.loginInfo.currentUser = user
         switch user.userType {
         case .student:
             appState.routing.currentTab = .teacherFinder
