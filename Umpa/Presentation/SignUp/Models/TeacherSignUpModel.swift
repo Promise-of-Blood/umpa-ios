@@ -3,7 +3,7 @@
 import Combine
 import Domain
 
-final class TeacherSignUpModel: ObservableObject, MajorSelectable {
+final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
     let socialLoginType: SocialLoginType
     @Published var name: String = ""
     @Published var major: Major?

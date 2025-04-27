@@ -3,13 +3,13 @@
 import Domain
 import Foundation
 
-protocol MajorSelectable: ObservableObject {
+protocol MajorSelectableModel: ObservableObject {
     var major: Major? { get set }
 
     func validateMajor() -> Bool
 }
 
-extension MajorSelectable {
+extension MajorSelectableModel {
     func validateMajor() -> Bool {
         return major != nil
     }

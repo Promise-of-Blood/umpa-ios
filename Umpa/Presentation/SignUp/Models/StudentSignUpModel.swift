@@ -3,7 +3,7 @@
 import Combine
 import Domain
 
-final class StudentSignUpModel: ObservableObject, MajorSelectable {
+final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     let socialLoginType: SocialLoginType
     @Published var name: String = ""
     @Published var username: String = ""

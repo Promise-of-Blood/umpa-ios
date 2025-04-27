@@ -5,8 +5,8 @@ import Domain
 import Factory
 import SwiftUI
 
-struct MajorSelectionView<Model: MajorSelectable>: View {
-    @ObservedObject var studentSignUpModel: Model
+struct MajorSelectionView<Model: MajorSelectableModel>: View {
+    @ObservedObject var signUpModel: Model
     @Binding var isSatisfiedToNextStep: Bool
 
     private let columnCount = 4
@@ -20,10 +20,10 @@ struct MajorSelectionView<Model: MajorSelectable>: View {
     var body: some View {
         content
             .onAppear {
-                isSatisfiedToNextStep = studentSignUpModel.validateMajor()
+                isSatisfiedToNextStep = signUpModel.validateMajor()
             }
-            .onChange(of: studentSignUpModel.major) {
-                isSatisfiedToNextStep = studentSignUpModel.validateMajor()
+            .onChange(of: signUpModel.major) {
+                isSatisfiedToNextStep = signUpModel.validateMajor()
             }
     }
 
@@ -39,10 +39,13 @@ struct MajorSelectionView<Model: MajorSelectable>: View {
                     HStack {
                         ForEach(0 ..< columnCount, id: \.self) { column in
                             let index = row * columnCount + column
-                            let major = Major.allCases[index]
 
-                            MajorSelectionButton(major: major, isSelected: studentSignUpModel.major == major) {
-                                studentSignUpModel.major = major
+                            if let major = Major.allCases[safe: index] {
+                                MajorSelectionButton(major: major, isSelected: signUpModel.major == major) {
+                                    signUpModel.major = major
+                                }
+                            } else {
+                                MajorSelectionButton.hidden()
                             }
 
                             if column < columnCount - 1 {
@@ -67,6 +70,11 @@ private struct MajorSelectionButton: View {
     private let iconSize: CGFloat = fs(26)
     private let iconCornerRadius: CGFloat = fs(14)
     private let buttonSize: CGFloat = fs(52)
+
+    static func hidden() -> some View {
+        Self(major: .piano, isSelected: false, action: {})
+            .hidden()
+    }
 
     var body: some View {
         Button(action: action) {
@@ -125,7 +133,7 @@ private extension Major {
 
     return
         MajorSelectionView(
-            studentSignUpModel: model,
+            signUpModel: model,
             isSatisfiedToNextStep: .constant(false)
         )
 }

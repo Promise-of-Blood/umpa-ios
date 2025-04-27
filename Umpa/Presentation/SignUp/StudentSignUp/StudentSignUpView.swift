@@ -100,7 +100,7 @@ struct StudentSignUpView: View {
                 case .majorSelection:
                     VStack {
                         MajorSelectionView(
-                            studentSignUpModel: studentSignUpModel,
+                            signUpModel: studentSignUpModel,
                             isSatisfiedToNextStep: $isSatisfiedToNextStep,
                         )
                         Spacer(minLength: 0)
