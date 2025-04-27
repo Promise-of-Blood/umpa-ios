@@ -21,7 +21,9 @@ struct DreamCollegesSelectionView: View {
             .onAppear {
                 isSatisfiedToNextStep = studentSignUpModel.validateDreamColleges()
             }
-            .sheet(isPresented: $isSearchSheetShowing) {
+            .sheet(isPresented: $isSearchSheetShowing, onDismiss: {
+                currentSearchingCollege = nil
+            }) {
                 CollegeSearchView(action: setDreamCollege)
                     .presentationDetents([.large])
                     .presentationDragIndicator(.hidden)
@@ -46,17 +48,23 @@ struct DreamCollegesSelectionView: View {
                 DreamCollegesSelectionGroup(
                     title: "희망 학교1",
                     selectedCollege: studentSignUpModel.dreamCollege0,
-                    action: didTapSelectdreamCollege0
+                    action: {
+                        didTapSelectDreamCollege(0)
+                    }
                 )
                 DreamCollegesSelectionGroup(
                     title: "희망 학교2",
                     selectedCollege: studentSignUpModel.dreamCollege1,
-                    action: didTapSelectdreamCollege1
+                    action: {
+                        didTapSelectDreamCollege(1)
+                    }
                 )
                 DreamCollegesSelectionGroup(
                     title: "희망 학교3",
                     selectedCollege: studentSignUpModel.dreamCollege2,
-                    action: didTapSelectdreamCollege2
+                    action: {
+                        didTapSelectDreamCollege(2)
+                    }
                 )
             }
         }
@@ -65,18 +73,8 @@ struct DreamCollegesSelectionView: View {
 
     // MARK: Private Methods
 
-    private func didTapSelectdreamCollege0() {
-        currentSearchingCollege = 0
-        isSearchSheetShowing = true
-    }
-
-    private func didTapSelectdreamCollege1() {
-        currentSearchingCollege = 1
-        isSearchSheetShowing = true
-    }
-
-    private func didTapSelectdreamCollege2() {
-        currentSearchingCollege = 2
+    private func didTapSelectDreamCollege(_ index: Int) {
+        currentSearchingCollege = index
         isSearchSheetShowing = true
     }
 

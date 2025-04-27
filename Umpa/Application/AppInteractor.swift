@@ -62,6 +62,7 @@ extension DefaultAppInteractor: AppInteractor {
                 }
             } receiveValue: { [appState] collegeList in
                 appState.userData.collegeList = collegeList.map(\.name)
+                appState.system.isSplashFinished = true
             }
             .store(in: cancelBag)
     }

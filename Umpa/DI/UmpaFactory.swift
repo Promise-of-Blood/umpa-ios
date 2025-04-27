@@ -389,6 +389,7 @@ extension Container {
                 collegeRepository: self.mockCollegeRepository()
             )
         }
+        .scope(.shared)
     }
 
     var mockStudentSignUpInteractor: Factory<StudentSignUpInteractor> {

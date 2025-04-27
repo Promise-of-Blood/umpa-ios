@@ -90,7 +90,6 @@ extension UmpaApp {
 
     private func prepareAppData() {
         appInteractor.loadCollegeList()
-        appState.system.isSplashFinished = true
     }
 }
 
