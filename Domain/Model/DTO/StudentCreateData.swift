@@ -6,7 +6,7 @@ public struct StudentCreateData {
     let socialLoginType: SocialLoginType
     let name: String
     let username: String
-    let major: String
+    let major: Major
     let dreamCollege1: String
     let dreamCollege2: String
     let dreamCollege3: String
@@ -15,11 +15,15 @@ public struct StudentCreateData {
         socialLoginType: SocialLoginType,
         name: String,
         username: String,
-        major: String,
+        major: Major?,
         dreamCollege1: String,
         dreamCollege2: String,
         dreamCollege3: String
     ) {
+        guard let major else {
+            return nil
+        }
+
         self.socialLoginType = socialLoginType
         self.name = name
         self.username = username

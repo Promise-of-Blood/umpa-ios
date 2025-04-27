@@ -1,12 +1,12 @@
 // Created for Umpa in 2025
 
+import Combine
 import Domain
-import SwiftUI
 
-final class TeacherSignUpModel: ObservableObject {
+final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
     let socialLoginType: SocialLoginType
     @Published var name: String = ""
-    @Published var major: String?
+    @Published var major: Major?
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
@@ -18,7 +18,7 @@ extension TeacherSignUpModel {
         return TeacherCreateData(
             socialLoginType: socialLoginType,
             name: name,
-            major: major ?? ""
+            major: major
         )
     }
 }

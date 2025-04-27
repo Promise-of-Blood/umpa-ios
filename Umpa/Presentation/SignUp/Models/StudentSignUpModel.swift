@@ -2,13 +2,12 @@
 
 import Combine
 import Domain
-import SwiftUI
 
-final class StudentSignUpModel: ObservableObject {
+final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     let socialLoginType: SocialLoginType
     @Published var name: String = ""
     @Published var username: String = ""
-    @Published var major: String?
+    @Published var major: Major?
     @Published var dreamCollege1: String?
     @Published var dreamCollege2: String?
     @Published var dreamCollege3: String?
@@ -20,10 +19,6 @@ final class StudentSignUpModel: ObservableObject {
     func validateUserName() -> Bool {
         StudentCreateData.UsernameValidator(rawUsername: username).validate()
     }
-
-    func validateMajor() -> Bool {
-        major != nil
-    }
 }
 
 extension StudentSignUpModel {
@@ -32,10 +27,26 @@ extension StudentSignUpModel {
             socialLoginType: socialLoginType,
             name: name,
             username: username,
-            major: major ?? "",
+            major: major,
             dreamCollege1: dreamCollege1 ?? "",
             dreamCollege2: dreamCollege2 ?? "",
             dreamCollege3: dreamCollege3 ?? ""
         )
+    }
+}
+
+extension StudentSignUpModel: CustomDebugStringConvertible {
+    var debugDescription: String {
+        """
+        StudentSignUpModel(
+            socialLoginType: \(socialLoginType),
+            name: \(name),
+            username: \(username),
+            major: \(String(describing: major)),
+            dreamCollege1: \(String(describing: dreamCollege1)),
+            dreamCollege2: \(String(describing: dreamCollege2)),
+            dreamCollege3: \(String(describing: dreamCollege3))
+        )
+        """
     }
 }

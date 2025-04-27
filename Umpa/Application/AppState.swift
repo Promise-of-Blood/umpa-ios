@@ -42,6 +42,7 @@ extension AppState {
         var teacherFinder = TeacherFinder()
         var login = Login()
 
+        @available(*, deprecated, renamed: "Major.allCases", message: "삭제 예정")
         var majorList: [String] = []
 
         fileprivate init() {}
