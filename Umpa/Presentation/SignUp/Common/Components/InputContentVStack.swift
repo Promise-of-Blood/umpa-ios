@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "삭제 예정 : SignUpSharedUIConstant.contentHorizontalPadding 사용")
 struct InputContentVStack<Content>: View where Content: View {
     @ViewBuilder let content: Content
 

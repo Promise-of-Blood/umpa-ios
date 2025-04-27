@@ -63,6 +63,16 @@ extension AppState.UserData {
     }
 }
 
+// MARK: - System
+
+extension AppState {
+    struct System {
+        var isSplashFinished = false
+    }
+}
+
+// MARK: - Conveniences
+
 extension AppState.UserData.Login {
     var isLoggedIn: Bool {
         currentUser != nil
@@ -88,12 +98,4 @@ extension AppState.UserData.Login {
 
 enum UserDataError: Error {
     case userNotLoggedIn
-}
-
-// MARK: - System
-
-extension AppState {
-    struct System {
-        var isSplashFinished = false
-    }
 }

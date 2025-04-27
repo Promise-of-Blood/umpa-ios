@@ -12,3 +12,13 @@ final class TeacherSignUpModel: ObservableObject {
         self.socialLoginType = socialLoginType
     }
 }
+
+extension TeacherSignUpModel {
+    func toDomain() -> TeacherCreateData? {
+        return TeacherCreateData(
+            socialLoginType: socialLoginType,
+            name: name,
+            major: major ?? ""
+        )
+    }
+}

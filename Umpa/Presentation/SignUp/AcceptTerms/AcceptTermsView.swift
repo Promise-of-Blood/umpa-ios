@@ -41,7 +41,7 @@ struct AcceptTermsView: View {
                     .font(SignUpSharedUIConstant.titleFont)
                     .foregroundStyle(SignUpSharedUIConstant.titleColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, SignUpSharedUIConstant.titleTopPadding)
+                    .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithoutProgressView)
                 acceptSection
             }
             .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)

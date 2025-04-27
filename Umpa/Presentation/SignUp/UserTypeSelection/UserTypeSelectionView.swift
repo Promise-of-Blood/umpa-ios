@@ -22,11 +22,11 @@ struct UserTypeSelectionView: View {
                 }
             }
             .navigationDestination(for: SignUpRoute.self) { route in
-                if case .usernameInput = route {
-                    UsernameInputView(socialLoginType: preSignUpData.socialLoginType)
+                if case .studentSignUp = route {
+                    StudentSignUpView(socialLoginType: preSignUpData.socialLoginType)
                 }
-                if case .teacherMajorSelection = route {
-                    TeacherMajorSelectionView(socialLoginType: preSignUpData.socialLoginType)
+                if case .teacherSignUp = route {
+                    TeacherSignUpView(socialLoginType: preSignUpData.socialLoginType)
                 }
             }
             .alert("회원 유형을 선택해주세요", isPresented: $showAlert) {
@@ -40,7 +40,7 @@ struct UserTypeSelectionView: View {
                 Text("앱의 이용 목적에 따라 선택해주세요")
                     .font(SignUpSharedUIConstant.titleFont)
                     .foregroundStyle(SignUpSharedUIConstant.titleColor)
-                    .padding(.top, SignUpSharedUIConstant.titleTopPadding)
+                    .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithoutProgressView)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack(spacing: fs(20)) {
@@ -68,11 +68,11 @@ struct UserTypeSelectionView: View {
             SignUpBottomButton {
                 switch preSignUpData.userType {
                 case .student:
-                    UmpaLogger.log("학생 회원가입 화면으로 이동")
-                    appState.routing.loginNavigationPath.append(SignUpRoute.usernameInput)
+                    UmpaLogger.log("학생 회원가입 화면으로 이동", level: .debug)
+                    appState.routing.loginNavigationPath.append(SignUpRoute.studentSignUp)
                 case .teacher:
-                    UmpaLogger.log("선생님 회원가입 화면으로 이동")
-                    appState.routing.loginNavigationPath.append(SignUpRoute.teacherMajorSelection)
+                    UmpaLogger.log("선생님 회원가입 화면으로 이동", level: .debug)
+                    appState.routing.loginNavigationPath.append(SignUpRoute.teacherSignUp)
                 case .none:
                     UmpaLogger.log("회원 유형이 선택되지 않고 다음 버튼이 눌림", level: .error)
                     showAlert = true

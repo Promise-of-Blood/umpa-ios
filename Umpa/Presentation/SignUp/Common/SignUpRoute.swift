@@ -6,6 +6,6 @@ enum SignUpRoute: Hashable {
     case phoneNumberVerification
     case acceptTerms
     case userTypeSelection
-    case usernameInput
-    case teacherMajorSelection
+    case studentSignUp
+    case teacherSignUp
 }

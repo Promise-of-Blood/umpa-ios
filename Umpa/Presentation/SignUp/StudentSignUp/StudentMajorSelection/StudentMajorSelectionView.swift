@@ -4,24 +4,24 @@ import Components
 import Factory
 import SwiftUI
 
-struct StudentMajorSelection: View {
+struct StudentMajorSelectionView: View {
     @InjectedObject(\.appState) private var appState
 
     @ObservedObject var studentSignUpModel: StudentSignUpModel
+    @Binding var isSatisfiedToNextStep: Bool
+
+    // MARK: View
 
     var body: some View {
         content
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    DismissButton(.arrowBack)
-                        .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
-                }
-            }
             .onAppear {
                 if studentSignUpModel.major == nil {
                     studentSignUpModel.major = appState.userData.majorList.first
                 }
+                isSatisfiedToNextStep = studentSignUpModel.validateMajor()
+            }
+            .onChange(of: studentSignUpModel.major) {
+                isSatisfiedToNextStep = studentSignUpModel.validateMajor()
             }
     }
 
@@ -29,6 +29,7 @@ struct StudentMajorSelection: View {
         VStack {
             Text("전공을 선택해주세요")
                 .modifier(TitleText())
+            Text(studentSignUpModel.major ?? "error")
             Spacer()
             InputContentVStack {
                 Picker("Major", selection: $studentSignUpModel.major) {
@@ -37,24 +38,13 @@ struct StudentMajorSelection: View {
                     }
                 }
             }
-            Spacer()
-            NavigationLink {
-//                if (currentModel.isStudent) {
-//                    SignUpChoiceSchoolSelectionView()
-//                } else {
-//                    SignUpFinishView()
-//                }
-//                DreamCollegesSelectionView(studentSignUpModel: studentSignUpModel)
-            } label: {
-                Text("다음")
-                    .modifier(BottomButton())
-            }
         }
     }
 }
 
 #Preview {
-    NavigationStack {
-//        StudentMajorSelection(studentSignUpModel: SignUpModel(socialLoginType: .apple))
-    }
+    StudentMajorSelectionView(
+        studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
+        isSatisfiedToNextStep: .constant(false)
+    )
 }
