@@ -99,7 +99,7 @@ struct StudentSignUpView: View {
                     .tag(progress)
                 case .majorSelection:
                     VStack {
-                        StudentMajorSelectionView(
+                        MajorSelectionView(
                             studentSignUpModel: studentSignUpModel,
                             isSatisfiedToNextStep: $isSatisfiedToNextStep,
                         )
@@ -139,7 +139,7 @@ struct StudentSignUpView: View {
         signUpProgressValue = StudentSignUpProgress.allCases[currentSignUpOrderIndex].progressValue
 
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(StudentSignUpProgress.allCases[currentSignUpOrderIndex])",
+            "현재 회원가입 진행: \(StudentSignUpProgress.allCases[currentSignUpOrderIndex]), \(studentSignUpModel.debugDescription)",
             level: .debug
         )
     }
@@ -160,7 +160,7 @@ struct StudentSignUpView: View {
         signUpProgressValue = StudentSignUpProgress.allCases[currentSignUpOrderIndex].progressValue
 
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(StudentSignUpProgress.allCases[currentSignUpOrderIndex])",
+            "현재 회원가입 진행: \(StudentSignUpProgress.allCases[currentSignUpOrderIndex]), \(studentSignUpModel.debugDescription)",
             level: .debug
         )
     }
