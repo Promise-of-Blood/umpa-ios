@@ -164,7 +164,7 @@ struct StudentSignUpView: View {
     }
 
     func signUpInputEntry() -> [any View] {
-        [
+        let entry: [any View] = [
             UsernameInputView(
                 studentSignUpModel: studentSignUpModel,
                 isSatisfiedToNextStep: $isSatisfiedToNextStep,
@@ -182,6 +182,8 @@ struct StudentSignUpView: View {
             EmptyView(), // .preferSubjectSelection
             EmptyView(), // .lessonRequirement
         ]
+        assert(entry.count == TeacherSignUpProgress.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
+        return entry
     }
 
     // MARK: Private Methods

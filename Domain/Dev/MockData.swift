@@ -17,12 +17,12 @@ extension AccompanistService {
         2022 년부터 입시 반주를 진행했습니다.
         많은 학생들과 입시장에 함께 들어갔고, 합격시킨 학생 정말 많습니다. 반주자의 중요성을 모르는 사람이 많은 것 같지만, 좋은 반주자와 함께 해야 좋은 연주가 나온답니다~!
         """,
-        price: 160_000,
+        price: 160000,
         chargeDescription: nil,
         instruments: [
             .piano,
         ],
-        ensemblePolicy: EnsemblePolicy(freeCount: 2, price: 20_000),
+        ensemblePolicy: EnsemblePolicy(freeCount: 2, price: 20000),
         isServingMusicRecorded: true,
         ensemblePlace: [.privateStudio, .studentPreference]
     )
@@ -64,14 +64,54 @@ extension Teacher {
         keyphrase: "피아노 잘 가르쳐요",
         introduction: "안녕하세요. 미스터초입니다.",
         experiences: [
-            "2008 제6회 모스크바 국제 청소년 쇼팽 피아노 콩쿠르 1위 심사위원상 오케스트라 협연상 폴로네이즈 최고연주상",
-            "2009 제7회 일본 하마마쓰 국제 피아노 콩쿠르 1위",
-            "2011 제14회 차이코프스키 국제 콩쿠르 피아노 부문 3위",
-            "2011 제6회 대원음악상 신인상",
-            "2014 제14회 아르투르 루빈스타인 콩쿠르 3위 실내악 최고연주상 주니어 심사위원상",
-            "2015 제17회 쇼팽 국제 피아노 콩쿠르 1위 폴로네이즈 최고 연주상",
-            "2019 제12회 대원음악상 대상",
-            "2023 삼성호암상 예술상",
+            Experience(
+                title: "2008 제6회 모스크바 국제 청소년 쇼팽 피아노 콩쿠르 1위 심사위원상 오케스트라 협연상 폴로네이즈 최고연주상",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: true
+            ),
+            Experience(
+                title: "2009 제7회 일본 하마마쓰 국제 피아노 콩쿠르 1위",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: true
+            ),
+            Experience(
+                title: "2011 제14회 차이코프스키 국제 콩쿠르 피아노 부문 3위",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: true
+            ),
+            Experience(
+                title: "2011 제6회 대원음악상 신인상",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
+            Experience(
+                title: "2014 제14회 아르투르 루빈스타인 콩쿠르 3위 실내악 최고연주상 주니어 심사위원상",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
+            Experience(
+                title: "2015 제17회 쇼팽 국제 피아노 콩쿠르 1위 폴로네이즈 최고 연주상",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
+            Experience(
+                title: "2019 제12회 대원음악상 대상",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
+            Experience(
+                title: "2023 삼성호암상 예술상",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
         ],
         links: [
             URL(string: "https://www.youtube.com/watch?v=d3IKMiv8AHw"),
@@ -103,10 +143,30 @@ extension Teacher {
         네네치킨 
         """,
         experiences: [
-            "서울예술대학교 작곡 전공 졸업",
-            "동아방송대 작곡 전공 합격",
-            "호원대 베이스 전공 합격",
-            "전 LNS, SMMA 출강",
+            Experience(
+                title: "서울예술대학교 작곡 전공 졸업",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: true
+            ),
+            Experience(
+                title: "동아방송대 작곡 전공 합격",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
+            Experience(
+                title: "호원대 베이스 전공 합격",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
+            Experience(
+                title: "전 LNS, SMMA 출강",
+                startDate: YMDate(year: 2020, month: 1),
+                endDate: YMDate(year: 2022, month: 1),
+                isRepresentative: false
+            ),
         ],
         links: [],
         myServices: []
@@ -247,7 +307,7 @@ extension LessonService {
             Badge(title: "학력 인증"),
             Badge(title: "시범 레슨 운영"),
         ],
-        price: 100_000,
+        price: 100000,
         scheduleType: .byStudent,
         availableTimes: [],
         lessonStyle: .both,
@@ -289,7 +349,7 @@ extension MusicCreationService {
 
         최고 퀄리티 보장합니다.
         """,
-        price: 100_000,
+        price: 100000,
         chargeDescription: "기본 2 트랙 (피아노 + 드럼) 기준. 트랙 추가시 각 트랙 별 20,000원 추가",
         tools: [
             MusicCreationTool(name: "에이블톤"),
@@ -298,7 +358,7 @@ extension MusicCreationService {
             minDate: UnitDate(amount: 1, unit: .week),
             maxDate: UnitDate(amount: 2, unit: .week)
         ),
-        revisionPolicy: RevisionPolicy(freeCount: 1, price: 10_000),
+        revisionPolicy: RevisionPolicy(freeCount: 1, price: 10000),
 
         sampleMusics: [
             SampleMusic(url: URL(string: "https://youtu.be/r6TwzSGYycM?si=BK53S-MP6U1HCaWP")),
@@ -324,23 +384,23 @@ extension ScoreCreationService {
         업게 최고 빠른 작업 속도!
         짱 저렴한 가격~!
         """,
-        basePrice: 20_000,
+        basePrice: 20000,
         majors: [
             .vocal,
             .piano,
             .drum,
             .bass,
         ],
-        revisionPolicy: RevisionPolicy(freeCount: 2, price: 5_000),
+        revisionPolicy: RevisionPolicy(freeCount: 2, price: 5000),
         turnaround: Turnaround(
             minDate: UnitDate(amount: 3, unit: .day),
             maxDate: UnitDate(amount: 7, unit: .day)
         ),
         pricesByMajor: [
-            PriceByMajor(price: 20_000, major: .vocal),
-            PriceByMajor(price: 40_000, major: .piano),
-            PriceByMajor(price: 20_000, major: .drum),
-            PriceByMajor(price: 30_000, major: .bass),
+            PriceByMajor(price: 20000, major: .vocal),
+            PriceByMajor(price: 40000, major: .piano),
+            PriceByMajor(price: 20000, major: .drum),
+            PriceByMajor(price: 30000, major: .bass),
         ],
         tools: [
             CompositionTool(name: "시벨리우스"),
