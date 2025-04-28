@@ -19,9 +19,6 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
 
     var body: some View {
         content
-            .onAppear {
-                isSatisfiedToNextStep = signUpModel.validateMajor()
-            }
             .onChange(of: signUpModel.major) {
                 isSatisfiedToNextStep = signUpModel.validateMajor()
             }
@@ -58,7 +55,6 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
             .padding(.horizontal, fs(8))
             .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
     }
 }
 

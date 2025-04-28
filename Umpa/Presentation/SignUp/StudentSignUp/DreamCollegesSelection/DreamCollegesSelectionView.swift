@@ -18,9 +18,6 @@ struct DreamCollegesSelectionView: View {
 
     var body: some View {
         content
-            .onAppear {
-                isSatisfiedToNextStep = studentSignUpModel.validateDreamColleges()
-            }
             .sheet(isPresented: $isSearchSheetShowing, onDismiss: {
                 currentSearchingCollege = nil
             }) {
@@ -68,7 +65,6 @@ struct DreamCollegesSelectionView: View {
                 )
             }
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
     }
 
     // MARK: Private Methods

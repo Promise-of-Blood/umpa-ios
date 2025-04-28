@@ -13,12 +13,25 @@ enum StudentSignUpProgress: Int, CaseIterable {
     case preferSubjectSelection
     case lessonRequirement
 
-    var progressValue: Double {
+    var progressValue: CGFloat {
         let minProgress = 0.16
         let maxProgress = 0.9
-        let steps = Double(Self.allCases.count - 1)
+        let steps = CGFloat(Self.allCases.count - 1)
         // rawValue 0 → minProgress, rawValue == steps → maxProgress
         return minProgress + (Double(rawValue) / steps) * (maxProgress - minProgress)
+    }
+
+    var isRequired: Bool {
+        switch self {
+        case .usernameInput,
+             .majorSelection,
+             .dreamCollegeSelection:
+            return true
+        case .profileInput,
+             .preferSubjectSelection,
+             .lessonRequirement:
+            return false
+        }
     }
 }
 
@@ -26,11 +39,22 @@ struct StudentSignUpView: View {
     @Environment(\.dismiss) private var dismiss
 
     @StateObject private var studentSignUpModel: StudentSignUpModel
+
+    /// 회원가입 진행 상태를 나타내는 index. TabView의 selection과 연결되어 화면 전환을 관리
     @State private var currentSignUpOrderIndex = 0
-    @State private var signUpProgressValue = StudentSignUpProgress.allCases[0].progressValue
+
+    /// 진행바를 표시하기 위한 진행률 값
+    @State private var signUpProgressValue: CGFloat = StudentSignUpProgress.allCases[0].progressValue
+
+    /// 다음 버튼 활성화 여부
     @State private var isSatisfiedToNextStep = false
-    @State private var isShowingUsernameAlert = false
     @State private var isDuplicatedUsername: Bool?
+
+    /// 닉네임 확인 알림
+    @State private var isShowingUsernameAlert = false
+
+    /// 건너뛰기 확인 알림
+    @State private var isShowingSkipAlert: Bool = false
 
     #if DEBUG
     @Injected(\.mockStudentSignUpInteractor)
@@ -39,6 +63,11 @@ struct StudentSignUpView: View {
 
     private var signUpOrderLastIndex: Int {
         StudentSignUpProgress.allCases.endIndex - 1
+    }
+
+    /// 현재 진행 중인 회원가입 단계를 나타내는 enum 값
+    private var currentSignUpProgress: StudentSignUpProgress {
+        StudentSignUpProgress.allCases[currentSignUpOrderIndex]
     }
 
     init(socialLoginType: SocialLoginType) {
@@ -57,6 +86,9 @@ struct StudentSignUpView: View {
                             .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
                     }
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    signUpSkipButton
+                }
             }
             .alert("닉네임 확인", isPresented: $isShowingUsernameAlert) {
                 Button("아니오", action: {})
@@ -64,6 +96,26 @@ struct StudentSignUpView: View {
             } message: {
                 Text("이 닉네임으로 사용하시겠습니까?")
             }
+            .alert("프로필 입력 건너뛰기 확인", isPresented: $isShowingSkipAlert) {
+                Button("아니오", action: {})
+                Button("네", action: {
+                    UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(studentSignUpModel.debugDescription)")
+                    interactor.completeSignUp(with: studentSignUpModel)
+                })
+            } message: {
+                Text("프로필 입력을 생략하고 홈화면으로 이동하시겠습니까?")
+            }
+    }
+
+    var signUpSkipButton: some View {
+        Button(action: {
+            isShowingSkipAlert = true
+        }) {
+            Text("건너 뛰기")
+                .font(.pretendardRegular(size: fs(16)))
+                .foregroundStyle(UmpaColor.mainBlue)
+        }
+        .opacity(currentSignUpProgress.isRequired ? 0 : 1)
     }
 
     var content: some View {
@@ -85,67 +137,82 @@ struct StudentSignUpView: View {
     }
 
     var signUpInputView: some View {
-        TabView(selection: $currentSignUpOrderIndex) {
-            ForEach(StudentSignUpProgress.allCases, id: \.rawValue) { progress in
-                switch progress {
-                case .usernameInput:
-                    VStack {
-                        UsernameInputView(
-                            studentSignUpModel: studentSignUpModel,
-                            isSatisfiedToNextStep: $isSatisfiedToNextStep,
-                            isDuplicatedUsername: $isDuplicatedUsername,
-                        )
-                        Spacer(minLength: 0)
+        GeometryReader { geometry in
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal) {
+                    HStack(spacing: 0) {
+                        ForEach(
+                            Array(zip(signUpInputEntry(), StudentSignUpProgress.allCases)),
+                            id: \.1.rawValue
+                        ) { inputView, progress in
+                            AnyView(inputView)
+                                .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+                                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                                .id(progress)
+                        }
                     }
-                    .tag(progress)
-                case .majorSelection:
-                    VStack {
-                        MajorSelectionView(
-                            signUpModel: studentSignUpModel,
-                            isSatisfiedToNextStep: $isSatisfiedToNextStep,
-                        )
-                        Spacer(minLength: 0)
+                }
+                .scrollDisabled(true)
+                .onChange(of: currentSignUpProgress) { _, newValue in
+                    withAnimation {
+                        proxy.scrollTo(newValue, anchor: .leading)
                     }
-                    .tag(progress)
-                case .dreamCollegeSelection:
-                    VStack {
-                        DreamCollegesSelectionView(
-                            studentSignUpModel: studentSignUpModel,
-                            isSatisfiedToNextStep: $isSatisfiedToNextStep,
-                        )
-                        Spacer(minLength: 0)
-                    }
-                    .tag(progress)
-                case .profileInput:
-                    EmptyView()
-//                                ProfileInputView()
-                        .tag(progress)
-                case .preferSubjectSelection:
-                    EmptyView()
-//                                PreferSubjectSelectionView()
-                        .tag(progress)
-                case .lessonRequirement:
-                    EmptyView()
-//                                LessonRequirementView()
-                        .tag(progress)
                 }
             }
+            .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithProgressView)
         }
-        .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithProgressView)
+    }
+
+    func signUpInputEntry() -> [any View] {
+        [
+            UsernameInputView(
+                studentSignUpModel: studentSignUpModel,
+                isSatisfiedToNextStep: $isSatisfiedToNextStep,
+                isDuplicatedUsername: $isDuplicatedUsername,
+            ),
+            MajorSelectionView(
+                signUpModel: studentSignUpModel,
+                isSatisfiedToNextStep: $isSatisfiedToNextStep,
+            ),
+            DreamCollegesSelectionView(
+                studentSignUpModel: studentSignUpModel,
+                isSatisfiedToNextStep: $isSatisfiedToNextStep,
+            ),
+            StudentProfileInputView(signUpModel: studentSignUpModel),
+            EmptyView(), // .preferSubjectSelection
+            EmptyView(), // .lessonRequirement
+        ]
     }
 
     // MARK: Private Methods
 
     private func moveToNextProgress() {
         assert(currentSignUpOrderIndex < signUpOrderLastIndex)
-        isSatisfiedToNextStep = false
         currentSignUpOrderIndex += 1
-        signUpProgressValue = StudentSignUpProgress.allCases[currentSignUpOrderIndex].progressValue
+
+        // 필수 입력 단계가 아니거나 입력이 유효한 경우 다음 버튼을 활성화한다.
+        isSatisfiedToNextStep = !currentSignUpProgress.isRequired || validateInput(of: currentSignUpProgress)
+
+        signUpProgressValue = currentSignUpProgress.progressValue
 
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(StudentSignUpProgress.allCases[currentSignUpOrderIndex]), \(studentSignUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpProgress), \(studentSignUpModel.debugDescription)",
             level: .debug
         )
+    }
+
+    private func validateInput(of signUpProgress: StudentSignUpProgress) -> Bool {
+        switch signUpProgress {
+        case .usernameInput:
+            return studentSignUpModel.validateUserName()
+        case .majorSelection:
+            return studentSignUpModel.validateMajor()
+        case .dreamCollegeSelection:
+            return studentSignUpModel.validateDreamColleges()
+        // 해당 단계의 항목들은 필수 입력이 아니므로 true반환
+        case .profileInput, .preferSubjectSelection, .lessonRequirement:
+            return true
+        }
     }
 
     private func didTapBackButton() {
@@ -161,16 +228,15 @@ struct StudentSignUpView: View {
         // 전 단계는 이미 만족했으므로 true로 설정
         isSatisfiedToNextStep = true
         currentSignUpOrderIndex -= 1
-        signUpProgressValue = StudentSignUpProgress.allCases[currentSignUpOrderIndex].progressValue
+        signUpProgressValue = currentSignUpProgress.progressValue
 
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(StudentSignUpProgress.allCases[currentSignUpOrderIndex]), \(studentSignUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpProgress), \(studentSignUpModel.debugDescription)",
             level: .debug
         )
     }
 
     private func didTapBottomButton() {
-        let currentSignUpProgress = StudentSignUpProgress.allCases[currentSignUpOrderIndex]
         switch currentSignUpProgress {
         case .usernameInput:
             interactor.performDuplicateCheck(

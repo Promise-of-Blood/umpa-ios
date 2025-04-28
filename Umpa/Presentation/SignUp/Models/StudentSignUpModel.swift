@@ -2,6 +2,7 @@
 
 import Combine
 import Domain
+import Foundation
 
 final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     let socialLoginType: SocialLoginType
@@ -11,6 +12,9 @@ final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     @Published var dreamCollege0: String?
     @Published var dreamCollege1: String?
     @Published var dreamCollege2: String?
+    @Published var profileImageData: Data?
+    @Published var grade: Grade?
+    @Published var gender: Gender?
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
@@ -34,7 +38,10 @@ extension StudentSignUpModel {
             major: major,
             dreamCollege0: dreamCollege0 ?? "",
             dreamCollege1: dreamCollege1 ?? "",
-            dreamCollege2: dreamCollege2 ?? ""
+            dreamCollege2: dreamCollege2 ?? "",
+            profileImageData: profileImageData,
+            grade: grade,
+            gender: gender,
         )
     }
 }
@@ -49,8 +56,10 @@ extension StudentSignUpModel: CustomDebugStringConvertible {
             major: \(String(describing: major)),
             dreamCollege0: \(String(describing: dreamCollege0)),
             dreamCollege1: \(String(describing: dreamCollege1)),
-            dreamCollege2: \(String(describing: dreamCollege2))
-        )
+            dreamCollege2: \(String(describing: dreamCollege2)),
+            profileImageData: \(String(describing: profileImageData)),
+            grade: \(String(describing: grade)),
+            gender: \(String(describing: gender)),
         """
     }
 }

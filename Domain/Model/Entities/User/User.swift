@@ -13,8 +13,8 @@ public enum Gender {
 }
 
 /// 학년
-public enum Grade {
-    case 사회인
+public enum Grade: Int, CaseIterable {
+    case 사회인 = 0
     case 대학생
     case 재수생
     case high1

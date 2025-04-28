@@ -19,7 +19,6 @@ struct UsernameInputView: View {
         content
             .onAppear {
                 isUsernameFieldFocused = true
-                isSatisfiedToNextStep = studentSignUpModel.validateUserName()
             }
             .onChange(of: studentSignUpModel.username) {
                 isSatisfiedToNextStep = studentSignUpModel.validateUserName()
@@ -34,7 +33,6 @@ struct UsernameInputView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             nicknameTextField
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
     }
 
     var nicknameTextField: some View {
