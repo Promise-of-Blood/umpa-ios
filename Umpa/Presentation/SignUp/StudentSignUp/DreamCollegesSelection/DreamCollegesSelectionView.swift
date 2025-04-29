@@ -7,7 +7,7 @@ import SwiftUI
 
 struct DreamCollegesSelectionView: View {
     @ObservedObject var studentSignUpModel: StudentSignUpModel
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
     @State private var isSearchSheetShowing: Bool = false
 
@@ -30,7 +30,7 @@ struct DreamCollegesSelectionView: View {
                 studentSignUpModel.dreamCollege1,
                 studentSignUpModel.dreamCollege2,
             ]) {
-                isSatisfiedToNextStep = studentSignUpModel.validateDreamColleges()
+                isSatisfiedCurrentInput = studentSignUpModel.validateDreamColleges()
             }
     }
 
@@ -196,6 +196,6 @@ private struct CollegeSearchView: View {
 #Preview(traits: .sizeThatFitsLayout) {
     DreamCollegesSelectionView(
         studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
-        isSatisfiedToNextStep: .constant(false)
+        isSatisfiedCurrentInput: .constant(false)
     )
 }

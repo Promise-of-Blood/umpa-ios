@@ -8,7 +8,7 @@ import SwiftUI
 
 struct TeacherProfileInputView: View {
     @ObservedObject var signUpModel: TeacherSignUpModel
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
     @State private var pickerItem: PhotosPickerItem?
 
@@ -113,6 +113,7 @@ struct TeacherProfileInputView: View {
                     .font(.system(size: 16, weight: .medium))
                 Text(signUpModel.lessonRegion?.description ?? "지역 선택")
                     .font(.pretendardMedium(size: fs(16)))
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(fs(16))
             .foregroundStyle(signUpModel.lessonRegion == nil ? Color(hex: "9E9E9E") : UmpaColor.darkGray)
@@ -147,6 +148,6 @@ private struct GenderSelectButton: View {
 #Preview {
     TeacherProfileInputView(
         signUpModel: TeacherSignUpModel(socialLoginType: .apple),
-        isSatisfiedToNextStep: .constant(false)
+        isSatisfiedCurrentInput: .constant(false)
     )
 }

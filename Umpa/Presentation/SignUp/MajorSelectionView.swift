@@ -9,7 +9,7 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
     @Injected(\.appState) private var appState
 
     @ObservedObject var signUpModel: Model
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
     private let columnCount = 4
     private var rowCount: Int {
@@ -22,7 +22,7 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
     var body: some View {
         content
             .onChange(of: signUpModel.major) {
-                isSatisfiedToNextStep = signUpModel.validateMajor()
+                isSatisfiedCurrentInput = signUpModel.validateMajor()
             }
     }
 
@@ -132,6 +132,6 @@ private extension Major {
     return
         MajorSelectionView(
             signUpModel: model,
-            isSatisfiedToNextStep: .constant(false)
+            isSatisfiedCurrentInput: .constant(false)
         )
 }

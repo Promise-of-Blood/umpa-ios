@@ -8,24 +8,18 @@ import SwiftUI
 struct TeacherSignUpView: View {
     @Environment(\.dismiss) private var dismiss
 
-    @StateObject private var signUpModel: TeacherSignUpModel
-    @State private var currentSignUpOrderIndex = 0
-    @State private var signUpProgressValue = TeacherSignUpProgress.allCases[0].progressValue
-    @State private var isSatisfiedToNextStep = false
-
     #if DEBUG
     @Injected(\.mockTeacherSignUpInteractor)
     #endif
     private var interactor
 
-    private var signUpOrderLastIndex: Int {
-        TeacherSignUpProgress.allCases.endIndex - 1
-    }
+    @StateObject private var signUpModel: TeacherSignUpModel
+    @State private var signUpProgressValue = TeacherSignUpStep.first.progressValue
 
-    /// 현재 진행 중인 회원가입 단계를 나타내는 enum 값
-    private var currentSignUpProgress: TeacherSignUpProgress {
-        TeacherSignUpProgress.allCases[currentSignUpOrderIndex]
-    }
+    /// 현재 보이는 화면의 입력이 유효한지 여부
+    @State private var isSatisfiedCurrentInput = false
+
+    @State private var currentSignUpStep: TeacherSignUpStep = .first
 
     init(socialLoginType: SocialLoginType) {
         self._signUpModel = StateObject(wrappedValue: TeacherSignUpModel(socialLoginType: socialLoginType))
@@ -58,9 +52,9 @@ struct TeacherSignUpView: View {
             signUpInputView
 
             SignUpBottomButton(action: didTapBottomButton) {
-                Text(currentSignUpOrderIndex < signUpOrderLastIndex ? "다음" : "완료")
+                Text(currentSignUpStep < TeacherSignUpStep.last ? "다음" : "완료")
             }
-            .disabled(!isSatisfiedToNextStep)
+            .disabled(!isSatisfiedCurrentInput)
         }
     }
 
@@ -70,18 +64,18 @@ struct TeacherSignUpView: View {
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
                         ForEach(
-                            Array(zip(signUpInputEntry(), TeacherSignUpProgress.allCases)),
+                            Array(zip(signUpInputEntry(), TeacherSignUpStep.allCases)),
                             id: \.1.rawValue
-                        ) { inputView, progress in
+                        ) { inputView, step in
                             AnyView(inputView)
                                 .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
                                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
-                                .id(progress)
+                                .id(step)
                         }
                     }
                 }
                 .scrollDisabled(true)
-                .onChange(of: currentSignUpProgress) { _, newValue in
+                .onChange(of: currentSignUpStep) { _, newValue in
                     withAnimation {
                         proxy.scrollTo(newValue, anchor: .leading)
                     }
@@ -95,23 +89,23 @@ struct TeacherSignUpView: View {
         let entry: [any View] = [
             MajorSelectionView(
                 signUpModel: signUpModel,
-                isSatisfiedToNextStep: $isSatisfiedToNextStep,
+                isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
             ),
             TeacherProfileInputView(
                 signUpModel: signUpModel,
-                isSatisfiedToNextStep: $isSatisfiedToNextStep,
+                isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
             ),
             ExperienceInputView(signUpModel: signUpModel),
             LinkInputView(signUpModel: signUpModel),
         ]
-        assert(entry.count == TeacherSignUpProgress.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
+        assert(entry.count == TeacherSignUpStep.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
         return entry
     }
 
     // MARK: Private Methods
 
     private func didTapBackButton() {
-        if currentSignUpOrderIndex > 0 {
+        if currentSignUpStep > .first {
             moveToPreviousProgress()
         } else {
             dismiss()
@@ -119,21 +113,21 @@ struct TeacherSignUpView: View {
     }
 
     private func moveToNextProgress() {
-        assert(currentSignUpOrderIndex < signUpOrderLastIndex)
-        currentSignUpOrderIndex += 1
-        isSatisfiedToNextStep = validateInput(of: currentSignUpProgress)
-        signUpProgressValue = currentSignUpProgress.progressValue
+        assert(currentSignUpStep < .last)
+        currentSignUpStep.next()
+        isSatisfiedCurrentInput = validateInput(of: currentSignUpStep)
+        signUpProgressValue = currentSignUpStep.progressValue
 
         #if DEBUG
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(currentSignUpProgress), \(signUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(signUpModel.debugDescription)",
             level: .debug
         )
         #endif
     }
 
-    private func validateInput(of signUpProgress: TeacherSignUpProgress) -> Bool {
-        switch signUpProgress {
+    private func validateInput(of signUpStep: TeacherSignUpStep) -> Bool {
+        switch signUpStep {
         case .majorSelection:
             return signUpModel.validateMajor()
         case .profileInput:
@@ -144,22 +138,22 @@ struct TeacherSignUpView: View {
     }
 
     private func moveToPreviousProgress() {
-        assert(currentSignUpOrderIndex > 0)
+        assert(currentSignUpStep > .first)
         // 전 단계는 이미 만족했으므로 true로 설정
-        isSatisfiedToNextStep = true
-        currentSignUpOrderIndex -= 1
-        signUpProgressValue = currentSignUpProgress.progressValue
+        isSatisfiedCurrentInput = true
+        currentSignUpStep.previous()
+        signUpProgressValue = currentSignUpStep.progressValue
 
         #if DEBUG
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(currentSignUpProgress), \(signUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(signUpModel.debugDescription)",
             level: .debug
         )
         #endif
     }
 
     private func didTapBottomButton() {
-        switch currentSignUpProgress {
+        switch currentSignUpStep {
         case .majorSelection, .profileInput, .experienceInput:
             moveToNextProgress()
         case .linkInput:

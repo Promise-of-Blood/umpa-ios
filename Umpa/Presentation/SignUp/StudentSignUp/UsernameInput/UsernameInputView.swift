@@ -7,7 +7,7 @@ import SwiftUI
 
 struct UsernameInputView: View {
     @ObservedObject var studentSignUpModel: StudentSignUpModel
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
     @Binding var isDuplicatedUsername: ValueLoadable<Bool?>
 
@@ -21,7 +21,7 @@ struct UsernameInputView: View {
                 isUsernameFieldFocused = true
             }
             .onChange(of: studentSignUpModel.username) {
-                isSatisfiedToNextStep = studentSignUpModel.validateUserName()
+                isSatisfiedCurrentInput = studentSignUpModel.validateUserName()
                 isDuplicatedUsername.value = nil
             }
     }
@@ -61,7 +61,7 @@ struct UsernameInputView: View {
 #Preview(traits: .sizeThatFitsLayout) {
     UsernameInputView(
         studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
-        isSatisfiedToNextStep: .constant(false),
+        isSatisfiedCurrentInput: .constant(false),
         isDuplicatedUsername: .constant(.value(false))
     )
 }
