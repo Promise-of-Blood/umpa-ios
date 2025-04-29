@@ -34,7 +34,7 @@ struct AccompanistServiceDetailView: ServiceDetailView {
                 VStack(spacing: fs(0)) {
                     Header(tabSelection: $tabSelection, service: service)
                     segmentedControlContent
-                        .frame(maxWidth: .fill, maxHeight: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .padding(.bottom, bottomActionBarHeight)
             }

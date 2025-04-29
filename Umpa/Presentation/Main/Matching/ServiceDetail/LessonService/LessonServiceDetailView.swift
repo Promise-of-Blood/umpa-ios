@@ -39,7 +39,7 @@ struct LessonServiceDetailView: ServiceDetailView {
                 VStack(spacing: fs(0)) {
                     Header(tabSelection: $tabSelection, service: service)
                     segmentedControlContent
-                        .frame(maxWidth: .fill, maxHeight: .fill)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
                 .padding(.bottom, bottomActionBarHeight)
             }
@@ -100,7 +100,7 @@ extension LessonServiceDetailView {
 #if DEBUG
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.login.currentUser = Student.sample0.eraseToAnyUser()
+    appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
     return
         NavigationStack {

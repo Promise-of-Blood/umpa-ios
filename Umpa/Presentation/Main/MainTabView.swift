@@ -13,7 +13,7 @@ struct MainTabView: View {
 
     var content: some View {
         TabView(selection: $appState.routing.currentTab) {
-            if appState.userData.login.isTeacher {
+            if appState.userData.loginInfo.isTeacher {
                 TeacherHomeView()
                     .tabItem {
                         MainTabView.TabLabel(category: .teacherHome)
@@ -87,7 +87,7 @@ extension MainViewTabType {
 #if DEBUG
 #Preview {
     @Injected(\.appState) var appState
-    appState.userData.login.currentUser = Student.sample0.eraseToAnyUser()
+    appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
     return MainTabView()
 }

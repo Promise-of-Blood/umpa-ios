@@ -3,15 +3,7 @@
 import Foundation
 
 public struct HttpHeader {
-    let fields: [HttpHeaderField]
-
-    var dictionary: [String: String] {
-        var dictionary = [String: String]()
-        for field in fields {
-            dictionary[field.key] = field.value
-        }
-        return dictionary
-    }
+    public let fields: [HttpHeaderField]
 
     private init() {
         self.fields = []
@@ -23,6 +15,14 @@ public struct HttpHeader {
 
     public static func empty() -> HttpHeader {
         HttpHeader()
+    }
+
+    public func toDictionary() -> [String: String] {
+        var dictionary = [String: String]()
+        for field in fields {
+            dictionary[field.key] = field.value
+        }
+        return dictionary
     }
 }
 

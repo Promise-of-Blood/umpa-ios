@@ -37,7 +37,7 @@ struct DefaultServiceDetailInteractor {
 
 extension DefaultServiceDetailInteractor: ServiceDetailInteractor {
     func startChat(with service: AnyService, navigationPath: Binding<NavigationPath>) {
-        guard let student = appState.userData.login.currentUser?.unwrap(as: Student.self) else { return }
+        guard let student = appState.userData.loginInfo.currentUser?.unwrap(as: Student.self) else { return }
 
         chatRepository.fetchChatRoom(for: service.id)
             .replaceNil(with: ChatRoom(

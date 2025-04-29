@@ -19,7 +19,7 @@ struct ServiceListItem: View {
                 Text(self.model.title)
                     .font(.pretendardBold(size: fs(16)))
                     .foregroundStyle(Color(hex: "121214"))
-                    .frame(maxWidth: .fill, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
                 LessonInfo(model: self.model.lessonInfo)
                 PricePerUnit(
@@ -35,7 +35,7 @@ struct ServiceListItem: View {
                 .background(Color(hex: "D9D9D9"))
                 .clipShape(Circle())
         }
-        .frame(maxWidth: .fill)
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, fs(2))
         .padding(.vertical, fs(16))
     }

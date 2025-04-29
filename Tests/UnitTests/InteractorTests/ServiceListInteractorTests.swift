@@ -10,11 +10,11 @@ import Testing
 @Suite(.tags(.interactor))
 final class ServiceListInteractorTests {
     var sut: ServiceListInteractor!
-    var mockServerRepository: MockServerRepository!
+    var mockServiceRepository: MockServiceRepository!
 
     init() {
-        mockServerRepository = MockServerRepository()
-        sut = DefaultServiceListInteractor(serverRepository: mockServerRepository)
+        mockServiceRepository = MockServiceRepository()
+        sut = DefaultServiceListInteractor(serviceRepository: mockServiceRepository)
     }
 }
 
@@ -51,16 +51,16 @@ extension ServiceListInteractorTests {
 
         switch serviceType {
         case .lesson:
-            given(mockServerRepository)
+            given(mockServiceRepository)
                 .fetchLessonServiceList().willReturn(mockLessonListPublisher)
         case .accompanist:
-            given(mockServerRepository)
+            given(mockServiceRepository)
                 .fetchAccompanistServiceList().willReturn(mockAccompanistListPublisher)
         case .scoreCreation:
-            given(mockServerRepository)
+            given(mockServiceRepository)
                 .fetchScoreCreationServiceList().willReturn(mockScoreCreationListPublisher)
         case .mrCreation:
-            given(mockServerRepository)
+            given(mockServiceRepository)
                 .fetchMusicCreationServiceList().willReturn(mockMusicCreationListPublisher)
         }
 
@@ -73,19 +73,19 @@ extension ServiceListInteractorTests {
         switch serviceType {
         case .lesson:
             #expect(recorded == [[], mockLessonList.map { $0.eraseToAnyService() }])
-            verify(mockServerRepository)
+            verify(mockServiceRepository)
                 .fetchLessonServiceList().called(.once)
         case .accompanist:
             #expect(recorded == [[], mockAccompanistList.map { $0.eraseToAnyService() }])
-            verify(mockServerRepository)
+            verify(mockServiceRepository)
                 .fetchAccompanistServiceList().called(.once)
         case .scoreCreation:
             #expect(recorded == [[], mockScoreCreationList.map { $0.eraseToAnyService() }])
-            verify(mockServerRepository)
+            verify(mockServiceRepository)
                 .fetchScoreCreationServiceList().called(.once)
         case .mrCreation:
             #expect(recorded == [[], mockMusicCreationList.map { $0.eraseToAnyService() }])
-            verify(mockServerRepository)
+            verify(mockServiceRepository)
                 .fetchMusicCreationServiceList().called(.once)
         }
     }

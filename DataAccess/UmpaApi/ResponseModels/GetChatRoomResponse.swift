@@ -2,4 +2,4 @@
 
 import Foundation
 
-struct GetChatRoomResponse: Decodable {}
+struct GetChatRoomResponse: NetworkResponse {}

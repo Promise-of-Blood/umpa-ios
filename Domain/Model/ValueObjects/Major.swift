@@ -3,7 +3,7 @@
 import Foundation
 
 /// 전공
-public enum Major: Hashable {
+public enum Major: Hashable, CaseIterable {
     case piano
     case vocal
     case drum

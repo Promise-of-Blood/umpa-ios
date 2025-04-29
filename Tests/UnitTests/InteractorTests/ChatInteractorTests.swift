@@ -1,22 +1,22 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 import Mockable
 import Testing
 @testable import Umpa
-import Core
 
 @Suite(.tags(.interactor))
 final class ChatInteractorTests {
     var sut: ChatInteractor!
-    var mockServerRepository: MockServerRepository!
+    var mockChatRepository: MockChatRepository!
 
     init() {
-        mockServerRepository = MockServerRepository()
+        mockChatRepository = MockChatRepository()
         sut = DefaultChatInteractor(
             appState: AppState(),
-            serverRepository: mockServerRepository
+            chatRepository: mockChatRepository
         )
     }
 }
@@ -32,7 +32,7 @@ extension ChatInteractorTests {
             Loadable<[ChatRoom], ChatInteractorError>.notRequested
         )
 
-        given(mockServerRepository)
+        given(mockChatRepository)
             .fetchChatRoomList().willReturn(mockDataPublisher)
 
         // When
@@ -45,7 +45,7 @@ extension ChatInteractorTests {
             .isLoading(last: nil, cancelBag: CancelBag()),
             .loaded(mockData)
         ])
-        verify(mockServerRepository)
+        verify(mockChatRepository)
             .fetchChatRoomList().called(.once)
     }
 }

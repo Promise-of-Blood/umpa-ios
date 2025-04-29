@@ -1,7 +1,6 @@
 // MIT License
 //
 // Copyright (c) 2019 Alexey
-// Copyright (c) 2025 Jaewon Yun
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+// Copyright (c) 2025 Jaewon Yun
+// This file has been modified from the original version.
 
 import Combine
+import Core
 import Foundation
 import SwiftUI
-import Core
 
 public typealias LoadableBinding<Value> = Binding<Loadable<Value, Error>>
 

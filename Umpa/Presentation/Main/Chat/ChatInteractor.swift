@@ -45,7 +45,7 @@ extension DefaultChatInteractor: ChatInteractor {
                 if let error = completion.error {
                     // TODO: error 처리
                 }
-            } receiveValue: { chatRoom in
+            } receiveValue: { [appState] chatRoom in
                 appState.routing.chatNavigationPath.append(chatRoom)
             }
             .store(in: cancelBag)

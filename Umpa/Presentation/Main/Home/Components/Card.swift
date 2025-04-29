@@ -37,11 +37,11 @@ struct Card: View {
                 .foregroundStyle(UmpaColor.darkGray)
                 .font(.pretendardMedium(size: fs(12)))
                 .lineLimit(2)
-                .frame(maxWidth: .fill, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             LikeCommentView(likeCount: model.likeCount, commentCount: model.commentCount)
         }
         .padding(.horizontal, fs(10))
-        .frame(maxWidth: .fill)
+        .frame(maxWidth: .infinity)
     }
 }
 

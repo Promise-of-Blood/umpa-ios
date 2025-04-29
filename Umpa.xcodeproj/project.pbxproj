@@ -21,6 +21,7 @@
 		DAA652602DB3D36300B218E6 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DAA6525F2DB3D36300B218E6 /* Factory */; };
 		DAA6527E2DB3F16000B218E6 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = DAA6527D2DB3F16000B218E6 /* GoogleSignIn */; };
 		DAA652802DB3F16000B218E6 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = DAA6527F2DB3F16000B218E6 /* GoogleSignInSwift */; };
+		DAB5DFE82DBA46E70075D9BC /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = DAB5DFE72DBA46E70075D9BC /* SFSafeSymbols */; };
 		DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; };
 		DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B5D2D89CA5A00319429 /* Components.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAB64B7A2D89CBB400319429 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; };
@@ -174,9 +175,12 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				TestHelpers.swift,
+				UnitTests/DomainTests/PhoneNumberTests.swift,
+				UnitTests/DomainTests/UsernameValidatorTests.swift,
+				UnitTests/InfraTests/NetworkKitTests.swift,
+				UnitTests/InfraTests/UserDefaultsStorageTests.swift,
 				UnitTests/InteractorTests/ChatInteractorTests.swift,
 				UnitTests/InteractorTests/ServiceListInteractorTests.swift,
-				UnitTests/UserDefaultsStorageTests.swift,
 			);
 			target = 0C9CD42B2D31062D003F4455 /* UmpaUnitTests */;
 		};
@@ -282,6 +286,7 @@
 				DAA652802DB3F16000B218E6 /* GoogleSignInSwift in Frameworks */,
 				DA7E352F2D8D5B5D001DD6AA /* DataAccess.framework in Frameworks */,
 				DA1E76982DAF794E001FDAB3 /* Mockable in Frameworks */,
+				DAB5DFE82DBA46E70075D9BC /* SFSafeSymbols in Frameworks */,
 				DA017DAB2DB149D90015DD8F /* NidThirdPartyLogin in Frameworks */,
 				DA9E60C32D902959009319A0 /* Factory in Frameworks */,
 				DAB64B632D89CA5A00319429 /* Components.framework in Frameworks */,
@@ -442,6 +447,7 @@
 				DAA063A22DB3AABF006F8B68 /* KakaoSDKUser */,
 				DAA6527D2DB3F16000B218E6 /* GoogleSignIn */,
 				DAA6527F2DB3F16000B218E6 /* GoogleSignInSwift */,
+				DAB5DFE72DBA46E70075D9BC /* SFSafeSymbols */,
 			);
 			productName = Umpa;
 			productReference = 0C9CD41C2D31062B003F4455 /* Umpa.app */;
@@ -638,6 +644,7 @@
 				DA017DA92DB149D90015DD8F /* XCRemoteSwiftPackageReference "naveridlogin-sdk-ios-swift" */,
 				DAA0639D2DB3AABF006F8B68 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				DAA6527C2DB3F16000B218E6 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				DAB5DFE62DBA46E70075D9BC /* XCRemoteSwiftPackageReference "SFSafeSymbols" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0C9CD41D2D31062B003F4455 /* Products */;
@@ -1605,6 +1612,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		DAB5DFE62DBA46E70075D9BC /* XCRemoteSwiftPackageReference "SFSafeSymbols" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SFSafeSymbols/SFSafeSymbols";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 6.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1667,6 +1682,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAA6527C2DB3F16000B218E6 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		DAB5DFE72DBA46E70075D9BC /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAB5DFE62DBA46E70075D9BC /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
