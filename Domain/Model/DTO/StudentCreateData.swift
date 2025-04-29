@@ -19,16 +19,19 @@ public struct StudentCreateData {
         name: String,
         username: String,
         major: Major?,
-        dreamCollege0: String,
-        dreamCollege1: String,
-        dreamCollege2: String,
+        dreamCollege0: String?,
+        dreamCollege1: String?,
+        dreamCollege2: String?,
         profileImageData: Data?,
         grade: Grade?,
         gender: Gender?,
     ) {
         // FIXME: 조건 완성하기
         guard let major,
-              UsernameValidator(rawUsername: username).validate()
+              UsernameValidator(rawUsername: username).validate(),
+              let dreamCollege0,
+              let dreamCollege1,
+              let dreamCollege2
         else {
             return nil
         }

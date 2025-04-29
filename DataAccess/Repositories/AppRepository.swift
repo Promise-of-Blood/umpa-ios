@@ -27,15 +27,14 @@ public struct StubAppRepository: AppRepository {
 
     public func fetchMajorList() -> AnyPublisher<[Domain.Major], any Error> {
         Just([
-            Major.piano,
-            Major.composition,
-            Major.drum,
-            Major.bass,
-            Major.guitar,
-            Major.vocal,
-            Major.electronicMusic,
-            Major.windInstrument,
-
+            Major(name: "피아노"),
+            Major(name: "작곡"),
+            Major(name: "드럼"),
+            Major(name: "베이스"),
+            Major(name: "기타"),
+            Major(name: "보컬"),
+            Major(name: "전자음악"),
+            Major(name: "관악"),
         ])
         .setFailureType(to: Error.self)
         .eraseToAnyPublisher()

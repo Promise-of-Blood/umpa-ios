@@ -22,26 +22,7 @@ struct MajorDto: Decodable {
 }
 
 extension MajorDto {
-    func toDomain() -> Major? {
-        switch name {
-        case "피아노":
-            return .piano
-        case "작곡":
-            return .composition
-        case "드럼":
-            return .drum
-        case "베이스":
-            return .bass
-        case "기타":
-            return .guitar
-        case "보컬":
-            return .vocal
-        case "전자음악":
-            return .electronicMusic
-        case "관악":
-            return .windInstrument
-        default:
-            return nil
-        }
+    func toDomain() -> Major {
+        return Major(name: name)
     }
 }

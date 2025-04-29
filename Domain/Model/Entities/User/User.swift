@@ -10,6 +10,15 @@ public enum UserType {
 public enum Gender {
     case male
     case female
+
+    public var name: String {
+        switch self {
+        case .male:
+            "남성"
+        case .female:
+            "여성"
+        }
+    }
 }
 
 /// 학년

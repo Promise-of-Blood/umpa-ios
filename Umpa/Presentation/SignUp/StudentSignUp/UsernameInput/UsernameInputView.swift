@@ -9,7 +9,7 @@ struct UsernameInputView: View {
     @ObservedObject var studentSignUpModel: StudentSignUpModel
     @Binding var isSatisfiedToNextStep: Bool
 
-    @Binding var isDuplicatedUsername: Bool?
+    @Binding var isDuplicatedUsername: ValueLoadable<Bool?>
 
     @FocusState private var isUsernameFieldFocused: Bool
 
@@ -22,6 +22,7 @@ struct UsernameInputView: View {
             }
             .onChange(of: studentSignUpModel.username) {
                 isSatisfiedToNextStep = studentSignUpModel.validateUserName()
+                isDuplicatedUsername.value = nil
             }
     }
 
@@ -61,6 +62,6 @@ struct UsernameInputView: View {
     UsernameInputView(
         studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
         isSatisfiedToNextStep: .constant(false),
-        isDuplicatedUsername: .constant(false)
+        isDuplicatedUsername: .constant(.value(false))
     )
 }

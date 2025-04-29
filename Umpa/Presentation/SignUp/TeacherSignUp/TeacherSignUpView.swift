@@ -5,21 +5,6 @@ import Domain
 import Factory
 import SwiftUI
 
-enum TeacherSignUpProgress: Int, CaseIterable {
-    case majorSelection = 0
-    case profileInput
-    case experienceInput
-    case linkInput
-
-    var progressValue: Double {
-        let minProgress = 0.2
-        let maxProgress = 0.85
-        let steps = Double(Self.allCases.count - 1)
-        // rawValue 0 → minProgress, rawValue == steps → maxProgress
-        return minProgress + (Double(rawValue) / steps) * (maxProgress - minProgress)
-    }
-}
-
 struct TeacherSignUpView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -139,10 +124,12 @@ struct TeacherSignUpView: View {
         isSatisfiedToNextStep = validateInput(of: currentSignUpProgress)
         signUpProgressValue = currentSignUpProgress.progressValue
 
+        #if DEBUG
         UmpaLogger(category: .signUp).log(
             "현재 회원가입 진행: \(currentSignUpProgress), \(signUpModel.debugDescription)",
             level: .debug
         )
+        #endif
     }
 
     private func validateInput(of signUpProgress: TeacherSignUpProgress) -> Bool {
@@ -163,10 +150,12 @@ struct TeacherSignUpView: View {
         currentSignUpOrderIndex -= 1
         signUpProgressValue = currentSignUpProgress.progressValue
 
+        #if DEBUG
         UmpaLogger(category: .signUp).log(
             "현재 회원가입 진행: \(currentSignUpProgress), \(signUpModel.debugDescription)",
             level: .debug
         )
+        #endif
     }
 
     private func didTapBottomButton() {

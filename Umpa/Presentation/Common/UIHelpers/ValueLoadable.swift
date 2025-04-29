@@ -12,11 +12,16 @@ public typealias ValueLoadableBinding<Value> = Binding<ValueLoadable<Value>>
     case isLoading(last: Value, cancelBag: CancelBag)
 
     public var value: Value {
-        switch self {
-        case let .value(value):
-            return value
-        case let .isLoading(last, _):
-            return last
+        get {
+            switch self {
+            case let .value(value):
+                return value
+            case let .isLoading(last, _):
+                return last
+            }
+        }
+        set {
+            self = .value(newValue)
         }
     }
 

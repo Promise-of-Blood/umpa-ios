@@ -13,6 +13,7 @@ struct UmpaApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     @InjectedObject(\.appState) private var appState
+
     #if DEBUG
     @Injected(\.mockAppInteractor)
     #else
@@ -24,7 +25,7 @@ struct UmpaApp: App {
         NetworkMonitor.shared.start()
         prepareKakaoLogin()
         prepareNaverLogin()
-        prepareAppData()
+        appInteractor.loadAppData()
     }
 
     var body: some Scene {
@@ -86,10 +87,6 @@ extension UmpaApp {
         } catch {
             UmpaLogger.log("Error restoring sign-in: \(error)", level: .error)
         }
-    }
-
-    private func prepareAppData() {
-        appInteractor.loadCollegeList()
     }
 }
 

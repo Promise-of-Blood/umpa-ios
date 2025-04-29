@@ -5,36 +5,6 @@ import Domain
 import Factory
 import SwiftUI
 
-enum StudentSignUpProgress: Int, CaseIterable {
-    case usernameInput = 0
-    case majorSelection
-    case dreamCollegeSelection
-    case profileInput
-    case preferSubjectSelection
-    case lessonRequirement
-
-    var progressValue: CGFloat {
-        let minProgress = 0.16
-        let maxProgress = 0.9
-        let steps = CGFloat(Self.allCases.count - 1)
-        // rawValue 0 → minProgress, rawValue == steps → maxProgress
-        return minProgress + (Double(rawValue) / steps) * (maxProgress - minProgress)
-    }
-
-    var isRequired: Bool {
-        switch self {
-        case .usernameInput,
-             .majorSelection,
-             .dreamCollegeSelection:
-            return true
-        case .profileInput,
-             .preferSubjectSelection,
-             .lessonRequirement:
-            return false
-        }
-    }
-}
-
 struct StudentSignUpView: View {
     @Environment(\.dismiss) private var dismiss
 
@@ -48,7 +18,9 @@ struct StudentSignUpView: View {
 
     /// 다음 버튼 활성화 여부
     @State private var isSatisfiedToNextStep = false
-    @State private var isDuplicatedUsername: Bool?
+
+    /// 닉네임이 중복인지 여부
+    @State private var isDuplicatedUsername: ValueLoadable<Bool?> = .value(nil)
 
     /// 닉네임 확인 알림
     @State private var isShowingUsernameAlert = false
@@ -68,6 +40,10 @@ struct StudentSignUpView: View {
     /// 현재 진행 중인 회원가입 단계를 나타내는 enum 값
     private var currentSignUpProgress: StudentSignUpProgress {
         StudentSignUpProgress.allCases[currentSignUpOrderIndex]
+    }
+
+    private var isDisabledNextButton: Bool {
+        !isSatisfiedToNextStep || isDuplicatedUsername.isLoading || isDuplicatedUsername.value == true
     }
 
     init(socialLoginType: SocialLoginType) {
@@ -126,13 +102,26 @@ struct StudentSignUpView: View {
                 .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
                 .padding(.top, SignUpSharedUIConstant.progressViewTopPadding)
                 .animation(.easeInOut, value: signUpProgressValue)
-
             signUpInputView
+            bottomNextButton
+        }
+    }
 
-            SignUpBottomButton(action: didTapBottomButton) {
-                Text(currentSignUpOrderIndex < signUpOrderLastIndex ? "다음" : "완료")
-            }
-            .disabled(!isSatisfiedToNextStep)
+    var bottomNextButton: some View {
+        SignUpBottomButton(action: didTapBottomButton) {
+            bottomNextButtonLabel
+        }
+        .disabled(isDisabledNextButton)
+    }
+
+    @ViewBuilder
+    var bottomNextButtonLabel: some View {
+        switch isDuplicatedUsername {
+        case .value:
+            Text(currentSignUpOrderIndex < signUpOrderLastIndex ? "다음" : "완료")
+        case .isLoading:
+            ProgressView()
+                .progressViewStyle(.circular)
         }
     }
 
@@ -182,7 +171,7 @@ struct StudentSignUpView: View {
             EmptyView(), // .preferSubjectSelection
             EmptyView(), // .lessonRequirement
         ]
-        assert(entry.count == TeacherSignUpProgress.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
+        assert(entry.count == StudentSignUpProgress.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
         return entry
     }
 
@@ -197,10 +186,12 @@ struct StudentSignUpView: View {
 
         signUpProgressValue = currentSignUpProgress.progressValue
 
+        #if DEBUG
         UmpaLogger(category: .signUp).log(
             "현재 회원가입 진행: \(currentSignUpProgress), \(studentSignUpModel.debugDescription)",
             level: .debug
         )
+        #endif
     }
 
     private func validateInput(of signUpProgress: StudentSignUpProgress) -> Bool {
@@ -232,10 +223,12 @@ struct StudentSignUpView: View {
         currentSignUpOrderIndex -= 1
         signUpProgressValue = currentSignUpProgress.progressValue
 
+        #if DEBUG
         UmpaLogger(category: .signUp).log(
             "현재 회원가입 진행: \(currentSignUpProgress), \(studentSignUpModel.debugDescription)",
             level: .debug
         )
+        #endif
     }
 
     private func didTapBottomButton() {

@@ -9,19 +9,21 @@ import Mockable
 
 @MainActor
 protocol AppInteractor {
-    func loadCollegeList()
+    func loadAppData()
 }
 
 struct DefaultAppInteractor {
     private let appState: AppState
 
     private let collegeRepository: CollegeRepository
+    private let majorRepository: MajorRepository
 
     private let cancelBag = CancelBag()
 
-    init(appState: AppState, collegeRepository: CollegeRepository) {
+    init(appState: AppState, collegeRepository: CollegeRepository, majorRepository: MajorRepository) {
         self.appState = appState
         self.collegeRepository = collegeRepository
+        self.majorRepository = majorRepository
 
         #if DEBUG
         setupMockBehavior()
@@ -48,22 +50,44 @@ struct DefaultAppInteractor {
                     .eraseToAnyPublisher()
                 )
         }
+        if let mockMajorRepository = majorRepository as? MockMajorRepository {
+            given(mockMajorRepository)
+                .fetchMajorList()
+                .willReturn(
+                    Just([
+                        Major(name: "피아노"),
+                        Major(name: "작곡"),
+                        Major(name: "드럼"),
+                        Major(name: "베이스"),
+                        Major(name: "기타"),
+                        Major(name: "보컬"),
+                        Major(name: "전자음악"),
+                        Major(name: "관악"),
+                    ])
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+                )
+        }
     }
     #endif
 }
 
 extension DefaultAppInteractor: AppInteractor {
-    func loadCollegeList() {
-        collegeRepository.fetchCollegeList()
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if completion.isError {
-                    // TODO: Handle error
-                }
-            } receiveValue: { [appState] collegeList in
-                appState.userData.collegeList = collegeList.map(\.name)
-                appState.system.isSplashFinished = true
+    func loadAppData() {
+        Publishers.Zip(
+            collegeRepository.fetchCollegeList(),
+            majorRepository.fetchMajorList(),
+        )
+        .receive(on: DispatchQueue.main)
+        .sink { completion in
+            if completion.isError {
+                // TODO: Handle error - 앱을 시작할 수 없음
             }
-            .store(in: cancelBag)
+        } receiveValue: { [appState] collegeList, majorList in
+            appState.appData.collegeList = collegeList
+            appState.appData.majorList = majorList
+            appState.system.isSplashFinished = true
+        }
+        .store(in: cancelBag)
     }
 }

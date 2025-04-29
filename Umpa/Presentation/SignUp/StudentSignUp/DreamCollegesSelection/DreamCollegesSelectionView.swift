@@ -132,7 +132,9 @@ private struct CollegeSearchView: View {
     let action: (String) -> Void
 
     private var searchResult: [String] {
-        appState.userData.collegeList.filter { $0.contains(searchQuery) }
+        appState.appData.collegeList
+            .filter { $0.name.contains(searchQuery) }
+            .map(\.name)
     }
 
     // MARK: View

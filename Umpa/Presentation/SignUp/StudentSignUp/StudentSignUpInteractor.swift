@@ -13,7 +13,7 @@ protocol StudentSignUpInteractor {
     func performDuplicateCheck(
         username: String,
         isShowingUsernameAlert: Binding<Bool>,
-        isDuplicatedUsername: Binding<Bool?>,
+        isDuplicatedUsername: ValueLoadableBinding<Bool?>,
     )
 }
 
@@ -42,6 +42,7 @@ struct DefaultStudentSignUpInteractor {
                 .callAsFunction(with: .any)
                 .willReturn(
                     Just(Student.sample0)
+                        .delay(for: 1, scheduler: DispatchQueue.main)
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 )
@@ -49,11 +50,19 @@ struct DefaultStudentSignUpInteractor {
         if let mockCheckAvailableUsername = checkAvailableUsername as? MockCheckAvailableUsernameUseCase {
             given(mockCheckAvailableUsername)
                 .callAsFunction(.any)
-                .willReturn(
-                    Just(true)
-                        .setFailureType(to: Error.self)
-                        .eraseToAnyPublisher()
-                )
+                .willProduce { username in
+                    if username == "A" {
+                        return Just(false)
+                            .delay(for: 1, scheduler: DispatchQueue.main)
+                            .setFailureType(to: Error.self)
+                            .eraseToAnyPublisher()
+                    } else {
+                        return Just(true)
+                            .delay(for: 1, scheduler: DispatchQueue.main)
+                            .setFailureType(to: Error.self)
+                            .eraseToAnyPublisher()
+                    }
+                }
         }
     }
     #endif
@@ -79,8 +88,12 @@ extension DefaultStudentSignUpInteractor: StudentSignUpInteractor {
     func performDuplicateCheck(
         username: String,
         isShowingUsernameAlert: Binding<Bool>,
-        isDuplicatedUsername: Binding<Bool?>,
+        isDuplicatedUsername: ValueLoadableBinding<Bool?>,
     ) {
+        let cancelBag = CancelBag()
+
+        isDuplicatedUsername.wrappedValue.setIsLoading(cancelBag: cancelBag)
+
         checkAvailableUsername(username)
             .sink { completion in
                 if completion.isError {
@@ -88,7 +101,7 @@ extension DefaultStudentSignUpInteractor: StudentSignUpInteractor {
                 }
             } receiveValue: { isAvailable in
                 isShowingUsernameAlert.wrappedValue = isAvailable
-                isDuplicatedUsername.wrappedValue = !isAvailable
+                isDuplicatedUsername.wrappedValue.value = !isAvailable
             }
             .store(in: cancelBag)
     }
