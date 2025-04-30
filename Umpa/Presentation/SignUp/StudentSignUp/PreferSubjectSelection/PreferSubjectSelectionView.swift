@@ -1,35 +1,28 @@
 // Created for Umpa in 2025
 
-import Components
 import Domain
 import Factory
 import SwiftUI
 
-struct MajorSelectionView<Model: MajorSelectableModel>: View {
-    @ObservedObject var signUpModel: Model
-    @Binding var isSatisfiedCurrentInput: Bool
+struct PreferSubjectSelectionView: View {
+    @ObservedObject var signUpModel: StudentSignUpModel
 
-    private var majorList: [Major] {
-        Container.shared.appState.resolve().appData.majorList
+    private var subjectList: [Subject] {
+        Container.shared.appState.resolve().appData.subjectList
     }
 
     private let columnCount = 4
     private var rowCount: Int {
-        majorList.count / columnCount + (majorList.count % columnCount > 0 ? 1 : 0)
+        subjectList.count / columnCount + (subjectList.count % columnCount > 0 ? 1 : 0)
     }
-
-    // MARK: View
 
     var body: some View {
         content
-            .onChange(of: signUpModel.major) {
-                isSatisfiedCurrentInput = signUpModel.validateMajor()
-            }
     }
 
     var content: some View {
-        VStack(spacing: fs(60)) {
-            Text("전공을 선택해주세요")
+        VStack(spacing: fs(50)) {
+            Text("매칭을 원하는 수업 과목을 선택해주세요")
                 .font(SignUpSharedUIConstant.titleFont)
                 .foregroundStyle(SignUpSharedUIConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -40,12 +33,12 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
                         ForEach(0 ..< columnCount, id: \.self) { column in
                             let index = row * columnCount + column
 
-                            if let major = majorList[safe: index] {
-                                MajorSelectionButton(major: major, isSelected: signUpModel.major == major) {
-                                    signUpModel.major = major
+                            if let subject = subjectList[safe: index] {
+                                SubjectSelectionButton(subject: subject, isSelected: signUpModel.preferSubject == subject) {
+                                    signUpModel.preferSubject = subject
                                 }
                             } else {
-                                MajorSelectionButton.hidden()
+                                SubjectSelectionButton.hidden()
                             }
 
                             if column < columnCount - 1 {
@@ -61,8 +54,8 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
     }
 }
 
-private struct MajorSelectionButton: View {
-    let major: Major
+private struct SubjectSelectionButton: View {
+    let subject: Subject
     let isSelected: Bool
     let action: () -> Void
 
@@ -71,14 +64,15 @@ private struct MajorSelectionButton: View {
     private let buttonSize: CGFloat = fs(52)
 
     static func hidden() -> some View {
-        Self(major: Major(name: ""), isSelected: false, action: {})
+        // hidden으로 설정하기 위해 생성하기 때문에 subject 값이 의미 없음
+        Self(subject: .accompanist, isSelected: false, action: {})
             .hidden()
     }
 
     var body: some View {
         Button(action: action) {
             VStack(spacing: fs(4)) {
-                Image(major.imageResource)
+                Image(subject.imageResource)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: iconSize, height: iconSize)
@@ -91,7 +85,7 @@ private struct MajorSelectionButton: View {
                     )
                     .clipShape(RoundedRectangle(cornerRadius: iconCornerRadius))
 
-                Text(major.name)
+                Text(subject.name)
                     .font(.pretendardMedium(size: fs(12)))
                     .foregroundStyle(UmpaColor.darkGray)
                     .lineLimit(1)
@@ -102,37 +96,14 @@ private struct MajorSelectionButton: View {
     }
 }
 
-private extension Major {
+private extension Subject {
     var imageResource: ImageResource {
         ImageResource.seeAllIcon
 //        switch self {
-//        case .piano:
-//            return ImageResource(.majorIconPiano)
-//        case .vocal:
-//            return ImageResource(name: "vocal", bundle: .main)
-//        case .composition:
-//            return ImageResource(name: "composition", bundle: .main)
-//        case .drum:
-//            return ImageResource(name: "drum", bundle: .main)
-//        case .guitar:
-//            return ImageResource(name: "guitar", bundle: .main)
-//        case .bass:
-//            return ImageResource(name: "bass", bundle: .main)
-//        case .brass:
-//            return ImageResource(name: "brass", bundle: .main)
-//        case .electronicMusic:
-//            return ImageResource(name: "electronicMusic", bundle: .main)
 //        }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    let model = StudentSignUpModel(socialLoginType: .apple)
-    model.major = Major(name: "작곡")
-
-    return
-        MajorSelectionView(
-            signUpModel: model,
-            isSatisfiedCurrentInput: .constant(false)
-        )
+    PreferSubjectSelectionView(signUpModel: StudentSignUpModel(socialLoginType: .apple))
 }

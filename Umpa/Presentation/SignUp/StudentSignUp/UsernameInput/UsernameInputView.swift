@@ -6,7 +6,7 @@ import Factory
 import SwiftUI
 
 struct UsernameInputView: View {
-    @ObservedObject var studentSignUpModel: StudentSignUpModel
+    @ObservedObject var signUpModel: StudentSignUpModel
     @Binding var isSatisfiedCurrentInput: Bool
 
     @Binding var isDuplicatedUsername: ValueLoadable<Bool?>
@@ -20,8 +20,8 @@ struct UsernameInputView: View {
             .onAppear {
                 isUsernameFieldFocused = true
             }
-            .onChange(of: studentSignUpModel.username) {
-                isSatisfiedCurrentInput = studentSignUpModel.validateUserName()
+            .onChange(of: signUpModel.username) {
+                isSatisfiedCurrentInput = signUpModel.validateUserName()
                 isDuplicatedUsername.value = nil
             }
     }
@@ -42,7 +42,7 @@ struct UsernameInputView: View {
                 .foregroundStyle(UmpaColor.lightGray)
             TextField(
                 "닉네임",
-                text: $studentSignUpModel.username,
+                text: $signUpModel.username,
                 prompt: Text("닉네임을 입력해주세요")
             )
         }
@@ -60,7 +60,7 @@ struct UsernameInputView: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     UsernameInputView(
-        studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
+        signUpModel: StudentSignUpModel(socialLoginType: .apple),
         isSatisfiedCurrentInput: .constant(false),
         isDuplicatedUsername: .constant(.value(false))
     )
