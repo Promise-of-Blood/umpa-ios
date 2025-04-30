@@ -13,6 +13,7 @@ public struct StudentCreateData {
     let profileImageData: Data?
     let grade: Grade?
     let gender: Gender?
+    let preferSubject: Subject?
 
     public init?(
         socialLoginType: SocialLoginType,
@@ -25,6 +26,7 @@ public struct StudentCreateData {
         profileImageData: Data?,
         grade: Grade?,
         gender: Gender?,
+        preferSubject: Subject?,
     ) {
         // FIXME: 조건 완성하기
         guard let major,
@@ -46,6 +48,7 @@ public struct StudentCreateData {
         self.profileImageData = profileImageData
         self.grade = grade
         self.gender = gender
+        self.preferSubject = preferSubject
     }
 }
 

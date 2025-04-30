@@ -66,6 +66,7 @@ extension AppState {
         var majorList: [Major] = []
         var collegeList: [College] = []
         var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
+        var subjectList: [Subject] = Subject.allCases
         fileprivate init() {}
     }
 }

@@ -15,6 +15,7 @@ final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     @Published var profileImageData: Data?
     @Published var grade: Grade?
     @Published var gender: Gender?
+    @Published var preferSubject: Domain.Subject?
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
@@ -42,6 +43,7 @@ extension StudentSignUpModel {
             profileImageData: profileImageData,
             grade: grade,
             gender: gender,
+            preferSubject: preferSubject,
         )
     }
 }
@@ -60,6 +62,7 @@ extension StudentSignUpModel: CustomDebugStringConvertible {
             profileImageData: \(String(describing: profileImageData)),
             grade: \(String(describing: grade)),
             gender: \(String(describing: gender)),
+            preferSubject: \(String(describing: preferSubject)),
         """
     }
 }

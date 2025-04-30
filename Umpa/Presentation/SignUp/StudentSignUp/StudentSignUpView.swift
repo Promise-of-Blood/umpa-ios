@@ -13,7 +13,7 @@ struct StudentSignUpView: View {
     #endif
     private var interactor
 
-    @StateObject private var studentSignUpModel: StudentSignUpModel
+    @StateObject private var signUpModel: StudentSignUpModel
 
     /// 진행바를 표시하기 위한 진행률 값
     @State private var signUpProgressValue: CGFloat = StudentSignUpStep.first.progressValue
@@ -39,7 +39,7 @@ struct StudentSignUpView: View {
     }
 
     init(socialLoginType: SocialLoginType) {
-        self._studentSignUpModel = StateObject(wrappedValue: StudentSignUpModel(socialLoginType: socialLoginType))
+        self._signUpModel = StateObject(wrappedValue: StudentSignUpModel(socialLoginType: socialLoginType))
     }
 
     // MARK: View
@@ -67,8 +67,8 @@ struct StudentSignUpView: View {
             .alert("프로필 입력 건너뛰기 확인", isPresented: $isShowingSkipAlert) {
                 Button("아니오", action: {})
                 Button("네", action: {
-                    UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(studentSignUpModel.debugDescription)")
-                    interactor.completeSignUp(with: studentSignUpModel)
+                    UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(signUpModel.debugDescription)")
+                    interactor.completeSignUp(with: signUpModel)
                 })
             } message: {
                 Text("프로필 입력을 생략하고 홈화면으로 이동하시겠습니까?")
@@ -147,20 +147,20 @@ struct StudentSignUpView: View {
     func signUpInputEntry() -> [any View] {
         let entry: [any View] = [
             UsernameInputView(
-                studentSignUpModel: studentSignUpModel,
+                studentSignUpModel: signUpModel,
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
                 isDuplicatedUsername: $isDuplicatedUsername,
             ),
             MajorSelectionView(
-                signUpModel: studentSignUpModel,
+                signUpModel: signUpModel,
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
             ),
             DreamCollegesSelectionView(
-                studentSignUpModel: studentSignUpModel,
+                studentSignUpModel: signUpModel,
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
             ),
-            StudentProfileInputView(signUpModel: studentSignUpModel),
-            EmptyView(), // .preferSubjectSelection
+            StudentProfileInputView(signUpModel: signUpModel),
+            PreferSubjectSelectionView(signUpModel: signUpModel),
             EmptyView(), // .lessonRequirement
         ]
         assert(entry.count == StudentSignUpStep.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
@@ -180,7 +180,7 @@ struct StudentSignUpView: View {
 
         #if DEBUG
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(studentSignUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(signUpModel.debugDescription)",
             level: .debug
         )
         #endif
@@ -189,11 +189,11 @@ struct StudentSignUpView: View {
     private func validateInput(of signUpStep: StudentSignUpStep) -> Bool {
         switch signUpStep {
         case .usernameInput:
-            return studentSignUpModel.validateUserName()
+            return signUpModel.validateUserName()
         case .majorSelection:
-            return studentSignUpModel.validateMajor()
+            return signUpModel.validateMajor()
         case .dreamCollegeSelection:
-            return studentSignUpModel.validateDreamColleges()
+            return signUpModel.validateDreamColleges()
         // 해당 단계의 항목들은 필수 입력이 아니므로 true반환
         case .profileInput, .preferSubjectSelection, .lessonRequirement:
             return true
@@ -217,7 +217,7 @@ struct StudentSignUpView: View {
 
         #if DEBUG
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(studentSignUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(signUpModel.debugDescription)",
             level: .debug
         )
         #endif
@@ -227,14 +227,14 @@ struct StudentSignUpView: View {
         switch currentSignUpStep {
         case .usernameInput:
             interactor.performDuplicateCheck(
-                username: studentSignUpModel.username,
+                username: signUpModel.username,
                 isShowingUsernameAlert: $isShowingUsernameAlert,
                 isDuplicatedUsername: $isDuplicatedUsername,
             )
         case .majorSelection, .dreamCollegeSelection, .profileInput, .preferSubjectSelection:
             moveToNextProgress()
         case .lessonRequirement:
-            interactor.completeSignUp(with: studentSignUpModel)
+            interactor.completeSignUp(with: signUpModel)
         }
     }
 }
