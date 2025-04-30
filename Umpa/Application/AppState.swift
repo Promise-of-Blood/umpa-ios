@@ -65,8 +65,7 @@ extension AppState {
     struct AppData {
         var majorList: [Major] = []
         var collegeList: [College] = []
-        var regionalLocalGovernmentList: [String] = []
-        var basicLocalGovernmentList: [String] = []
+        var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
         fileprivate init() {}
     }
 }

@@ -5,9 +5,9 @@ import Foundation
 struct GetRegionsRequest: NetworkRequest {
     typealias Response = GetRegionsResponse
 
-    let baseUrl: URL
-    let path: String
-    let header: HttpHeader
-    let method: HttpMethod
-    let body: Data?
+    let baseUrl: URL = Constant.baseUrl
+    let path: String = "api/regions"
+    let header: HttpHeader = .empty()
+    let method: HttpMethod = .get
+    let body: Data? = nil
 }

@@ -36,7 +36,10 @@ extension Student {
         name: "윤재원",
         username: "재운피터팬",
         profileImage: nil,
-        region: Region(regionalLocalGovernment: "경기도", basicLocalGovernment: "의정부시"),
+        region: Region(
+            regionalLocalGovernment: "경기도",
+            basicLocalGovernment: BasicLocalGovernment(id: 114, name: "의정부시")
+        ),
         gender: .male,
         grade: .사회인,
         dreamCollege: [
@@ -58,7 +61,10 @@ extension Teacher {
         major: Major(name: "피아노"),
         name: "조성진",
         profileImage: URL(string: "https://newsimg.hankookilbo.com/cms/articlerelease/2021/01/28/ce746895-10e3-4226-b841-9512ed90d746.jpg"),
-        region: Region(regionalLocalGovernment: "서울", basicLocalGovernment: "연남동"),
+        region: Region(
+            regionalLocalGovernment: "서울",
+            basicLocalGovernment: BasicLocalGovernment(id: 1, name: "강남구")
+        ),
         gender: .male,
         isEvaluated: true,
         keyphrase: "피아노 잘 가르쳐요",
@@ -125,7 +131,10 @@ extension Teacher {
         major: Major(name: "작곡"),
         name: "기면지",
         profileImage: nil,
-        region: Region(regionalLocalGovernment: "서울시", basicLocalGovernment: "연남동"),
+        region: Region(
+            regionalLocalGovernment: "서울시",
+            basicLocalGovernment: BasicLocalGovernment(id: 1, name: "강남구")
+        ),
         gender: .female,
         isEvaluated: true,
         keyphrase:
