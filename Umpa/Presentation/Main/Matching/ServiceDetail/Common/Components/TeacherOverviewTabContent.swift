@@ -75,7 +75,7 @@ struct TeacherOverviewTabContent: View {
                             .frame(width: fs(14), height: fs(14))
                             .foregroundStyle(UmpaColor.mainBlue)
                     }
-                    Text(experience)
+                    Text(experience.title)
                         .font(.pretendardMedium(size: fs(13)))
                 }
             }

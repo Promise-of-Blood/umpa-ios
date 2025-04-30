@@ -6,12 +6,14 @@ import Factory
 import SwiftUI
 
 struct MajorSelectionView<Model: MajorSelectableModel>: View {
+    @Injected(\.appState) private var appState
+
     @ObservedObject var signUpModel: Model
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
     private let columnCount = 4
     private var rowCount: Int {
-        let count = Major.allCases.count
+        let count = appState.appData.majorList.count
         return count / columnCount + (count % columnCount > 0 ? 1 : 0)
     }
 
@@ -19,11 +21,8 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
 
     var body: some View {
         content
-            .onAppear {
-                isSatisfiedToNextStep = signUpModel.validateMajor()
-            }
             .onChange(of: signUpModel.major) {
-                isSatisfiedToNextStep = signUpModel.validateMajor()
+                isSatisfiedCurrentInput = signUpModel.validateMajor()
             }
     }
 
@@ -40,7 +39,7 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
                         ForEach(0 ..< columnCount, id: \.self) { column in
                             let index = row * columnCount + column
 
-                            if let major = Major.allCases[safe: index] {
+                            if let major = appState.appData.majorList[safe: index] {
                                 MajorSelectionButton(major: major, isSelected: signUpModel.major == major) {
                                     signUpModel.major = major
                                 }
@@ -58,7 +57,6 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
             .padding(.horizontal, fs(8))
             .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
     }
 }
 
@@ -72,7 +70,7 @@ private struct MajorSelectionButton: View {
     private let buttonSize: CGFloat = fs(52)
 
     static func hidden() -> some View {
-        Self(major: .piano, isSelected: false, action: {})
+        Self(major: Major(name: ""), isSelected: false, action: {})
             .hidden()
     }
 
@@ -129,11 +127,11 @@ private extension Major {
 
 #Preview(traits: .sizeThatFitsLayout) {
     let model = StudentSignUpModel(socialLoginType: .apple)
-    model.major = .composition
+    model.major = Major(name: "작곡")
 
     return
         MajorSelectionView(
             signUpModel: model,
-            isSatisfiedToNextStep: .constant(false)
+            isSatisfiedCurrentInput: .constant(false)
         )
 }

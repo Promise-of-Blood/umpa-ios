@@ -21,6 +21,8 @@ struct PhoneNumberTests {
         "01012345678",
     ])
     func validPhoneNumber(phoneNumber: String) {
-        #expect(PhoneNumber(phoneNumber: phoneNumber) != nil)
+        let phone = PhoneNumber(phoneNumber: phoneNumber)
+        #expect(phone != nil)
+        #expect(phone?.rawNumber == phoneNumber)
     }
 }

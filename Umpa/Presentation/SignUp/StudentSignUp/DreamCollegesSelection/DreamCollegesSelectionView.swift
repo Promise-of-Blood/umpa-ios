@@ -7,7 +7,7 @@ import SwiftUI
 
 struct DreamCollegesSelectionView: View {
     @ObservedObject var studentSignUpModel: StudentSignUpModel
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
     @State private var isSearchSheetShowing: Bool = false
 
@@ -18,9 +18,6 @@ struct DreamCollegesSelectionView: View {
 
     var body: some View {
         content
-            .onAppear {
-                isSatisfiedToNextStep = studentSignUpModel.validateDreamColleges()
-            }
             .sheet(isPresented: $isSearchSheetShowing, onDismiss: {
                 currentSearchingCollege = nil
             }) {
@@ -33,7 +30,7 @@ struct DreamCollegesSelectionView: View {
                 studentSignUpModel.dreamCollege1,
                 studentSignUpModel.dreamCollege2,
             ]) {
-                isSatisfiedToNextStep = studentSignUpModel.validateDreamColleges()
+                isSatisfiedCurrentInput = studentSignUpModel.validateDreamColleges()
             }
     }
 
@@ -68,7 +65,6 @@ struct DreamCollegesSelectionView: View {
                 )
             }
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
     }
 
     // MARK: Private Methods
@@ -136,7 +132,9 @@ private struct CollegeSearchView: View {
     let action: (String) -> Void
 
     private var searchResult: [String] {
-        appState.userData.collegeList.filter { $0.contains(searchQuery) }
+        appState.appData.collegeList
+            .filter { $0.name.contains(searchQuery) }
+            .map(\.name)
     }
 
     // MARK: View
@@ -198,6 +196,6 @@ private struct CollegeSearchView: View {
 #Preview(traits: .sizeThatFitsLayout) {
     DreamCollegesSelectionView(
         studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
-        isSatisfiedToNextStep: .constant(false)
+        isSatisfiedCurrentInput: .constant(false)
     )
 }

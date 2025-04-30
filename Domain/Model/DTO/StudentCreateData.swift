@@ -10,17 +10,29 @@ public struct StudentCreateData {
     let dreamCollege0: String
     let dreamCollege1: String
     let dreamCollege2: String
+    let profileImageData: Data?
+    let grade: Grade?
+    let gender: Gender?
 
     public init?(
         socialLoginType: SocialLoginType,
         name: String,
         username: String,
         major: Major?,
-        dreamCollege0: String,
-        dreamCollege1: String,
-        dreamCollege2: String
+        dreamCollege0: String?,
+        dreamCollege1: String?,
+        dreamCollege2: String?,
+        profileImageData: Data?,
+        grade: Grade?,
+        gender: Gender?,
     ) {
-        guard let major else {
+        // FIXME: 조건 완성하기
+        guard let major,
+              UsernameValidator(rawUsername: username).validate(),
+              let dreamCollege0,
+              let dreamCollege1,
+              let dreamCollege2
+        else {
             return nil
         }
 
@@ -31,6 +43,9 @@ public struct StudentCreateData {
         self.dreamCollege0 = dreamCollege0
         self.dreamCollege1 = dreamCollege1
         self.dreamCollege2 = dreamCollege2
+        self.profileImageData = profileImageData
+        self.grade = grade
+        self.gender = gender
     }
 }
 

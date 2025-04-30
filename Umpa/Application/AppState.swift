@@ -5,6 +5,7 @@ import SwiftUI
 
 final class AppState: ObservableObject {
     @Published var userData = UserData()
+    @Published var appData = AppData()
     @Published var routing = Routing()
     @Published var system = System()
 
@@ -41,12 +42,6 @@ extension AppState {
     struct UserData {
         var teacherFinderInfo = TeacherFinderInfo()
         var loginInfo = LoginInfo()
-        
-        var collegeList: [String] = []
-
-        @available(*, deprecated, renamed: "Major.allCases", message: "삭제 예정")
-        var majorList: [String] = []
-
         fileprivate init() {}
     }
 }
@@ -55,13 +50,22 @@ extension AppState.UserData {
     struct TeacherFinderInfo {
         var selectedService: ServiceType = .lesson
         var selectedSubject: Subject?
-
         fileprivate init() {}
     }
 
     struct LoginInfo {
         var currentUser: AnyUser?
+        fileprivate init() {}
+    }
+}
 
+// MARK: - AppData
+
+extension AppState {
+    struct AppData {
+        var majorList: [Major] = []
+        var collegeList: [College] = []
+        var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
         fileprivate init() {}
     }
 }
@@ -71,6 +75,7 @@ extension AppState.UserData {
 extension AppState {
     struct System {
         var isSplashFinished = false
+        fileprivate init() {}
     }
 }
 

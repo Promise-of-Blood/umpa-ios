@@ -23,7 +23,7 @@ protocol PhoneVerificationInteractor {
         isExpired: Binding<Bool>,
         e: Binding<PhoneVerificationError?>
     )
-    func verifyCodeToNext(_ code: String, isVarifiedCode: ValueLoadableBinding<Bool?>)
+    func verifyCodeToNext(_ code: String, isVerifiedCode: ValueLoadableBinding<Bool?>)
 }
 
 struct DefaultPhoneVerificationInteractor {
@@ -140,24 +140,24 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
             .store(in: cancelBag)
     }
 
-    func verifyCodeToNext(_ code: String, isVarifiedCode: ValueLoadableBinding<Bool?>) {
+    func verifyCodeToNext(_ code: String, isVerifiedCode: ValueLoadableBinding<Bool?>) {
         guard let verificationCode = PhoneVerificationCode(rawCode: code) else {
-            isVarifiedCode.wrappedValue = .value(false)
+            isVerifiedCode.wrappedValue = .value(false)
             return
         }
 
         let cancelBag = CancelBag()
 
-        isVarifiedCode.wrappedValue.setIsLoading(cancelBag: cancelBag)
+        isVerifiedCode.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
         verifyPhoneVerificationCode(verificationCode)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if completion.isError {
-                    isVarifiedCode.wrappedValue = .value(false)
+                    isVerifiedCode.wrappedValue = .value(false)
                 }
             } receiveValue: { isVerified in
-                isVarifiedCode.wrappedValue = .value(isVerified)
+                isVerifiedCode.wrappedValue = .value(isVerified)
                 if isVerified {
                     UmpaLogger.log("전화번호 인증 성공(\(code)), 약관 동의 화면으로 이동", level: .debug)
                     appState.routing.loginNavigationPath.append(SignUpRoute.acceptTerms)

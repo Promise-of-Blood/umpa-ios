@@ -3,10 +3,13 @@
 import Foundation
 
 public struct Region: Hashable {
-    public let regionalLocalGovernment: String
-    public let basicLocalGovernment: String
+    public let regionalLocalGovernment: RegionalLocalGovernment
+    public let basicLocalGovernment: BasicLocalGovernment
 
-    public init(regionalLocalGovernment: String, basicLocalGovernment: String) {
+    public init(
+        regionalLocalGovernment: RegionalLocalGovernment,
+        basicLocalGovernment: BasicLocalGovernment
+    ) {
         self.regionalLocalGovernment = regionalLocalGovernment
         self.basicLocalGovernment = basicLocalGovernment
     }
@@ -14,6 +17,6 @@ public struct Region: Hashable {
 
 extension Region {
     public var description: String {
-        return "\(regionalLocalGovernment)/\(basicLocalGovernment)"
+        return "\(regionalLocalGovernment)/\(basicLocalGovernment.name)"
     }
 }

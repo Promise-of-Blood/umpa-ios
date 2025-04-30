@@ -7,9 +7,9 @@ import SwiftUI
 
 struct UsernameInputView: View {
     @ObservedObject var studentSignUpModel: StudentSignUpModel
-    @Binding var isSatisfiedToNextStep: Bool
+    @Binding var isSatisfiedCurrentInput: Bool
 
-    @Binding var isDuplicatedUsername: Bool?
+    @Binding var isDuplicatedUsername: ValueLoadable<Bool?>
 
     @FocusState private var isUsernameFieldFocused: Bool
 
@@ -19,10 +19,10 @@ struct UsernameInputView: View {
         content
             .onAppear {
                 isUsernameFieldFocused = true
-                isSatisfiedToNextStep = studentSignUpModel.validateUserName()
             }
             .onChange(of: studentSignUpModel.username) {
-                isSatisfiedToNextStep = studentSignUpModel.validateUserName()
+                isSatisfiedCurrentInput = studentSignUpModel.validateUserName()
+                isDuplicatedUsername.value = nil
             }
     }
 
@@ -34,7 +34,6 @@ struct UsernameInputView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             nicknameTextField
         }
-        .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
     }
 
     var nicknameTextField: some View {
@@ -62,7 +61,7 @@ struct UsernameInputView: View {
 #Preview(traits: .sizeThatFitsLayout) {
     UsernameInputView(
         studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
-        isSatisfiedToNextStep: .constant(false),
-        isDuplicatedUsername: .constant(false)
+        isSatisfiedCurrentInput: .constant(false),
+        isDuplicatedUsername: .constant(.value(false))
     )
 }

@@ -16,7 +16,7 @@ public struct Teacher: User {
     /// 소개글
     public let introduction: String
     /// 경력 사항
-    public let experiences: [String]
+    public let experiences: [Experience]
     /// 사이트 링크
     public let links: [URL?]
     public let myServices: [Service.Id]
@@ -32,7 +32,7 @@ public struct Teacher: User {
         isEvaluated: Bool,
         keyphrase: String,
         introduction: String,
-        experiences: [String],
+        experiences: [Experience],
         links: [URL?],
         myServices: [Service.Id]
     ) {

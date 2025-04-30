@@ -35,7 +35,7 @@ struct PhoneVerificationView: View {
     @State private var verificationCode: String = ""
 
     /// 인증번호 확인 상태
-    @State private var isVarifiedCode: ValueLoadable<Bool?> = .value(nil)
+    @State private var isVerifiedCode: ValueLoadable<Bool?> = .value(nil)
 
     /// 인증 코드 만료 시각
     @State private var expirationTime = Date()
@@ -93,18 +93,18 @@ struct PhoneVerificationView: View {
         Spacer()
 
         SignUpBottomButton {
-            interactor.verifyCodeToNext(verificationCode, isVarifiedCode: $isVarifiedCode)
+            interactor.verifyCodeToNext(verificationCode, isVerifiedCode: $isVerifiedCode)
         } label: {
             bottomButtonLabel
         }
         .disabled(!PhoneVerificationCodeValidator(rawCode: verificationCode).validate() ||
             isExpired ||
-            isVarifiedCode.isLoading)
+            isVerifiedCode.isLoading)
     }
 
     @ViewBuilder
     var bottomButtonLabel: some View {
-        switch isVarifiedCode {
+        switch isVerifiedCode {
         case .value:
             Text("다음")
         case .isLoading:
@@ -223,7 +223,7 @@ struct PhoneVerificationView: View {
             .font(.pretendardRegular(size: fs(13)))
             .foregroundStyle(.red)
             .padding(.horizontal, fs(2))
-            .opacity(isVarifiedCode.value == false ? 1 : 0)
+            .opacity(isVerifiedCode.value == false ? 1 : 0)
     }
 
     // MARK: Private Method

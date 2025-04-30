@@ -5,20 +5,12 @@ import Foundation
 public struct PhoneNumber: Equatable {
     public let rawNumber: String
     
-    init() {
-        self.rawNumber = ""
-    }
-    
     /// 지정한 문자열이 올바른 숫자 전화번호인지 검사하여 초기화
     public init?(phoneNumber: String) {
         guard PhoneNumberValidator(rawPhoneNumber: phoneNumber).validate() else {
             return nil
         }
         self.rawNumber = phoneNumber
-    }
-    
-    public static func empty() -> PhoneNumber {
-        return PhoneNumber()
     }
 }
 
@@ -37,6 +29,11 @@ public struct PhoneNumberValidator: Validator {
         
         // 자리수 제한
         guard rawPhoneNumber.count == 11 else {
+            return false
+        }
+        
+        // 한국 휴대폰 번호 접두사 검사
+        guard rawPhoneNumber.hasPrefix("010") else {
             return false
         }
         

@@ -4,10 +4,6 @@ import DataAccess
 import Domain
 import Factory
 
-extension Scope {
-    static let mainSession = Cached()
-}
-
 // MARK: - Common
 
 extension Container {
@@ -81,6 +77,22 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    private var majorRepository: Factory<MajorRepository> {
+        Factory(self) {
+            DefaultMajorRepository()
+        }
+        .scope(.singleton)
+    }
+
+    private var regionRepository: Factory<RegionRepository> {
+        Factory(self) {
+            DefaultRegionRepository(
+                network: self.network()
+            )
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - DataAccess
@@ -108,7 +120,7 @@ extension Container {
 // MARK: - UseCase
 
 extension Container {
-    private var signUpUseCase: Factory<StudentSignUpUseCase> {
+    private var studentSignUpUseCase: Factory<StudentSignUpUseCase> {
         Factory(self) {
             DefaultStudentSignUpUseCase(
                 jwtRepository: self.jwtRepository()
@@ -167,6 +179,8 @@ extension Container {
             DefaultAppInteractor(
                 appState: self.appState(),
                 collegeRepository: self.collegeRepository(),
+                majorRepository: self.majorRepository(),
+                regionRepository: self.regionRepository()
             )
         }
         .scope(.singleton)
@@ -348,6 +362,20 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    var mockMajorRepository: Factory<MajorRepository> {
+        Factory(self) {
+            MockMajorRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var stubRegionRepository: Factory<RegionRepository> {
+        Factory(self) {
+            StubRegionRepository()
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - UseCase
@@ -386,7 +414,9 @@ extension Container {
         Factory(self) {
             DefaultAppInteractor(
                 appState: self.appState(),
-                collegeRepository: self.mockCollegeRepository()
+                collegeRepository: self.mockCollegeRepository(),
+                majorRepository: self.mockMajorRepository(),
+                regionRepository: self.stubRegionRepository(),
             )
         }
         .scope(.shared)

@@ -7,9 +7,21 @@ final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
     let socialLoginType: SocialLoginType
     @Published var name: String = ""
     @Published var major: Major?
+    @Published var gender: Gender?
+    @Published var lessonRegion: Region?
+    @Published var profileImageData: Data?
+    @Published var experiences: [Experience] = []
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
+    }
+
+    func validateGender() -> Bool {
+        gender != nil
+    }
+
+    func validateLessonRegion() -> Bool {
+        lessonRegion != nil
     }
 }
 
@@ -18,7 +30,11 @@ extension TeacherSignUpModel {
         return TeacherCreateData(
             socialLoginType: socialLoginType,
             name: name,
-            major: major
+            major: major,
+            gender: gender,
+            region: lessonRegion,
+            profileImageData: profileImageData,
+            experiences: experiences,
         )
     }
 }
@@ -29,7 +45,11 @@ extension TeacherSignUpModel: CustomDebugStringConvertible {
         TeacherSignUpModel(
             socialLoginType: \(socialLoginType),
             name: \(name),
-            major: \(String(describing: major))
+            major: \(String(describing: major)),
+            gender: \(String(describing: gender)),
+            lessonRegion: \(String(describing: lessonRegion)),
+            profileImageData: \(String(describing: profileImageData)),
+            experiences: \(experiences),
         )
         """
     }

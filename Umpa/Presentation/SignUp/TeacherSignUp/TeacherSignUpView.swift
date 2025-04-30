@@ -5,37 +5,24 @@ import Domain
 import Factory
 import SwiftUI
 
-enum TeacherSignUpProgress: Int, CaseIterable {
-    case majorSelection = 0
-    case profileInput
-    case experienceInput
-    case linkInput
-
-    var progressValue: Double {
-        let minProgress = 0.2
-        let maxProgress = 0.85
-        let steps = Double(Self.allCases.count - 1)
-        // rawValue 0 → minProgress, rawValue == steps → maxProgress
-        return minProgress + (Double(rawValue) / steps) * (maxProgress - minProgress)
-    }
-}
-
 struct TeacherSignUpView: View {
     @Environment(\.dismiss) private var dismiss
-
-    @StateObject private var signUpModel: TeacherSignUpModel
-    @State private var currentSignUpOrderIndex = 0
-    @State private var signUpProgressValue = TeacherSignUpProgress.allCases[0].progressValue
-    @State private var isSatisfiedToNextStep = false
 
     #if DEBUG
     @Injected(\.mockTeacherSignUpInteractor)
     #endif
     private var interactor
 
-    private var signUpOrderLastIndex: Int {
-        TeacherSignUpProgress.allCases.endIndex - 1
-    }
+    @StateObject private var signUpModel: TeacherSignUpModel
+    @State private var signUpProgressValue = TeacherSignUpStep.first.progressValue
+
+    /// 현재 보이는 화면의 입력이 유효한지 여부
+    @State private var isSatisfiedCurrentInput = false
+
+    @State private var currentSignUpStep: TeacherSignUpStep = .first
+
+    /// 건너뛰기 확인 알림
+    @State private var isShowingSkipAlert: Bool = false
 
     init(socialLoginType: SocialLoginType) {
         self._signUpModel = StateObject(wrappedValue: TeacherSignUpModel(socialLoginType: socialLoginType))
@@ -53,7 +40,30 @@ struct TeacherSignUpView: View {
                             .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
                     }
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    signUpSkipButton
+                }
             }
+            .alert("프로필 입력 건너뛰기 확인", isPresented: $isShowingSkipAlert) {
+                Button("아니오", action: {})
+                Button("네", action: {
+                    UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(signUpModel.debugDescription)")
+                    interactor.completeSignUp(with: signUpModel)
+                })
+            } message: {
+                Text("프로필 입력을 생략하고 홈화면으로 이동하시겠습니까?")
+            }
+    }
+
+    var signUpSkipButton: some View {
+        Button(action: {
+            isShowingSkipAlert = true
+        }) {
+            Text("건너 뛰기")
+                .font(.pretendardRegular(size: fs(16)))
+                .foregroundStyle(UmpaColor.mainBlue)
+        }
+        .opacity(currentSignUpStep.canSkip ? 1 : 0)
     }
 
     var content: some View {
@@ -68,53 +78,60 @@ struct TeacherSignUpView: View {
             signUpInputView
 
             SignUpBottomButton(action: didTapBottomButton) {
-                Text(currentSignUpOrderIndex < signUpOrderLastIndex ? "다음" : "완료")
+                Text(currentSignUpStep < TeacherSignUpStep.last ? "다음" : "완료")
             }
-            .disabled(!isSatisfiedToNextStep)
+            .disabled(!isSatisfiedCurrentInput)
         }
     }
 
     var signUpInputView: some View {
-        TabView(selection: $currentSignUpOrderIndex) {
-            ForEach(TeacherSignUpProgress.allCases, id: \.rawValue) { progress in
-                switch progress {
-                case .majorSelection:
-                    VStack {
-                        MajorSelectionView(
-                            signUpModel: signUpModel,
-                            isSatisfiedToNextStep: $isSatisfiedToNextStep
-                        )
-                        Spacer(minLength: 0)
+        GeometryReader { geometry in
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal) {
+                    HStack(spacing: 0) {
+                        ForEach(
+                            Array(zip(signUpInputEntry(), TeacherSignUpStep.allCases)),
+                            id: \.1.rawValue
+                        ) { inputView, step in
+                            AnyView(inputView)
+                                .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+                                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                                .id(step)
+                        }
                     }
-                    .tag(progress)
-                case .profileInput:
-                    VStack {
-                        EmptyView()
-                        Spacer(minLength: 0)
+                }
+                .scrollDisabled(true)
+                .onChange(of: currentSignUpStep) { _, newValue in
+                    withAnimation {
+                        proxy.scrollTo(newValue, anchor: .leading)
                     }
-                    .tag(progress)
-                case .experienceInput:
-                    VStack {
-                        EmptyView()
-                        Spacer(minLength: 0)
-                    }
-                    .tag(progress)
-                case .linkInput:
-                    VStack {
-                        EmptyView()
-                        Spacer(minLength: 0)
-                    }
-                    .tag(progress)
                 }
             }
+            .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithProgressView)
         }
-        .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithProgressView)
+    }
+
+    func signUpInputEntry() -> [any View] {
+        let entry: [any View] = [
+            MajorSelectionView(
+                signUpModel: signUpModel,
+                isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
+            ),
+            TeacherProfileInputView(
+                signUpModel: signUpModel,
+                isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
+            ),
+            ExperienceInputView(signUpModel: signUpModel),
+            LinkInputView(signUpModel: signUpModel),
+        ]
+        assert(entry.count == TeacherSignUpStep.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
+        return entry
     }
 
     // MARK: Private Methods
 
     private func didTapBackButton() {
-        if currentSignUpOrderIndex > 0 {
+        if currentSignUpStep > .first {
             moveToPreviousProgress()
         } else {
             dismiss()
@@ -122,33 +139,47 @@ struct TeacherSignUpView: View {
     }
 
     private func moveToNextProgress() {
-        assert(currentSignUpOrderIndex < signUpOrderLastIndex)
-        isSatisfiedToNextStep = true
-        currentSignUpOrderIndex += 1
-        signUpProgressValue = TeacherSignUpProgress.allCases[currentSignUpOrderIndex].progressValue
+        assert(currentSignUpStep < .last)
+        currentSignUpStep.next()
+        isSatisfiedCurrentInput = validateInput(of: currentSignUpStep)
+        signUpProgressValue = currentSignUpStep.progressValue
 
+        #if DEBUG
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(TeacherSignUpProgress.allCases[currentSignUpOrderIndex]), \(signUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(signUpModel.debugDescription)",
             level: .debug
         )
+        #endif
+    }
+
+    private func validateInput(of signUpStep: TeacherSignUpStep) -> Bool {
+        switch signUpStep {
+        case .majorSelection:
+            return signUpModel.validateMajor()
+        case .profileInput:
+            return signUpModel.validateGender() && signUpModel.validateLessonRegion()
+        case .experienceInput, .linkInput:
+            return true
+        }
     }
 
     private func moveToPreviousProgress() {
-        assert(currentSignUpOrderIndex > 0)
+        assert(currentSignUpStep > .first)
         // 전 단계는 이미 만족했으므로 true로 설정
-        isSatisfiedToNextStep = true
-        currentSignUpOrderIndex -= 1
-        signUpProgressValue = TeacherSignUpProgress.allCases[currentSignUpOrderIndex].progressValue
+        isSatisfiedCurrentInput = true
+        currentSignUpStep.previous()
+        signUpProgressValue = currentSignUpStep.progressValue
 
+        #if DEBUG
         UmpaLogger(category: .signUp).log(
-            "현재 회원가입 진행: \(TeacherSignUpProgress.allCases[currentSignUpOrderIndex]), \(signUpModel.debugDescription)",
+            "현재 회원가입 진행: \(currentSignUpStep.debugDescription), \(signUpModel.debugDescription)",
             level: .debug
         )
+        #endif
     }
 
     private func didTapBottomButton() {
-        let currentSignUpProgress = TeacherSignUpProgress.allCases[currentSignUpOrderIndex]
-        switch currentSignUpProgress {
+        switch currentSignUpStep {
         case .majorSelection, .profileInput, .experienceInput:
             moveToNextProgress()
         case .linkInput:
@@ -158,5 +189,7 @@ struct TeacherSignUpView: View {
 }
 
 #Preview {
-    TeacherSignUpView(socialLoginType: .apple)
+    NavigationStack {
+        TeacherSignUpView(socialLoginType: .apple)
+    }
 }
