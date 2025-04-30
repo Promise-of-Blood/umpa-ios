@@ -147,7 +147,7 @@ struct StudentSignUpView: View {
     func signUpInputEntry() -> [any View] {
         let entry: [any View] = [
             UsernameInputView(
-                studentSignUpModel: signUpModel,
+                signUpModel: signUpModel,
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
                 isDuplicatedUsername: $isDuplicatedUsername,
             ),
@@ -156,7 +156,7 @@ struct StudentSignUpView: View {
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
             ),
             DreamCollegesSelectionView(
-                studentSignUpModel: signUpModel,
+                signUpModel: signUpModel,
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
             ),
             StudentProfileInputView(signUpModel: signUpModel),

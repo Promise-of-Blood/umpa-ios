@@ -6,7 +6,7 @@ import SFSafeSymbols
 import SwiftUI
 
 struct DreamCollegesSelectionView: View {
-    @ObservedObject var studentSignUpModel: StudentSignUpModel
+    @ObservedObject var signUpModel: StudentSignUpModel
     @Binding var isSatisfiedCurrentInput: Bool
 
     @State private var isSearchSheetShowing: Bool = false
@@ -26,11 +26,11 @@ struct DreamCollegesSelectionView: View {
                     .presentationDragIndicator(.hidden)
             }
             .onChange(of: [
-                studentSignUpModel.dreamCollege0,
-                studentSignUpModel.dreamCollege1,
-                studentSignUpModel.dreamCollege2,
+                signUpModel.dreamCollege0,
+                signUpModel.dreamCollege1,
+                signUpModel.dreamCollege2,
             ]) {
-                isSatisfiedCurrentInput = studentSignUpModel.validateDreamColleges()
+                isSatisfiedCurrentInput = signUpModel.validateDreamColleges()
             }
     }
 
@@ -44,21 +44,21 @@ struct DreamCollegesSelectionView: View {
             VStack(spacing: fs(34)) {
                 DreamCollegesSelectionGroup(
                     title: "희망 학교1",
-                    selectedCollege: studentSignUpModel.dreamCollege0,
+                    selectedCollege: signUpModel.dreamCollege0,
                     action: {
                         didTapSelectDreamCollege(0)
                     }
                 )
                 DreamCollegesSelectionGroup(
                     title: "희망 학교2",
-                    selectedCollege: studentSignUpModel.dreamCollege1,
+                    selectedCollege: signUpModel.dreamCollege1,
                     action: {
                         didTapSelectDreamCollege(1)
                     }
                 )
                 DreamCollegesSelectionGroup(
                     title: "희망 학교3",
-                    selectedCollege: studentSignUpModel.dreamCollege2,
+                    selectedCollege: signUpModel.dreamCollege2,
                     action: {
                         didTapSelectDreamCollege(2)
                     }
@@ -76,9 +76,9 @@ struct DreamCollegesSelectionView: View {
 
     private func setDreamCollege(_ college: String) {
         switch currentSearchingCollege {
-        case 0: studentSignUpModel.dreamCollege0 = college
-        case 1: studentSignUpModel.dreamCollege1 = college
-        case 2: studentSignUpModel.dreamCollege2 = college
+        case 0: signUpModel.dreamCollege0 = college
+        case 1: signUpModel.dreamCollege1 = college
+        case 2: signUpModel.dreamCollege2 = college
         default:
             UmpaLogger(category: .signUp).log(
                 "`currentSearchingCollege`가 nil입니다.",
@@ -195,7 +195,7 @@ private struct CollegeSearchView: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
     DreamCollegesSelectionView(
-        studentSignUpModel: StudentSignUpModel(socialLoginType: .apple),
+        signUpModel: StudentSignUpModel(socialLoginType: .apple),
         isSatisfiedCurrentInput: .constant(false)
     )
 }

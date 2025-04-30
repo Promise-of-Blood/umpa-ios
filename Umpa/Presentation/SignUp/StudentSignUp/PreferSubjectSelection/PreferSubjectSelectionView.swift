@@ -64,6 +64,7 @@ private struct SubjectSelectionButton: View {
     private let buttonSize: CGFloat = fs(52)
 
     static func hidden() -> some View {
+        // hidden으로 설정하기 위해 생성하기 때문에 subject 값이 의미 없음
         Self(subject: .accompanist, isSelected: false, action: {})
             .hidden()
     }
