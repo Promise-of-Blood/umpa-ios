@@ -8,6 +8,15 @@ enum TeacherSignUpStep: Int, CaseIterable {
     case experienceInput
     case linkInput
 
+    var canSkip: Bool {
+        switch self {
+        case .majorSelection, .profileInput, .experienceInput:
+            return false
+        case .linkInput:
+            return true
+        }
+    }
+
     /// 현재 단계에 따라 0~1까지의 진행도를 나타내는 값
     var progressValue: Double {
         let minProgress = 0.2

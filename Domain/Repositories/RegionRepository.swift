@@ -4,5 +4,5 @@ import Combine
 import Foundation
 
 public protocol RegionRepository {
-    func fetchRegionList() -> AnyPublisher<[String: [String]], Error>
+    func fetchRegionList() -> AnyPublisher<[RegionalLocalGovernment: [BasicLocalGovernment]], Error>
 }

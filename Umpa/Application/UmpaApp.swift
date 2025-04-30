@@ -15,7 +15,7 @@ struct UmpaApp: App {
     @InjectedObject(\.appState) private var appState
 
     #if DEBUG
-    @Injected(\.mockAppInteractor)
+    @Injected(\.mockAppInteractor) // Preview 에도 사용됨
     #else
     @Injected(\.appInteractor)
     #endif

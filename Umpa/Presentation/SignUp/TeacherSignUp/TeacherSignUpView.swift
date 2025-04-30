@@ -21,6 +21,9 @@ struct TeacherSignUpView: View {
 
     @State private var currentSignUpStep: TeacherSignUpStep = .first
 
+    /// 건너뛰기 확인 알림
+    @State private var isShowingSkipAlert: Bool = false
+
     init(socialLoginType: SocialLoginType) {
         self._signUpModel = StateObject(wrappedValue: TeacherSignUpModel(socialLoginType: socialLoginType))
     }
@@ -37,7 +40,30 @@ struct TeacherSignUpView: View {
                             .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
                     }
                 }
+                ToolbarItem(placement: .confirmationAction) {
+                    signUpSkipButton
+                }
             }
+            .alert("프로필 입력 건너뛰기 확인", isPresented: $isShowingSkipAlert) {
+                Button("아니오", action: {})
+                Button("네", action: {
+                    UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(signUpModel.debugDescription)")
+                    interactor.completeSignUp(with: signUpModel)
+                })
+            } message: {
+                Text("프로필 입력을 생략하고 홈화면으로 이동하시겠습니까?")
+            }
+    }
+
+    var signUpSkipButton: some View {
+        Button(action: {
+            isShowingSkipAlert = true
+        }) {
+            Text("건너 뛰기")
+                .font(.pretendardRegular(size: fs(16)))
+                .foregroundStyle(UmpaColor.mainBlue)
+        }
+        .opacity(currentSignUpStep.canSkip ? 1 : 0)
     }
 
     var content: some View {
@@ -163,5 +189,7 @@ struct TeacherSignUpView: View {
 }
 
 #Preview {
-    TeacherSignUpView(socialLoginType: .apple)
+    NavigationStack {
+        TeacherSignUpView(socialLoginType: .apple)
+    }
 }

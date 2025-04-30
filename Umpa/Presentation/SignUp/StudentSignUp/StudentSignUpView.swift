@@ -83,7 +83,7 @@ struct StudentSignUpView: View {
                 .font(.pretendardRegular(size: fs(16)))
                 .foregroundStyle(UmpaColor.mainBlue)
         }
-        .opacity(currentSignUpStep.isRequired ? 0 : 1)
+        .opacity(currentSignUpStep.canSkip ? 1 : 0)
     }
 
     var content: some View {
@@ -174,7 +174,7 @@ struct StudentSignUpView: View {
         currentSignUpStep.next()
 
         // 필수 입력 단계가 아니거나 입력이 유효한 경우 다음 버튼을 활성화한다.
-        isSatisfiedCurrentInput = !currentSignUpStep.isRequired || validateInput(of: currentSignUpStep)
+        isSatisfiedCurrentInput = currentSignUpStep.canSkip || validateInput(of: currentSignUpStep)
 
         signUpProgressValue = currentSignUpStep.progressValue
 

@@ -17,6 +17,6 @@ public struct Region: Hashable {
 
 extension Region {
     public var description: String {
-        return "\(regionalLocalGovernment)/\(basicLocalGovernment)"
+        return "\(regionalLocalGovernment)/\(basicLocalGovernment.name)"
     }
 }

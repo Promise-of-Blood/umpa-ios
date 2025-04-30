@@ -19,16 +19,16 @@ enum StudentSignUpStep: Int, CaseIterable {
         return minProgress + (Double(rawValue) / steps) * (maxProgress - minProgress)
     }
 
-    var isRequired: Bool {
+    var canSkip: Bool {
         switch self {
         case .usernameInput,
              .majorSelection,
              .dreamCollegeSelection:
-            return true
+            return false
         case .profileInput,
              .preferSubjectSelection,
              .lessonRequirement:
-            return false
+            return true
         }
     }
 

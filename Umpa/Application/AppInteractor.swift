@@ -17,13 +17,20 @@ struct DefaultAppInteractor {
 
     private let collegeRepository: CollegeRepository
     private let majorRepository: MajorRepository
+    private let regionRepository: RegionRepository
 
     private let cancelBag = CancelBag()
 
-    init(appState: AppState, collegeRepository: CollegeRepository, majorRepository: MajorRepository) {
+    init(
+        appState: AppState,
+        collegeRepository: CollegeRepository,
+        majorRepository: MajorRepository,
+        regionRepository: RegionRepository,
+    ) {
         self.appState = appState
         self.collegeRepository = collegeRepository
         self.majorRepository = majorRepository
+        self.regionRepository = regionRepository
 
         #if DEBUG
         setupMockBehavior()
@@ -74,18 +81,20 @@ struct DefaultAppInteractor {
 
 extension DefaultAppInteractor: AppInteractor {
     func loadAppData() {
-        Publishers.Zip(
+        Publishers.Zip3(
             collegeRepository.fetchCollegeList(),
             majorRepository.fetchMajorList(),
+            regionRepository.fetchRegionList(),
         )
         .receive(on: DispatchQueue.main)
         .sink { completion in
             if completion.isError {
                 // TODO: Handle error - 앱을 시작할 수 없음
             }
-        } receiveValue: { [appState] collegeList, majorList in
+        } receiveValue: { [appState] collegeList, majorList, regionList in
             appState.appData.collegeList = collegeList
             appState.appData.majorList = majorList
+            appState.appData.regionList = regionList
             appState.system.isSplashFinished = true
         }
         .store(in: cancelBag)

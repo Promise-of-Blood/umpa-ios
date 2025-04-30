@@ -46,7 +46,10 @@ extension TeacherSignUpModel: CustomDebugStringConvertible {
             socialLoginType: \(socialLoginType),
             name: \(name),
             major: \(String(describing: major)),
-            gender: 
+            gender: \(String(describing: gender)),
+            lessonRegion: \(String(describing: lessonRegion)),
+            profileImageData: \(String(describing: profileImageData)),
+            experiences: \(experiences),
         )
         """
     }

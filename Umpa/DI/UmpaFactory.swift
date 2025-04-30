@@ -84,6 +84,15 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    private var regionRepository: Factory<RegionRepository> {
+        Factory(self) {
+            DefaultRegionRepository(
+                network: self.network()
+            )
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - DataAccess
@@ -171,6 +180,7 @@ extension Container {
                 appState: self.appState(),
                 collegeRepository: self.collegeRepository(),
                 majorRepository: self.majorRepository(),
+                regionRepository: self.regionRepository()
             )
         }
         .scope(.singleton)
@@ -359,6 +369,13 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    var stubRegionRepository: Factory<RegionRepository> {
+        Factory(self) {
+            StubRegionRepository()
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - UseCase
@@ -399,6 +416,7 @@ extension Container {
                 appState: self.appState(),
                 collegeRepository: self.mockCollegeRepository(),
                 majorRepository: self.mockMajorRepository(),
+                regionRepository: self.stubRegionRepository(),
             )
         }
         .scope(.shared)
