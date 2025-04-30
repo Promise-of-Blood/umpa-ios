@@ -72,52 +72,52 @@ extension Teacher {
         experiences: [
             Experience(
                 title: "2008 제6회 모스크바 국제 청소년 쇼팽 피아노 콩쿠르 1위 심사위원상 오케스트라 협연상 폴로네이즈 최고연주상",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: true
-            ),
+            )!,
             Experience(
                 title: "2009 제7회 일본 하마마쓰 국제 피아노 콩쿠르 1위",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: true
-            ),
+            )!,
             Experience(
                 title: "2011 제14회 차이코프스키 국제 콩쿠르 피아노 부문 3위",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: true
-            ),
+            )!,
             Experience(
                 title: "2011 제6회 대원음악상 신인상",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
             Experience(
                 title: "2014 제14회 아르투르 루빈스타인 콩쿠르 3위 실내악 최고연주상 주니어 심사위원상",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
             Experience(
                 title: "2015 제17회 쇼팽 국제 피아노 콩쿠르 1위 폴로네이즈 최고 연주상",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
             Experience(
                 title: "2019 제12회 대원음악상 대상",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
             Experience(
                 title: "2023 삼성호암상 예술상",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
         ],
         links: [
             URL(string: "https://www.youtube.com/watch?v=d3IKMiv8AHw"),
@@ -154,28 +154,28 @@ extension Teacher {
         experiences: [
             Experience(
                 title: "서울예술대학교 작곡 전공 졸업",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: true
-            ),
+            )!,
             Experience(
                 title: "동아방송대 작곡 전공 합격",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
             Experience(
                 title: "호원대 베이스 전공 합격",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
             Experience(
                 title: "전 LNS, SMMA 출강",
-                startDate: YMDate(year: 2020, month: 1),
-                endDate: YMDate(year: 2022, month: 1),
+                startDate: YMDate(year: 2020, month: 1)!,
+                endDate: YMDate(year: 2022, month: 1)!,
                 isRepresentative: false
-            ),
+            )!,
         ],
         links: [],
         myServices: []

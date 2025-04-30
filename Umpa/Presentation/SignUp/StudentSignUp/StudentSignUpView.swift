@@ -16,7 +16,7 @@ struct StudentSignUpView: View {
     @StateObject private var studentSignUpModel: StudentSignUpModel
 
     /// 진행바를 표시하기 위한 진행률 값
-    @State private var signUpProgressValue: CGFloat = StudentSignUpStep.allCases[0].progressValue
+    @State private var signUpProgressValue: CGFloat = StudentSignUpStep.first.progressValue
 
     /// 현재 보이는 화면의 입력이 유효한지 여부
     @State private var isSatisfiedCurrentInput = false

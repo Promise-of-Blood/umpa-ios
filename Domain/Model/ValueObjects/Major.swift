@@ -3,7 +3,7 @@
 import Foundation
 
 /// 전공
-public struct Major: Hashable {
+public struct Major: Hashable, Decodable {
     public let name: String
 
     public init(name: String) {

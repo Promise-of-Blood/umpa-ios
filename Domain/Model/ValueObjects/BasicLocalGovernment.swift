@@ -2,7 +2,7 @@
 
 import Foundation
 
-public struct BasicLocalGovernment: Hashable {
+public struct BasicLocalGovernment: Hashable, Decodable {
     public let id: Int
     public let name: String
 
