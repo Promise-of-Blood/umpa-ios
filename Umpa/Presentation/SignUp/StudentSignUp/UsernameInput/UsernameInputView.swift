@@ -45,6 +45,8 @@ struct UsernameInputView: View {
                 text: $signUpModel.username,
                 prompt: Text("닉네임을 입력해주세요")
             )
+            .autocorrectionDisabled()
+            .textInputAutocapitalization(.never)
         }
         .padding()
         .overlay {

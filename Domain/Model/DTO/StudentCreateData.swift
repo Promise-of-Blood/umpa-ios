@@ -7,26 +7,32 @@ public struct StudentCreateData {
     let name: String
     let username: String
     let major: Major
-    let dreamCollege0: String
-    let dreamCollege1: String
-    let dreamCollege2: String
+    let dreamCollege0: College
+    let dreamCollege1: College
+    let dreamCollege2: College
     let profileImageData: Data?
     let grade: Grade?
     let gender: Gender?
     let preferSubject: Subject?
+    let lessonStyle: LessonStyle?
+    let availableLessonDays: [Domain.Weekday]
+    let lessonRequirements: String
 
     public init?(
         socialLoginType: SocialLoginType,
         name: String,
         username: String,
         major: Major?,
-        dreamCollege0: String?,
-        dreamCollege1: String?,
-        dreamCollege2: String?,
+        dreamCollege0: College?,
+        dreamCollege1: College?,
+        dreamCollege2: College?,
         profileImageData: Data?,
         grade: Grade?,
         gender: Gender?,
         preferSubject: Subject?,
+        lessonStyle: LessonStyle?,
+        availableLessonDays: [Domain.Weekday],
+        lessonRequirements: String,
     ) {
         // FIXME: 조건 완성하기
         guard let major,
@@ -49,6 +55,9 @@ public struct StudentCreateData {
         self.grade = grade
         self.gender = gender
         self.preferSubject = preferSubject
+        self.lessonStyle = lessonStyle
+        self.availableLessonDays = availableLessonDays
+        self.lessonRequirements = lessonRequirements
     }
 }
 

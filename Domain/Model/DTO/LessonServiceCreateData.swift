@@ -19,7 +19,7 @@ public struct LessonServiceCreateData {
     
     public let availableTimes: [TimesByWeekday<HMTime>]
     
-    public let lessonStyle: LessonService.LessonStyle
+    public let lessonStyle: LessonStyle
     
     public let isAvailableOfflineCounseling: Bool
     

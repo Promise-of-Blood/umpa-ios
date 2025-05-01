@@ -14,7 +14,7 @@ public struct Student: User {
     public let grade: Grade
     public let dreamCollege: [College]
     public let subject: Subject
-    public let availableLessonDay: [WeekDay]
+    public let availableLessonDay: [Weekday]
     public let requirements: String // 자기소개 및 요청 사항
     public let favoriteServices: [Service.Id]
 
@@ -30,7 +30,7 @@ public struct Student: User {
         grade: Grade,
         dreamCollege: [College],
         subject: Subject,
-        availableLessonDay: [WeekDay],
+        availableLessonDay: [Weekday],
         requirements: String,
         favoriteServices: [Service.Id]
     ) {

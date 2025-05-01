@@ -68,7 +68,7 @@ struct StudentSignUpView: View {
                 Button("아니오", action: {})
                 Button("네", action: {
                     UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(signUpModel.debugDescription)")
-                    interactor.completeSignUp(with: signUpModel)
+                    interactor.signUp(with: signUpModel)
                 })
             } message: {
                 Text("프로필 입력을 생략하고 홈화면으로 이동하시겠습니까?")
@@ -161,7 +161,7 @@ struct StudentSignUpView: View {
             ),
             StudentProfileInputView(signUpModel: signUpModel),
             PreferSubjectSelectionView(signUpModel: signUpModel),
-            EmptyView(), // .lessonRequirement
+            LessonRequirementView(signUpModel: signUpModel),
         ]
         assert(entry.count == StudentSignUpStep.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
         return entry
@@ -234,7 +234,7 @@ struct StudentSignUpView: View {
         case .majorSelection, .dreamCollegeSelection, .profileInput, .preferSubjectSelection:
             moveToNextProgress()
         case .lessonRequirement:
-            interactor.completeSignUp(with: signUpModel)
+            interactor.signUp(with: signUpModel)
         }
     }
 }

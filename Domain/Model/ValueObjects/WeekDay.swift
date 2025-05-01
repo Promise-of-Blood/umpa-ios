@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
-public enum WeekDay {
-    case mon
+public enum Weekday: Int, CaseIterable, Hashable {
+    case mon = 0
     case tue
     case wed
     case thu

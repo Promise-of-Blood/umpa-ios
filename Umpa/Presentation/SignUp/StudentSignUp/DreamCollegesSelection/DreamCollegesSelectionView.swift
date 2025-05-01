@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import Core
+import Domain
 import Factory
 import SFSafeSymbols
 import SwiftUI
@@ -74,7 +75,7 @@ struct DreamCollegesSelectionView: View {
         isSearchSheetShowing = true
     }
 
-    private func setDreamCollege(_ college: String) {
+    private func setDreamCollege(_ college: College) {
         switch currentSearchingCollege {
         case 0: signUpModel.dreamCollege0 = college
         case 1: signUpModel.dreamCollege1 = college
@@ -91,7 +92,7 @@ struct DreamCollegesSelectionView: View {
 
 private struct DreamCollegesSelectionGroup: View {
     let title: String
-    let selectedCollege: String?
+    let selectedCollege: College?
     let action: () -> Void
 
     var body: some View {
@@ -103,7 +104,7 @@ private struct DreamCollegesSelectionGroup: View {
 
             Button(action: action) {
                 HStack {
-                    Text(selectedCollege ?? "학교 선택")
+                    Text(selectedCollege?.name ?? "학교 선택")
                         .font(.pretendardMedium(size: fs(16)))
                     Spacer()
                     Image(systemSymbol: .chevronDown)
@@ -129,12 +130,11 @@ private struct CollegeSearchView: View {
 
     @FocusState private var isSearchFieldFocused: Bool
 
-    let action: (String) -> Void
+    let action: (College) -> Void
 
-    private var searchResult: [String] {
+    private var searchResult: [College] {
         appState.appData.collegeList
             .filter { $0.name.contains(searchQuery) }
-            .map(\.name)
     }
 
     // MARK: View
@@ -143,6 +143,7 @@ private struct CollegeSearchView: View {
         content
             .onAppear {
                 isSearchFieldFocused = true
+                searchQuery = "대"
             }
     }
 
@@ -175,7 +176,7 @@ private struct CollegeSearchView: View {
                 Button {
                     didTapCollege(college)
                 } label: {
-                    Text(college)
+                    Text(college.name)
                         .font(.pretendardMedium(size: fs(13)))
                         .foregroundStyle(Color(hex: "9E9E9E"))
                 }
@@ -186,7 +187,7 @@ private struct CollegeSearchView: View {
         .padding(.horizontal, fs(28))
     }
 
-    private func didTapCollege(_ college: String) {
+    private func didTapCollege(_ college: College) {
         UmpaLogger(category: .signUp).log("\(college) 선택됨", level: .debug)
         action(college)
         dismiss()

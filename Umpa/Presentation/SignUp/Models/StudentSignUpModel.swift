@@ -9,13 +9,16 @@ final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     @Published var name: String = ""
     @Published var username: String = ""
     @Published var major: Major?
-    @Published var dreamCollege0: String?
-    @Published var dreamCollege1: String?
-    @Published var dreamCollege2: String?
+    @Published var dreamCollege0: College?
+    @Published var dreamCollege1: College?
+    @Published var dreamCollege2: College?
     @Published var profileImageData: Data?
     @Published var grade: Grade?
     @Published var gender: Gender?
     @Published var preferSubject: Domain.Subject?
+    @Published var lessonStyle: LessonStyle?
+    @Published var availableLessonDays: [Domain.Weekday] = []
+    @Published var lessonRequirements: String = ""
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
@@ -44,6 +47,9 @@ extension StudentSignUpModel {
             grade: grade,
             gender: gender,
             preferSubject: preferSubject,
+            lessonStyle: lessonStyle,
+            availableLessonDays: availableLessonDays,
+            lessonRequirements: lessonRequirements
         )
     }
 }
@@ -63,6 +69,10 @@ extension StudentSignUpModel: CustomDebugStringConvertible {
             grade: \(String(describing: grade)),
             gender: \(String(describing: gender)),
             preferSubject: \(String(describing: preferSubject)),
+            lessonStyle: \(String(describing: lessonStyle)),
+            availableLessonDays: \(availableLessonDays),
+            lessonRequirements: \(lessonRequirements),
+        )
         """
     }
 }
