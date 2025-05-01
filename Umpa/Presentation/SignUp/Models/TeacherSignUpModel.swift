@@ -10,7 +10,7 @@ final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
     @Published var gender: Gender?
     @Published var lessonRegion: Region?
     @Published var profileImageData: Data?
-    @Published var experiences: [Experience] = []
+    @Published var experiences: [ExperienceModel] = []
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
@@ -27,6 +27,12 @@ final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
 
 extension TeacherSignUpModel {
     func toDomain() -> TeacherCreateData? {
+        var experiencesDomain: [Experience] = []
+        for experience in experiences {
+            guard let domain = experience.toDomain() else { return nil }
+            experiencesDomain.append(domain)
+        }
+
         return TeacherCreateData(
             socialLoginType: socialLoginType,
             name: name,
@@ -34,7 +40,7 @@ extension TeacherSignUpModel {
             gender: gender,
             region: lessonRegion,
             profileImageData: profileImageData,
-            experiences: experiences,
+            experiences: experiencesDomain,
         )
     }
 }

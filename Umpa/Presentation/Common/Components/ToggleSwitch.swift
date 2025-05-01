@@ -3,7 +3,7 @@
 import SwiftUI
 
 public struct ToggleSwitch: View {
-    struct Appearance {
+    public struct Appearance {
         let circleRadius: CGFloat
         let circleColor: Color
         let rectangleSize: CGSize
@@ -12,23 +12,35 @@ public struct ToggleSwitch: View {
         let enabledColor: Color
         let movingOffset: CGFloat
 
-        static let `default` = Appearance(
-            circleRadius: fs(18),
-            circleColor: Color(hex: "0E2F6B"),
-            rectangleSize: CGSize(width: fs(30), height: fs(12)),
-            rectangleCornerRadius: fs(5),
-            disabledColor: UmpaColor.lightGray,
-            enabledColor: UmpaColor.main,
-            movingOffset: fs(6.5)
-        )
+        static func appearance(
+            circleRadius: CGFloat = fs(18),
+            circleColor: Color = Color(hex: "0E2F6B"),
+            rectangleSize: CGSize = CGSize(width: fs(30), height: fs(12)),
+            rectangleCornerRadius: CGFloat = fs(5),
+            disabledColor: Color = UmpaColor.lightGray,
+            enabledColor: Color = UmpaColor.main,
+            movingOffset: CGFloat = fs(6.5)
+        ) -> Self {
+            return Appearance(
+                circleRadius: circleRadius,
+                circleColor: circleColor,
+                rectangleSize: rectangleSize,
+                rectangleCornerRadius: rectangleCornerRadius,
+                disabledColor: disabledColor,
+                enabledColor: enabledColor,
+                movingOffset: movingOffset
+            )
+        }
+
+        public static let `default` = Appearance.appearance()
     }
 
     @Binding var isOn: Bool
 
+    private let appearance: Appearance
+
     @State private var isPressing = false
     @State private var visualIsOn: Bool
-
-    private let appearance: Appearance = .default
 
     private let animationDuration: CGFloat = 0.25
     private let stretchingWidth: CGFloat = fs(2.0)
@@ -44,10 +56,13 @@ public struct ToggleSwitch: View {
         return 0
     }
 
-    public init(isOn: Binding<Bool>) {
+    public init(isOn: Binding<Bool>, appearance: Appearance = .default) {
         _isOn = isOn
         _visualIsOn = State(wrappedValue: isOn.wrappedValue)
+        self.appearance = appearance
     }
+
+    // MARK: View
 
     public var body: some View {
         content
