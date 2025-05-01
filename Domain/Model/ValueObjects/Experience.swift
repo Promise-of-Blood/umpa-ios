@@ -8,7 +8,7 @@ public struct Experience: Hashable {
     public let endDate: YMDate
     public let isRepresentative: Bool
 
-    init?(title: String, startDate: YMDate, endDate: YMDate, isRepresentative: Bool) {
+    public init?(title: String, startDate: YMDate, endDate: YMDate, isRepresentative: Bool) {
         guard Validator(title: title, startDate: startDate, endDate: endDate).validate() else {
             return nil
         }
