@@ -143,7 +143,6 @@ private struct CollegeSearchView: View {
         content
             .onAppear {
                 isSearchFieldFocused = true
-                searchQuery = "대"
             }
     }
 

@@ -15,7 +15,7 @@ public enum LessonStyle {
             return "비대면"
         case .both:
             assertionFailure("현재 both에 해당하는 UI 요소는 없습니다.")
-            return ""
+            return "대면/비대면"
         }
     }
 }

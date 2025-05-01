@@ -7,8 +7,6 @@ import SwiftUI
 struct LessonRequirementView: View {
     @ObservedObject var signUpModel: StudentSignUpModel
 
-    @State private var presentingLessonRequirements: String = ""
-
     var body: some View {
         content
     }
@@ -22,7 +20,7 @@ struct LessonRequirementView: View {
 
             VStack(spacing: fs(30)) {
                 lessonStyleSelectRow
-                availableLessonDaySelectsRow
+                availableLessonDaysSelectRow
                 lessonRequirementsInputRow
             }
         }
@@ -51,7 +49,7 @@ struct LessonRequirementView: View {
         }
     }
 
-    var availableLessonDaySelectsRow: some View {
+    var availableLessonDaysSelectRow: some View {
         VStack(spacing: fs(12)) {
             Text("레슨 가능한 요일")
                 .font(.pretendardMedium(size: fs(16)))
