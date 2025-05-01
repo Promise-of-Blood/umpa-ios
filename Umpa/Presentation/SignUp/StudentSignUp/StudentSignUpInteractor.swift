@@ -9,7 +9,7 @@ import SwiftUICore
 
 @MainActor
 protocol StudentSignUpInteractor {
-    func completeSignUp(with model: StudentSignUpModel)
+    func signUp(with model: StudentSignUpModel)
     func performDuplicateCheck(
         username: String,
         isShowingUsernameAlert: Binding<Bool>,
@@ -69,11 +69,16 @@ struct DefaultStudentSignUpInteractor {
 }
 
 extension DefaultStudentSignUpInteractor: StudentSignUpInteractor {
-    func completeSignUp(with model: StudentSignUpModel) {
+    func signUp(with model: StudentSignUpModel) {
+        #if DEBUG
+        UmpaLogger(category: .signUp).log("회원가입을 진행합니다 : \(model.debugDescription)", level: .debug)
+        #endif
+
         guard let studentCreateData = model.toDomain() else {
             // TODO: Handle exception - 뭔가 필요한 정보가 입력되지 않은 경우
             return
         }
+
         signUp(with: studentCreateData)
             .sink { completion in
                 if let error = completion.error {

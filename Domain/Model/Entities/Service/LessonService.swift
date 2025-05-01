@@ -70,12 +70,6 @@ public struct LessonService: SinglePriceService {
 }
 
 extension LessonService {
-    public enum LessonStyle {
-        case online
-        case offline
-        case both
-    }
-
     public struct TargetStudent: Hashable {
         public let description: String
 
