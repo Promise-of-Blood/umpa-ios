@@ -10,6 +10,7 @@ public struct TeacherCreateData {
     let region: Region
     let profileImageData: Data?
     let experiences: [Experience]
+    let links: [String]
 
     public init?(
         socialLoginType: SocialLoginType,
@@ -19,6 +20,7 @@ public struct TeacherCreateData {
         region: Region?,
         profileImageData: Data?,
         experiences: [Experience],
+        links: [String],
     ) {
         guard let major,
               let gender,
@@ -33,5 +35,6 @@ public struct TeacherCreateData {
         self.region = region
         self.profileImageData = profileImageData
         self.experiences = experiences
+        self.links = links
     }
 }

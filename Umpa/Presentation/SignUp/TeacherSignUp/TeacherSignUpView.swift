@@ -48,7 +48,7 @@ struct TeacherSignUpView: View {
                 Button("아니오", action: {})
                 Button("네", action: {
                     UmpaLogger(category: .signUp).log("추가 프로필 입력 건너뜀 : \(signUpModel.debugDescription)")
-                    interactor.completeSignUp(with: signUpModel)
+                    interactor.signUp(with: signUpModel)
                 })
             } message: {
                 Text("프로필 입력을 생략하고 홈화면으로 이동하시겠습니까?")
@@ -183,7 +183,7 @@ struct TeacherSignUpView: View {
         case .majorSelection, .profileInput, .experienceInput:
             moveToNextProgress()
         case .linkInput:
-            interactor.completeSignUp(with: signUpModel)
+            interactor.signUp(with: signUpModel)
         }
     }
 }

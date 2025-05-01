@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import Combine
+import Core
 import Domain
 
 final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
@@ -11,6 +12,7 @@ final class TeacherSignUpModel: ObservableObject, MajorSelectableModel {
     @Published var lessonRegion: Region?
     @Published var profileImageData: Data?
     @Published var experiences: [ExperienceModel] = []
+    @Published var siteLinks: [SiteLinkModel] = []
 
     init(socialLoginType: SocialLoginType) {
         self.socialLoginType = socialLoginType
@@ -33,6 +35,10 @@ extension TeacherSignUpModel {
             experiencesDomain.append(domain)
         }
 
+        let links = siteLinks
+            .filter(\.link.isNotEmpty)
+            .map { $0.toDomain() }
+
         return TeacherCreateData(
             socialLoginType: socialLoginType,
             name: name,
@@ -41,6 +47,7 @@ extension TeacherSignUpModel {
             region: lessonRegion,
             profileImageData: profileImageData,
             experiences: experiencesDomain,
+            links: links,
         )
     }
 }
@@ -56,6 +63,7 @@ extension TeacherSignUpModel: CustomDebugStringConvertible {
             lessonRegion: \(String(describing: lessonRegion)),
             profileImageData: \(String(describing: profileImageData)),
             experiences: \(experiences),
+            siteLinks: \(siteLinks),
         )
         """
     }
