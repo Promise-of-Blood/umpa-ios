@@ -11,14 +11,14 @@ struct UsernameInputView: View {
 
     @Binding var isDuplicatedUsername: ValueLoadable<Bool?>
 
-    @FocusState private var isUsernameFieldFocused: Bool
+    var focusField: FocusState<StudentSignUpView.FocusField?>.Binding
 
     // MARK: View
 
     var body: some View {
         content
             .onAppear {
-                isUsernameFieldFocused = true
+                focusField.wrappedValue = .username
             }
             .onChange(of: signUpModel.username) {
                 isSatisfiedCurrentInput = signUpModel.validateUserName()
@@ -29,8 +29,8 @@ struct UsernameInputView: View {
     var content: some View {
         VStack(spacing: fs(80)) {
             Text("닉네임을 입력해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
             nicknameTextField
         }
@@ -53,17 +53,20 @@ struct UsernameInputView: View {
             RoundedRectangle(cornerRadius: 5)
                 .stroke(UmpaColor.lightGray)
         }
-        .focused($isUsernameFieldFocused)
+        .focused(focusField, equals: .username)
         .onTapGesture {
-            isUsernameFieldFocused = true
+            focusField.wrappedValue = .username
         }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
+    @FocusState var focusField: StudentSignUpView.FocusField?
+
     UsernameInputView(
         signUpModel: StudentSignUpModel(socialLoginType: .apple),
         isSatisfiedCurrentInput: .constant(false),
-        isDuplicatedUsername: .constant(.value(false))
+        isDuplicatedUsername: .constant(.value(false)),
+        focusField: $focusField
     )
 }

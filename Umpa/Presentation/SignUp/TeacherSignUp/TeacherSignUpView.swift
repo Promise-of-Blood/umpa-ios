@@ -37,7 +37,7 @@ struct TeacherSignUpView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: didTapBackButton) {
                         Image(.arrowBack)
-                            .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
+                            .padding(.horizontal, SignUpConstant.backButtonPadding)
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
@@ -71,8 +71,8 @@ struct TeacherSignUpView: View {
             ProgressView(value: signUpProgressValue)
                 .background(UmpaColor.lightBlue)
                 .clipShape(RoundedRectangle(cornerRadius: .infinity))
-                .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
-                .padding(.top, SignUpSharedUIConstant.progressViewTopPadding)
+                .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
+                .padding(.top, SignUpConstant.progressViewTopPadding)
                 .animation(.easeInOut, value: signUpProgressValue)
 
             signUpInputView
@@ -94,7 +94,7 @@ struct TeacherSignUpView: View {
                             id: \.1.rawValue
                         ) { inputView, step in
                             AnyView(inputView)
-                                .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+                                .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
                                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
                                 .id(step)
                         }
@@ -107,7 +107,7 @@ struct TeacherSignUpView: View {
                     }
                 }
             }
-            .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithProgressView)
+            .padding(.top, SignUpConstant.titleTopPaddingWithProgressView)
         }
     }
 

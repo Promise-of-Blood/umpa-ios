@@ -12,11 +12,11 @@ struct SignUpBottomButton<Content>: View where Content: View {
     var body: some View {
         Button(action: action) {
             label()
-                .font(.pretendardBold(size: fs(20)))
+                .font(.pretendardSemiBold(size: fs(17)))
                 .foregroundStyle(.white)
-                .frame(maxWidth: .infinity, idealHeight: fs(60))
+                .frame(maxWidth: .infinity, idealHeight: fs(56))
                 .fixedSize(horizontal: false, vertical: true)
-                .background(isEnabled ? UmpaColor.mainBlue : Color.gray, in: RoundedRectangle(cornerRadius: 12))
+                .background(isEnabled ? UmpaColor.mainBlue : Color.gray, in: RoundedRectangle(cornerRadius: fs(10)))
                 .padding()
         }
     }

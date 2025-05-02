@@ -30,8 +30,8 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
     var content: some View {
         VStack(spacing: fs(60)) {
             Text("전공을 선택해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             VStack(spacing: fs(30)) {

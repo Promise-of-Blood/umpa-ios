@@ -16,8 +16,8 @@ struct LinkInputView: View {
     var content: some View {
         VStack(spacing: fs(50)) {
             Text("대표 사이트를 등록해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             VStack(spacing: fs(12)) {

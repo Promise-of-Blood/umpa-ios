@@ -14,8 +14,8 @@ struct LessonRequirementView: View {
     var content: some View {
         VStack(spacing: fs(40)) {
             Text("원하는 수업에 대한 정보를 입력해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             VStack(spacing: fs(30)) {

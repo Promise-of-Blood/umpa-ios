@@ -19,17 +19,24 @@ enum LoginInteractorError: LocalizedError {
     }
 
     case kakaoLoginFailed(KakaoLoginFailedReason)
+
+    enum AppleLoginFailedReason {
+        case unexpectedAuthorizationType
+    }
+
+    case appleLoginFailed(AppleLoginFailedReason)
 }
 
 @MainActor
 protocol LoginInteractor {
     func loginWithApple(
         with authorizationController: AuthorizationController,
+        isTappedAnyLoginButton: Binding<Bool>,
         socialLoginType: Binding<SocialLoginType?>
     )
-    func loginWithKakao(socialLoginType: Binding<SocialLoginType?>)
-    func loginWithNaver(socialLoginType: Binding<SocialLoginType?>)
-    func loginWithGoogle(socialLoginType: Binding<SocialLoginType?>)
+    func loginWithKakao(isTappedAnyLoginButton: Binding<Bool>, socialLoginType: Binding<SocialLoginType?>)
+    func loginWithNaver(isTappedAnyLoginButton: Binding<Bool>, socialLoginType: Binding<SocialLoginType?>)
+    func loginWithGoogle(isTappedAnyLoginButton: Binding<Bool>, socialLoginType: Binding<SocialLoginType?>)
 }
 
 struct DefaultLoginInteractor {
@@ -87,138 +94,180 @@ struct DefaultLoginInteractor {
 extension DefaultLoginInteractor: LoginInteractor {
     func loginWithApple(
         with authorizationController: AuthorizationController,
+        isTappedAnyLoginButton: Binding<Bool>,
         socialLoginType: Binding<SocialLoginType?>
     ) {
+        isTappedAnyLoginButton.wrappedValue = true
+
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.fullName, .email]
 
-        Task {
-            let result = try await authorizationController.performRequest(request)
-            switch result {
-            case .appleID(let appleIDCredential):
-//                let userIdentifier = appleIDCredential.user
-//                let fullName = appleIDCredential.fullName
-//                let email = appleIDCredential.email
-
-                let socialIdData = SocialIdData(socialLoginType: .apple)
-                attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
-                    .store(in: cancelBag)
-            default:
-                assertionFailure()
+        authorizationController.performRequest(request)
+            .handleEvents(receiveOutput: { result in // FIXME: 삭제 예정
+                if case .appleID(let credential) = result {
+                    print(credential.user)
+                    print(String(describing: credential.fullName))
+                    print(String(describing: credential.email))
+                }
+            })
+            .tryMap { result in
+                switch result {
+                case .appleID(let appleIDCredential):
+                    return SocialIdData(socialLoginType: .apple)
+                default:
+                    assertionFailure()
+                    throw LoginInteractorError.appleLoginFailed(.unexpectedAuthorizationType)
+                }
             }
-        } catch: { _ in
-            // TODO: Handle error
-        }
+            .flatMap { checkAccountLinkedSocialId(with: $0) }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                isTappedAnyLoginButton.wrappedValue = false
+                if let error = completion.error {
+                    // TODO: Handle error
+                    UmpaLogger.log(error.localizedDescription, level: .error)
+                }
+            } receiveValue: { [appState] user in
+                if let user {
+                    loginByUser(user)
+                } else {
+                    socialLoginType.wrappedValue = .apple
+                    appState.routing.loginNavigationPath.append(LoginView.NavigationDestination.phoneNumberInput)
+                }
+            }
+            .store(in: cancelBag)
     }
 
-    func loginWithKakao(socialLoginType: Binding<SocialLoginType?>) {
-        Task {
-            let oauthToken = try await _loginWithKakao()
-            print(oauthToken.idToken)
+    func loginWithKakao(isTappedAnyLoginButton: Binding<Bool>, socialLoginType: Binding<SocialLoginType?>) {
+        isTappedAnyLoginButton.wrappedValue = true
 
-            let socialIdData = SocialIdData(socialLoginType: .kakao)
-            attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
-                .store(in: cancelBag)
-        } catch: { error in
-            print(error)
-        }
+        loginWithKakaoAppropriately()
+            .handleEvents(receiveOutput: { oauthToken in // FIXME: 삭제 예정
+                print(String(describing: oauthToken.idToken))
+            })
+            .map { _ in
+                SocialIdData(socialLoginType: .kakao)
+            }
+            .flatMap { checkAccountLinkedSocialId(with: $0) }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                isTappedAnyLoginButton.wrappedValue = false
+                if let error = completion.error {
+                    // TODO: Handle error
+                    UmpaLogger.log(error.localizedDescription, level: .error)
+                }
+            } receiveValue: { [appState] user in
+                if let user {
+                    loginByUser(user)
+                } else {
+                    socialLoginType.wrappedValue = .kakao
+                    appState.routing.loginNavigationPath.append(LoginView.NavigationDestination.phoneNumberInput)
+                }
+            }
+            .store(in: cancelBag)
     }
 
-    func loginWithNaver(socialLoginType: Binding<SocialLoginType?>) {
-        Task {
-            let loginResult = try await NidOAuth.shared.requestLogin()
-            let accessToken = loginResult.accessToken.tokenString
-            let profileResult = try await NidOAuth.shared.getUserProfile(accessToken: accessToken)
-            let id = profileResult["id"]
-            print("Id: ", id)
+    func loginWithNaver(isTappedAnyLoginButton: Binding<Bool>, socialLoginType: Binding<SocialLoginType?>) {
+        isTappedAnyLoginButton.wrappedValue = true
 
-            let socialIdData = SocialIdData(socialLoginType: .naver)
-            attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
-                .store(in: cancelBag)
-        } catch: { error in
-            print("Error: ", error.localizedDescription)
-        }
+        NidOAuth.shared.requestLogin()
+            .map(\.accessToken.tokenString)
+            .flatMap { NidOAuth.shared.getUserProfile(accessToken: $0) }
+            .handleEvents(receiveOutput: { profileResult in // FIXME: 삭제 예정
+                print(String(describing: profileResult["id"]))
+            })
+            .map { _ in
+                SocialIdData(socialLoginType: .naver)
+            }
+            .flatMap { checkAccountLinkedSocialId(with: $0) }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                isTappedAnyLoginButton.wrappedValue = false
+                if let error = completion.error {
+                    // TODO: Handle error
+                    UmpaLogger.log(error.localizedDescription, level: .error)
+                }
+            } receiveValue: { [appState] user in
+                if let user {
+                    loginByUser(user)
+                } else {
+                    socialLoginType.wrappedValue = .naver
+                    appState.routing.loginNavigationPath.append(LoginView.NavigationDestination.phoneNumberInput)
+                }
+            }
+            .store(in: cancelBag)
     }
 
-    func loginWithGoogle(socialLoginType: Binding<SocialLoginType?>) {
+    func loginWithGoogle(isTappedAnyLoginButton: Binding<Bool>, socialLoginType: Binding<SocialLoginType?>) {
         guard let presentingVC = UIApplication.shared.keyRootViewController else {
             UmpaLogger.log("No presenting view controller")
             return
         }
 
-        Task {
-            let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: presentingVC)
-            UmpaLogger.log(result.serverAuthCode ?? "")
-            let user = result.user
-            UmpaLogger.log(user.idToken?.tokenString ?? "")
-            UmpaLogger.log(user.profile?.name ?? "")
+        isTappedAnyLoginButton.wrappedValue = true
 
-            let socialIdData = SocialIdData(socialLoginType: .google)
-            attemptUmpaLogin(with: socialIdData, socialLoginType: socialLoginType)
-                .store(in: cancelBag)
-        } catch: { error in
-            UmpaLogger.log(error.localizedDescription, level: .error)
-        }
+        GIDSignIn.sharedInstance.signIn(withPresenting: presentingVC)
+            .handleEvents(receiveOutput: { result in // FIXME: 삭제 예정
+                print(String(describing: result.serverAuthCode))
+                print(String(describing: result.user.idToken?.tokenString))
+                print(String(describing: result.user.profile?.name))
+            })
+            .map { _ in
+                SocialIdData(socialLoginType: .google)
+            }
+            .flatMap { checkAccountLinkedSocialId(with: $0) }
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                isTappedAnyLoginButton.wrappedValue = false
+                if let error = completion.error {
+                    // TODO: Handle error
+                    UmpaLogger.log(error.localizedDescription, level: .error)
+                }
+            } receiveValue: { [appState] user in
+                if let user {
+                    loginByUser(user)
+                } else {
+                    socialLoginType.wrappedValue = .google
+                    appState.routing.loginNavigationPath.append(LoginView.NavigationDestination.phoneNumberInput)
+                }
+            }
+            .store(in: cancelBag)
     }
 }
 
 // MARK: - Private Methods
 
 extension DefaultLoginInteractor {
-    @MainActor
-    private func _loginWithKakao() async throws -> OAuthToken {
-        if UserApi.isKakaoTalkLoginAvailable() {
-            return try await withCheckedThrowingContinuation { continuation in
+    private func loginWithKakaoAppropriately() -> AnyPublisher<OAuthToken, Error> {
+        Future { promise in
+            if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { oauthToken, error in
                     if let error {
-                        continuation.resume(throwing: error)
+                        promise(.failure(error))
                         return
                     }
                     guard let oauthToken else {
-                        continuation.resume(throwing: LoginInteractorError.kakaoLoginFailed(.missingOauthToken))
+                        promise(.failure(LoginInteractorError.kakaoLoginFailed(.missingOauthToken)))
                         return
                     }
-                    continuation.resume(returning: oauthToken)
+                    promise(.success(oauthToken))
                 }
-            }
-        } else {
-            return try await withCheckedThrowingContinuation { continuation in
+            } else {
                 UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                     if let error {
-                        continuation.resume(throwing: error)
+                        promise(.failure(error))
                         return
                     }
                     guard let oauthToken else {
-                        continuation.resume(throwing: LoginInteractorError.kakaoLoginFailed(.missingOauthToken))
+                        promise(.failure(LoginInteractorError.kakaoLoginFailed(.missingOauthToken)))
                         return
                     }
-                    continuation.resume(returning: oauthToken)
+                    promise(.success(oauthToken))
                 }
             }
         }
-    }
-
-    /// 소셜 로그인 후 아이디 정보로 Umpa 로그인을 시도합니다.
-    @MainActor
-    private func attemptUmpaLogin(
-        with socialIdData: SocialIdData,
-        socialLoginType: Binding<SocialLoginType?>
-    ) -> AnyCancellable {
-        checkAccountLinkedSocialId(with: socialIdData)
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                if let error = completion.error {
-                    // TODO: Handle error
-                }
-            } receiveValue: { [appState] user in
-                if let user {
-                    loginByUser(user)
-                } else {
-                    socialLoginType.wrappedValue = socialIdData.socialLoginType
-                    appState.routing.loginNavigationPath.append(SignUpRoute.phoneNumberVerification)
-                }
-            }
+        .eraseToAnyPublisher()
     }
 
     private func loginByUser(_ user: AnyUser) {
@@ -232,34 +281,70 @@ extension DefaultLoginInteractor {
     }
 }
 
-// MARK: - NidOAuth + Swift Concurrency
+// MARK: - NidOAuth + Combine
 
 extension NidOAuth {
-    @MainActor
-    func requestLogin() async throws -> LoginResult {
-        return try await withCheckedThrowingContinuation { continuation in
+    func requestLogin() -> AnyPublisher<LoginResult, Error> {
+        Future { [self] promise in
             requestLogin { result in
                 switch result {
                 case .success(let loginResult):
-                    continuation.resume(returning: loginResult)
+                    promise(.success(loginResult))
                 case .failure(let error):
-                    continuation.resume(throwing: error)
+                    promise(.failure(error))
                 }
             }
         }
+        .eraseToAnyPublisher()
     }
 
-    @MainActor
-    func getUserProfile(accessToken: String) async throws -> [String: String] {
-        return try await withCheckedThrowingContinuation { continuation in
+    func getUserProfile(accessToken: String) -> AnyPublisher<[String: String], Error> {
+        Future { [self] promise in
             getUserProfile(accessToken: accessToken) { result in
                 switch result {
                 case .success(let profileResult):
-                    continuation.resume(returning: profileResult)
+                    promise(.success(profileResult))
                 case .failure(let error):
-                    continuation.resume(throwing: error)
+                    promise(.failure(error))
                 }
             }
         }
+        .eraseToAnyPublisher()
+    }
+}
+
+// MARK: - GIDSignIn + Combine
+
+extension GIDSignIn {
+    func signIn(withPresenting presentingViewController: UIViewController) -> AnyPublisher<GIDSignInResult, Error> {
+        Future { [self] promise in
+            Task {
+                do {
+                    let result = try await signIn(withPresenting: presentingViewController)
+                    promise(.success(result))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+// MARK: - GIDSignIn + Combine
+
+extension AuthorizationController {
+    func performRequest(_ request: ASAuthorizationRequest) -> AnyPublisher<ASAuthorizationResult, Error> {
+        Future { promise in
+            Task {
+                do {
+                    let result = try await performRequest(request)
+                    promise(.success(result))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }

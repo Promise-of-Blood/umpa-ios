@@ -14,8 +14,8 @@ struct ExperienceInputView: View {
     var content: some View {
         VStack(spacing: fs(40)) {
             Text("대표 경력을 입력해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             VStack(spacing: fs(20)) {
