@@ -38,6 +38,7 @@ struct TeacherProfileInputView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             inputSection
         }
+        .background(.white)
     }
 
     var inputSection: some View {

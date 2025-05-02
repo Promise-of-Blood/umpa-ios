@@ -34,6 +34,7 @@ struct UsernameInputView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             nicknameTextField
         }
+        .background(.white)
     }
 
     var nicknameTextField: some View {
@@ -47,12 +48,11 @@ struct UsernameInputView: View {
             )
             .autocorrectionDisabled()
             .textInputAutocapitalization(.never)
+            .foregroundStyle(.black)
         }
         .padding()
-        .overlay {
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(UmpaColor.lightGray)
-        }
+        .backgroundStyle(.white)
+        .innerRoundedStroke(UmpaColor.lightGray, cornerRadius: fs(12))
         .focused(focusField, equals: .username)
         .onTapGesture {
             focusField.wrappedValue = .username

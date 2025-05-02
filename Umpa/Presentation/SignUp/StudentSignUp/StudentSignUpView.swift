@@ -8,6 +8,7 @@ import SwiftUI
 struct StudentSignUpView: View {
     enum FocusField {
         case username
+        case lessonRequirements
     }
 
     @Environment(\.dismiss) private var dismiss
@@ -103,6 +104,7 @@ struct StudentSignUpView: View {
             signUpInputView
             bottomNextButton
         }
+        .background(.white)
     }
 
     var bottomNextButton: some View {
@@ -168,7 +170,7 @@ struct StudentSignUpView: View {
             ),
             StudentProfileInputView(signUpModel: signUpModel),
             PreferSubjectSelectionView(signUpModel: signUpModel),
-            LessonRequirementView(signUpModel: signUpModel),
+            LessonRequirementView(signUpModel: signUpModel, focusField: $focusField),
         ]
         assert(entry.count == StudentSignUpStep.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
         return entry

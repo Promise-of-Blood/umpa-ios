@@ -65,29 +65,32 @@ struct VerificationCodeInputView: View {
 
     @ViewBuilder
     var content: some View {
-        VStack(spacing: fs(40)) {
-            TitleText("문자로 받은 인증번호를 입력해주세요")
-                .padding(.top, SignUpConstant.titleTopPaddingWithoutProgressView)
-            verificationSection
-        }
-        .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
-
-        Spacer()
-
-        SignUpBottomButton {
-            interactor.verifyCodeAndMoveToNext(verificationCode, isVerifiedCode: $isVerifiedCode)
-        } label: {
-            if isVerifiedCode.isLoading {
-                ProgressView()
-                    .progressViewStyle(.circular)
-            } else {
-                Text("인증번호 확인")
+        VStack {
+            VStack(spacing: fs(40)) {
+                TitleText("문자로 받은 인증번호를 입력해주세요")
+                    .padding(.top, SignUpConstant.titleTopPaddingWithoutProgressView)
+                verificationSection
             }
+            .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
+            
+            Spacer()
+            
+            SignUpBottomButton {
+                interactor.verifyCodeAndMoveToNext(verificationCode, isVerifiedCode: $isVerifiedCode)
+            } label: {
+                if isVerifiedCode.isLoading {
+                    ProgressView()
+                        .progressViewStyle(.circular)
+                } else {
+                    Text("인증번호 확인")
+                }
+            }
+            .disabled(!PhoneVerificationCodeValidator(rawCode: verificationCode).validate() ||
+                      isExpired ||
+                      isVerifiedCode.isLoading ||
+                      isVerifiedCode.value == false)
         }
-        .disabled(!PhoneVerificationCodeValidator(rawCode: verificationCode).validate() ||
-            isExpired ||
-            isVerifiedCode.isLoading ||
-            isVerifiedCode.value == false)
+        .background(.white)
     }
 
     var verificationSection: some View {
@@ -132,6 +135,7 @@ struct VerificationCodeInputView: View {
                     Text("인증번호 입력")
                 }
             )
+            .foregroundStyle(.black)
             .keyboardType(.numberPad)
             .onChange(of: verificationCode) { _, newValue in
                 isVerifiedCode.value = nil

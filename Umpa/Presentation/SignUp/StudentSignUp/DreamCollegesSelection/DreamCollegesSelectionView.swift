@@ -151,6 +151,7 @@ private struct CollegeSearchView: View {
             searchHeader
             searchResultView
         }
+        .background(.white)
     }
 
     var searchHeader: some View {
@@ -163,6 +164,7 @@ private struct CollegeSearchView: View {
                 label: { Text("학교 검색") }
             )
             .focused($isSearchFieldFocused)
+            .foregroundStyle(.black)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, fs(24))
@@ -182,6 +184,7 @@ private struct CollegeSearchView: View {
                 .listRowInsets(EdgeInsets())
             }
         }
+        .background(.white)
         .listStyle(.plain)
         .padding(.horizontal, fs(28))
     }

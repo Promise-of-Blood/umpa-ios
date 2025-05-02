@@ -48,6 +48,7 @@ struct PreferSubjectSelectionView: View {
             .padding(.horizontal, fs(8))
             .frame(maxWidth: .infinity)
         }
+        .background(.white)
     }
 }
 

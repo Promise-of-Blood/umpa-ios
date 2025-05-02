@@ -87,6 +87,7 @@ struct UserTypeSelectionView: View {
             }
             .disabled(preSignUpData.userType == nil)
         }
+        .background(.white)
     }
 }
 

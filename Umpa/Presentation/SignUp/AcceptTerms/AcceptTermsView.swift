@@ -71,6 +71,7 @@ struct AcceptTermsView: View {
                 )
                 Text("전체 동의")
                     .font(.pretendardBold(size: fs(22)))
+                    .foregroundStyle(.black)
             }
 
             VStack(alignment: .leading, spacing: fs(34)) {
@@ -82,6 +83,7 @@ struct AcceptTermsView: View {
                         )
                         Text(AcceptTermsItem.personalInformation.title)
                             .font(.pretendardRegular(size: fs(16)))
+                            .foregroundStyle(.black)
                     }
                     Spacer()
                     Button(action: {
@@ -99,6 +101,7 @@ struct AcceptTermsView: View {
                         )
                         Text(AcceptTermsItem.serviceUsage.title)
                             .font(.pretendardRegular(size: fs(16)))
+                            .foregroundStyle(.black)
                     }
                     Spacer()
                     Button(action: {
@@ -116,6 +119,7 @@ struct AcceptTermsView: View {
                         )
                         Text(AcceptTermsItem.electronicFinancialTransactions.title)
                             .font(.pretendardRegular(size: fs(16)))
+                            .foregroundStyle(.black)
                     }
                     Spacer()
                     Button(action: {

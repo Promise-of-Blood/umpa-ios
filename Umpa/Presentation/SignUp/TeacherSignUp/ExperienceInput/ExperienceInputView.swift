@@ -38,6 +38,7 @@ struct ExperienceInputView: View {
                 }
             }
         }
+        .background(.white)
     }
 
     var addExperienceButton: some View {

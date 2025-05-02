@@ -58,6 +58,7 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
             .padding(.horizontal, fs(8))
             .frame(maxWidth: .infinity)
         }
+        .background(.white)
     }
 }
 

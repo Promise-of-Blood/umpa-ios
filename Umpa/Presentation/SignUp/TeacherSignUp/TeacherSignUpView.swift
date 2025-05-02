@@ -82,6 +82,7 @@ struct TeacherSignUpView: View {
             }
             .disabled(!isSatisfiedCurrentInput)
         }
+        .background(.white)
     }
 
     var signUpInputView: some View {

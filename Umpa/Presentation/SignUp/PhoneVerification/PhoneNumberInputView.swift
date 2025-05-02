@@ -52,22 +52,25 @@ struct PhoneVerificationView: View {
 
     @ViewBuilder
     var content: some View {
-        VStack(alignment: .leading, spacing: fs(60)) {
-            header
-            phoneNumberInputBox
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.top, SignUpConstant.titleTopPaddingWithoutProgressView)
-        .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
+        VStack {
+            VStack(alignment: .leading, spacing: fs(60)) {
+                header
+                phoneNumberInputBox
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.top, SignUpConstant.titleTopPaddingWithoutProgressView)
+            .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
 
-        Spacer()
+            Spacer()
 
-        SignUpBottomButton {
-            interactor.sendVerificationCodeAndMoveToNext(with: rawPhoneNumber, e: $error)
-        } label: {
-            Text("인증번호 발송")
+            SignUpBottomButton {
+                interactor.sendVerificationCodeAndMoveToNext(with: rawPhoneNumber, e: $error)
+            } label: {
+                Text("인증번호 발송")
+            }
+            .disabled(!PhoneNumberValidator(rawPhoneNumber: rawPhoneNumber).validate())
         }
-        .disabled(!PhoneNumberValidator(rawPhoneNumber: rawPhoneNumber).validate())
+        .background(.white)
     }
 
     var header: some View {

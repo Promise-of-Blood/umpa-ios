@@ -43,6 +43,7 @@ struct LinkInputView: View {
                 .padding(.vertical, fs(12))
             }
         }
+        .background(.white)
     }
 
     var addSiteLinkButton: some View {

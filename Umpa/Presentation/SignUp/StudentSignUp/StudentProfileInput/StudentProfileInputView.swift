@@ -28,6 +28,7 @@ struct StudentProfileInputView: View {
             inputSection
         }
         .frame(maxWidth: .infinity)
+        .background(.white)
     }
 
     var inputSection: some View {
