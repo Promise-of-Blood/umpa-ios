@@ -386,6 +386,11 @@ extension Container {
             .scope(.singleton)
     }
 
+    var mockTeacherSignUpUseCase: Factory<TeacherSignUpUseCase> {
+        Factory(self) { MockTeacherSignUpUseCase() }
+            .scope(.singleton)
+    }
+
     var mockCheckAccountLinkedSocialIdUseCase: Factory<CheckAccountLinkedSocialIdUseCase> {
         Factory(self) { MockCheckAccountLinkedSocialIdUseCase() }
             .scope(.singleton)
@@ -435,7 +440,10 @@ extension Container {
 
     var mockTeacherSignUpInteractor: Factory<TeacherSignUpInteractor> {
         Factory(self) {
-            DefaultTeacherSignUpInteractor()
+            DefaultTeacherSignUpInteractor(
+                appState: self.appState(),
+                signUpUseCase: self.mockTeacherSignUpUseCase(),
+            )
         }
         .scope(.shared)
     }
