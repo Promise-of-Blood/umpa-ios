@@ -7,23 +7,28 @@ import SwiftUI
 struct LessonRequirementView: View {
     @ObservedObject var signUpModel: StudentSignUpModel
 
+    var focusField: FocusState<StudentSignUpView.FocusField?>.Binding
+
     var body: some View {
         content
     }
 
     var content: some View {
-        VStack(spacing: fs(40)) {
-            Text("원하는 수업에 대한 정보를 입력해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
-                .frame(maxWidth: .infinity, alignment: .leading)
+        ScrollView {
+            VStack(spacing: fs(40)) {
+                Text("원하는 수업에 대한 정보를 입력해주세요")
+                    .font(SignUpConstant.titleFont)
+                    .foregroundStyle(SignUpConstant.titleColor)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-            VStack(spacing: fs(30)) {
-                lessonStyleSelectRow
-                availableLessonDaysSelectRow
-                lessonRequirementsInputRow
+                VStack(spacing: fs(30)) {
+                    lessonStyleSelectRow
+                    availableLessonDaysSelectRow
+                    lessonRequirementsInputRow
+                }
             }
         }
+        .background(.white)
     }
 
     var lessonStyleSelectRow: some View {
@@ -65,7 +70,7 @@ struct LessonRequirementView: View {
                 .font(.pretendardMedium(size: fs(16)))
                 .foregroundStyle(UmpaColor.mainBlue)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            LessonRequirementsTextEditor(lessonRequirements: $signUpModel.lessonRequirements)
+            LessonRequirementsTextEditor(lessonRequirements: $signUpModel.lessonRequirements, focusField: focusField)
         }
     }
 
@@ -166,6 +171,8 @@ private struct WeekdaySelector: View {
 private struct LessonRequirementsTextEditor: View {
     @Binding var lessonRequirements: String
 
+    var focusField: FocusState<StudentSignUpView.FocusField?>.Binding
+
     private let font = Font.pretendardMedium(size: fs(14))
     private var fontColor: Color {
         lessonRequirements.isEmpty ? UmpaColor.lightGray : .black
@@ -186,10 +193,12 @@ private struct LessonRequirementsTextEditor: View {
                 .padding(.vertical, verticalPadding)
                 .frame(height: fs(120))
                 .innerRoundedStroke(UmpaColor.baseColor, cornerRadius: fs(15))
+                .focused(focusField, equals: .lessonRequirements)
             if lessonRequirements.isEmpty {
                 placeholder
             }
         }
+        .backgroundStyle(.white)
     }
 
     var placeholder: some View {
@@ -218,5 +227,6 @@ private extension Weekday {
 }
 
 #Preview {
-    LessonRequirementView(signUpModel: StudentSignUpModel(socialLoginType: .apple))
+    @FocusState var focusField: StudentSignUpView.FocusField?
+    LessonRequirementView(signUpModel: StudentSignUpModel(socialLoginType: .apple), focusField: $focusField)
 }

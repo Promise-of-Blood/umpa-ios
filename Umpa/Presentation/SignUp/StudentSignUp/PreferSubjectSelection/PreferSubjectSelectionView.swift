@@ -22,10 +22,7 @@ struct PreferSubjectSelectionView: View {
 
     var content: some View {
         VStack(spacing: fs(50)) {
-            Text("매칭을 원하는 수업 과목을 선택해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            TitleText("매칭을 원하는 수업 과목을 선택해주세요")
 
             VStack(spacing: fs(30)) {
                 ForEach(0 ..< rowCount, id: \.self) { row in
@@ -51,6 +48,7 @@ struct PreferSubjectSelectionView: View {
             .padding(.horizontal, fs(8))
             .frame(maxWidth: .infinity)
         }
+        .background(.white)
     }
 }
 

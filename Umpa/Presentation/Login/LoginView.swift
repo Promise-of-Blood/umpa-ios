@@ -10,7 +10,17 @@ import Domain
 import Factory
 import SwiftUI
 
+/// 학생 또는 선생님 회원가입을 진행하기 전에 공통으로 필요한 데이터.
+final class PreSignUpData: ObservableObject {
+    var socialLoginType: SocialLoginType?
+    @Published var userType: UserType?
+}
+
 struct LoginView: View {
+    enum NavigationDestination {
+        case phoneNumberInput
+    }
+
     @Environment(\.authorizationController) private var authorizationController
 
     @InjectedObject(\.appState) private var appState
@@ -21,21 +31,23 @@ struct LoginView: View {
     #endif
     private var loginInteractor
 
-    // 회원가입 시 다음 화면에 전달하는 용도로 사용되는 상태 변수
-    @State private var socialLoginType: SocialLoginType?
+    @StateObject private var preSignUpData = PreSignUpData()
+
+    @State private var isTappedAnyLoginButton = false
 
     private let socialLoginButtonSize: CGFloat = fs(60)
 
     var body: some View {
         NavigationStack(path: $appState.routing.loginNavigationPath) {
             content
-                .navigationDestination(for: SignUpRoute.self) { route in
+                .navigationDestination(for: NavigationDestination.self) {
                     // 본인인증 진행
-                    if case .phoneNumberVerification = route, let socialLoginType {
-                        PhoneVerificationView(socialLoginType: socialLoginType)
+                    if case .phoneNumberInput = $0, preSignUpData.socialLoginType != nil {
+                        PhoneVerificationView()
                     }
                 }
         }
+        .environmentObject(preSignUpData)
     }
 
     @ViewBuilder
@@ -69,39 +81,56 @@ struct LoginView: View {
     var loginButtons: some View {
         HStack(spacing: fs(4)) {
             Button(action: {
-                loginInteractor.loginWithKakao(socialLoginType: $socialLoginType)
+                loginInteractor.loginWithKakao(
+                    isTappedAnyLoginButton: $isTappedAnyLoginButton,
+                    socialLoginType: $preSignUpData.socialLoginType
+                )
             }) {
                 Image(.kakaoLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .disabled(isTappedAnyLoginButton)
             .accessibilityLabel("카카오 로그인")
             Spacer()
             Button(action: {
-                loginInteractor.loginWithNaver(socialLoginType: $socialLoginType)
+                loginInteractor.loginWithNaver(
+                    isTappedAnyLoginButton: $isTappedAnyLoginButton,
+                    socialLoginType: $preSignUpData.socialLoginType
+                )
             }) {
                 Image(.naverLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .disabled(isTappedAnyLoginButton)
             .accessibilityLabel("네이버 로그인")
             Spacer()
             Button(action: {
-                loginInteractor.loginWithGoogle(socialLoginType: $socialLoginType)
+                loginInteractor.loginWithGoogle(
+                    isTappedAnyLoginButton: $isTappedAnyLoginButton,
+                    socialLoginType: $preSignUpData.socialLoginType
+                )
             }) {
                 Image(.googleLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .disabled(isTappedAnyLoginButton)
             .accessibilityLabel("구글 로그인")
             Spacer()
             Button(action: {
-                loginInteractor.loginWithApple(with: authorizationController, socialLoginType: $socialLoginType)
+                loginInteractor.loginWithApple(
+                    with: authorizationController,
+                    isTappedAnyLoginButton: $isTappedAnyLoginButton,
+                    socialLoginType: $preSignUpData.socialLoginType,
+                )
             }) {
                 Image(.appleLoginIconCircle)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
+            .disabled(isTappedAnyLoginButton)
             .accessibilityLabel("애플 로그인")
         }
         .frame(maxWidth: .infinity, idealHeight: socialLoginButtonSize)

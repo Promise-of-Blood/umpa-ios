@@ -6,6 +6,10 @@ import SFSafeSymbols
 import SwiftUI
 
 struct AcceptTermsView: View {
+    enum NavigationDestination {
+        case userTypeSelection
+    }
+
     @Injected(\.acceptTermsInteractor) private var interactor
 
     @State private var hasAcceptedPersonalInformationTerms: Bool = false
@@ -27,8 +31,9 @@ struct AcceptTermsView: View {
 
     var body: some View {
         content
-            .navigationDestination(for: SignUpRoute.self) { route in
-                if case .userTypeSelection = route {
+            .navigationDestination(for: NavigationDestination.self) {
+                switch $0 {
+                case .userTypeSelection:
                     UserTypeSelectionView()
                 }
             }
@@ -38,13 +43,13 @@ struct AcceptTermsView: View {
         VStack {
             VStack(alignment: .leading, spacing: fs(70)) {
                 Text("약관을 확인해주세요")
-                    .font(SignUpSharedUIConstant.titleFont)
-                    .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                    .font(SignUpConstant.titleFont)
+                    .foregroundStyle(SignUpConstant.titleColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithoutProgressView)
+                    .padding(.top, SignUpConstant.titleTopPaddingWithoutProgressView)
                 acceptSection
             }
-            .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+            .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
 
             Spacer()
 
@@ -66,6 +71,7 @@ struct AcceptTermsView: View {
                 )
                 Text("전체 동의")
                     .font(.pretendardBold(size: fs(22)))
+                    .foregroundStyle(.black)
             }
 
             VStack(alignment: .leading, spacing: fs(34)) {
@@ -77,6 +83,7 @@ struct AcceptTermsView: View {
                         )
                         Text(AcceptTermsItem.personalInformation.title)
                             .font(.pretendardRegular(size: fs(16)))
+                            .foregroundStyle(.black)
                     }
                     Spacer()
                     Button(action: {
@@ -94,6 +101,7 @@ struct AcceptTermsView: View {
                         )
                         Text(AcceptTermsItem.serviceUsage.title)
                             .font(.pretendardRegular(size: fs(16)))
+                            .foregroundStyle(.black)
                     }
                     Spacer()
                     Button(action: {
@@ -111,6 +119,7 @@ struct AcceptTermsView: View {
                         )
                         Text(AcceptTermsItem.electronicFinancialTransactions.title)
                             .font(.pretendardRegular(size: fs(16)))
+                            .foregroundStyle(.black)
                     }
                     Spacer()
                     Button(action: {

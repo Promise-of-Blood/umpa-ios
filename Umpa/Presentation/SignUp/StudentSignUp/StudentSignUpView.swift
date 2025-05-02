@@ -6,6 +6,11 @@ import Factory
 import SwiftUI
 
 struct StudentSignUpView: View {
+    enum FocusField {
+        case username
+        case lessonRequirements
+    }
+
     @Environment(\.dismiss) private var dismiss
 
     #if DEBUG
@@ -33,6 +38,8 @@ struct StudentSignUpView: View {
     /// 현재 진행 중인 회원가입 단계를 나타내는 enum 값
     @State private var currentSignUpStep: StudentSignUpStep = .first
 
+    @FocusState private var focusField: FocusField?
+
     // 다음 버튼 활성화/비활성화 여부
     private var isDisabledNextButton: Bool {
         !isSatisfiedCurrentInput || isDuplicatedUsername.isLoading || isDuplicatedUsername.value == true
@@ -51,7 +58,7 @@ struct StudentSignUpView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: didTapBackButton) {
                         Image(.arrowBack)
-                            .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
+                            .padding(.horizontal, SignUpConstant.backButtonPadding)
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
@@ -91,12 +98,13 @@ struct StudentSignUpView: View {
             ProgressView(value: signUpProgressValue)
                 .background(UmpaColor.lightBlue)
                 .clipShape(RoundedRectangle(cornerRadius: .infinity))
-                .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
-                .padding(.top, SignUpSharedUIConstant.progressViewTopPadding)
+                .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
+                .padding(.top, SignUpConstant.progressViewTopPadding)
                 .animation(.easeInOut, value: signUpProgressValue)
             signUpInputView
             bottomNextButton
         }
+        .background(.white)
     }
 
     var bottomNextButton: some View {
@@ -127,7 +135,7 @@ struct StudentSignUpView: View {
                             id: \.1.rawValue
                         ) { inputView, progress in
                             AnyView(inputView)
-                                .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+                                .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
                                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
                                 .id(progress)
                         }
@@ -140,7 +148,7 @@ struct StudentSignUpView: View {
                     }
                 }
             }
-            .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithProgressView)
+            .padding(.top, SignUpConstant.titleTopPaddingWithProgressView)
         }
     }
 
@@ -150,6 +158,7 @@ struct StudentSignUpView: View {
                 signUpModel: signUpModel,
                 isSatisfiedCurrentInput: $isSatisfiedCurrentInput,
                 isDuplicatedUsername: $isDuplicatedUsername,
+                focusField: $focusField,
             ),
             MajorSelectionView(
                 signUpModel: signUpModel,
@@ -161,7 +170,7 @@ struct StudentSignUpView: View {
             ),
             StudentProfileInputView(signUpModel: signUpModel),
             PreferSubjectSelectionView(signUpModel: signUpModel),
-            LessonRequirementView(signUpModel: signUpModel),
+            LessonRequirementView(signUpModel: signUpModel, focusField: $focusField),
         ]
         assert(entry.count == StudentSignUpStep.allCases.count, "진행도에 따른 화면을 추가해야 합니다.")
         return entry
@@ -201,6 +210,7 @@ struct StudentSignUpView: View {
     }
 
     private func didTapBackButton() {
+        focusField = nil
         if currentSignUpStep > .first {
             moveToPreviousProgress()
         } else {
@@ -224,6 +234,7 @@ struct StudentSignUpView: View {
     }
 
     private func didTapBottomButton() {
+        focusField = nil
         switch currentSignUpStep {
         case .usernameInput:
             interactor.performDuplicateCheck(

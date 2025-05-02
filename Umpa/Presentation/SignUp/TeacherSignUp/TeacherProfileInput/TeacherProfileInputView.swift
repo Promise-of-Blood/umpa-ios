@@ -33,11 +33,12 @@ struct TeacherProfileInputView: View {
     var content: some View {
         VStack(spacing: fs(20)) {
             Text("프로필을 입력해 주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
             inputSection
         }
+        .background(.white)
     }
 
     var inputSection: some View {

@@ -21,7 +21,10 @@ extension DefaultAcceptTermsInteractor: AcceptTermsInteractor {
     func moveToNext() {
         guard !hasMovedToNext else { return }
         hasMovedToNext = true
-        appState.routing.loginNavigationPath.append(SignUpRoute.userTypeSelection)
+        appState.routing.loginNavigationPath.append(AcceptTermsView.NavigationDestination.userTypeSelection)
+
+        #if DEBUG
         UmpaLogger.log("회원 유형 선택 화면으로 이동", level: .debug)
+        #endif
     }
 }

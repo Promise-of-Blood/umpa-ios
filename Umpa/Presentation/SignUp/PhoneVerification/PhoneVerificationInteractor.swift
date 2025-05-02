@@ -9,21 +9,31 @@ import SwiftUI
 
 @MainActor
 protocol PhoneVerificationInteractor {
-    func requestVerificationCode(
+    /// `phoneNumber`로 인증번호를 발송합니다.
+    func sendVerificationCode(
         with phoneNumber: String,
         isSentVerificationCode: ValueLoadableBinding<Bool>,
         expirationTime: Binding<Date>,
         isExpired: Binding<Bool>,
         e: Binding<PhoneVerificationError?>
     )
+
+    /// 인증번호를 발송하고 다음 화면으로 이동합니다.
+    func sendVerificationCodeAndMoveToNext(with phoneNumber: String, e: Binding<PhoneVerificationError?>)
+
+    /// `phoneNumber`로 인증번호를 재발송합니다.
     func resendVerificationCode(
         with phoneNumber: String,
         verificationCode: Binding<String>,
         expirationTime: Binding<Date>,
         isExpired: Binding<Bool>,
+        isResendingVerificationCode: Binding<Bool>,
+        isVerifiedCode: ValueLoadableBinding<Bool?>,
         e: Binding<PhoneVerificationError?>
     )
-    func verifyCodeToNext(_ code: String, isVerifiedCode: ValueLoadableBinding<Bool?>)
+
+    // 인증번호를 검증하고 다음 화면으로 이동합니다. 인증번호가 틀릴 경우 이동하지 않습니다.
+    func verifyCodeAndMoveToNext(_ verificationCode: String, isVerifiedCode: ValueLoadableBinding<Bool?>)
 }
 
 struct DefaultPhoneVerificationInteractor {
@@ -33,9 +43,6 @@ struct DefaultPhoneVerificationInteractor {
     private let verifyPhoneVerificationCode: VerifyPhoneVerificationCodeUseCase
 
     private let cancelBag = CancelBag()
-
-    /// 인증 코드 유효 시간
-    private let codeExpirationTime: Int = 180
 
     public init(
         appState: AppState,
@@ -58,12 +65,18 @@ struct DefaultPhoneVerificationInteractor {
         {
             given(mockSendPhoneVerificationCodeUseCase)
                 .callAsFunction(to: .any)
-                .willReturn(
-                    Just(())
-                        .delay(for: 1, scheduler: DispatchQueue.global())
-                        .setFailureType(to: Error.self)
-                        .eraseToAnyPublisher()
-                )
+                .willProduce { phoneNumber in
+                    if phoneNumber.rawNumber == "01099999999" {
+                        return Fail(error: PhoneVerificationError.failedSendingVerificationCode)
+                            .delay(for: 1, scheduler: DispatchQueue.global())
+                            .eraseToAnyPublisher()
+                    } else {
+                        return Just(())
+                            .delay(for: 1, scheduler: DispatchQueue.global())
+                            .setFailureType(to: Error.self)
+                            .eraseToAnyPublisher()
+                    }
+                }
         }
         if let mockVerifyPhoneVerificationCodeUseCase =
             verifyPhoneVerificationCode as? MockVerifyPhoneVerificationCodeUseCase
@@ -83,7 +96,32 @@ struct DefaultPhoneVerificationInteractor {
 }
 
 extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
-    func requestVerificationCode(
+    func sendVerificationCodeAndMoveToNext(
+        with phoneNumber: String,
+        e: Binding<PhoneVerificationError?>,
+    ) {
+        guard let phoneNumber = PhoneNumber(phoneNumber: phoneNumber) else {
+            e.wrappedValue = .invalidPhoneNumber
+            return
+        }
+
+        #if DEBUG
+        UmpaLogger(category: .signUp).log("인증번호 발송 -> \(phoneNumber.rawNumber)", level: .debug)
+        #endif
+
+        appState.routing.loginNavigationPath.append(PhoneVerificationView.NavigationDestination.verificationCodeInput)
+
+        sendPhoneVerificationCode(to: phoneNumber)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if completion.isError {
+                    e.wrappedValue = .failedSendingVerificationCode
+                }
+            } receiveValue: { _ in }
+            .store(in: cancelBag)
+    }
+
+    func sendVerificationCode(
         with phoneNumber: String,
         isSentVerificationCode: ValueLoadableBinding<Bool>,
         expirationTime: Binding<Date>,
@@ -106,7 +144,7 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
                 }
             } receiveValue: { _ in
                 isSentVerificationCode.wrappedValue = .value(true)
-                expirationTime.wrappedValue = Date.now.addingTimeInterval(TimeInterval(codeExpirationTime))
+                expirationTime.wrappedValue = Date.now.addingTimeInterval(TimeInterval(SignUpConstant.verificationCodeExpirationTime))
                 isExpired.wrappedValue = false
             }
             .store(in: cancelBag)
@@ -117,6 +155,8 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
         verificationCode: Binding<String>,
         expirationTime: Binding<Date>,
         isExpired: Binding<Bool>,
+        isResendingVerificationCode: Binding<Bool>,
+        isVerifiedCode: ValueLoadableBinding<Bool?>,
         e: Binding<PhoneVerificationError?>
     ) {
         guard let phoneNumber = PhoneNumber(phoneNumber: phoneNumber) else {
@@ -125,23 +165,26 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
         }
 
         verificationCode.wrappedValue = ""
+        isResendingVerificationCode.wrappedValue = true
+        isVerifiedCode.wrappedValue.value = nil
 
         // 일정 시간 재전송을 방지하는 로직이 추가될 수 있음
 
         sendPhoneVerificationCode(to: phoneNumber)
             .sink { completion in
+                isResendingVerificationCode.wrappedValue = false
                 if completion.isError {
-                    e.wrappedValue = .unknownError
+                    e.wrappedValue = .failedResendingVerificationCode
                 }
             } receiveValue: { _ in
-                expirationTime.wrappedValue = Date.now.addingTimeInterval(TimeInterval(codeExpirationTime))
+                expirationTime.wrappedValue = Date.now.addingTimeInterval(TimeInterval(SignUpConstant.verificationCodeExpirationTime))
                 isExpired.wrappedValue = false
             }
             .store(in: cancelBag)
     }
 
-    func verifyCodeToNext(_ code: String, isVerifiedCode: ValueLoadableBinding<Bool?>) {
-        guard let verificationCode = PhoneVerificationCode(rawCode: code) else {
+    func verifyCodeAndMoveToNext(_ verificationCode: String, isVerifiedCode: ValueLoadableBinding<Bool?>) {
+        guard let verificationCode = PhoneVerificationCode(rawCode: verificationCode) else {
             isVerifiedCode.wrappedValue = .value(false)
             return
         }
@@ -159,8 +202,8 @@ extension DefaultPhoneVerificationInteractor: PhoneVerificationInteractor {
             } receiveValue: { isVerified in
                 isVerifiedCode.wrappedValue = .value(isVerified)
                 if isVerified {
-                    UmpaLogger.log("전화번호 인증 성공(\(code)), 약관 동의 화면으로 이동", level: .debug)
-                    appState.routing.loginNavigationPath.append(SignUpRoute.acceptTerms)
+                    UmpaLogger.log("전화번호 인증 성공(\(verificationCode)), 약관 동의 화면으로 이동", level: .debug)
+                    appState.routing.loginNavigationPath.append(VerificationCodeInputView.NavigationDestination.acceptTerms)
                 }
             }
             .store(in: cancelBag)

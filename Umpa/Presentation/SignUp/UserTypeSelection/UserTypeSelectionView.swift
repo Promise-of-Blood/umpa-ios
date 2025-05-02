@@ -6,6 +6,11 @@ import Factory
 import SwiftUI
 
 struct UserTypeSelectionView: View {
+    enum NavigationDestination {
+        case studentSignUp
+        case teacherSignUp
+    }
+
     @EnvironmentObject private var preSignUpData: PreSignUpData
 
     @Injected(\.appState) private var appState
@@ -18,15 +23,19 @@ struct UserTypeSelectionView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     DismissButton(.arrowBack)
-                        .padding(.horizontal, SignUpSharedUIConstant.backButtonPadding)
+                        .padding(.horizontal, SignUpConstant.backButtonPadding)
                 }
             }
-            .navigationDestination(for: SignUpRoute.self) { route in
-                if case .studentSignUp = route {
-                    StudentSignUpView(socialLoginType: preSignUpData.socialLoginType)
-                }
-                if case .teacherSignUp = route {
-                    TeacherSignUpView(socialLoginType: preSignUpData.socialLoginType)
+            .navigationDestination(for: NavigationDestination.self) {
+                switch $0 {
+                case .studentSignUp:
+                    if let socialLoginType = preSignUpData.socialLoginType {
+                        StudentSignUpView(socialLoginType: socialLoginType)
+                    }
+                case .teacherSignUp:
+                    if let socialLoginType = preSignUpData.socialLoginType {
+                        TeacherSignUpView(socialLoginType: socialLoginType)
+                    }
                 }
             }
             .alert("회원 유형을 선택해주세요", isPresented: $showAlert) {
@@ -38,9 +47,9 @@ struct UserTypeSelectionView: View {
         VStack {
             VStack(spacing: fs(40)) {
                 Text("앱의 이용 목적에 따라 선택해주세요")
-                    .font(SignUpSharedUIConstant.titleFont)
-                    .foregroundStyle(SignUpSharedUIConstant.titleColor)
-                    .padding(.top, SignUpSharedUIConstant.titleTopPaddingWithoutProgressView)
+                    .font(SignUpConstant.titleFont)
+                    .foregroundStyle(SignUpConstant.titleColor)
+                    .padding(.top, SignUpConstant.titleTopPaddingWithoutProgressView)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 HStack(spacing: fs(20)) {
@@ -61,7 +70,7 @@ struct UserTypeSelectionView: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .padding(.horizontal, SignUpSharedUIConstant.contentHorizontalPadding)
+            .padding(.horizontal, SignUpConstant.contentHorizontalPadding)
 
             Spacer()
 
@@ -69,10 +78,10 @@ struct UserTypeSelectionView: View {
                 switch preSignUpData.userType {
                 case .student:
                     UmpaLogger.log("학생 회원가입 화면으로 이동", level: .debug)
-                    appState.routing.loginNavigationPath.append(SignUpRoute.studentSignUp)
+                    appState.routing.loginNavigationPath.append(NavigationDestination.studentSignUp)
                 case .teacher:
                     UmpaLogger.log("선생님 회원가입 화면으로 이동", level: .debug)
-                    appState.routing.loginNavigationPath.append(SignUpRoute.teacherSignUp)
+                    appState.routing.loginNavigationPath.append(NavigationDestination.teacherSignUp)
                 case .none:
                     UmpaLogger.log("회원 유형이 선택되지 않고 다음 버튼이 눌림", level: .error)
                     showAlert = true
@@ -82,6 +91,7 @@ struct UserTypeSelectionView: View {
             }
             .disabled(preSignUpData.userType == nil)
         }
+        .background(.white)
     }
 }
 
@@ -140,13 +150,13 @@ private struct UserTypeCardButton: View {
 #Preview {
     NavigationStack {
         UserTypeSelectionView()
-            .environmentObject(PreSignUpData(socialLoginType: .apple))
+            .environmentObject(PreSignUpData())
     }
 }
 
 #Preview(traits: .iPhoneSE) {
     NavigationStack {
         UserTypeSelectionView()
-            .environmentObject(PreSignUpData(socialLoginType: .apple))
+            .environmentObject(PreSignUpData())
     }
 }

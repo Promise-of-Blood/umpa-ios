@@ -38,8 +38,8 @@ struct DreamCollegesSelectionView: View {
     var content: some View {
         VStack(spacing: fs(56)) {
             Text("희망 학교를 설정해주세요")
-                .font(SignUpSharedUIConstant.titleFont)
-                .foregroundStyle(SignUpSharedUIConstant.titleColor)
+                .font(SignUpConstant.titleFont)
+                .foregroundStyle(SignUpConstant.titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             VStack(spacing: fs(34)) {
@@ -151,6 +151,7 @@ private struct CollegeSearchView: View {
             searchHeader
             searchResultView
         }
+        .background(.white)
     }
 
     var searchHeader: some View {
@@ -163,6 +164,7 @@ private struct CollegeSearchView: View {
                 label: { Text("학교 검색") }
             )
             .focused($isSearchFieldFocused)
+            .foregroundStyle(.black)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, fs(24))
@@ -182,6 +184,7 @@ private struct CollegeSearchView: View {
                 .listRowInsets(EdgeInsets())
             }
         }
+        .background(.white)
         .listStyle(.plain)
         .padding(.horizontal, fs(28))
     }
