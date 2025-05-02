@@ -331,7 +331,7 @@ extension GIDSignIn {
     }
 }
 
-// MARK: - GIDSignIn + Combine
+// MARK: - AuthorizationController + Combine
 
 extension AuthorizationController {
     func performRequest(_ request: ASAuthorizationRequest) -> AnyPublisher<ASAuthorizationResult, Error> {

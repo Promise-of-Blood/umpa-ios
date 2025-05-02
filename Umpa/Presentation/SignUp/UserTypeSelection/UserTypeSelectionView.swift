@@ -29,9 +29,13 @@ struct UserTypeSelectionView: View {
             .navigationDestination(for: NavigationDestination.self) {
                 switch $0 {
                 case .studentSignUp:
-                    StudentSignUpView(socialLoginType: preSignUpData.socialLoginType!)
+                    if let socialLoginType = preSignUpData.socialLoginType {
+                        StudentSignUpView(socialLoginType: socialLoginType)
+                    }
                 case .teacherSignUp:
-                    TeacherSignUpView(socialLoginType: preSignUpData.socialLoginType!)
+                    if let socialLoginType = preSignUpData.socialLoginType {
+                        TeacherSignUpView(socialLoginType: socialLoginType)
+                    }
                 }
             }
             .alert("회원 유형을 선택해주세요", isPresented: $showAlert) {
