@@ -5,6 +5,8 @@ import SwiftUI
 struct LinkInputView: View {
     @ObservedObject var signUpModel: TeacherSignUpModel
 
+    private let maxLinkCount = 5
+
     var body: some View {
         ScrollView {
             content
@@ -34,7 +36,7 @@ struct LinkInputView: View {
                         .id(link.id)
                         .transition(.blurReplace)
                     }
-                    if signUpModel.siteLinks.count < 5 {
+                    if signUpModel.siteLinks.count < maxLinkCount {
                         addSiteLinkButton
                     }
                 }
@@ -55,7 +57,6 @@ struct LinkInputView: View {
     }
 
     private func didTapAddSiteLinkButton() {
-        let maxLinkCount = 5
         guard signUpModel.siteLinks.count < maxLinkCount else { return }
         withAnimation {
             signUpModel.siteLinks.append(SiteLinkModel())

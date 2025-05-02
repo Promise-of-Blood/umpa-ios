@@ -20,14 +20,14 @@ protocol StudentSignUpInteractor {
 struct DefaultStudentSignUpInteractor {
     private let appState: AppState
 
-    private let signUp: StudentSignUpUseCase
+    private let studentSignUp: StudentSignUpUseCase
     private let checkAvailableUsername: CheckAvailableUsernameUseCase
 
     private let cancelBag = CancelBag()
 
-    init(appState: AppState, signUp: StudentSignUpUseCase, checkAvailableUsername: CheckAvailableUsernameUseCase) {
+    init(appState: AppState, studentSignUpUseCase: StudentSignUpUseCase, checkAvailableUsername: CheckAvailableUsernameUseCase) {
         self.appState = appState
-        self.signUp = signUp
+        self.studentSignUp = studentSignUpUseCase
         self.checkAvailableUsername = checkAvailableUsername
 
         #if DEBUG
@@ -37,7 +37,7 @@ struct DefaultStudentSignUpInteractor {
 
     #if DEBUG
     private func setupMockBehavior() {
-        if let mockSignUp = signUp as? MockStudentSignUpUseCase {
+        if let mockSignUp = studentSignUp as? MockStudentSignUpUseCase {
             given(mockSignUp)
                 .callAsFunction(with: .any)
                 .willReturn(
@@ -79,7 +79,7 @@ extension DefaultStudentSignUpInteractor: StudentSignUpInteractor {
             return
         }
 
-        signUp(with: studentCreateData)
+        studentSignUp(with: studentCreateData)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error

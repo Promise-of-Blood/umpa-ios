@@ -13,13 +13,13 @@ protocol TeacherSignUpInteractor {
 struct DefaultTeacherSignUpInteractor {
     private let appState: AppState
 
-    private let signUp: TeacherSignUpUseCase
+    private let teacherSignUp: TeacherSignUpUseCase
 
     private let cancelBag = CancelBag()
 
-    init(appState: AppState, signUpUseCase: TeacherSignUpUseCase) {
+    init(appState: AppState, teacherSignUpUseCase: TeacherSignUpUseCase) {
         self.appState = appState
-        self.signUp = signUpUseCase
+        self.teacherSignUp = teacherSignUpUseCase
 
         #if DEBUG
         setupMockBehavior()
@@ -28,7 +28,7 @@ struct DefaultTeacherSignUpInteractor {
 
     #if DEBUG
     private func setupMockBehavior() {
-        if let mockSignUp = signUp as? MockTeacherSignUpUseCase {
+        if let mockSignUp = teacherSignUp as? MockTeacherSignUpUseCase {
             given(mockSignUp)
                 .callAsFunction(with: .any)
                 .willReturn(
@@ -53,7 +53,7 @@ extension DefaultTeacherSignUpInteractor: TeacherSignUpInteractor {
             return
         }
 
-        signUp(with: teacherCreateData)
+        teacherSignUp(with: teacherCreateData)
             .sink { completion in
                 if let error = completion.error {
                     // TODO: Handle error

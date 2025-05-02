@@ -431,7 +431,7 @@ extension Container {
         Factory(self) {
             DefaultStudentSignUpInteractor(
                 appState: self.appState(),
-                signUp: self.mockStudentSignUpUseCase(),
+                studentSignUpUseCase: self.mockStudentSignUpUseCase(),
                 checkAvailableUsername: self.mockCheckAvailableUsernameUseCase()
             )
         }
@@ -442,7 +442,7 @@ extension Container {
         Factory(self) {
             DefaultTeacherSignUpInteractor(
                 appState: self.appState(),
-                signUpUseCase: self.mockTeacherSignUpUseCase(),
+                teacherSignUpUseCase: self.mockTeacherSignUpUseCase(),
             )
         }
         .scope(.shared)
