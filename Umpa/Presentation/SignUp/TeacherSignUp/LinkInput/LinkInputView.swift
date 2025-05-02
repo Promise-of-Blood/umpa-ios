@@ -68,6 +68,8 @@ private struct SiteLinkRow: View {
 
     let discardAction: () -> Void
 
+    @State private var isShowingDeleteConfirm = false
+
     var body: some View {
         HStack(spacing: fs(10)) {
             link.icon
@@ -77,7 +79,7 @@ private struct SiteLinkRow: View {
                 .foregroundStyle(UmpaColor.darkGray)
                 .textInputAutocapitalization(.never)
 
-            Button(action: discardAction) {
+            Button(action: { isShowingDeleteConfirm = true }) {
                 Image(systemSymbol: .trash)
                     .foregroundStyle(.red)
                     .font(.system(size: 16, weight: .medium))
@@ -87,6 +89,10 @@ private struct SiteLinkRow: View {
         .padding(.horizontal, fs(20))
         .padding(.vertical, fs(18))
         .innerRoundedStroke(UmpaColor.baseColor, cornerRadius: fs(15))
+        .confirmationDialog("이 링크를 삭제하시겠습니까?", isPresented: $isShowingDeleteConfirm) {
+            Button("삭제", role: .destructive, action: discardAction)
+            Button("취소", role: .cancel) {}
+        }
     }
 }
 

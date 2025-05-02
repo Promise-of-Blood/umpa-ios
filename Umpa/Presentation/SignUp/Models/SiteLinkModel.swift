@@ -1,7 +1,6 @@
 // Created for Umpa in 2025
 
 import Foundation
-import SFSafeSymbols
 import SwiftUICore
 
 struct SiteLinkModel: Identifiable {
@@ -20,25 +19,30 @@ struct SiteLinkModel: Identifiable {
                 return "soundcloud.com"
             }
         }
+
+        var symbol: Image {
+            switch self {
+            case .instagram:
+                return Image(systemName: "square")
+            case .youtube:
+                return Image(systemName: "square")
+            case .soundcloud:
+                return Image(systemName: "square")
+            }
+        }
     }
 
     let id = UUID()
     var link: String = ""
 
     var icon: Image {
-        for preDefinedSite in PreDefinedSite.allCases {
-            if link.contains(preDefinedSite.domain) {
-                switch preDefinedSite {
-                case .instagram:
-                    return Image(systemSymbol: .square)
-                case .youtube:
-                    return Image(systemSymbol: .square)
-                case .soundcloud:
-                    return Image(systemSymbol: .square)
-                }
-            }
+        if let matchedSite = PreDefinedSite.allCases
+            .first(where: { link.localizedCaseInsensitiveContains($0.domain) })
+        {
+            return matchedSite.symbol
+        } else {
+            return Image(systemName: "circle")
         }
-        return Image(systemSymbol: .circle) // 기타
     }
 }
 
