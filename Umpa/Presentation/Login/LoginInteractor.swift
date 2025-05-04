@@ -318,7 +318,7 @@ extension NidOAuth {
 extension GIDSignIn {
     func signIn(withPresenting presentingViewController: UIViewController) -> AnyPublisher<GIDSignInResult, Error> {
         Future { [self] promise in
-            Task {
+            Task { @MainActor in
                 do {
                     let result = try await signIn(withPresenting: presentingViewController)
                     promise(.success(result))
@@ -336,7 +336,7 @@ extension GIDSignIn {
 extension AuthorizationController {
     func performRequest(_ request: ASAuthorizationRequest) -> AnyPublisher<ASAuthorizationResult, Error> {
         Future { promise in
-            Task {
+            Task { @MainActor in
                 do {
                     let result = try await performRequest(request)
                     promise(.success(result))
