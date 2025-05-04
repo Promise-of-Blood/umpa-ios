@@ -40,16 +40,17 @@ enum MainViewTabType: Int {
 
 extension AppState {
     struct UserData {
-        var teacherFinderInfo = TeacherFinderInfo()
+        var teacherFinder = TeacherFinderData()
         var loginInfo = LoginInfo()
         fileprivate init() {}
     }
 }
 
 extension AppState.UserData {
-    struct TeacherFinderInfo {
-        var selectedService: ServiceType = .lesson
+    struct TeacherFinderData {
+        var selectedServiceType: ServiceType = .lesson
         var selectedSubject: Subject?
+        var isShowedServiceTypeSelectView = false
         fileprivate init() {}
     }
 

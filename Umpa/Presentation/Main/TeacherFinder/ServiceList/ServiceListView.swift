@@ -20,7 +20,7 @@ struct ServiceListView: View {
             .onAppear {
                 serviceListInteractor.load(
                     $serviceList,
-                    for: appState.userData.teacherFinderInfo.selectedService
+                    for: appState.userData.teacherFinder.selectedServiceType
                 )
             }
             .navigationDestination(for: AnyService.self) { service in
@@ -50,7 +50,7 @@ struct ServiceListView: View {
                 FilterButton()
                 FilterButton()
             }
-            Text(appState.userData.teacherFinderInfo.selectedService.name)
+            Text(appState.userData.teacherFinder.selectedServiceType.name)
             ForEach(serviceList, id: \.id) { service in
                 NavigationLink(value: service) {
                     ServiceListItem(model: service.toServiceListItemModel())
@@ -90,6 +90,21 @@ extension ServiceListView {
             return Rectangle()
                 .foregroundStyle(foregroundColor)
                 .frame(width: squareSide, height: squareSide)
+        }
+    }
+}
+
+private extension ServiceType {
+    var name: String {
+        switch self {
+        case .lesson:
+            return "레슨"
+        case .accompanist:
+            return "입시 반주"
+        case .scoreCreation:
+            return "악보 제작"
+        case .mrCreation:
+            return "MR 제작"
         }
     }
 }
