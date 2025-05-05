@@ -17,7 +17,22 @@ public struct BottomLineSegmentedControl: View {
     public init(_ names: [String], selection: Binding<Int>, buttonWidth: CGFloat) {
         self.names = names
         self._selection = selection
-        self.appearance = Appearance(buttonWidth: buttonWidth)
+        self.appearance = .appearance(buttonWidth: buttonWidth)
+    }
+
+    public init<T>(_ names: [String], selection: Binding<T>, buttonWidth: CGFloat = .infinity)
+        where T: RawRepresentable, T.RawValue == Int
+    {
+        self._selection = Binding(
+            get: { selection.wrappedValue.rawValue },
+            set: {
+                if let newValue = T(rawValue: $0) {
+                    selection.wrappedValue = newValue
+                }
+            }
+        )
+        self.names = names
+        self.appearance = .appearance(buttonWidth: buttonWidth)
     }
 
     public var body: some View {
@@ -27,21 +42,41 @@ public struct BottomLineSegmentedControl: View {
                     selection = index
                 }) {
                     VStack(spacing: appearance.bottomLineOffset) {
-                        Text(name)
-                            .font(index == selection ? appearance.activeFont : appearance.inactiveFont)
-                            .fixedSize()
-                            .foregroundStyle(index == selection ? appearance.activeColor : appearance.inactiveColor)
+                        ZStack {
+                            if index == selection {
+                                selectedText(name)
+                            } else {
+                                unselectedText(name)
+                            }
+                        }
                         Rectangle()
                             .frame(height: appearance.bottomLineHeight)
                             .foregroundStyle(index == selection ? appearance.activeColor : Color.clear)
                     }
                     .frame(width: appearance.buttonWidth)
+                    .contentShape(Rectangle())
                 }
+                .buttonStyle(.plain)
+
                 if let lastIndex = names.indices.last, index < lastIndex {
                     Spacer(minLength: 0)
                 }
             }
         }
+    }
+
+    func selectedText(_ text: String) -> some View {
+        return Text(text)
+            .font(appearance.activeFont)
+            .fixedSize()
+            .foregroundStyle(appearance.activeColor)
+    }
+
+    func unselectedText(_ text: String) -> some View {
+        return Text(text)
+            .font(appearance.inactiveFont)
+            .fixedSize()
+            .foregroundStyle(appearance.inactiveColor)
     }
 }
 
@@ -72,13 +107,12 @@ extension BottomLineSegmentedControl {
 
         init(
             buttonWidth: CGFloat,
-            activeColor: Color = .blue,
-            inactiveColor: Color = .black,
-            bottomLineHeight: CGFloat = 1.6,
-            bottomLineOffset: CGFloat = 10,
-            activeFont: Font = .system(size: 14, weight: .medium),
-            inactiveFont: Font = .system(size: 14, weight: .regular)
-//            font: Font = .system(size: 14)
+            activeColor: Color,
+            inactiveColor: Color,
+            bottomLineHeight: CGFloat,
+            bottomLineOffset: CGFloat,
+            activeFont: Font,
+            inactiveFont: Font,
         ) {
             self.buttonWidth = buttonWidth
             self.activeColor = activeColor
@@ -96,7 +130,7 @@ extension BottomLineSegmentedControl {
             bottomLineHeight: CGFloat = 1.6,
             bottomLineOffset: CGFloat = 10,
             activeFont: Font = .system(size: 14, weight: .medium),
-            inactiveFont: Font = .system(size: 14, weight: .regular)
+            inactiveFont: Font = .system(size: 14, weight: .regular),
         ) -> Appearance {
             Appearance(
                 buttonWidth: buttonWidth,
@@ -144,79 +178,89 @@ extension BottomLineSegmentedControl {
         inactiveFont: .system(size: 14, weight: .regular)
     )
 
-    Text("커스텀 크기 지정")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance)
-        .frame(width: 330)
-        .padding()
+    ScrollView {
+        Text("커스텀 크기 지정")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance)
+            .frame(width: 330)
+            .padding()
 
-    Text("버튼만 적절한 너비 지정")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance)
-        .padding()
+        Text("버튼만 적절한 너비 지정")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance)
+            .padding()
 
-    Text("전체 적절한 너비 지정")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance)
-        .frame(width: 360)
-        .padding()
+        Text("전체 적절한 너비 지정")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance)
+            .frame(width: 360)
+            .padding()
 
-    Text("너비가 좁은 버튼")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: 50))
-        .frame(width: 296)
-        .padding()
+        Text("너비가 좁은 버튼")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance.updated(buttonWidth: 50))
+            .frame(width: 296)
+            .padding()
 
-    Text("좁은 전체 넓이")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance)
-        .frame(width: 230)
-        .padding()
+        Text("좁은 전체 넓이")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance)
+            .frame(width: 230)
+            .padding()
 
-    Text("너비 지정 안함")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance)
-        .padding()
+        Text("너비 지정 안함")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance)
+            .padding()
 
-    Text("갯수 3개")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "반주 정보",
-        "리뷰",
-    ], selection: $index, appearance: defaultAppearance)
-        .frame(width: 280)
-        .padding()
+        Text("갯수 3개")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "반주 정보",
+            "리뷰",
+        ], selection: $index, appearance: defaultAppearance)
+            .frame(width: 280)
+            .padding()
 
-    Text("Default Appearance")
-    BottomLineSegmentedControl([
-        "선생님 소개",
-        "수업 소개",
-        "커리큘럼",
-        "리뷰",
-    ], selection: $index, buttonWidth: 70)
-        .padding()
+        Text("Default Appearance")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "커리큘럼",
+            "리뷰",
+        ], selection: $index, buttonWidth: 70)
+            .padding()
+
+        Text("Infinite Width")
+        BottomLineSegmentedControl([
+            "선생님 소개",
+            "수업 소개",
+            "리뷰",
+        ], selection: $index, buttonWidth: .infinity)
+            .padding()
+    }
 }
