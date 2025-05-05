@@ -8,6 +8,7 @@ public struct UmpaLogger {
         case `default`
         case signUp
         case component
+        case ui
     }
 
     public enum LogLevel {

@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Core
 import Domain
 import SwiftUI
 
@@ -92,7 +93,7 @@ extension Service {
             if let singlePriceService = (service as? any SinglePriceService) {
                 price = singlePriceService.price
             } else {
-                // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
+                UmpaLogger(category: .ui).log("\(service.type) 변환 실패", level: .error)
                 assertionFailure("여기로 오면 안됨;;")
                 price = 0
             }
@@ -102,7 +103,7 @@ extension Service {
             {
                 price = firstPrice
             } else {
-                // TODO: 예상치 못한 케이스, 내부 로직 버그 가능성, 로그 심기
+                UmpaLogger(category: .ui).log("\(service.type) 변환 실패", level: .error)
                 assertionFailure("여기로 오면 안됨;;")
                 price = 0
             }
