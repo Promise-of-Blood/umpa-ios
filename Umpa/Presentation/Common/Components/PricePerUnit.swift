@@ -34,7 +34,7 @@ struct PricePerUnit: View {
             }
             .foregroundStyle(attributes.priceColor)
             Text("/\(model.unitType.text)")
-                .foregroundStyle(UmpaColor.lightGray)
+                .foregroundStyle(UmpaColor.mediumGray)
                 .font(.pretendardMedium(size: fs(14)))
         }
     }

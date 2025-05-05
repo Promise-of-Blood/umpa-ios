@@ -6,9 +6,11 @@ import SwiftUI
 struct ServiceListItem: View {
     struct Model {
         let title: String
-        let lessonInfo: LessonInfo.Model
+        let teacherName: String
+        let region: String
         let pricePerUnit: PricePerUnit.Model
         let image: URL?
+        let rating: Double
     }
 
     let model: Model
@@ -16,19 +18,24 @@ struct ServiceListItem: View {
     var body: some View {
         HStack(spacing: fs(10)) {
             VStack(alignment: .leading, spacing: fs(8)) {
-                Text(self.model.title)
+                Text(model.title)
                     .font(.pretendardBold(size: fs(16)))
-                    .foregroundStyle(Color(hex: "121214"))
+                    .foregroundStyle(.black)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-                LessonInfo(model: self.model.lessonInfo)
-                PricePerUnit(
-                    model: self.model.pricePerUnit,
-                    attributes: PricePerUnit.Attributes(priceColor: UmpaColor.darkBlue)
-                )
+
+                LessonInfoView(teacher: model.teacherName, region: model.region)
+
+                HStack(spacing: fs(4)) {
+                    PricePerUnit(
+                        model: model.pricePerUnit,
+                        attributes: PricePerUnit.Attributes(priceColor: UmpaColor.darkBlue)
+                    )
+                    StarRating(model.rating)
+                }
             }
             // FIXME: 스켈레톤 이미지 추가
-            AsyncImage(url: self.model.image)
+            AsyncImage(url: model.image)
 //                .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: fs(70), height: fs(70))
@@ -36,14 +43,41 @@ struct ServiceListItem: View {
                 .clipShape(Circle())
         }
         .frame(maxWidth: .infinity)
-        .padding(.horizontal, fs(2))
         .padding(.vertical, fs(16))
+    }
+}
+
+private struct LessonInfoView: View {
+    let teacher: String
+    let region: String
+
+    private let dotSize: CGFloat = fs(1.5)
+
+    var body: some View {
+        HStack(spacing: fs(4)) {
+            Text(teacher)
+                .font(.pretendardRegular(size: fs(12)))
+                .foregroundStyle(UmpaColor.mediumGray)
+                .lineLimit(1)
+                .layoutPriority(2)
+            spacingDot
+            Text(region)
+                .font(.pretendardRegular(size: fs(12)))
+                .foregroundStyle(UmpaColor.mediumGray)
+                .lineLimit(1)
+        }
+    }
+
+    var spacingDot: some View {
+        Circle()
+            .frame(width: dotSize, height: dotSize)
+            .foregroundStyle(UmpaColor.mediumGray)
     }
 }
 
 extension Service {
     func toServiceListItemModel() -> ServiceListItem.Model {
-        let unitType: PriceUnitType = switch self.type {
+        let unitType: PriceUnitType = switch type {
         case .lesson: .hour
         case .accompanist: .school
         case .scoreCreation: .sheet
@@ -52,7 +86,7 @@ extension Service {
 
         let price: Int
 
-        let service = self.cleaerAnyServiceIfExisted()
+        let service = cleaerAnyServiceIfExisted()
         switch service.type {
         case .lesson, .accompanist, .mrCreation:
             if let singlePriceService = (service as? any SinglePriceService) {
@@ -75,50 +109,48 @@ extension Service {
         }
 
         return ServiceListItem.Model(
-            title: self.title,
-            lessonInfo: LessonInfo.Model(
-                teacher: self.author.name,
-                rating: self.rating,
-                region: self.author.region.description
-            ),
+            title: title,
+            teacherName: author.name,
+            region: author.region.description,
             pricePerUnit: PricePerUnit.Model(
                 price: price,
                 unitType: unitType
             ),
-            image: self.thumbnail
+            image: thumbnail,
+            rating: rating
         )
     }
 }
 
-#if DEBUG
-#Preview(traits: .sizeThatFitsLayout) {
-    ServiceListItem(model: ServiceListItem.Model.example1)
-        .frame(width: 280)
-        .border(Color.black)
-        .padding()
-        .border(Color.black)
-    ServiceListItem(model: ServiceListItem.Model.example2)
-        .frame(width: 320)
-        .border(Color.black)
-        .padding()
-        .border(Color.black)
-}
-#endif
+// #if DEBUG
+// #Preview(traits: .sizeThatFitsLayout) {
+//    ServiceListItem(model: ServiceListItem.Model.example1)
+//        .frame(width: 280)
+//        .border(Color.black)
+//        .padding()
+//        .border(Color.black)
+//    ServiceListItem(model: ServiceListItem.Model.example2)
+//        .frame(width: 320)
+//        .border(Color.black)
+//        .padding()
+//        .border(Color.black)
+// }
+// #endif
 
-#if DEBUG
-extension ServiceListItem.Model {
-    static let example1 = ServiceListItem.Model(
-        title: "가고 싶은 학교 무조건 가는 방법",
-        lessonInfo: LessonInfo.Model.example1,
-        pricePerUnit: PricePerUnit.Model.example1,
-        image: nil
-    )
-
-    static let example2 = ServiceListItem.Model(
-        title: "초견 때문에 입시가 두려우신 분 들어 오던지 말던지",
-        lessonInfo: LessonInfo.Model.example2,
-        pricePerUnit: PricePerUnit.Model.example3,
-        image: URL(string: "https://file.daesoon.org/webzine/307/202212191656_Daesoon_263_%EB%AC%B8%ED%99%94%EC%82%B0%EC%B1%85_%EC%A0%84%EA%B2%BD%20%EC%86%8D%20%EB%8F%99%EB%AC%BC%20%EA%B3%A0%EC%96%91.jpg")
-    )
-}
-#endif
+// #if DEBUG
+// extension ServiceListItem.Model {
+//    static let example1 = ServiceListItem.Model(
+//        title: "가고 싶은 학교 무조건 가는 방법",
+//        lessonInfo: LessonInfo.Model.example1,
+//        pricePerUnit: PricePerUnit.Model.example1,
+//        image: nil
+//    )
+//
+//    static let example2 = ServiceListItem.Model(
+//        title: "초견 때문에 입시가 두려우신 분 들어 오던지 말던지",
+//        lessonInfo: LessonInfo.Model.example2,
+//        pricePerUnit: PricePerUnit.Model.example3,
+//        image: URL(string: "https://file.daesoon.org/webzine/307/202212191656_Daesoon_263_%EB%AC%B8%ED%99%94%EC%82%B0%EC%B1%85_%EC%A0%84%EA%B2%BD%20%EC%86%8D%20%EB%8F%99%EB%AC%BC%20%EA%B3%A0%EC%96%91.jpg")
+//    )
+// }
+// #endif
