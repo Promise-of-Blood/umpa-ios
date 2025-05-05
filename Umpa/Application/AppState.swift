@@ -50,7 +50,7 @@ extension AppState.UserData {
     struct TeacherFinderData {
         var selectedServiceType: ServiceType = .lesson
         var selectedSubject: Subject?
-        var isShowedServiceTypeSelectView = false
+        var isDisplayedServiceTypeSelectOnBoarding = false
         fileprivate init() {}
     }
 

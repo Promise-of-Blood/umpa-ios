@@ -15,7 +15,7 @@ struct TeacherFinderView: View {
             NavigationStack(path: $appState.routing.teacherFinderNavigationPath) {
                 ServiceListView()
             }
-            if !appState.userData.teacherFinder.isShowedServiceTypeSelectView {
+            if !appState.userData.teacherFinder.isDisplayedServiceTypeSelectOnBoarding {
                 ServiceTypeSelectView()
                     .zIndex(1) // 전환 애니메이션이 제대로 보이도록 zIndex 설정
             }

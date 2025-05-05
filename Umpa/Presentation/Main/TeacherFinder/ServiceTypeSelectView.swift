@@ -73,7 +73,7 @@ private struct ServiceTypeCard: View {
     private func didTap() {
         withAnimation(.easeInOut) {
             appState.userData.teacherFinder.selectedServiceType = serviceType
-            appState.userData.teacherFinder.isShowedServiceTypeSelectView = true
+            appState.userData.teacherFinder.isDisplayedServiceTypeSelectOnBoarding = true
         }
     }
 }
