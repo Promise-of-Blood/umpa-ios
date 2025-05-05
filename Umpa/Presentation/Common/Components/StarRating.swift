@@ -16,6 +16,7 @@ struct StarRating: View {
     var body: some View {
         HStack(spacing: fs(3)) {
             Image(systemName: "star.fill") // TODO: 실제 리소스로 교체
+                .foregroundStyle(Color(hex: "FFE7A0"))
             Text(ratingString)
                 .font(.pretendardSemiBold(size: fs(12)))
                 .foregroundStyle(Color.black)

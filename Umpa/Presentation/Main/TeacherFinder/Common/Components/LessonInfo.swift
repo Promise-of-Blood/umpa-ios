@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "더이상 사용되지 않습니다.")
 struct LessonInfo: View {
     struct Model {
         let teacher: String
