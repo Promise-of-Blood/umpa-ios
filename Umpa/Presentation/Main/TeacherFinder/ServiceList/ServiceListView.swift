@@ -55,7 +55,7 @@ struct ServiceListView: View {
 
     var body: some View {
         content
-            .onAppear(perform: loadMatchedServiceList)
+            .onChange(of: serviceType, initial: true, loadMatchedServiceList)
             .navigationDestination(for: AnyService.self) { service in
                 if let lesson = service.unwrap(as: LessonService.self) {
                     LessonServiceDetailView(service: lesson)
