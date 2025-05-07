@@ -37,6 +37,10 @@ struct ServiceListView: View {
     @State private var isShowingServiceTypeSelectSheet = false
     @State private var selectedListType: ListType = .all
 
+    @State private var lessonFilter: LessonFilter = .init()
+
+    @State private var isShowingFilterSettings = false
+
     // MARK: Derived State
 
     private var selectedServiceType: Binding<ServiceType> {
@@ -70,6 +74,12 @@ struct ServiceListView: View {
                     ScoreCreationServiceDetailView(service: scoreCreationService)
                 }
             }
+            .fullScreenCover(isPresented: $isShowingFilterSettings) {
+                LessonFilterSettingView(lessonFilter: lessonFilter)
+            }
+            .transaction(value: isShowingFilterSettings) { transaction in
+                transaction.disablesAnimations = true
+            }
     }
 
     @ViewBuilder
@@ -85,7 +95,7 @@ struct ServiceListView: View {
                 )
                 .onChanges(of: selectedListType, action: loadMatchedServiceList)
 
-                FilterListRow(serviceType: serviceType)
+                FilterListRow(serviceType: serviceType, isShowingFilterSettings: $isShowingFilterSettings)
 
                 ForEach(serviceList, id: \.id) { service in
                     NavigationLink(value: service) {
@@ -141,6 +151,8 @@ struct ServiceListView: View {
 private struct FilterListRow: View {
     let serviceType: ServiceType
 
+    @Binding var isShowingFilterSettings: Bool
+
     private var filterEntries: [any FilterEntry] {
         switch serviceType {
         case .lesson:
@@ -170,7 +182,9 @@ private struct FilterListRow: View {
     }
 
     var filterSettingButton: some View {
-        Button(action: {}) {
+        Button(action: {
+            isShowingFilterSettings = true
+        }) {
             HStack(spacing: fs(5)) {
                 Text("필터")
                     .font(.pretendardMedium(size: fs(12)))

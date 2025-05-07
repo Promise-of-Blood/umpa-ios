@@ -49,7 +49,7 @@ extension AppState {
 extension AppState.UserData {
     struct TeacherFinderData {
         var selectedServiceType: ServiceType = .lesson
-        var selectedSubject: Subject?
+        var selectedSubject: LessonSubject?
         var isDisplayedServiceTypeSelectOnBoarding = false
         fileprivate init() {}
     }
@@ -67,7 +67,7 @@ extension AppState {
         var majorList: [Major] = []
         var collegeList: [College] = []
         var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
-        var subjectList: [Subject] = Subject.allCases
+        var lessonSubjectList: [LessonSubject] = []
         fileprivate init() {}
     }
 }

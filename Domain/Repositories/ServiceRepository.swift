@@ -21,6 +21,8 @@ public protocol ServiceRepository {
     func fetchScoreCreationServiceList() -> AnyPublisher<[ScoreCreationService], Error>
     func fetchMusicCreationServiceList() -> AnyPublisher<[MusicCreationService], Error>
 
+    func fetchFilteredLessonServiceList(with filter: LessonServiceFilter) -> AnyPublisher<[LessonService], Error>
+
     func fetchLessonDetail(by id: LessonService.Id) -> AnyPublisher<LessonService, Error>
     func fetchAccompanistServiceDetail(by id: AnyService.Id) -> AnyPublisher<AccompanistService, Error>
     func fetchScoreCreationServiceDetail(by id: AnyService.Id) -> AnyPublisher<ScoreCreationService, Error>

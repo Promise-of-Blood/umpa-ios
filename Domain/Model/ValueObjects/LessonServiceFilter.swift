@@ -1,0 +1,42 @@
+// Created for Umpa in 2025
+
+import Foundation
+
+public struct LessonServiceFilter {
+    public var lessonSubjects: Set<LessonSubject>?
+    public var teacherMajors: Set<Major>?
+    public var colleges: Set<College>?
+    public var lessonRegions: Set<Region>?
+    public var lessonStyle: LessonStyle
+    public var price: LessonServicePriceFilter
+    public var gender: Gender?
+
+    public init(
+        lessonSubjects: Set<LessonSubject>? = nil,
+        teacherMajors: Set<Major>? = nil,
+        colleges: Set<College>? = nil,
+        lessonRegions: Set<Region>? = nil,
+        lessonStyle: LessonStyle = .both,
+        price: LessonServicePriceFilter = .전체,
+        gender: Gender? = nil
+    ) {
+        self.lessonSubjects = lessonSubjects
+        self.teacherMajors = teacherMajors
+        self.colleges = colleges
+        self.lessonRegions = lessonRegions
+        self.lessonStyle = lessonStyle
+        self.price = price
+        self.colleges = colleges
+        self.gender = gender
+    }
+}
+
+public enum LessonServicePriceFilter {
+    case 전체
+    case 시간당20만원이하
+    case 시간당15만원이하
+    case 시간당12만원이하
+    case 시간당10만원이하
+    case 시간당8만원이하
+    case 시간당6만원이하
+}

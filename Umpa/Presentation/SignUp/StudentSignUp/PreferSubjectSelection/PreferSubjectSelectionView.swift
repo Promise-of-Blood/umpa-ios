@@ -7,8 +7,8 @@ import SwiftUI
 struct PreferSubjectSelectionView: View {
     @ObservedObject var signUpModel: StudentSignUpModel
 
-    private var subjectList: [Subject] {
-        Container.shared.appState.resolve().appData.subjectList
+    private var subjectList: [LessonSubject] {
+        Container.shared.appState.resolve().appData.lessonSubjectList
     }
 
     private let columnCount = 4
@@ -53,7 +53,7 @@ struct PreferSubjectSelectionView: View {
 }
 
 private struct SubjectSelectionButton: View {
-    let subject: Subject
+    let subject: LessonSubject
     let isSelected: Bool
     let action: () -> Void
 
@@ -63,7 +63,7 @@ private struct SubjectSelectionButton: View {
 
     static func hidden() -> some View {
         // hidden으로 설정하기 위해 생성하기 때문에 subject 값이 의미 없음
-        Self(subject: .accompanist, isSelected: false, action: {})
+        Self(subject: LessonSubject(name: ""), isSelected: false, action: {})
             .hidden()
     }
 
@@ -94,7 +94,7 @@ private struct SubjectSelectionButton: View {
     }
 }
 
-private extension Subject {
+private extension LessonSubject {
     var imageResource: ImageResource {
         ImageResource.seeAllIcon
 //        switch self {

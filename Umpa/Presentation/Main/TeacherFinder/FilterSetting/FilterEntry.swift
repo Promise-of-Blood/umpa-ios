@@ -2,12 +2,12 @@
 
 import Foundation
 
-public protocol FilterEntry: CaseIterable {
+protocol FilterEntry: CaseIterable {
     var id: AnyHashable { get }
     var name: String { get }
 }
 
-public enum LessonFilterEntry: FilterEntry {
+enum LessonFilterEntry: FilterEntry {
     case subject
     case major
     case college
@@ -16,9 +16,9 @@ public enum LessonFilterEntry: FilterEntry {
     case price
     case gender
 
-    public var id: AnyHashable { self }
+    var id: AnyHashable { self }
 
-    public var name: String {
+    var name: String {
         switch self {
         case .subject:
             return "레슨 과목"
@@ -38,16 +38,16 @@ public enum LessonFilterEntry: FilterEntry {
     }
 }
 
-public enum AccompanistFilterEntry: FilterEntry {
+enum AccompanistFilterEntry: FilterEntry {
     case instrument
     case college
     case region
     case price
     case gender
 
-    public var id: AnyHashable { self }
+    var id: AnyHashable { self }
 
-    public var name: String {
+    var name: String {
         switch self {
         case .instrument:
             return "반주 악기"
@@ -63,15 +63,15 @@ public enum AccompanistFilterEntry: FilterEntry {
     }
 }
 
-public enum ScoreCreationFilterEntry: FilterEntry {
+enum ScoreCreationFilterEntry: FilterEntry {
     case scoreType
     case college
     case turnaround
     case price
 
-    public var id: AnyHashable { self }
+    var id: AnyHashable { self }
 
-    public var name: String {
+    var name: String {
         switch self {
         case .scoreType:
             return "악보 유형"
@@ -85,14 +85,14 @@ public enum ScoreCreationFilterEntry: FilterEntry {
     }
 }
 
-public enum MRCreationFilterEntry: FilterEntry {
+enum MRCreationFilterEntry: FilterEntry {
     case college
     case turnaround
     case price
 
-    public var id: AnyHashable { self }
+    var id: AnyHashable { self }
 
-    public var name: String {
+    var name: String {
         switch self {
         case .college:
             return "출신 대학"

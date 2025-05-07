@@ -45,7 +45,7 @@ extension Student {
         dreamCollege: [
             Domain.College(name: "서울예술대학교"),
         ],
-        subject: .piano,
+        subject: LessonSubject(name: "피아노"),
         availableLessonDays: [.sat, .sun],
         requirements: "피아노 다시 시작하고 싶어요. 10년 전에 배웠었는데 다시 시작하려고 합니다. 주말에 수업 가능한 선생님 찾습니다.",
         favoriteServices: [

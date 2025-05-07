@@ -15,7 +15,7 @@ final class StudentSignUpModel: ObservableObject, MajorSelectableModel {
     @Published var profileImageData: Data?
     @Published var grade: Grade?
     @Published var gender: Gender?
-    @Published var preferSubject: Domain.Subject?
+    @Published var preferSubject: Domain.LessonSubject?
     @Published var lessonStyle: LessonStyle?
     @Published var availableLessonDays: [Domain.Weekday] = []
     @Published var lessonRequirements: String = ""
