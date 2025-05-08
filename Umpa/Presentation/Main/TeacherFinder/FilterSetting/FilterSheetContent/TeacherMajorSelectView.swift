@@ -48,7 +48,6 @@ struct TeacherMajorSelectView: View {
                 }
             }
         }
-        .padding(.horizontal, fs(20))
     }
 
     func didTapMajorButton(major: Major) {

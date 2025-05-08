@@ -37,7 +37,6 @@ struct LessonSubjectSelectView: View {
 
     var content: some View {
         subjectGrid
-            .padding(.horizontal, fs(20))
     }
 
     var subjectGrid: some View {

@@ -8,7 +8,7 @@ public struct LessonServiceFilter {
     public var colleges: Set<College>?
     public var lessonRegions: Set<Region>?
     public var lessonStyle: LessonStyle
-    public var price: LessonServicePriceFilter
+    public var lessonFee: LessonFee
     public var gender: Gender?
 
     public init(
@@ -17,7 +17,7 @@ public struct LessonServiceFilter {
         colleges: Set<College>? = nil,
         lessonRegions: Set<Region>? = nil,
         lessonStyle: LessonStyle = .both,
-        price: LessonServicePriceFilter = .all,
+        lessonFee: LessonFee = .all,
         gender: Gender? = nil
     ) {
         self.lessonSubjects = lessonSubjects
@@ -25,13 +25,13 @@ public struct LessonServiceFilter {
         self.colleges = colleges
         self.lessonRegions = lessonRegions
         self.lessonStyle = lessonStyle
-        self.price = price
+        self.lessonFee = lessonFee
         self.colleges = colleges
         self.gender = gender
     }
 }
 
-public enum LessonServicePriceFilter {
+public enum LessonFee: Hashable {
     case all
     case lessThanOrEqual200000krwPerHour
     case lessThanOrEqual150000krwPerHour

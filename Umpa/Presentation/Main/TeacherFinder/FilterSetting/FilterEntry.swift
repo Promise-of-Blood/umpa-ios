@@ -13,7 +13,7 @@ enum LessonFilterEntry: FilterEntry {
     case college
     case region
     case lessonStyle
-    case price
+    case lessonFee
     case gender
 
     var id: AnyHashable { self }
@@ -30,7 +30,7 @@ enum LessonFilterEntry: FilterEntry {
             return "레슨 지역"
         case .lessonStyle:
             return "과외 방식"
-        case .price:
+        case .lessonFee:
             return "수업료"
         case .gender:
             return "성별"

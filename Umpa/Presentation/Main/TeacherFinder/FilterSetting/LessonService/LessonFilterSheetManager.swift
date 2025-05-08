@@ -22,9 +22,9 @@ final class LessonFilterSheetManager {
 
     var editingLessonStyles: LessonStyle = .both
 
-    var editingPrice: LessonServicePriceFilter = .all
+    var editingLessonFee: LessonFee = .all
 
-    var editingGender: GenderFilter?
+    var editingGender: GenderFilter = .all
 
     init(lessonFilter: LessonFilter) {
         self.lessonFilter = lessonFilter
@@ -34,7 +34,7 @@ final class LessonFilterSheetManager {
             .college: false,
             .region: false,
             .lessonStyle: false,
-            .price: false,
+            .lessonFee: false,
             .gender: false,
         ]
         assert(presentingState.count == LessonFilterEntry.allCases.count,
@@ -80,10 +80,10 @@ final class LessonFilterSheetManager {
         )
     }
 
-    var isShowingPriceSelector: Binding<Bool> {
+    var isShowingLessonFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.price]! },
-            set: { self.presentingState[.price] = $0 }
+            get: { self.presentingState[.lessonFee]! },
+            set: { self.presentingState[.lessonFee] = $0 }
         )
     }
 
@@ -121,7 +121,7 @@ final class LessonFilterSheetManager {
         lessonFilter.colleges = editingColleges
         lessonFilter.lessonRegions = editingLessonRegions
         lessonFilter.lessonStyle = editingLessonStyles
-        lessonFilter.price = editingPrice
+        lessonFilter.lessonFee = editingLessonFee
         lessonFilter.gender = editingGender
         dismissFilter()
     }
@@ -138,10 +138,10 @@ final class LessonFilterSheetManager {
             editingLessonRegions = []
         case .lessonStyle:
             editingLessonStyles = .both
-        case .price:
-            editingPrice = .all
+        case .lessonFee:
+            editingLessonFee = .all
         case .gender:
-            editingGender = nil
+            editingGender = .all
         }
     }
 
@@ -158,7 +158,7 @@ final class LessonFilterSheetManager {
         editingColleges = lessonFilter.colleges
         editingLessonRegions = lessonFilter.lessonRegions
         editingLessonStyles = lessonFilter.lessonStyle
-        editingPrice = lessonFilter.price
+        editingLessonFee = lessonFilter.lessonFee
         editingGender = lessonFilter.gender
     }
 }

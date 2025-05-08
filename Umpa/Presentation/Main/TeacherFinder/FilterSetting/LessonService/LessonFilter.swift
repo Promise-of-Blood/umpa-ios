@@ -10,8 +10,8 @@ final class LessonFilter {
     var colleges: [College] = []
     var lessonRegions: [Region] = []
     var lessonStyle: LessonStyle = .both
-    var price: LessonServicePriceFilter = .all
-    var gender: GenderFilter?
+    var lessonFee: LessonFee = .all
+    var gender: GenderFilter = .all
 
     func reset() {
         lessonSubjects = []
@@ -19,7 +19,7 @@ final class LessonFilter {
         colleges = []
         lessonRegions = []
         lessonStyle = .both
-        price = .all
-        gender = nil
+        lessonFee = .all
+        gender = .all
     }
 }

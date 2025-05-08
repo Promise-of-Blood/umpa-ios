@@ -115,6 +115,9 @@ struct LessonFilterSettingView: View {
             teacherMajorSelectSheet
             collegeSelectSheet
             lessonRegionSelectSheet
+            lessonStyleSelectSheet
+            lessonFeeSelectSheet
+            genderSelectSheet
         }
     }
 
@@ -144,6 +147,7 @@ struct LessonFilterSettingView: View {
             VStack(spacing: fs(30)) {
                 sheetHeader(title: "레슨 과목")
                 LessonSubjectSelectView(editingSelectedSubjects: $filterSheetManager.editingSubjects)
+                    .padding(.horizontal, fs(20))
             }
             .padding(.top, fs(20))
             .padding(.bottom, fs(28))
@@ -158,6 +162,7 @@ struct LessonFilterSettingView: View {
             VStack(spacing: fs(30)) {
                 sheetHeader(title: "선생님 전공")
                 TeacherMajorSelectView(editingSelectedMajors: $filterSheetManager.editingTeacherMajors)
+                    .padding(.horizontal, fs(20))
             }
             .padding(.top, fs(20))
             .padding(.bottom, fs(28))
@@ -190,6 +195,51 @@ struct LessonFilterSettingView: View {
                 LessonRegionSelectView(selectedLessonRegions: $filterSheetManager.editingLessonRegions)
             }
             .padding(.top, fs(20))
+        }
+    }
+
+    var lessonStyleSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingLessonStyleSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(28)) {
+                sheetHeader(title: "과외 방식")
+                LessonStyleSelectView(selectedLessonStyle: $filterSheetManager.editingLessonStyles)
+                    .padding(.horizontal, fs(26))
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
+        }
+    }
+
+    var lessonFeeSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingLessonFeeSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(24)) {
+                sheetHeader(title: "수업료")
+                LessonFeeSelectView(selectedLessonFee: $filterSheetManager.editingLessonFee)
+                    .padding(.horizontal, fs(26))
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
+        }
+    }
+
+    var genderSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingGenderSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(24)) {
+                sheetHeader(title: "성별")
+                GenderSelectView(selectedGender: $filterSheetManager.editingGender)
+                    .padding(.horizontal, fs(26))
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
         }
     }
 

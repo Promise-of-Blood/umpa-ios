@@ -2,7 +2,7 @@
 
 import Foundation
 
-enum GenderFilter {
+enum GenderFilter: Hashable {
     case all
     case female
     case male
