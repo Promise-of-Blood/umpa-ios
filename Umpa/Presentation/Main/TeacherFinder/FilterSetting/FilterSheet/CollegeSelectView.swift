@@ -35,7 +35,7 @@ struct CollegeSelectView: View {
             VStack(spacing: fs(16)) {
                 searchHeader
                 if selectedColleges.isNotEmpty {
-                    selectedChipList
+                    selectedCollegeChipList
                 }
             }
             .padding(.bottom, fs(12))
@@ -66,7 +66,7 @@ struct CollegeSelectView: View {
         .padding(.horizontal, fs(20))
     }
     
-    var selectedChipList: some View {
+    var selectedCollegeChipList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: fs(8)) {
                 ForEach(selectedColleges, id: \.name) { college in

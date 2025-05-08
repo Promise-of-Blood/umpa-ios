@@ -18,7 +18,7 @@ final class LessonFilterSheetManager {
 
     var editingColleges: [College] = []
 
-    var editingLessonRegions: Set<Region> = []
+    var editingLessonRegions: [Region] = []
 
     var editingLessonStyles: LessonStyle = .both
 
@@ -66,7 +66,7 @@ final class LessonFilterSheetManager {
         )
     }
 
-    var isShowingRegionSelector: Binding<Bool> {
+    var isShowingLessonRegionSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.region]! },
             set: { self.presentingState[.region] = $0 }
@@ -153,10 +153,10 @@ final class LessonFilterSheetManager {
     // MARK: Private Methods
 
     private func restoreEditingState() {
-        editingSubjects = lessonFilter.lessonSubjects ?? []
-        editingTeacherMajors = lessonFilter.teacherMajors ?? []
-        editingColleges = lessonFilter.colleges ?? []
-        editingLessonRegions = lessonFilter.lessonRegions ?? []
+        editingSubjects = lessonFilter.lessonSubjects
+        editingTeacherMajors = lessonFilter.teacherMajors
+        editingColleges = lessonFilter.colleges
+        editingLessonRegions = lessonFilter.lessonRegions
         editingLessonStyles = lessonFilter.lessonStyle
         editingPrice = lessonFilter.price
         editingGender = lessonFilter.gender

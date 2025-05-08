@@ -40,9 +40,7 @@ struct LessonFilterSettingView: View {
                     Spacer()
                 }
 
-                lessonSubjectSelectSheet
-                teacherMajorSelectSheet
-                collegeSelectSheet
+                filterSheets
             }
 
             FilterSettingBottomActionView(
@@ -51,50 +49,6 @@ struct LessonFilterSettingView: View {
                 applyAction: didTapApplyButton,
                 resetAction: didTapResetButton,
             )
-        }
-    }
-
-    var lessonSubjectSelectSheet: some View {
-        InstinctSheet(
-            isPresenting: filterSheetManager.isShowingLessonSubjectSelector,
-            dismissAction: { filterSheetManager.dismissFilter() }
-        ) {
-            VStack(spacing: fs(30)) {
-                sheetHeader(title: "레슨 과목")
-                LessonSubjectSelectView(editingSelectedSubjects: $filterSheetManager.editingSubjects)
-            }
-            .padding(.top, fs(20))
-            .padding(.bottom, fs(28))
-        }
-    }
-
-    var teacherMajorSelectSheet: some View {
-        InstinctSheet(
-            isPresenting: filterSheetManager.isShowingTeacherMajorSelector,
-            dismissAction: { filterSheetManager.dismissFilter() }
-        ) {
-            VStack(spacing: fs(30)) {
-                sheetHeader(title: "선생님 전공")
-                TeacherMajorSelectView(editingSelectedMajors: $filterSheetManager.editingTeacherMajors)
-            }
-            .padding(.top, fs(20))
-            .padding(.bottom, fs(28))
-        }
-    }
-
-    var collegeSelectSheet: some View {
-        InstinctSheet(
-            isPresenting: filterSheetManager.isShowingCollegeSelector,
-            dismissAction: { filterSheetManager.dismissFilter() }
-        ) {
-            VStack(spacing: fs(24)) {
-                sheetHeader(title: "출신 대학")
-                CollegeSelectView(
-                    collegeList: appState.appData.collegeList,
-                    selectedColleges: $filterSheetManager.editingColleges
-                )
-            }
-            .padding(.top, fs(20))
         }
     }
 
@@ -153,6 +107,17 @@ struct LessonFilterSettingView: View {
         .scrollBounceBehavior(.basedOnSize, axes: .vertical)
     }
 
+    // MARK: Filter Sheets
+
+    var filterSheets: some View {
+        Group {
+            lessonSubjectSelectSheet
+            teacherMajorSelectSheet
+            collegeSelectSheet
+            lessonRegionSelectSheet
+        }
+    }
+
     func sheetHeader(title: String) -> some View {
         ZStack(alignment: .trailing) {
             Text(title)
@@ -169,6 +134,63 @@ struct LessonFilterSettingView: View {
             }
         }
         .padding(.horizontal, fs(20))
+    }
+
+    var lessonSubjectSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingLessonSubjectSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(30)) {
+                sheetHeader(title: "레슨 과목")
+                LessonSubjectSelectView(editingSelectedSubjects: $filterSheetManager.editingSubjects)
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
+        }
+    }
+
+    var teacherMajorSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingTeacherMajorSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(30)) {
+                sheetHeader(title: "선생님 전공")
+                TeacherMajorSelectView(editingSelectedMajors: $filterSheetManager.editingTeacherMajors)
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
+        }
+    }
+
+    var collegeSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingCollegeSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(24)) {
+                sheetHeader(title: "출신 대학")
+                CollegeSelectView(
+                    collegeList: appState.appData.collegeList,
+                    selectedColleges: $filterSheetManager.editingColleges
+                )
+            }
+            .padding(.top, fs(20))
+        }
+    }
+
+    var lessonRegionSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingLessonRegionSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(24)) {
+                sheetHeader(title: "레슨 지역")
+                LessonRegionSelectView(selectedLessonRegions: $filterSheetManager.editingLessonRegions)
+            }
+            .padding(.top, fs(20))
+        }
     }
 
     // MARK: Private Methods

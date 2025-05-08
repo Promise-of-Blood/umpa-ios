@@ -5,19 +5,19 @@ import Foundation
 
 @Observable
 final class LessonFilter {
-    var lessonSubjects: Set<LessonSubject>?
-    var teacherMajors: Set<Major>?
-    var colleges: [College]?
-    var lessonRegions: Set<Region>?
+    var lessonSubjects: Set<LessonSubject> = []
+    var teacherMajors: Set<Major> = []
+    var colleges: [College] = []
+    var lessonRegions: [Region] = []
     var lessonStyle: LessonStyle = .both
     var price: LessonServicePriceFilter = .all
     var gender: GenderFilter?
 
     func reset() {
-        lessonSubjects = nil
-        teacherMajors = nil
-        colleges = nil
-        lessonRegions = nil
+        lessonSubjects = []
+        teacherMajors = []
+        colleges = []
+        lessonRegions = []
         lessonStyle = .both
         price = .all
         gender = nil
