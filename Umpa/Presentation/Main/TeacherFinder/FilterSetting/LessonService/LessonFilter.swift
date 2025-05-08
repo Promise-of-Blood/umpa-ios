@@ -7,7 +7,7 @@ import Foundation
 final class LessonFilter {
     var lessonSubjects: Set<LessonSubject>?
     var teacherMajors: Set<Major>?
-    var colleges: Set<College>?
+    var colleges: [College]?
     var lessonRegions: Set<Region>?
     var lessonStyle: LessonStyle = .both
     var price: LessonServicePriceFilter = .all

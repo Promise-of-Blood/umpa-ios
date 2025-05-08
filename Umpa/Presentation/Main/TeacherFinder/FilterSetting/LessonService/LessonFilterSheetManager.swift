@@ -16,7 +16,7 @@ final class LessonFilterSheetManager {
 
     var editingTeacherMajors: Set<Major> = []
 
-    var editingColleges: Set<College> = []
+    var editingColleges: [College] = []
 
     var editingLessonRegions: Set<Region> = []
 
@@ -45,49 +45,49 @@ final class LessonFilterSheetManager {
 
     /// - Warning: 이 프로퍼티의 값을 직접 변경하여 필터 시트를 표시하지 마세요. 예상되지 않은 동작이 발생할 수 있습니다.
     /// 대신 `presentFilter(_:)` 메서드를 사용하세요.
-    var lessonSubjectFilterBinding: Binding<Bool> {
+    var isShowingLessonSubjectSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.subject]! },
             set: { self.presentingState[.subject] = $0 }
         )
     }
 
-    var teacherMajorFilterBinding: Binding<Bool> {
+    var isShowingTeacherMajorSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.major]! },
             set: { self.presentingState[.major] = $0 }
         )
     }
 
-    var collegeFilterBinding: Binding<Bool> {
+    var isShowingCollegeSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.college]! },
             set: { self.presentingState[.college] = $0 }
         )
     }
 
-    var regionFilterBinding: Binding<Bool> {
+    var isShowingRegionSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.region]! },
             set: { self.presentingState[.region] = $0 }
         )
     }
 
-    var lessonStyleFilterBinding: Binding<Bool> {
+    var isShowingLessonStyleSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.lessonStyle]! },
             set: { self.presentingState[.lessonStyle] = $0 }
         )
     }
 
-    var priceFilterBinding: Binding<Bool> {
+    var isShowingPriceSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.price]! },
             set: { self.presentingState[.price] = $0 }
         )
     }
 
-    var genderFilterBinding: Binding<Bool> {
+    var isShowingGenderSelector: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.gender]! },
             set: { self.presentingState[.gender] = $0 }

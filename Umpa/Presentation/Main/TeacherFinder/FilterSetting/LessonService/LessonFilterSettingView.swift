@@ -9,6 +9,8 @@ import SwiftUI
 struct LessonFilterSettingView: View {
     @Environment(\.dismiss) private var dismiss
 
+    @Injected(\.appState) private var appState
+
     /// 실제 적용할 필터 정보
     @Bindable var lessonFilter: LessonFilter
 
@@ -38,8 +40,9 @@ struct LessonFilterSettingView: View {
                     Spacer()
                 }
 
-                lessonSubjectChangeSheet
-                teacherMajorChangeSheet
+                lessonSubjectSelectSheet
+                teacherMajorSelectSheet
+                collegeSelectSheet
             }
 
             FilterSettingBottomActionView(
@@ -51,9 +54,9 @@ struct LessonFilterSettingView: View {
         }
     }
 
-    var lessonSubjectChangeSheet: some View {
+    var lessonSubjectSelectSheet: some View {
         InstinctSheet(
-            isPresenting: filterSheetManager.lessonSubjectFilterBinding,
+            isPresenting: filterSheetManager.isShowingLessonSubjectSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(30)) {
@@ -65,9 +68,9 @@ struct LessonFilterSettingView: View {
         }
     }
 
-    var teacherMajorChangeSheet: some View {
+    var teacherMajorSelectSheet: some View {
         InstinctSheet(
-            isPresenting: filterSheetManager.teacherMajorFilterBinding,
+            isPresenting: filterSheetManager.isShowingTeacherMajorSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(30)) {
@@ -76,6 +79,22 @@ struct LessonFilterSettingView: View {
             }
             .padding(.top, fs(20))
             .padding(.bottom, fs(28))
+        }
+    }
+
+    var collegeSelectSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.isShowingCollegeSelector,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(24)) {
+                sheetHeader(title: "출신 대학")
+                CollegeSelectView(
+                    collegeList: appState.appData.collegeList,
+                    selectedColleges: $filterSheetManager.editingColleges
+                )
+            }
+            .padding(.top, fs(20))
         }
     }
 

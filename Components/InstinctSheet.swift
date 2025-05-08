@@ -2,6 +2,9 @@
 
 import SwiftUI
 
+/// `content`의 자체 크기에 맞춰서 높이를 조정하는 시트.
+///
+/// 화면에 보여지기 전에 자체 크기가 확정되어야 합니다.
 public struct InstinctSheet<Content: View>: View {
     @Binding var isPresenting: Bool
     
@@ -17,6 +20,7 @@ public struct InstinctSheet<Content: View>: View {
     
     private let cornerRadius: CGFloat = 22
     private let animationDuration: TimeInterval = 0.25
+    private let freeSpace: CGFloat = 30
     
     public var body: some View {
         GeometryReader { proxy in
@@ -27,6 +31,11 @@ public struct InstinctSheet<Content: View>: View {
                     .frame(height: isPresenting ? nil : 0, alignment: .bottom)
                     .background(.background)
                     .clipShape(.rect(topLeadingRadius: cornerRadius, topTrailingRadius: cornerRadius))
+                    .frame(
+                        maxHeight: isPresenting ? proxy.size.height - freeSpace : 0,
+                        alignment: .bottom
+                    )
+                    .background(.clear)
                     .clipped()
             }
             .ignoresSafeArea()
