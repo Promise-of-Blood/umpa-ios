@@ -9,8 +9,22 @@ final class LessonFilterSheetManager {
 
     private var presentingState: [LessonFilterEntry: Bool]
 
+    // MARK: State
+
     /// 필터 시트에서 과목을 편집하기 위한 상태
     var editingSubjects: Set<LessonSubject> = []
+
+    var editingTeacherMajors: Set<Major> = []
+
+    var editingColleges: Set<College> = []
+
+    var editingLessonRegions: Set<Region> = []
+
+    var editingLessonStyles: LessonStyle = .both
+
+    var editingPrice: LessonServicePriceFilter = .all
+
+    var editingGender: GenderFilter?
 
     init(lessonFilter: LessonFilter) {
         self.lessonFilter = lessonFilter
@@ -27,12 +41,56 @@ final class LessonFilterSheetManager {
                "모든 필터가 포함되어야 합니다.")
     }
 
+    // MARK: Bindings
+
     /// - Warning: 이 프로퍼티의 값을 직접 변경하여 필터 시트를 표시하지 마세요. 예상되지 않은 동작이 발생할 수 있습니다.
     /// 대신 `presentFilter(_:)` 메서드를 사용하세요.
     var lessonSubjectFilterBinding: Binding<Bool> {
         Binding<Bool>(
             get: { self.presentingState[.subject]! },
             set: { self.presentingState[.subject] = $0 }
+        )
+    }
+
+    var teacherMajorFilterBinding: Binding<Bool> {
+        Binding<Bool>(
+            get: { self.presentingState[.major]! },
+            set: { self.presentingState[.major] = $0 }
+        )
+    }
+
+    var collegeFilterBinding: Binding<Bool> {
+        Binding<Bool>(
+            get: { self.presentingState[.college]! },
+            set: { self.presentingState[.college] = $0 }
+        )
+    }
+
+    var regionFilterBinding: Binding<Bool> {
+        Binding<Bool>(
+            get: { self.presentingState[.region]! },
+            set: { self.presentingState[.region] = $0 }
+        )
+    }
+
+    var lessonStyleFilterBinding: Binding<Bool> {
+        Binding<Bool>(
+            get: { self.presentingState[.lessonStyle]! },
+            set: { self.presentingState[.lessonStyle] = $0 }
+        )
+    }
+
+    var priceFilterBinding: Binding<Bool> {
+        Binding<Bool>(
+            get: { self.presentingState[.price]! },
+            set: { self.presentingState[.price] = $0 }
+        )
+    }
+
+    var genderFilterBinding: Binding<Bool> {
+        Binding<Bool>(
+            get: { self.presentingState[.gender]! },
+            set: { self.presentingState[.gender] = $0 }
         )
     }
 
@@ -44,54 +102,63 @@ final class LessonFilterSheetManager {
         presentingState.first { $0.value }?.key
     }
 
+    // MARK: API
+
     func presentFilter(_ filter: LessonFilterEntry) {
         dismissFilter()
         presentingState[filter] = true
-
-        switch filter {
-        case .subject:
-            resetEditingState()
-        case .major:
-            break
-        case .college:
-            break
-        case .region:
-            break
-        case .lessonStyle:
-            break
-        case .price:
-            break
-        case .gender:
-            break
-        }
+        restoreEditingState()
     }
 
     func dismissFilter() {
         presentingState.forEach { presentingState[$0.key] = false }
-        resetEditingState()
+        restoreEditingState()
     }
 
-    func applyFilter(_ filterEntry: LessonFilterEntry) {
-        switch filterEntry {
+    func applyFilter() {
+        lessonFilter.lessonSubjects = editingSubjects
+        lessonFilter.teacherMajors = editingTeacherMajors
+        lessonFilter.colleges = editingColleges
+        lessonFilter.lessonRegions = editingLessonRegions
+        lessonFilter.lessonStyle = editingLessonStyles
+        lessonFilter.price = editingPrice
+        lessonFilter.gender = editingGender
+        dismissFilter()
+    }
+
+    func resetEditingFilter(_ filter: LessonFilterEntry) {
+        switch filter {
         case .subject:
-            lessonFilter.lessonSubjects = editingSubjects
-            dismissFilter()
+            editingSubjects = []
         case .major:
-            break
+            editingTeacherMajors = []
         case .college:
-            break
+            editingColleges = []
         case .region:
-            break
+            editingLessonRegions = []
         case .lessonStyle:
-            break
+            editingLessonStyles = .both
         case .price:
-            break
+            editingPrice = .all
         case .gender:
-            break
+            editingGender = nil
         }
     }
-    
-    private func resetEditingState() {
+
+    func resetAllFilters() {
+        lessonFilter.reset()
+        restoreEditingState()
+    }
+
+    // MARK: Private Methods
+
+    private func restoreEditingState() {
         editingSubjects = lessonFilter.lessonSubjects ?? []
+        editingTeacherMajors = lessonFilter.teacherMajors ?? []
+        editingColleges = lessonFilter.colleges ?? []
+        editingLessonRegions = lessonFilter.lessonRegions ?? []
+        editingLessonStyles = lessonFilter.lessonStyle
+        editingPrice = lessonFilter.price
+        editingGender = lessonFilter.gender
     }
 }

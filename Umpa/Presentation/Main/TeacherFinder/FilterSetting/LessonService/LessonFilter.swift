@@ -10,6 +10,16 @@ final class LessonFilter {
     var colleges: Set<College>?
     var lessonRegions: Set<Region>?
     var lessonStyle: LessonStyle = .both
-    var price: LessonServicePriceFilter = .전체
-    var gender: Gender?
+    var price: LessonServicePriceFilter = .all
+    var gender: GenderFilter?
+
+    func reset() {
+        lessonSubjects = nil
+        teacherMajors = nil
+        colleges = nil
+        lessonRegions = nil
+        lessonStyle = .both
+        price = .all
+        gender = nil
+    }
 }

@@ -38,17 +38,8 @@ struct LessonFilterSettingView: View {
                     Spacer()
                 }
 
-                InstinctSheet(
-                    isPresenting: filterSheetManager.lessonSubjectFilterBinding,
-                    dismissAction: { filterSheetManager.dismissFilter() }
-                ) {
-                    VStack(spacing: fs(30)) {
-                        sheetHeader(title: "레슨 과목")
-                        LessonSubjectSelectView(editingSelectedSubjects: $filterSheetManager.editingSubjects)
-                    }
-                    .padding(.top, fs(20))
-                    .padding(.bottom, fs(28))
-                }
+                lessonSubjectChangeSheet
+                teacherMajorChangeSheet
             }
 
             FilterSettingBottomActionView(
@@ -57,6 +48,34 @@ struct LessonFilterSettingView: View {
                 applyAction: didTapApplyButton,
                 resetAction: didTapResetButton,
             )
+        }
+    }
+
+    var lessonSubjectChangeSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.lessonSubjectFilterBinding,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(30)) {
+                sheetHeader(title: "레슨 과목")
+                LessonSubjectSelectView(editingSelectedSubjects: $filterSheetManager.editingSubjects)
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
+        }
+    }
+
+    var teacherMajorChangeSheet: some View {
+        InstinctSheet(
+            isPresenting: filterSheetManager.teacherMajorFilterBinding,
+            dismissAction: { filterSheetManager.dismissFilter() }
+        ) {
+            VStack(spacing: fs(30)) {
+                sheetHeader(title: "선생님 전공")
+                TeacherMajorSelectView(editingSelectedMajors: $filterSheetManager.editingTeacherMajors)
+            }
+            .padding(.top, fs(20))
+            .padding(.bottom, fs(28))
         }
     }
 
@@ -140,31 +159,20 @@ struct LessonFilterSettingView: View {
     }
 
     private func didTapApplyButton() {
-        switch filterSheetManager.presentingFilter {
-        case .subject:
-            filterSheetManager.applyFilter(.subject)
-        case .major:
-            break
-        case .college:
-            break
-        case .region:
-            break
-        case .lessonStyle:
-            break
-        case .price:
-            break
-        case .gender:
-            break
-        case .none: // 필터 설정 기본 화면일 때
-            completeFilterSetting()
+        if filterSheetManager.isAnyFilterSheetShowing {
+            filterSheetManager.applyFilter()
+        } else {
+            dismiss()
         }
     }
 
-    private func completeFilterSetting() {
-        dismiss()
+    private func didTapResetButton() {
+        if let presentingFilter = filterSheetManager.presentingFilter {
+            filterSheetManager.resetEditingFilter(presentingFilter)
+        } else {
+            filterSheetManager.resetAllFilters()
+        }
     }
-
-    private func didTapResetButton() {}
 }
 
 #Preview {
