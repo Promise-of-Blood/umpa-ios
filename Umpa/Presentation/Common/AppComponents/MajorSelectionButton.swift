@@ -48,7 +48,7 @@ struct MajorSelectionButton: View {
 
 private extension Major {
     var imageResource: ImageResource {
-        ImageResource.seeAllIcon
+        ImageResource.seeAllIcon // FIXME: 실제 이미지 리소스 사용
 //        switch self {
 //        case .piano:
 //            return ImageResource(.majorIconPiano)

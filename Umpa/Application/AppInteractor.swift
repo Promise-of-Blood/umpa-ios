@@ -19,6 +19,7 @@ struct DefaultAppInteractor {
     private let majorRepository: MajorRepository
     private let regionRepository: RegionRepository
     private let lessonSubjectRepository: LessonSubjectRepository
+    private let accompanimentInstrumentRepository: AccompanimentInstrumentRepository
 
     private let cancelBag = CancelBag()
 
@@ -28,12 +29,14 @@ struct DefaultAppInteractor {
         majorRepository: MajorRepository,
         regionRepository: RegionRepository,
         lessonSubjectRepository: LessonSubjectRepository,
+        accompanimentInstrumentRepository: AccompanimentInstrumentRepository,
     ) {
         self.appState = appState
         self.collegeRepository = collegeRepository
         self.majorRepository = majorRepository
         self.regionRepository = regionRepository
         self.lessonSubjectRepository = lessonSubjectRepository
+        self.accompanimentInstrumentRepository = accompanimentInstrumentRepository
 
         #if DEBUG
         setupMockBehavior()
@@ -84,22 +87,28 @@ struct DefaultAppInteractor {
 
 extension DefaultAppInteractor: AppInteractor {
     func loadAppData() {
-        Publishers.Zip4(
+        let part1 = Publishers.Zip4(
             collegeRepository.fetchCollegeList(),
             majorRepository.fetchMajorList(),
             regionRepository.fetchRegionList(),
             lessonSubjectRepository.fetchLessonSubjectList(),
+        )
+        let part2 = accompanimentInstrumentRepository.fetchAccompanimentInstrumentList()
+
+        Publishers.Zip(
+            part1, part2
         )
         .receive(on: DispatchQueue.main)
         .sink { completion in
             if completion.isError {
                 // TODO: Handle error - 앱을 시작할 수 없음
             }
-        } receiveValue: { [appState] collegeList, majorList, regionList, lessonSubjectList in
-            appState.appData.collegeList = collegeList
-            appState.appData.majorList = majorList
-            appState.appData.regionList = regionList
-            appState.appData.lessonSubjectList = lessonSubjectList
+        } receiveValue: { [appState] part1, part2 in
+            appState.appData.collegeList = part1.0
+            appState.appData.majorList = part1.1
+            appState.appData.regionList = part1.2
+            appState.appData.lessonSubjectList = part1.3
+            appState.appData.accompanimentInstrumentList = part2
             appState.system.isSplashFinished = true
         }
         .store(in: cancelBag)

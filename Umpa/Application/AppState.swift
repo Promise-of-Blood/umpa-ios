@@ -68,6 +68,7 @@ extension AppState {
         var collegeList: [College] = []
         var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
         var lessonSubjectList: [LessonSubject] = []
+        var accompanimentInstrumentList: [AccompanimentInstrument] = []
         fileprivate init() {}
     }
 }

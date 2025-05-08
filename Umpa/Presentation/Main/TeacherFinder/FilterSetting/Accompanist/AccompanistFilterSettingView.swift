@@ -6,19 +6,19 @@ import Factory
 import SFSafeSymbols
 import SwiftUI
 
-struct LessonFilterSettingView: View {
+struct AccompanistFilterSettingView: View {
     @Environment(\.dismiss) private var dismiss
 
     @Injected(\.appState) private var appState
 
     /// 실제 적용할 필터 정보
-    @Bindable var lessonFilter: LessonFilter
+    @Bindable var accompanistFilter: AccompanistFilter
 
-    @State private var filterSheetManager: LessonFilterSheetManager
+    @State private var filterSheetManager: AccompanistFilterSheetManager
 
-    init(lessonFilter: LessonFilter) {
-        self.lessonFilter = lessonFilter
-        self._filterSheetManager = State(initialValue: LessonFilterSheetManager(lessonFilter: lessonFilter))
+    init(accompanistFilter: AccompanistFilter) {
+        self.accompanistFilter = accompanistFilter
+        self._filterSheetManager = State(initialValue: AccompanistFilterSheetManager(accompanistFilter: accompanistFilter))
     }
 
     // MARK: View
@@ -32,7 +32,7 @@ struct LessonFilterSettingView: View {
             ZStack {
                 VStack(spacing: 0) {
                     VStack(spacing: fs(40)) {
-                        FilterSettingViewHeader(title: "레슨 필터 설정")
+                        FilterSettingViewHeader(title: "입시반주 필터 설정")
                         filterList
                     }
                     .padding(.horizontal, fs(20))
@@ -56,7 +56,7 @@ struct LessonFilterSettingView: View {
         ScrollView(.vertical) {
             VStack(spacing: 0) {
                 ForEach(
-                    Array(zip(LessonFilterEntry.allCases.indices, LessonFilterEntry.allCases)),
+                    Array(zip(AccompanistFilterEntry.allCases.indices, AccompanistFilterEntry.allCases)),
                     id: \.1.id
                 ) { index, filter in
                     Button(action: {
@@ -82,7 +82,7 @@ struct LessonFilterSettingView: View {
                         .padding(.vertical, fs(24))
                     }
 
-                    if index < LessonFilterEntry.allCases.count - 1 {
+                    if index < AccompanistFilterEntry.allCases.count - 1 {
                         HorizontalDivider(color: UmpaColor.baseColor)
                     }
                 }
@@ -95,40 +95,25 @@ struct LessonFilterSettingView: View {
 
     var filterSheets: some View {
         Group {
-            lessonSubjectSelectSheet
-            teacherMajorSelectSheet
+            instrumentSelectSheet
             collegeSelectSheet
-            lessonRegionSelectSheet
-            lessonStyleSelectSheet
-            lessonFeeSelectSheet
+            regionSelectSheet
+            accompanistFeeSelectSheet
             genderSelectSheet
         }
     }
 
-    var lessonSubjectSelectSheet: some View {
+    var instrumentSelectSheet: some View {
         InstinctSheet(
-            isPresenting: filterSheetManager.isShowingLessonSubjectSelector,
+            isPresenting: filterSheetManager.isShowingInstrumentSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
-            VStack(spacing: fs(30)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.subject, dismissAction: filterSheetManager.dismissFilter)
-                LessonSubjectSelectView(editingSelectedSubjects: $filterSheetManager.editingSubjects)
-                    .padding(.horizontal, fs(20))
-            }
-            .padding(.top, fs(20))
-            .padding(.bottom, fs(28))
-        }
-    }
-
-    var teacherMajorSelectSheet: some View {
-        InstinctSheet(
-            isPresenting: filterSheetManager.isShowingTeacherMajorSelector,
-            dismissAction: { filterSheetManager.dismissFilter() }
-        ) {
-            VStack(spacing: fs(30)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.major, dismissAction: filterSheetManager.dismissFilter)
-                TeacherMajorSelectView(editingSelectedMajors: $filterSheetManager.editingTeacherMajors)
-                    .padding(.horizontal, fs(20))
+            VStack(spacing: fs(24)) {
+                FilterSheetHeader(filterEntry: AccompanistFilterEntry.instrument, dismissAction: filterSheetManager.dismissFilter)
+                InstrumentSelectView(
+                    selectedInstruments: $filterSheetManager.editingInstruments,
+                    instrumentList: appState.appData.accompanimentInstrumentList.map(\.name)
+                )
             }
             .padding(.top, fs(20))
             .padding(.bottom, fs(28))
@@ -141,7 +126,7 @@ struct LessonFilterSettingView: View {
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(24)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.college, dismissAction: filterSheetManager.dismissFilter)
+                FilterSheetHeader(filterEntry: AccompanistFilterEntry.college, dismissAction: filterSheetManager.dismissFilter)
                 CollegeSelectView(
                     collegeList: appState.appData.collegeList,
                     selectedColleges: $filterSheetManager.editingColleges
@@ -151,42 +136,27 @@ struct LessonFilterSettingView: View {
         }
     }
 
-    var lessonRegionSelectSheet: some View {
+    var regionSelectSheet: some View {
         InstinctSheet(
-            isPresenting: filterSheetManager.isShowingLessonRegionSelector,
+            isPresenting: filterSheetManager.isShowingRegionSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(24)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.region, dismissAction: filterSheetManager.dismissFilter)
-                RegionSelectView(selectedRegions: $filterSheetManager.editingLessonRegions)
+                FilterSheetHeader(filterEntry: AccompanistFilterEntry.region, dismissAction: filterSheetManager.dismissFilter)
+                RegionSelectView(selectedRegions: $filterSheetManager.editingRegions)
             }
             .padding(.top, fs(20))
         }
     }
 
-    var lessonStyleSelectSheet: some View {
+    var accompanistFeeSelectSheet: some View {
         InstinctSheet(
-            isPresenting: filterSheetManager.isShowingLessonStyleSelector,
-            dismissAction: { filterSheetManager.dismissFilter() }
-        ) {
-            VStack(spacing: fs(28)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.lessonStyle, dismissAction: filterSheetManager.dismissFilter)
-                LessonStyleSelectView(selectedLessonStyle: $filterSheetManager.editingLessonStyles)
-                    .padding(.horizontal, fs(26))
-            }
-            .padding(.top, fs(20))
-            .padding(.bottom, fs(28))
-        }
-    }
-
-    var lessonFeeSelectSheet: some View {
-        InstinctSheet(
-            isPresenting: filterSheetManager.isShowingLessonFeeSelector,
+            isPresenting: filterSheetManager.isShowingAccompanistFeeFeeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(24)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.lessonFee, dismissAction: filterSheetManager.dismissFilter)
-                LessonFeeSelectView(selectedLessonFee: $filterSheetManager.editingLessonFee)
+                FilterSheetHeader(filterEntry: AccompanistFilterEntry.accompanistFee, dismissAction: filterSheetManager.dismissFilter)
+                AccompanistFeeSelectView(selectedAccompanistFee: $filterSheetManager.editingAccompanistFee)
                     .padding(.horizontal, fs(26))
             }
             .padding(.top, fs(20))
@@ -200,7 +170,7 @@ struct LessonFilterSettingView: View {
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(24)) {
-                FilterSheetHeader(filterEntry: LessonFilterEntry.gender, dismissAction: filterSheetManager.dismissFilter)
+                FilterSheetHeader(filterEntry: AccompanistFilterEntry.gender, dismissAction: filterSheetManager.dismissFilter)
                 GenderSelectView(selectedGender: $filterSheetManager.editingGender)
                     .padding(.horizontal, fs(26))
             }
@@ -211,7 +181,7 @@ struct LessonFilterSettingView: View {
 
     // MARK: Private Methods
 
-    private func didTapFilter(_ filter: LessonFilterEntry) {
+    private func didTapFilter(_ filter: AccompanistFilterEntry) {
         filterSheetManager.presentFilter(filter)
     }
 
@@ -233,5 +203,5 @@ struct LessonFilterSettingView: View {
 }
 
 #Preview {
-    LessonFilterSettingView(lessonFilter: LessonFilter())
+    AccompanistFilterSettingView(accompanistFilter: AccompanistFilter())
 }

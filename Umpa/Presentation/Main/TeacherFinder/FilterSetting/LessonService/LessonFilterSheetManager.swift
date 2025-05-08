@@ -107,22 +107,31 @@ final class LessonFilterSheetManager {
     func presentFilter(_ filter: LessonFilterEntry) {
         dismissFilter()
         presentingState[filter] = true
-        restoreEditingState()
+        restoreAllEditingState()
     }
 
     func dismissFilter() {
         presentingState.forEach { presentingState[$0.key] = false }
-        restoreEditingState()
+        restoreAllEditingState()
     }
 
-    func applyFilter() {
-        lessonFilter.lessonSubjects = editingSubjects
-        lessonFilter.teacherMajors = editingTeacherMajors
-        lessonFilter.colleges = editingColleges
-        lessonFilter.lessonRegions = editingLessonRegions
-        lessonFilter.lessonStyle = editingLessonStyles
-        lessonFilter.lessonFee = editingLessonFee
-        lessonFilter.gender = editingGender
+    func applyFilter(_ filter: LessonFilterEntry) {
+        switch filter {
+        case .subject:
+            lessonFilter.lessonSubjects = editingSubjects
+        case .major:
+            lessonFilter.teacherMajors = editingTeacherMajors
+        case .college:
+            lessonFilter.colleges = editingColleges
+        case .region:
+            lessonFilter.lessonRegions = editingLessonRegions
+        case .lessonStyle:
+            lessonFilter.lessonStyle = editingLessonStyles
+        case .lessonFee:
+            lessonFilter.lessonFee = editingLessonFee
+        case .gender:
+            lessonFilter.gender = editingGender
+        }
         dismissFilter()
     }
 
@@ -147,18 +156,33 @@ final class LessonFilterSheetManager {
 
     func resetAllFilters() {
         lessonFilter.reset()
-        restoreEditingState()
+        restoreAllEditingState()
     }
 
     // MARK: Private Methods
 
-    private func restoreEditingState() {
-        editingSubjects = lessonFilter.lessonSubjects
-        editingTeacherMajors = lessonFilter.teacherMajors
-        editingColleges = lessonFilter.colleges
-        editingLessonRegions = lessonFilter.lessonRegions
-        editingLessonStyles = lessonFilter.lessonStyle
-        editingLessonFee = lessonFilter.lessonFee
-        editingGender = lessonFilter.gender
+    private func restoreAllEditingState() {
+        for filter in LessonFilterEntry.allCases {
+            restoreEditingState(of: filter)
+        }
+    }
+
+    private func restoreEditingState(of filter: LessonFilterEntry) {
+        switch filter {
+        case .subject:
+            editingSubjects = lessonFilter.lessonSubjects
+        case .major:
+            editingTeacherMajors = lessonFilter.teacherMajors
+        case .college:
+            editingColleges = lessonFilter.colleges
+        case .region:
+            editingLessonRegions = lessonFilter.lessonRegions
+        case .lessonStyle:
+            editingLessonStyles = lessonFilter.lessonStyle
+        case .lessonFee:
+            editingLessonFee = lessonFilter.lessonFee
+        case .gender:
+            editingGender = lessonFilter.gender
+        }
     }
 }

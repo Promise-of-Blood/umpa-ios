@@ -42,7 +42,7 @@ enum AccompanistFilterEntry: FilterEntry {
     case instrument
     case college
     case region
-    case price
+    case accompanistFee
     case gender
 
     var id: AnyHashable { self }
@@ -55,7 +55,7 @@ enum AccompanistFilterEntry: FilterEntry {
             return "출신 대학"
         case .region:
             return "지역"
-        case .price:
+        case .accompanistFee:
             return "가격"
         case .gender:
             return "성별"

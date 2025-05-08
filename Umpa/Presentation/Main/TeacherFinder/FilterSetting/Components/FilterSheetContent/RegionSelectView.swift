@@ -3,8 +3,8 @@
 import Domain
 import SwiftUI
 
-struct LessonRegionSelectView: View {
-    @Binding var selectedLessonRegions: [Region]
+struct RegionSelectView: View {
+    @Binding var selectedRegions: [Region]
 
     var body: some View {
         content
@@ -13,7 +13,7 @@ struct LessonRegionSelectView: View {
     var content: some View {
         VStack(spacing: fs(14)) {
             selectedRegionChipList
-            RegionSelector(selectedRegions: $selectedLessonRegions, canMultiSelect: true)
+            RegionSelector(selectedRegions: $selectedRegions, canMultiSelect: true)
                 .innerStroke(UmpaColor.lightGray, edges: .vertical)
                 .clipped()
         }
@@ -21,17 +21,17 @@ struct LessonRegionSelectView: View {
 
     var selectedRegionChipList: some View {
         Group {
-            if selectedLessonRegions.isEmpty {
-                Text("레슨 지역을 선택해 주세요")
+            if selectedRegions.isEmpty {
+                Text("지역을 선택해 주세요")
                     .font(.pretendardRegular(size: fs(15)))
                     .foregroundStyle(UmpaColor.lightGray)
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: fs(8)) {
-                        ForEach(selectedLessonRegions, id: \.name) { region in
+                        ForEach(selectedRegions, id: \.name) { region in
                             RegionChip(region: region, destructiveAction: {
                                 withAnimation {
-                                    selectedLessonRegions.removeAll { $0 == region }
+                                    selectedRegions.removeAll { $0 == region }
                                 }
                             })
                         }
@@ -42,7 +42,7 @@ struct LessonRegionSelectView: View {
             }
         }
         .frame(height: fs(30))
-        .animation(.default, value: selectedLessonRegions)
+        .animation(.default, value: selectedRegions)
     }
 }
 
@@ -77,7 +77,7 @@ private extension Region {
 }
 
 #Preview {
-    @Previewable @State var selectedLessonRegions: [Region] = []
+    @Previewable @State var selectedRegions: [Region] = []
 
-    LessonRegionSelectView(selectedLessonRegions: $selectedLessonRegions)
+    RegionSelectView(selectedRegions: $selectedRegions)
 }
