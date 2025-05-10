@@ -13,7 +13,7 @@ struct PreferSubjectSelectionView: View {
 
     private let columnCount = 4
     private var rowCount: Int {
-        subjectList.count / columnCount + (subjectList.count % columnCount > 0 ? 1 : 0)
+        Int(ceil(Double(subjectList.count) / Double(columnCount)))
     }
 
     var body: some View {

@@ -15,7 +15,7 @@ struct MajorSelectionView<Model: MajorSelectableModel>: View {
 
     private let columnCount = 4
     private var rowCount: Int {
-        majorList.count / columnCount + (majorList.count % columnCount > 0 ? 1 : 0)
+        Int(ceil(Double(majorList.count) / Double(columnCount)))
     }
 
     // MARK: View

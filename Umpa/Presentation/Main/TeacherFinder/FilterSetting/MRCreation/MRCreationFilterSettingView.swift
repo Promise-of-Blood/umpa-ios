@@ -104,7 +104,7 @@ struct MRCreationFilterSettingView: View {
     }
 
     var collegeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingCollegeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -120,7 +120,7 @@ struct MRCreationFilterSettingView: View {
     }
 
     var turnaroundSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingTurnaroundSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -135,7 +135,7 @@ struct MRCreationFilterSettingView: View {
     }
 
     var mrCreationFeeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingFeeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {

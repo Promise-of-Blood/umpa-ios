@@ -15,7 +15,7 @@ struct LessonSubjectSelectView: View {
 
     private let columnCount = 4
     private var rowCount: Int {
-        lessonSubjectFlatList.count / columnCount + (lessonSubjectFlatList.count % columnCount > 0 ? 1 : 0)
+        Int(ceil(Double(lessonSubjectFlatList.count) / Double(columnCount)))
     }
 
     private var lessonSubjectGridList: [[LessonSubject]] {

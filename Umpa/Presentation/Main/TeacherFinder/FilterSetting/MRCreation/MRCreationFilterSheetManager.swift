@@ -34,21 +34,21 @@ final class MRCreationFilterSheetManager: FilterSheetManager {
     /// 대신 `presentFilter(_:)` 메서드를 사용하세요.
     var isShowingCollegeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.college]! },
+            get: { self.presentingState[.college] ?? false },
             set: { self.presentingState[.college] = $0 }
         )
     }
 
     var isShowingTurnaroundSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.turnaround]! },
+            get: { self.presentingState[.turnaround] ?? false },
             set: { self.presentingState[.turnaround] = $0 }
         )
     }
 
     var isShowingFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.fee]! },
+            get: { self.presentingState[.fee] ?? false },
             set: { self.presentingState[.fee] = $0 }
         )
     }

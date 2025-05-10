@@ -9,7 +9,7 @@ struct ScoreTypeSelectView: View {
 
     private let columnCount = 4
     private var rowCount: Int {
-        scoreTypeList.count / columnCount + (scoreTypeList.count % columnCount > 0 ? 1 : 0)
+        Int(ceil(Double(scoreTypeList.count) / Double(columnCount)))
     }
 
     private var scoreTypeGridList: [[ScoreTypeFilter]] {

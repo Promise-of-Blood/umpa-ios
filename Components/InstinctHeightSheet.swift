@@ -5,7 +5,7 @@ import SwiftUI
 /// `content`의 자체 크기에 맞춰서 높이를 조정하는 시트.
 ///
 /// 화면에 보여지기 전에 자체 크기가 확정되어야 합니다.
-public struct InstinctSheet<Content: View>: View {
+public struct InstinctHeightSheet<Content: View>: View {
     @Binding var isPresenting: Bool
     
     let dismissAction: (() -> Void)?
@@ -66,7 +66,7 @@ public struct InstinctSheet<Content: View>: View {
             Text("Show Sheet")
         }
         
-        InstinctSheet(isPresenting: $isPresenting) {
+        InstinctHeightSheet(isPresenting: $isPresenting) {
             VStack {
                 Text("Top")
                 Spacer()

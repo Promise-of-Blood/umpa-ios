@@ -10,7 +10,7 @@ struct InstrumentSelectView: View {
 
     private let columnCount = 4
     private var rowCount: Int {
-        instrumentList.count / columnCount + (instrumentList.count % columnCount > 0 ? 1 : 0)
+        Int(ceil(Double(instrumentList.count) / Double(columnCount)))
     }
 
     private var instrumentGridList: [[InstrumentFilter]] {

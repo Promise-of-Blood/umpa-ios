@@ -47,49 +47,49 @@ final class LessonFilterSheetManager: FilterSheetManager {
     /// 대신 `presentFilter(_:)` 메서드를 사용하세요.
     var isShowingLessonSubjectSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.subject]! },
+            get: { self.presentingState[.subject] ?? false },
             set: { self.presentingState[.subject] = $0 }
         )
     }
 
     var isShowingTeacherMajorSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.major]! },
+            get: { self.presentingState[.major] ?? false },
             set: { self.presentingState[.major] = $0 }
         )
     }
 
     var isShowingCollegeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.college]! },
+            get: { self.presentingState[.college] ?? false },
             set: { self.presentingState[.college] = $0 }
         )
     }
 
     var isShowingLessonRegionSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.region]! },
+            get: { self.presentingState[.region] ?? false },
             set: { self.presentingState[.region] = $0 }
         )
     }
 
     var isShowingLessonStyleSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.lessonStyle]! },
+            get: { self.presentingState[.lessonStyle] ?? false },
             set: { self.presentingState[.lessonStyle] = $0 }
         )
     }
 
     var isShowingLessonFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.fee]! },
+            get: { self.presentingState[.fee] ?? false },
             set: { self.presentingState[.fee] = $0 }
         )
     }
 
     var isShowingGenderSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.gender]! },
+            get: { self.presentingState[.gender] ?? false },
             set: { self.presentingState[.gender] = $0 }
         )
     }

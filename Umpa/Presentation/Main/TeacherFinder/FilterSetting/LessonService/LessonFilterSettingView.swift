@@ -108,7 +108,7 @@ struct LessonFilterSettingView: View {
     }
 
     var lessonSubjectSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingLessonSubjectSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -123,7 +123,7 @@ struct LessonFilterSettingView: View {
     }
 
     var teacherMajorSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingTeacherMajorSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -138,7 +138,7 @@ struct LessonFilterSettingView: View {
     }
 
     var collegeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingCollegeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -154,7 +154,7 @@ struct LessonFilterSettingView: View {
     }
 
     var lessonRegionSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingLessonRegionSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -167,7 +167,7 @@ struct LessonFilterSettingView: View {
     }
 
     var lessonStyleSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingLessonStyleSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -182,7 +182,7 @@ struct LessonFilterSettingView: View {
     }
 
     var lessonFeeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingLessonFeeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -197,7 +197,7 @@ struct LessonFilterSettingView: View {
     }
 
     var genderSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingGenderSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {

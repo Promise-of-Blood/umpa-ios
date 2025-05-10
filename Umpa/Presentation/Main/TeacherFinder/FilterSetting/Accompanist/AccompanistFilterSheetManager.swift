@@ -40,35 +40,35 @@ final class AccompanistFilterSheetManager: FilterSheetManager {
     /// 대신 `presentFilter(_:)` 메서드를 사용하세요.
     var isShowingInstrumentSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.instrument]! },
+            get: { self.presentingState[.instrument] ?? false },
             set: { self.presentingState[.instrument] = $0 }
         )
     }
 
     var isShowingCollegeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.college]! },
+            get: { self.presentingState[.college] ?? false },
             set: { self.presentingState[.college] = $0 }
         )
     }
 
     var isShowingRegionSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.region]! },
+            get: { self.presentingState[.region] ?? false },
             set: { self.presentingState[.region] = $0 }
         )
     }
 
-    var isShowingAccompanistFeeFeeSelector: Binding<Bool> {
+    var isShowingAccompanistFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.fee]! },
+            get: { self.presentingState[.fee] ?? false },
             set: { self.presentingState[.fee] = $0 }
         )
     }
 
     var isShowingGenderSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.gender]! },
+            get: { self.presentingState[.gender] ?? false },
             set: { self.presentingState[.gender] = $0 }
         )
     }

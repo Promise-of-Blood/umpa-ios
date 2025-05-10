@@ -7,7 +7,7 @@ import SFSafeSymbols
 import SwiftUI
 
 struct CollegeSelectView: View {
-    @State private var searchQuery: String = "대" // FIXME: 기본값삭제
+    @State private var searchQuery: String = ""
     
     @FocusState private var isSearchFieldFocused: Bool
     
@@ -93,10 +93,10 @@ struct CollegeSelectView: View {
                 } label: {
                     Text(college.name)
                         .font(.pretendardMedium(size: fs(13)))
-                        .foregroundStyle(college.isContained(in: selectedColleges) ?
+                        .foregroundStyle(selectedColleges.contains(college) ?
                             UmpaColor.lightGray : UmpaColor.darkGray)
                 }
-                .disabled(college.isContained(in: selectedColleges))
+                .disabled(selectedColleges.contains(college))
                 .buttonStyle(.borderless)
                 .listRowInsets(EdgeInsets())
             }
@@ -134,12 +134,6 @@ private struct CollegeChip: View {
         .padding(.horizontal, fs(10))
         .innerRoundedStroke(foregroundColor, cornerRadius: height / 2)
         .foregroundStyle(foregroundColor)
-    }
-}
-
-private extension College {
-    func isContained(in collegeList: [College]) -> Bool {
-        collegeList.contains(self)
     }
 }
 

@@ -11,7 +11,7 @@ struct TeacherMajorSelectView: View {
 
     private let columnCount = 4
     private var rowCount: Int {
-        appState.appData.majorList.count / columnCount + (appState.appData.majorList.count % columnCount > 0 ? 1 : 0)
+        Int(ceil(Double(appState.appData.majorList.count) / Double(columnCount)))
     }
 
     private var majorGridList: [[Major]] {
@@ -50,7 +50,7 @@ struct TeacherMajorSelectView: View {
         }
     }
 
-    func didTapMajorButton(major: Major) {
+    private func didTapMajorButton(major: Major) {
         if editingSelectedMajors.contains(major) {
             editingSelectedMajors.remove(major)
         } else {

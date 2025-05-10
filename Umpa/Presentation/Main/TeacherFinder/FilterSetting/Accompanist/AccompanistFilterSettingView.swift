@@ -106,7 +106,7 @@ struct AccompanistFilterSettingView: View {
     }
 
     var instrumentSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingInstrumentSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -124,7 +124,7 @@ struct AccompanistFilterSettingView: View {
     }
 
     var collegeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingCollegeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -140,7 +140,7 @@ struct AccompanistFilterSettingView: View {
     }
 
     var regionSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingRegionSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -153,8 +153,8 @@ struct AccompanistFilterSettingView: View {
     }
 
     var accompanistFeeSelectSheet: some View {
-        InstinctSheet(
-            isPresenting: filterSheetManager.isShowingAccompanistFeeFeeSelector,
+        InstinctHeightSheet(
+            isPresenting: filterSheetManager.isShowingAccompanistFeeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(24)) {
@@ -168,7 +168,7 @@ struct AccompanistFilterSettingView: View {
     }
 
     var genderSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingGenderSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {

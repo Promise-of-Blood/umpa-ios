@@ -105,7 +105,7 @@ struct ScoreCreationFilterSettingView: View {
     }
 
     var scoreTypeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingScoreTypeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -123,7 +123,7 @@ struct ScoreCreationFilterSettingView: View {
     }
 
     var collegeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingCollegeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -139,7 +139,7 @@ struct ScoreCreationFilterSettingView: View {
     }
 
     var turnaroundSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingTurnaroundSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
@@ -154,7 +154,7 @@ struct ScoreCreationFilterSettingView: View {
     }
 
     var scoreCreationFeeSelectSheet: some View {
-        InstinctSheet(
+        InstinctHeightSheet(
             isPresenting: filterSheetManager.isShowingFeeSelector,
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {

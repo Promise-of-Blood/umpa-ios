@@ -28,8 +28,6 @@ enum ScoreTypeFilter: Hashable, CaseIterable {
     case drum
 }
 
-
-
 enum ScoreCreationFeeFilter: Hashable, CaseIterable {
     case all
     case lessThanOrEqual500000krwPerMusic

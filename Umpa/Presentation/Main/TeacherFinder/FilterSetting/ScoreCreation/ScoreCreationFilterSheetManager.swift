@@ -37,28 +37,28 @@ final class ScoreCreationFilterSheetManager: FilterSheetManager {
     /// 대신 `presentFilter(_:)` 메서드를 사용하세요.
     var isShowingScoreTypeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.scoreType]! },
+            get: { self.presentingState[.scoreType] ?? false },
             set: { self.presentingState[.scoreType] = $0 }
         )
     }
 
     var isShowingCollegeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.college]! },
+            get: { self.presentingState[.college] ?? false },
             set: { self.presentingState[.college] = $0 }
         )
     }
 
     var isShowingTurnaroundSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.turnaround]! },
+            get: { self.presentingState[.turnaround] ?? false },
             set: { self.presentingState[.turnaround] = $0 }
         )
     }
 
     var isShowingFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.fee]! },
+            get: { self.presentingState[.fee] ?? false },
             set: { self.presentingState[.fee] = $0 }
         )
     }
