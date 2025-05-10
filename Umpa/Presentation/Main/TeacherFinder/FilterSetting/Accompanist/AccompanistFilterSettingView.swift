@@ -31,11 +31,11 @@ struct AccompanistFilterSettingView: View {
         VStack(spacing: 0) {
             ZStack {
                 VStack(spacing: 0) {
-                    VStack(spacing: fs(40)) {
+                    VStack(spacing: FilterSettingConstant.titleHeaderBottomSpacing) {
                         FilterSettingViewHeader(title: "입시반주 필터 설정")
                         filterList
                     }
-                    .padding(.horizontal, fs(20))
+                    .padding(.horizontal, FilterSettingConstant.filterListHorizontalPadding)
 
                     Spacer()
                 }
@@ -44,8 +44,10 @@ struct AccompanistFilterSettingView: View {
             }
 
             FilterSettingBottomActionView(
-                applyButtonTitle: filterSheetManager.isAnyFilterSheetShowing ? "선택 완료" : "필터 설정 완료",
-                resetButtonTitle: filterSheetManager.isAnyFilterSheetShowing ? "초기화" : "전체 초기화",
+                applyButtonTitle: filterSheetManager.isAnyFilterSheetShowing ?
+                    FilterSettingConstant.sheetCompleteButtonText : FilterSettingConstant.completeButtonText,
+                resetButtonTitle: filterSheetManager.isAnyFilterSheetShowing ?
+                    FilterSettingConstant.sheetResetButtonText : FilterSettingConstant.resetButtonText,
                 applyAction: didTapApplyButton,
                 resetAction: didTapResetButton,
             )
@@ -114,6 +116,7 @@ struct AccompanistFilterSettingView: View {
                     selectedInstruments: $filterSheetManager.editingInstruments,
                     instrumentList: appState.appData.accompanimentInstrumentList.map(\.name)
                 )
+                .padding(.horizontal, fs(20))
             }
             .padding(.top, fs(20))
             .padding(.bottom, fs(28))
@@ -155,7 +158,7 @@ struct AccompanistFilterSettingView: View {
             dismissAction: { filterSheetManager.dismissFilter() }
         ) {
             VStack(spacing: fs(24)) {
-                FilterSheetHeader(filterEntry: AccompanistFilterEntry.accompanistFee, dismissAction: filterSheetManager.dismissFilter)
+                FilterSheetHeader(filterEntry: AccompanistFilterEntry.fee, dismissAction: filterSheetManager.dismissFilter)
                 AccompanistFeeSelectView(selectedAccompanistFee: $filterSheetManager.editingAccompanistFee)
                     .padding(.horizontal, fs(26))
             }
@@ -187,7 +190,7 @@ struct AccompanistFilterSettingView: View {
 
     private func didTapApplyButton() {
         if let presentingFilter = filterSheetManager.presentingFilter {
-            filterSheetManager.applyFilter(presentingFilter)
+            filterSheetManager.completeFilter(presentingFilter)
         } else {
             dismiss()
         }
@@ -195,7 +198,7 @@ struct AccompanistFilterSettingView: View {
 
     private func didTapResetButton() {
         if let presentingFilter = filterSheetManager.presentingFilter {
-            filterSheetManager.resetEditingFilter(presentingFilter)
+            filterSheetManager.resetPresentingFilter(presentingFilter)
         } else {
             filterSheetManager.resetAllFilters()
         }

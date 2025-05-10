@@ -4,7 +4,7 @@ import Domain
 import SwiftUICore
 
 @Observable
-final class LessonFilterSheetManager {
+final class LessonFilterSheetManager: FilterSheetManager {
     private let lessonFilter: LessonFilter
 
     private var presentingState: [LessonFilterEntry: Bool]
@@ -34,7 +34,7 @@ final class LessonFilterSheetManager {
             .college: false,
             .region: false,
             .lessonStyle: false,
-            .lessonFee: false,
+            .fee: false,
             .gender: false,
         ]
         assert(presentingState.count == LessonFilterEntry.allCases.count,
@@ -82,8 +82,8 @@ final class LessonFilterSheetManager {
 
     var isShowingLessonFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.lessonFee]! },
-            set: { self.presentingState[.lessonFee] = $0 }
+            get: { self.presentingState[.fee]! },
+            set: { self.presentingState[.fee] = $0 }
         )
     }
 
@@ -115,7 +115,7 @@ final class LessonFilterSheetManager {
         restoreAllEditingState()
     }
 
-    func applyFilter(_ filter: LessonFilterEntry) {
+    func completeFilter(_ filter: LessonFilterEntry) {
         switch filter {
         case .subject:
             lessonFilter.lessonSubjects = editingSubjects
@@ -127,7 +127,7 @@ final class LessonFilterSheetManager {
             lessonFilter.lessonRegions = editingLessonRegions
         case .lessonStyle:
             lessonFilter.lessonStyle = editingLessonStyles
-        case .lessonFee:
+        case .fee:
             lessonFilter.lessonFee = editingLessonFee
         case .gender:
             lessonFilter.gender = editingGender
@@ -135,7 +135,7 @@ final class LessonFilterSheetManager {
         dismissFilter()
     }
 
-    func resetEditingFilter(_ filter: LessonFilterEntry) {
+    func resetPresentingFilter(_ filter: LessonFilterEntry) {
         switch filter {
         case .subject:
             editingSubjects = []
@@ -147,7 +147,7 @@ final class LessonFilterSheetManager {
             editingLessonRegions = []
         case .lessonStyle:
             editingLessonStyles = .both
-        case .lessonFee:
+        case .fee:
             editingLessonFee = .all
         case .gender:
             editingGender = .all
@@ -179,7 +179,7 @@ final class LessonFilterSheetManager {
             editingLessonRegions = lessonFilter.lessonRegions
         case .lessonStyle:
             editingLessonStyles = lessonFilter.lessonStyle
-        case .lessonFee:
+        case .fee:
             editingLessonFee = lessonFilter.lessonFee
         case .gender:
             editingGender = lessonFilter.gender

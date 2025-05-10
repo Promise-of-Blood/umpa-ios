@@ -2,7 +2,7 @@
 
 import Foundation
 
-protocol FilterEntry: CaseIterable {
+protocol FilterEntry: CaseIterable, Hashable {
     var id: AnyHashable { get }
     var name: String { get }
 }
@@ -13,7 +13,7 @@ enum LessonFilterEntry: FilterEntry {
     case college
     case region
     case lessonStyle
-    case lessonFee
+    case fee
     case gender
 
     var id: AnyHashable { self }
@@ -30,7 +30,7 @@ enum LessonFilterEntry: FilterEntry {
             return "레슨 지역"
         case .lessonStyle:
             return "과외 방식"
-        case .lessonFee:
+        case .fee:
             return "수업료"
         case .gender:
             return "성별"
@@ -42,7 +42,7 @@ enum AccompanistFilterEntry: FilterEntry {
     case instrument
     case college
     case region
-    case accompanistFee
+    case fee
     case gender
 
     var id: AnyHashable { self }
@@ -55,7 +55,7 @@ enum AccompanistFilterEntry: FilterEntry {
             return "출신 대학"
         case .region:
             return "지역"
-        case .accompanistFee:
+        case .fee:
             return "가격"
         case .gender:
             return "성별"
@@ -67,7 +67,7 @@ enum ScoreCreationFilterEntry: FilterEntry {
     case scoreType
     case college
     case turnaround
-    case price
+    case fee
 
     var id: AnyHashable { self }
 
@@ -79,7 +79,7 @@ enum ScoreCreationFilterEntry: FilterEntry {
             return "출신 대학"
         case .turnaround:
             return "소요 기간"
-        case .price:
+        case .fee:
             return "가격"
         }
     }
@@ -88,7 +88,7 @@ enum ScoreCreationFilterEntry: FilterEntry {
 enum MRCreationFilterEntry: FilterEntry {
     case college
     case turnaround
-    case price
+    case fee
 
     var id: AnyHashable { self }
 
@@ -98,7 +98,7 @@ enum MRCreationFilterEntry: FilterEntry {
             return "출신 대학"
         case .turnaround:
             return "소요 기간"
-        case .price:
+        case .fee:
             return "가격"
         }
     }

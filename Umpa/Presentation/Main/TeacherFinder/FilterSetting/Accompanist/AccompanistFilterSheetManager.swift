@@ -4,7 +4,7 @@ import Domain
 import SwiftUICore
 
 @Observable
-final class AccompanistFilterSheetManager {
+final class AccompanistFilterSheetManager: FilterSheetManager {
     private let accompanistFilter: AccompanistFilter
 
     private var presentingState: [AccompanistFilterEntry: Bool]
@@ -27,7 +27,7 @@ final class AccompanistFilterSheetManager {
             .instrument: false,
             .college: false,
             .region: false,
-            .accompanistFee: false,
+            .fee: false,
             .gender: false,
         ]
         assert(presentingState.count == AccompanistFilterEntry.allCases.count,
@@ -61,8 +61,8 @@ final class AccompanistFilterSheetManager {
 
     var isShowingAccompanistFeeFeeSelector: Binding<Bool> {
         Binding<Bool>(
-            get: { self.presentingState[.accompanistFee]! },
-            set: { self.presentingState[.accompanistFee] = $0 }
+            get: { self.presentingState[.fee]! },
+            set: { self.presentingState[.fee] = $0 }
         )
     }
 
@@ -94,7 +94,7 @@ final class AccompanistFilterSheetManager {
         restoreAllEditingState()
     }
 
-    func applyFilter(_ filter: AccompanistFilterEntry) {
+    func completeFilter(_ filter: AccompanistFilterEntry) {
         switch filter {
         case .instrument:
             accompanistFilter.instruments = editingInstruments
@@ -102,7 +102,7 @@ final class AccompanistFilterSheetManager {
             accompanistFilter.colleges = editingColleges
         case .region:
             accompanistFilter.regions = editingRegions
-        case .accompanistFee:
+        case .fee:
             accompanistFilter.accompanistFee = editingAccompanistFee
         case .gender:
             accompanistFilter.gender = editingGender
@@ -110,7 +110,7 @@ final class AccompanistFilterSheetManager {
         dismissFilter()
     }
 
-    func resetEditingFilter(_ filter: AccompanistFilterEntry) {
+    func resetPresentingFilter(_ filter: AccompanistFilterEntry) {
         switch filter {
         case .instrument:
             editingInstruments = []
@@ -118,7 +118,7 @@ final class AccompanistFilterSheetManager {
             editingColleges = []
         case .region:
             editingRegions = []
-        case .accompanistFee:
+        case .fee:
             editingAccompanistFee = .all
         case .gender:
             editingGender = .all
@@ -146,7 +146,7 @@ final class AccompanistFilterSheetManager {
             editingColleges = accompanistFilter.colleges
         case .region:
             editingRegions = accompanistFilter.regions
-        case .accompanistFee:
+        case .fee:
             editingAccompanistFee = accompanistFilter.accompanistFee
         case .gender:
             editingGender = accompanistFilter.gender
