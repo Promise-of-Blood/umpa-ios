@@ -226,6 +226,20 @@ private extension Weekday {
     }
 }
 
+private extension LessonStyle {
+    var name: String {
+        switch self {
+        case .inPerson:
+            return "대면"
+        case .remote:
+            return "비대면"
+        case .both:
+            assertionFailure("현재 both에 해당하는 UI 요소는 없습니다.")
+            return "대면/비대면"
+        }
+    }
+}
+
 #Preview {
     @FocusState var focusField: StudentSignUpView.FocusField?
     LessonRequirementView(signUpModel: StudentSignUpModel(socialLoginType: .apple), focusField: $focusField)

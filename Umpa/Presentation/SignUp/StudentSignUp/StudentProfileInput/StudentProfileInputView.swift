@@ -157,6 +157,17 @@ private struct GenderSelectButton: View {
     }
 }
 
+private extension Gender {
+    var name: String {
+        switch self {
+        case .male:
+            "남성"
+        case .female:
+            "여성"
+        }
+    }
+}
+
 private extension Grade {
     var name: String {
         switch self {

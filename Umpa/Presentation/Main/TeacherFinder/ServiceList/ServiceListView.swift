@@ -37,6 +37,16 @@ struct ServiceListView: View {
     @State private var isShowingServiceTypeSelectSheet = false
     @State private var selectedListType: ListType = .all
 
+    @State private var lessonFilter = LessonFilter()
+    @State private var accompanistFilter = AccompanistFilter()
+    @State private var scoreCreationFilter = ScoreCreationFilter()
+    @State private var mrCreationFilter = MRCreationFilter()
+
+    @State private var isShowingLessonFilterSettings = false
+    @State private var isShowingAccompanistFilterSettings = false
+    @State private var isShowingScoreCreationFilterSettings = false
+    @State private var isShowingMRCreationFilterSettings = false
+
     // MARK: Derived State
 
     private var selectedServiceType: Binding<ServiceType> {
@@ -70,6 +80,21 @@ struct ServiceListView: View {
                     ScoreCreationServiceDetailView(service: scoreCreationService)
                 }
             }
+            .fullScreenCover(isPresented: $isShowingLessonFilterSettings) {
+                LessonFilterSettingView(lessonFilter: lessonFilter)
+            }
+            .fullScreenCover(isPresented: $isShowingAccompanistFilterSettings) {
+                AccompanistFilterSettingView(accompanistFilter: accompanistFilter)
+            }
+            .fullScreenCover(isPresented: $isShowingScoreCreationFilterSettings) {
+                ScoreCreationFilterSettingView(filter: scoreCreationFilter)
+            }
+            .fullScreenCover(isPresented: $isShowingMRCreationFilterSettings) {
+                MRCreationFilterSettingView(filter: mrCreationFilter)
+            }
+            .transaction { transaction in
+                transaction.disablesAnimations = true
+            }
     }
 
     @ViewBuilder
@@ -85,7 +110,13 @@ struct ServiceListView: View {
                 )
                 .onChanges(of: selectedListType, action: loadMatchedServiceList)
 
-                FilterListRow(serviceType: serviceType)
+                FilterListRow(
+                    serviceType: serviceType,
+                    isShowingLessonFilterSettings: $isShowingLessonFilterSettings,
+                    isShowingAccompanistFilterSettings: $isShowingAccompanistFilterSettings,
+                    isShowingScoreCreationFilterSettings: $isShowingScoreCreationFilterSettings,
+                    isShowingMRCreationFilterSettings: $isShowingMRCreationFilterSettings,
+                )
 
                 ForEach(serviceList, id: \.id) { service in
                     NavigationLink(value: service) {
@@ -141,6 +172,11 @@ struct ServiceListView: View {
 private struct FilterListRow: View {
     let serviceType: ServiceType
 
+    @Binding var isShowingLessonFilterSettings: Bool
+    @Binding var isShowingAccompanistFilterSettings: Bool
+    @Binding var isShowingScoreCreationFilterSettings: Bool
+    @Binding var isShowingMRCreationFilterSettings: Bool
+
     private var filterEntries: [any FilterEntry] {
         switch serviceType {
         case .lesson:
@@ -170,7 +206,7 @@ private struct FilterListRow: View {
     }
 
     var filterSettingButton: some View {
-        Button(action: {}) {
+        Button(action: didTapFilterSettingButton) {
             HStack(spacing: fs(5)) {
                 Text("필터")
                     .font(.pretendardMedium(size: fs(12)))
@@ -181,6 +217,19 @@ private struct FilterListRow: View {
             .frame(height: fs(28))
             .foregroundStyle(.white)
             .background(UmpaColor.mainBlue, in: RoundedRectangle(cornerRadius: fs(6)))
+        }
+    }
+
+    func didTapFilterSettingButton() {
+        switch serviceType {
+        case .lesson:
+            isShowingLessonFilterSettings = true
+        case .accompanist:
+            isShowingAccompanistFilterSettings = true
+        case .scoreCreation:
+            isShowingScoreCreationFilterSettings = true
+        case .mrCreation:
+            isShowingMRCreationFilterSettings = true
         }
     }
 }

@@ -93,6 +93,24 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    private var lessonSubjectRepository: Factory<LessonSubjectRepository> {
+        Factory(self) {
+            DefaultLessonSubjectRepository(
+                network: self.network()
+            )
+        }
+        .scope(.singleton)
+    }
+
+    private var accompanimentInstrumentRepository: Factory<AccompanimentInstrumentRepository> {
+        Factory(self) {
+            DefaultAccompanimentInstrumentRepository(
+                network: self.network()
+            )
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - DataAccess
@@ -180,7 +198,9 @@ extension Container {
                 appState: self.appState(),
                 collegeRepository: self.collegeRepository(),
                 majorRepository: self.majorRepository(),
-                regionRepository: self.regionRepository()
+                regionRepository: self.regionRepository(),
+                lessonSubjectRepository: self.lessonSubjectRepository(),
+                accompanimentInstrumentRepository: self.accompanimentInstrumentRepository(),
             )
         }
         .scope(.singleton)
@@ -376,6 +396,20 @@ extension Container {
         }
         .scope(.singleton)
     }
+
+    private var stubLessonSubjectRepository: Factory<LessonSubjectRepository> {
+        Factory(self) {
+            StubLessonSubjectRepository()
+        }
+        .scope(.singleton)
+    }
+
+    var stubAccompanimentInstrumentRepository: Factory<AccompanimentInstrumentRepository> {
+        Factory(self) {
+            StubAccompanimentInstrumentRepository()
+        }
+        .scope(.singleton)
+    }
 }
 
 // MARK: - UseCase
@@ -422,6 +456,8 @@ extension Container {
                 collegeRepository: self.mockCollegeRepository(),
                 majorRepository: self.mockMajorRepository(),
                 regionRepository: self.stubRegionRepository(),
+                lessonSubjectRepository: self.stubLessonSubjectRepository(),
+                accompanimentInstrumentRepository: self.stubAccompanimentInstrumentRepository(),
             )
         }
         .scope(.shared)

@@ -13,7 +13,7 @@ public struct StudentCreateData {
     let profileImageData: Data?
     let grade: Grade?
     let gender: Gender?
-    let preferSubject: Subject?
+    let preferSubject: LessonSubject?
     let lessonStyle: LessonStyle?
     let availableLessonDays: [Domain.Weekday]
     let lessonRequirements: String
@@ -29,7 +29,7 @@ public struct StudentCreateData {
         profileImageData: Data?,
         grade: Grade?,
         gender: Gender?,
-        preferSubject: Subject?,
+        preferSubject: LessonSubject?,
         lessonStyle: LessonStyle?,
         availableLessonDays: [Domain.Weekday],
         lessonRequirements: String,

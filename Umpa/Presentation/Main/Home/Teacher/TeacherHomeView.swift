@@ -85,10 +85,10 @@ private struct TeacherFindingSection: View {
 
     private var itemsPerPage: Int { gridRowCount * gridColumnCount }
 
-    private var pageCount: Int {
-        let shortcutCount = Subject.allCases.count + 1 // 전체보기 버튼 +1
-        return Int(ceil(Double(shortcutCount) / Double(itemsPerPage)))
-    }
+//    private var pageCount: Int {
+//        let shortcutCount = LessonSubject.allCases.count + 1 // 전체보기 버튼 +1
+//        return Int(ceil(Double(shortcutCount) / Double(itemsPerPage)))
+//    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: fs(15)) {

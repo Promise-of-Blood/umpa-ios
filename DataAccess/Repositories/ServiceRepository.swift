@@ -9,6 +9,10 @@ public struct DefaultServiceRepository {
 }
 
 extension DefaultServiceRepository: ServiceRepository {
+    public func fetchFilteredLessonServiceList(with filter: Domain.LessonServiceFilter) -> AnyPublisher<[Domain.LessonService], any Error> {
+        fatalError()
+    }
+
     public func postAccompanistService(_ accompanistService: Domain.AccompanistServiceCreateData) -> AnyPublisher<Void, any Error> {
         fatalError()
     }
@@ -92,6 +96,14 @@ public struct StubServiceRepository {
 }
 
 extension StubServiceRepository: ServiceRepository {
+    public func fetchFilteredLessonServiceList(with filter: Domain.LessonServiceFilter) -> AnyPublisher<[Domain.LessonService], any Error> {
+        Just([
+            LessonService.sample0,
+        ])
+        .setFailureType(to: Error.self)
+        .eraseToAnyPublisher()
+    }
+
     public func fetchMyLessonAndServiceList(with: Domain.AccessToken) -> AnyPublisher<[AnyService], any Error> {
         let allServices: [AnyService] = [
             LessonService.sample0.eraseToAnyService(),

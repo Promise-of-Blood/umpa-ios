@@ -4,55 +4,71 @@ import Domain
 import Factory
 import SwiftUI
 
-struct PreferSubjectSelectionView: View {
-    @ObservedObject var signUpModel: StudentSignUpModel
+struct LessonSubjectSelectView: View {
+    @Injected(\.appState) private var appState
 
-    private var subjectList: [LessonSubject] {
-        Container.shared.appState.resolve().appData.lessonSubjectList
+    @Binding var editingSelectedSubjects: Set<LessonSubject>
+
+    private var lessonSubjectFlatList: [LessonSubject] {
+        appState.appData.lessonSubjectList
     }
 
     private let columnCount = 4
     private var rowCount: Int {
-        Int(ceil(Double(subjectList.count) / Double(columnCount)))
+        Int(ceil(Double(lessonSubjectFlatList.count) / Double(columnCount)))
     }
+
+    private var lessonSubjectGridList: [[LessonSubject]] {
+        var result: [[LessonSubject]] = []
+        for i in 0 ..< rowCount {
+            let startIndex = i * columnCount
+            let endIndex = min(startIndex + columnCount, lessonSubjectFlatList.count)
+            let subArray = Array(lessonSubjectFlatList[startIndex ..< endIndex])
+            result.append(subArray)
+        }
+        return result
+    }
+
+    // MARK: View
 
     var body: some View {
         content
     }
 
     var content: some View {
-        VStack(spacing: fs(50)) {
-            TitleText("매칭을 원하는 수업 과목을 선택해주세요")
+        subjectGrid
+    }
 
-            VStack(spacing: fs(30)) {
-                ForEach(0 ..< rowCount, id: \.self) { row in
-                    HStack {
-                        ForEach(0 ..< columnCount, id: \.self) { column in
-                            let index = row * columnCount + column
-
-                            if let subject = subjectList[safe: index] {
-                                SubjectSelectionButton(subject: subject, isSelected: signUpModel.preferSubject == subject) {
-                                    signUpModel.preferSubject = subject
-                                }
-                            } else {
-                                SubjectSelectionButton.hidden()
-                            }
-
-                            if column < columnCount - 1 {
-                                Spacer()
-                            }
+    var subjectGrid: some View {
+        Grid(verticalSpacing: fs(30)) {
+            ForEach(lessonSubjectGridList, id: \.self) { row in
+                GridRow {
+                    ForEach(row, id: \.self) { subject in
+                        LessonSubjectSelectButton(
+                            subject: subject,
+                            isSelected: editingSelectedSubjects.contains(subject),
+                        ) {
+                            didTapSubjectButton(subject: subject)
                         }
+                        .frame(maxWidth: .infinity)
                     }
                 }
             }
-            .padding(.horizontal, fs(8))
-            .frame(maxWidth: .infinity)
         }
-        .background(.white)
+    }
+
+    // MARK: Private Methods
+
+    private func didTapSubjectButton(subject: LessonSubject) {
+        if editingSelectedSubjects.contains(subject) {
+            editingSelectedSubjects.remove(subject)
+        } else {
+            editingSelectedSubjects.insert(subject)
+        }
     }
 }
 
-private struct SubjectSelectionButton: View {
+private struct LessonSubjectSelectButton: View {
     let subject: LessonSubject
     let isSelected: Bool
     let action: () -> Void
@@ -60,12 +76,6 @@ private struct SubjectSelectionButton: View {
     private let iconSize: CGFloat = fs(26)
     private let iconCornerRadius: CGFloat = fs(14)
     private let buttonSize: CGFloat = fs(52)
-
-    static func hidden() -> some View {
-        // hidden으로 설정하기 위해 생성하기 때문에 subject 값이 의미 없음
-        Self(subject: LessonSubject(name: ""), isSelected: false, action: {})
-            .hidden()
-    }
 
     var body: some View {
         Button(action: action) {
@@ -97,11 +107,9 @@ private struct SubjectSelectionButton: View {
 private extension LessonSubject {
     var imageResource: ImageResource {
         ImageResource.seeAllIcon
-//        switch self {
-//        }
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    PreferSubjectSelectionView(signUpModel: StudentSignUpModel(socialLoginType: .apple))
+    LessonSubjectSelectView(editingSelectedSubjects: .constant([]))
 }

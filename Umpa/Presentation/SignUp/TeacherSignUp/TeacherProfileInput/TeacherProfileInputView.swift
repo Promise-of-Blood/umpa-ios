@@ -204,6 +204,17 @@ private struct LessonRegionSelector: View {
     }
 }
 
+private extension Gender {
+    var name: String {
+        switch self {
+        case .male:
+            "남성"
+        case .female:
+            "여성"
+        }
+    }
+}
+
 #Preview {
     TeacherProfileInputView(
         signUpModel: TeacherSignUpModel(socialLoginType: .apple),
