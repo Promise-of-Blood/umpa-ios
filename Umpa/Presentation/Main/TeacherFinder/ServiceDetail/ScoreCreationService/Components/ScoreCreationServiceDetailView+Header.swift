@@ -4,14 +4,14 @@ import Components
 import Domain
 import SwiftUI
 
-extension MrCreationServiceDetailView {
+extension ScoreCreationServiceDetailView {
   struct Header: View {
     @Binding var tabSelection: Int
 
-    let service: MusicCreationService
+    let service: ScoreCreationService
 
     var tabItems: [TabItem] {
-      service.sampleMusics.isEmpty
+      service.sampleSheets.isEmpty
         ? [.teacherOverview, .serviceOverview, .review]
         : [.teacherOverview, .serviceOverview, .samplePreview, .review]
     }
@@ -33,11 +33,22 @@ extension MrCreationServiceDetailView {
             StarRating(service.rating)
           }
 
+          HStack(spacing: fs(10)) {
+            ForEach(service.majors, id: \.self) { major in
+              Text(major.name)
+                .font(.pretendardMedium(size: fs(12)))
+                .padding(.horizontal, fs(16))
+                .padding(.vertical, fs(6))
+                .background(Color(hex: "E5EEFF"), in: Capsule())
+            }
+          }
+          .padding(.vertical, fs(8))
+
           UnitPriceView.V1(
-            model: .init(price: service.price, unitType: .song),
+            model: .init(price: service.basePrice, unitType: .sheet),
             appearance: .fromDefault(priceColor: .black, priceFontSize: fs(17))
           )
-          .padding(.vertical, fs(4))
+          .padding(.vertical, fs(2))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, fs(30))
@@ -68,8 +79,7 @@ extension MrCreationServiceDetailView {
       } placeholder: {
         Color.gray
       }
-      .frame(maxWidth: .infinity, idealHeight: fs(374))
-      .fixedSize(horizontal: false, vertical: true)
+      .frame(maxWidth: .infinity, height: ServiceDetailConstant.thumbnailHeight)
     }
 
     var spacingDot: some View {
@@ -80,12 +90,12 @@ extension MrCreationServiceDetailView {
   }
 }
 
-#Preview {
-  @Previewable @State var tabSelection = 1
+#if DEBUG
+  #Preview {
+    @Previewable @State var tabSelection = 1
 
-  #if DEBUG
-    MrCreationServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
+    ScoreCreationServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
       .padding()
       .background(.black)
-  #endif
-}
+  }
+#endif

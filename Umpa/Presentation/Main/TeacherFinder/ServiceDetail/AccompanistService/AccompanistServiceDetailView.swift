@@ -5,90 +5,90 @@ import Domain
 import Factory
 import SwiftUI
 
-struct AccompanistServiceDetailView: ServiceDetailView {
-    @InjectedObject(\.appState) private var appState
+struct AccompanistServiceDetailView: View {
+  @InjectedObject(\.appState) private var appState
 
-    #if DEBUG
+  #if DEBUG
     @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
-    #else
+  #else
     @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
-    #endif
+  #endif
 
-    let service: AccompanistService
+  let service: AccompanistService
 
-    let tabItems: [TabItem] = [.teacherOverview, .accompanimentOverview, .review]
+  let tabItems: [TabItem] = [.teacherOverview, .accompanimentOverview, .review]
 
-    @State private var tabSelection = 0
+  @State private var tabSelection = 0
 
-    var body: some View {
-        content
-            .modifier(NavigationBackButton(.arrowBack))
-            .navigationDestination(for: ChatRoom.self) { chatRoom in
-                ChatRoomView(chatRoom: chatRoom)
-            }
-    }
+  var body: some View {
+    content
+      .modifier(NavigationBackButton(.arrowBack))
+      .navigationDestination(for: ChatRoom.self) { chatRoom in
+        ChatRoomView(chatRoom: chatRoom)
+      }
+  }
 
-    var content: some View {
-        ZStack(alignment: .bottom) {
-            ScrollView {
-                VStack(spacing: fs(0)) {
-                    Header(tabSelection: $tabSelection, service: service)
-                    segmentedControlContent
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-                .padding(.bottom, bottomActionBarHeight)
-            }
-
-            BottomActionBar(
-                height: bottomActionBarHeight,
-                isLiked: false, // TODO: isLiked 를 받아와야 함
-                likeButtonAction: { isLiked in
-                    serviceDetailInteractor.markAsLike(isLiked, for: service.id)
-                },
-                primaryButtonAction: {
-                    serviceDetailInteractor.startChat(
-                        with: service.eraseToAnyService(),
-                        navigationPath: $appState.routing.teacherFinderNavigationPath
-                    )
-                }
-            )
+  var content: some View {
+    ZStack(alignment: .bottom) {
+      ScrollView {
+        VStack(spacing: fs(0)) {
+          Header(tabSelection: $tabSelection, service: service)
+          segmentedControlContent
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-    }
+        .padding(.bottom, ServiceDetailConstant.bottomActionBarHeight)
+      }
 
-    @ViewBuilder
-    var segmentedControlContent: some View {
-        switch tabItems[tabSelection] {
-        case .teacherOverview:
-            TeacherOverviewTabContent(teacher: service.author)
-        case .accompanimentOverview:
-            ServiceOverviewTabContent(service: service)
-        case .review:
-            ReviewTabContent(service: service.eraseToAnyService())
+      BottomActionBar(
+        height: ServiceDetailConstant.bottomActionBarHeight,
+        isLiked: false, // TODO: isLiked 를 받아와야 함
+        likeButtonAction: { isLiked in
+          serviceDetailInteractor.markAsLike(isLiked, for: service.id)
+        },
+        primaryButtonAction: {
+          serviceDetailInteractor.startChat(
+            with: service.eraseToAnyService(),
+            navigationPath: $appState.routing.teacherFinderNavigationPath
+          )
         }
+      )
     }
+  }
+
+  @ViewBuilder
+  var segmentedControlContent: some View {
+    switch tabItems[tabSelection] {
+    case .teacherOverview:
+      TeacherOverviewTabContent(teacher: service.author)
+    case .accompanimentOverview:
+      ServiceOverviewTabContent(service: service)
+    case .review:
+      ReviewTabContent(service: service.eraseToAnyService())
+    }
+  }
 }
 
 extension AccompanistServiceDetailView {
-    enum TabItem {
-        case teacherOverview
-        case accompanimentOverview
-        case review
+  enum TabItem {
+    case teacherOverview
+    case accompanimentOverview
+    case review
 
-        var name: String {
-            switch self {
-            case .teacherOverview:
-                return "선생님 소개"
-            case .accompanimentOverview:
-                return "반주 정보"
-            case .review:
-                return "리뷰"
-            }
-        }
+    var name: String {
+      switch self {
+      case .teacherOverview:
+        "선생님 소개"
+      case .accompanimentOverview:
+        "반주 정보"
+      case .review:
+        "리뷰"
+      }
     }
+  }
 }
 
 #if DEBUG
-#Preview {
+  #Preview {
     AccompanistServiceDetailView(service: .sample0)
-}
+  }
 #endif

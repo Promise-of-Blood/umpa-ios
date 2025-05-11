@@ -4,19 +4,24 @@ import Components
 import Domain
 import SwiftUI
 
-extension AccompanistServiceDetailView {
+extension LessonServiceDetailView {
   struct Header: View {
     @Binding var tabSelection: Int
 
-    let service: AccompanistService
+    let service: LessonService
 
-    let tabItems: [TabItem] = [.teacherOverview, .accompanimentOverview, .review]
+    var tabItems: [TabItem] {
+      service.curriculum.isEmpty
+        ? [.teacherOverview, .lessonOverview, .review]
+        : [.teacherOverview, .lessonOverview, .curriculum, .review]
+    }
 
     private let dotSize: CGFloat = fs(1.5)
 
     var body: some View {
       VStack(spacing: fs(20)) {
         thumbnail
+
         VStack(alignment: .leading, spacing: fs(6)) {
           Text(service.title)
             .font(.pretendardBold(size: fs(20)))
@@ -26,18 +31,23 @@ extension AccompanistServiceDetailView {
               .font(.pretendardRegular(size: fs(12)))
               .foregroundStyle(UmpaColor.mediumGray)
             spacingDot
-            Text(service.author.major.name)
+            StarRating(service.rating)
+            spacingDot
+            Text(service.author.region.description)
               .font(.pretendardRegular(size: fs(12)))
               .foregroundStyle(UmpaColor.mediumGray)
-            spacingDot
-            StarRating(service.rating)
           }
 
           UnitPriceView.V1(
-            model: .init(price: service.price, unitType: .school),
+            model: .init(price: service.price, unitType: .hour),
             appearance: .fromDefault(priceColor: .black, priceFontSize: fs(17))
           )
           .padding(.vertical, fs(4))
+
+          HStack(spacing: fs(9)) {
+            BadgeView("학력 인증")
+            BadgeView("시범 레슨 운영")
+          }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, fs(30))
@@ -68,8 +78,7 @@ extension AccompanistServiceDetailView {
       } placeholder: {
         Color.gray
       }
-      .frame(maxWidth: .infinity, idealHeight: fs(374))
-      .fixedSize(horizontal: false, vertical: true)
+      .frame(maxWidth: .infinity, height: ServiceDetailConstant.thumbnailHeight)
     }
 
     var spacingDot: some View {
@@ -84,7 +93,7 @@ extension AccompanistServiceDetailView {
   @Previewable @State var tabSelection = 1
 
   #if DEBUG
-    AccompanistServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
+    LessonServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
       .padding()
       .background(.black)
   #endif

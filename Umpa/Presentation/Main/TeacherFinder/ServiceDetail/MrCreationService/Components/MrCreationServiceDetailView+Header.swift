@@ -4,32 +4,23 @@ import Components
 import Domain
 import SwiftUI
 
-extension LessonServiceDetailView {
+extension MrCreationServiceDetailView {
   struct Header: View {
     @Binding var tabSelection: Int
 
-    let service: LessonService
+    let service: MusicCreationService
 
     var tabItems: [TabItem] {
-      service.curriculum.isEmpty
-        ? [.teacherOverview, .lessonOverview, .review]
-        : [.teacherOverview, .lessonOverview, .curriculum, .review]
+      service.sampleMusics.isEmpty
+        ? [.teacherOverview, .serviceOverview, .review]
+        : [.teacherOverview, .serviceOverview, .samplePreview, .review]
     }
 
     private let dotSize: CGFloat = fs(1.5)
 
     var body: some View {
       VStack(spacing: fs(20)) {
-        AsyncImage(url: service.thumbnail) { image in
-          image
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-        } placeholder: {
-          Color.gray
-        }
-        .frame(maxWidth: .infinity, idealHeight: fs(374))
-        .fixedSize(horizontal: false, vertical: true)
-
+        thumbnail
         VStack(alignment: .leading, spacing: fs(6)) {
           Text(service.title)
             .font(.pretendardBold(size: fs(20)))
@@ -40,22 +31,13 @@ extension LessonServiceDetailView {
               .foregroundStyle(UmpaColor.mediumGray)
             spacingDot
             StarRating(service.rating)
-            spacingDot
-            Text(service.author.region.description)
-              .font(.pretendardRegular(size: fs(12)))
-              .foregroundStyle(UmpaColor.mediumGray)
           }
 
           UnitPriceView.V1(
-            model: .init(price: service.price, unitType: .hour),
+            model: .init(price: service.price, unitType: .song),
             appearance: .fromDefault(priceColor: .black, priceFontSize: fs(17))
           )
           .padding(.vertical, fs(4))
-
-          HStack(spacing: fs(9)) {
-            BadgeView("학력 인증")
-            BadgeView("시범 레슨 운영")
-          }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, fs(30))
@@ -78,6 +60,17 @@ extension LessonServiceDetailView {
       .background(.white)
     }
 
+    var thumbnail: some View {
+      AsyncImage(url: service.thumbnail) { image in
+        image
+          .resizable()
+          .aspectRatio(contentMode: .fill)
+      } placeholder: {
+        Color.gray
+      }
+      .frame(maxWidth: .infinity, height: ServiceDetailConstant.thumbnailHeight)
+    }
+
     var spacingDot: some View {
       Circle()
         .frame(width: dotSize, height: dotSize)
@@ -90,7 +83,7 @@ extension LessonServiceDetailView {
   @Previewable @State var tabSelection = 1
 
   #if DEBUG
-    LessonServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
+    MrCreationServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
       .padding()
       .background(.black)
   #endif

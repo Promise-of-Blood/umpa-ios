@@ -4,17 +4,13 @@ import Components
 import Domain
 import SwiftUI
 
-extension ScoreCreationServiceDetailView {
+extension AccompanistServiceDetailView {
   struct Header: View {
     @Binding var tabSelection: Int
 
-    let service: ScoreCreationService
+    let service: AccompanistService
 
-    var tabItems: [TabItem] {
-      service.sampleSheets.isEmpty
-        ? [.teacherOverview, .serviceOverview, .review]
-        : [.teacherOverview, .serviceOverview, .samplePreview, .review]
-    }
+    let tabItems: [TabItem] = [.teacherOverview, .accompanimentOverview, .review]
 
     private let dotSize: CGFloat = fs(1.5)
 
@@ -30,25 +26,18 @@ extension ScoreCreationServiceDetailView {
               .font(.pretendardRegular(size: fs(12)))
               .foregroundStyle(UmpaColor.mediumGray)
             spacingDot
+            Text(service.author.major.name)
+              .font(.pretendardRegular(size: fs(12)))
+              .foregroundStyle(UmpaColor.mediumGray)
+            spacingDot
             StarRating(service.rating)
           }
 
-          HStack(spacing: fs(10)) {
-            ForEach(service.majors, id: \.self) { major in
-              Text(major.name)
-                .font(.pretendardMedium(size: fs(12)))
-                .padding(.horizontal, fs(16))
-                .padding(.vertical, fs(6))
-                .background(Color(hex: "E5EEFF"), in: Capsule())
-            }
-          }
-          .padding(.vertical, fs(8))
-
           UnitPriceView.V1(
-            model: .init(price: service.basePrice, unitType: .sheet),
+            model: .init(price: service.price, unitType: .school),
             appearance: .fromDefault(priceColor: .black, priceFontSize: fs(17))
           )
-          .padding(.vertical, fs(2))
+          .padding(.vertical, fs(4))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, fs(30))
@@ -79,8 +68,7 @@ extension ScoreCreationServiceDetailView {
       } placeholder: {
         Color.gray
       }
-      .frame(maxWidth: .infinity, idealHeight: fs(374))
-      .fixedSize(horizontal: false, vertical: true)
+      .frame(maxWidth: .infinity, height: ServiceDetailConstant.thumbnailHeight)
     }
 
     var spacingDot: some View {
@@ -91,12 +79,12 @@ extension ScoreCreationServiceDetailView {
   }
 }
 
-#if DEBUG
-  #Preview {
-    @Previewable @State var tabSelection = 1
+#Preview {
+  @Previewable @State var tabSelection = 1
 
-    ScoreCreationServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
+  #if DEBUG
+    AccompanistServiceDetailView.Header(tabSelection: $tabSelection, service: .sample0)
       .padding()
       .background(.black)
-  }
-#endif
+  #endif
+}
