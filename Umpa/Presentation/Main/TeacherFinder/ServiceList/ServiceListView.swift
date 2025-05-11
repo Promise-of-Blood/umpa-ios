@@ -129,11 +129,14 @@ struct ServiceListView: View {
   }
 
   var listContent: some View {
-    ForEach(serviceList, id: \.id) { service in
-      NavigationLink(value: service) {
-        ServiceListItem(model: service.toServiceListItemModel())
-          .padding(.horizontal, fs(20))
+    VStack(spacing: fs(16)) {
+      ForEach(serviceList, id: \.id) { service in
+        NavigationLink(value: service) {
+          ServiceListItem(model: service.toServiceListItemModel())
+        }
+        HorizontalDivider(color: UmpaColor.lightGray)
       }
+      .padding(.horizontal, fs(20))
     }
   }
 
@@ -380,7 +383,6 @@ struct ServiceListItem: View {
         .clipShape(Circle())
     }
     .frame(maxWidth: .infinity)
-    .padding(.vertical, fs(16))
   }
 
   var spacingDot: some View {
@@ -454,9 +456,11 @@ private extension ServiceType {
 
 #Preview {
   TabView {
-    ServiceListView()
-      .tabItem {
-        Text("선생님 찾기")
-      }
+    NavigationStack {
+      ServiceListView()
+    }
+    .tabItem {
+      Text("선생님 찾기")
+    }
   }
 }
