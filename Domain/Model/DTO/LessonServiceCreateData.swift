@@ -17,7 +17,7 @@ public struct LessonServiceCreateData {
     /// 일정
     public let scheduleType: ScheduleType
     
-    public let availableTimes: [TimesByWeekday<HMTime>]
+    public let availableTimes: [TimeByWeekday<HMTime>]
     
     public let lessonStyle: LessonStyle
     

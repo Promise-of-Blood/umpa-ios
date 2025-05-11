@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import Components
+import Core
 import Domain
 import Factory
 import SwiftUI
@@ -28,11 +29,11 @@ struct LessonServiceDetailView: View {
 
   @InjectedObject(\.appState) private var appState
 
-  #if DEBUG
-    @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
-  #else
-    @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
-  #endif
+#if DEBUG
+  @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
+#else
+  @Injected(\.serviceDetailInteractor) private var serviceDetailInteractor
+#endif
 
   let service: LessonService
 
@@ -111,6 +112,8 @@ struct LessonServiceDetailView: View {
       TeacherOverviewTabContent(teacher: service.author)
     case .lessonOverview:
       LessonOverviewTabContent(service: service)
+        .padding(.horizontal, fs(30))
+        .padding(.vertical, fs(22))
     case .curriculum:
       CurriculumTabContent(curriculumList: service.curriculum)
     case .review:
@@ -179,14 +182,246 @@ private struct Header: View {
   }
 }
 
-#Preview {
-  #if DEBUG
-    @Injected(\.appState) var appState
-    appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
+private struct LessonOverviewTabContent: View {
+  let service: LessonService
 
-    return
-      NavigationStack {
-        LessonServiceDetailView(service: .sample0)
+  private let symbolSpacing: CGFloat = fs(26)
+  private let symbolSize: CGFloat = fs(22)
+
+  @State private var studioImageIndex = 0
+
+  // MARK: View
+
+  var body: some View {
+    VStack(spacing: fs(16)) {
+      scheduleCard()
+      regionCard
+      lessonStyleCard
+      lessonDescriptionCard
+      if service.lessonTargets.isNotEmpty {
+        lessonTargetCard
       }
-  #endif
+      if service.studioImages.isNotEmpty {
+        studioImageCard
+      }
+    }
+  }
+
+  func scheduleCard() -> some View {
+    makeContentCard {
+      HStack(spacing: symbolSpacing) {
+        Image(systemSymbol: .calendar)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: symbolSize, height: symbolSize)
+
+        switch service.scheduleType {
+        case .byStudent:
+          VStack(spacing: fs(6)) {
+            Text("협의 가능")
+              .font(.pretendardSemiBold(size: fs(13)))
+              .foregroundStyle(.black)
+              .frame(maxWidth: .infinity, alignment: .leading)
+            Text("학생과 조율해서 결정 해요")
+              .font(.pretendardMedium(size: fs(13)))
+              .foregroundStyle(UmpaColor.mediumGray)
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+          .frame(maxWidth: .infinity)
+        case .fixed:
+          Text(service.availableTimes.weekdaysText)
+            .font(.pretendardSemiBold(size: fs(13)))
+            .foregroundStyle(.black)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      }
+    }
+  }
+
+  var regionCard: some View {
+    makeContentCard {
+      HStack(spacing: symbolSpacing) {
+        Image(systemSymbol: .mappinAndEllipse)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: symbolSize, height: symbolSize)
+        Text(service.author.region.name)
+          .font(.pretendardSemiBold(size: fs(13)))
+          .foregroundStyle(.black)
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
+  }
+
+  var lessonStyleCard: some View {
+    makeContentCard {
+      HStack(spacing: symbolSpacing) {
+        Image(systemSymbol: .magazine)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: symbolSize, height: symbolSize)
+        VStack(spacing: fs(14)) {
+          if [.inPerson, .both].contains(service.lessonStyle) {
+            Text("대면 수업")
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+          if [.remote, .both].contains(service.lessonStyle) {
+            Text("비대면 수업")
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+          Text(service.trialPolicy.name)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .font(.pretendardSemiBold(size: fs(13)))
+        .foregroundStyle(.black)
+      }
+    }
+  }
+
+  var lessonDescriptionCard: some View {
+    makeContentCard {
+      VStack(spacing: fs(28)) {
+        Text("수업 소개")
+          .font(.pretendardSemiBold(size: fs(16)))
+          .frame(maxWidth: .infinity, alignment: .leading)
+        Text(service.serviceDescription)
+          .fontWithLineHeight(font: .pretendardRegular(size: fs(13)), lineHeight: fs(20))
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      .foregroundStyle(.black)
+    }
+  }
+
+  var lessonTargetCard: some View {
+    makeContentCard {
+      VStack(spacing: fs(28)) {
+        Text("수업 대상")
+          .font(.pretendardSemiBold(size: fs(16)))
+          .frame(maxWidth: .infinity, alignment: .leading)
+
+        VStack(spacing: fs(12)) {
+          IndexingForEach(service.lessonTargets) { _, lessonTarget in
+            Text(lessonTarget.description)
+              .font(.pretendardRegular(size: fs(13)))
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+        }
+      }
+      .foregroundStyle(.black)
+    }
+  }
+
+  var studioImageCard: some View {
+    makeContentCard {
+      VStack(spacing: fs(28)) {
+        Text("작업실 사진")
+          .font(.pretendardSemiBold(size: fs(16)))
+          .frame(maxWidth: .infinity, alignment: .leading)
+
+        PaginationCarousel(
+          pagination: DotsPagination(
+            currentIndex: $studioImageIndex,
+            pageCount: service.studioImages.count,
+            appearance: .fromDefault(
+              normalColor: UmpaColor.lightGray,
+              highlightColor: UmpaColor.mainBlue,
+            ),
+          ),
+          pageSource: service.studioImages,
+        ) { imageUrl in
+          AsyncImage(url: imageUrl) { image in
+            image
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+          } placeholder: {
+            ProgressView()
+              .progressViewStyle(.circular)
+          }
+        }
+        .frame(maxWidth: .infinity, height: fs(210))
+      }
+    }
+  }
+
+  private func makeContentCard(@ViewBuilder _ content: () -> some View) -> some View {
+    let horiozontalPadding: CGFloat = fs(20)
+    let verticalPadding: CGFloat = fs(24)
+    let cardCornerRadius: CGFloat = fs(10)
+
+    return content()
+      .frame(maxWidth: .infinity)
+      .padding(.horizontal, horiozontalPadding)
+      .padding(.vertical, verticalPadding)
+      .background(.white)
+      .innerRoundedStroke(UmpaColor.lightLightGray, cornerRadius: cardCornerRadius)
+  }
+}
+
+private extension ScheduleType {
+  var name: String {
+    switch self {
+    case .byStudent:
+      "협의 가능"
+    case .fixed:
+      "정해진 일정"
+    }
+  }
+}
+
+private extension Region {
+  var name: String {
+    "\(regionalLocalGovernment) \(basicLocalGovernment.name)"
+  }
+}
+
+private extension [TimeByWeekday<HMTime>] {
+  var weekdaysText: String {
+    map(\.weekday.name).joined(separator: ", ")
+  }
+}
+
+private extension Weekday {
+  var name: String {
+    switch self {
+    case .mon:
+      "월"
+    case .tue:
+      "화"
+    case .wed:
+      "수"
+    case .thu:
+      "목"
+    case .fri:
+      "금"
+    case .sat:
+      "토"
+    case .sun:
+      "일"
+    }
+  }
+}
+
+private extension TrialPolicy {
+  var name: String {
+    switch self {
+    case .paid:
+      "유료 시범 레슨"
+    case .free:
+      "무료 시범 레슨"
+    case .notAvailable:
+      "시범 레슨 불가"
+    }
+  }
+}
+
+#Preview {
+#if DEBUG
+  @Injected(\.appState) var appState
+  appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
+
+  return
+    NavigationStack {
+      LessonServiceDetailView(service: .sample1)
+    }
+#endif
 }

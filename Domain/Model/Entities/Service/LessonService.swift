@@ -15,12 +15,12 @@ public struct LessonService: SinglePriceService {
   public let badges: [Badge]
   public let price: Int
   public let scheduleType: ScheduleType
-  public let availableTimes: [TimesByWeekday<HMTime>]
+  public let availableTimes: [TimeByWeekday<HMTime>]
   public let lessonStyle: LessonStyle
   public let isAvailableOfflineCounseling: Bool
   public let trialPolicy: TrialPolicy
   public let lessonTargets: [TargetStudent]
-  public let studioImages: [URL]
+  public let studioImages: [URL?]
   public let curriculum: [CurriculumItem]
   public let status: LessonStatus
   public let isLiked: Bool
@@ -38,12 +38,12 @@ public struct LessonService: SinglePriceService {
     badges: [Badge],
     price: Int,
     scheduleType: ScheduleType,
-    availableTimes: [TimesByWeekday<HMTime>],
+    availableTimes: [TimeByWeekday<HMTime>],
     lessonStyle: LessonStyle,
     isAvailableOfflineCounseling: Bool,
     trialPolicy: TrialPolicy,
     lessonTargets: [TargetStudent],
-    studioImages: [URL],
+    studioImages: [URL?],
     curriculum: [CurriculumItem],
     status: LessonStatus,
     isLiked: Bool,
