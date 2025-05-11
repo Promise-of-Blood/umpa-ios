@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "arrow_triangle_up_fill.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}

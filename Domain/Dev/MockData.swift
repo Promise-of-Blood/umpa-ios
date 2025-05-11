@@ -332,7 +332,7 @@ extension LessonService {
       URL(string: "test2"),
     ],
     curriculum: [
-      CurriculumItem(title: "1주차", description: "7th chord 2-5-1 A form B form"),
+      CurriculumItem(title: "1주차", description: "7th chord 2-5-1 A form B form and so so so very hard training from the begining."),
       CurriculumItem(title: "2주차", description: "Major Scale / Minor Scale"),
       CurriculumItem(title: "3주차", description: "ChordTone Solo"),
       CurriculumItem(title: "4주차", description: "Blues Scale"),

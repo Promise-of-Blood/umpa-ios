@@ -116,6 +116,8 @@ struct LessonServiceDetailView: View {
         .padding(.vertical, fs(22))
     case .curriculum:
       CurriculumTabContent(curriculumList: service.curriculum)
+        .padding(.horizontal, fs(30))
+        .padding(.vertical, fs(22))
     case .review:
       ReviewTabContent(service: service.eraseToAnyService())
     }
@@ -357,6 +359,36 @@ private struct LessonOverviewTabContent: View {
   }
 }
 
+private struct CurriculumTabContent: View {
+  let curriculumList: [LessonService.CurriculumItem]
+
+  private let cornerRadius: CGFloat = fs(10)
+
+  var body: some View {
+    VStack(alignment: .leading, spacing: fs(0)) {
+      IndexingForEach(curriculumList) { index, curriculum in
+        VStack(alignment: .leading, spacing: fs(10)) {
+          Text(curriculum.title)
+            .font(.pretendardMedium(size: fs(12)))
+            .foregroundStyle(UmpaColor.mediumGray)
+          Text(curriculum.description)
+            .font(.pretendardRegular(size: fs(14)))
+            .foregroundStyle(UmpaColor.darkGray)
+        }
+        .padding(.horizontal, fs(14))
+        .padding(.vertical, fs(18))
+
+        if index < curriculumList.count - 1 {
+          HorizontalDivider(thickness: fs(1), color: UmpaColor.lightGray)
+        }
+      }
+    }
+    .innerRoundedStroke(UmpaColor.lightGray, cornerRadius: cornerRadius, lineWidth: fs(1))
+    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+    .background(.white)
+  }
+}
+
 private extension ScheduleType {
   var name: String {
     switch self {
@@ -421,7 +453,7 @@ private extension TrialPolicy {
 
   return
     NavigationStack {
-      LessonServiceDetailView(service: .sample1)
+      LessonServiceDetailView(service: .sample0)
     }
 #endif
 }
