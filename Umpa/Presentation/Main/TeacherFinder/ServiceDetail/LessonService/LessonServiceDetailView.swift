@@ -196,7 +196,7 @@ private struct LessonOverviewTabContent: View {
 
   var body: some View {
     VStack(spacing: fs(16)) {
-      scheduleCard()
+      scheduleCard
       regionCard
       lessonStyleCard
       lessonDescriptionCard
@@ -209,7 +209,7 @@ private struct LessonOverviewTabContent: View {
     }
   }
 
-  func scheduleCard() -> some View {
+  var scheduleCard: some View {
     makeContentCard {
       HStack(spacing: symbolSpacing) {
         Image(systemSymbol: .calendar)
