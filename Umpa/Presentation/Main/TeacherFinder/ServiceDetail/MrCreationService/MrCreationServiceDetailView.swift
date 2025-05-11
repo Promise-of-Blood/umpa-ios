@@ -43,9 +43,8 @@ struct MrCreationServiceDetailView: View {
         .padding(.bottom, ServiceDetailConstant.bottomActionBarHeight)
       }
 
-      BottomActionBar(
-        height: ServiceDetailConstant.bottomActionBarHeight,
-        isLiked: false, // TODO: isLiked 를 받아와야 함
+      ServiceDetailBottomActionBar(
+        isLiked: service.isLiked,
         likeButtonAction: { isLiked in
           serviceDetailInteractor.markAsLike(isLiked, for: service.id)
         },

@@ -24,7 +24,8 @@ import Foundation
       ],
       ensemblePolicy: EnsemblePolicy(freeCount: 2, price: 20000),
       isServingMusicRecorded: true,
-      ensemblePlace: [.privateStudio, .studentPreference]
+      ensemblePlace: [.privateStudio, .studentPreference],
+      isLiked: false,
     )
   }
 
@@ -339,7 +340,8 @@ import Foundation
         CurriculumItem(title: "9주차", description: "Jazz Standard"),
         CurriculumItem(title: "10주차", description: "Jazz Standard 2"),
       ],
-      status: .recruiting
+      status: .recruiting,
+      isLiked: false,
     )
 
     public static let sample1 = LessonService(
@@ -362,7 +364,8 @@ import Foundation
       lessonTargets: [],
       studioImages: [],
       curriculum: [],
-      status: .recruiting
+      status: .recruiting,
+      isLiked: true,
     )
   }
 
@@ -391,10 +394,10 @@ import Foundation
         maxDate: UnitDate(amount: 2, unit: .week)
       ),
       revisionPolicy: RevisionPolicy(freeCount: 1, price: 10000),
-
       sampleMusics: [
         SampleMusic(url: URL(string: "https://youtu.be/r6TwzSGYycM?si=BK53S-MP6U1HCaWP")),
-      ]
+      ],
+      isLiked: false,
     )
   }
 
@@ -439,7 +442,8 @@ import Foundation
       ],
       sampleSheets: [
         SampleSheet(url: URL(string: "https://www.musicscore.co.kr/sample/samp7ys7f3ij9wkjid8eujfhsiud843dsijfowejfisojf3490fi0if0sjk09jkr039uf90u/8u4ojsjdjf430foeid409ijef923jerojfgojdofj894jjdsf934f90f40ufj390rfjds/sample_102000/sample_Y3Zp6CqGi2024040332204.jpg")),
-      ]
+      ],
+      isLiked: true,
     )
   }
 #endif

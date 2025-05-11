@@ -3,18 +3,19 @@
 import Foundation
 
 public protocol Service: Identifiable, Hashable {
-    typealias Id = String
+  typealias Id = String
 
-    var id: Id { get }
-    var type: ServiceType { get }
-    var title: String { get }
-    var thumbnail: URL? { get }
-    var rating: Double { get }
-    var author: Teacher { get }
-    var reviews: [Review] { get }
-    var serviceDescription: String { get }
+  var id: Id { get }
+  var type: ServiceType { get }
+  var title: String { get }
+  var thumbnail: URL? { get }
+  var rating: Double { get }
+  var author: Teacher { get }
+  var reviews: [Review] { get }
+  var serviceDescription: String { get }
+  var isLiked: Bool { get }
 }
 
 public protocol SinglePriceService: Service {
-    var price: Int { get }
+  var price: Int { get }
 }
