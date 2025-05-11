@@ -127,7 +127,7 @@ extension Service {
         return AnyService(self)
     }
 
-    public func cleaerAnyServiceIfExisted() -> any Service {
+    public func clearAnyServiceIfExisted() -> any Service {
         if let anyService = self as? AnyService {
             return anyService.unboxed()
         }
