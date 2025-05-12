@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import Core
 import Domain
 import SwiftUI
 
@@ -21,16 +22,7 @@ struct ReviewTabContent<S: Service>: View {
   @State private var selectedOrderType: OrderType = .rating
   @State private var isAscending: Bool = false
 
-  private var orderedReviewList: [Review] {
-    service.reviews.sorted {
-      switch selectedOrderType {
-      case .rating:
-        isAscending ? $0.rating < $1.rating : $0.rating > $1.rating
-      case .date:
-        isAscending ? $0.createdAt < $1.createdAt : $0.createdAt > $1.createdAt
-      }
-    }
-  }
+  @State private var orderedReviewList: [Review] = []
 
   let service: S
 
@@ -38,6 +30,16 @@ struct ReviewTabContent<S: Service>: View {
 
   var body: some View {
     content
+      .onChanges(of: selectedOrderType, isAscending, initial: true) {
+        orderedReviewList = service.reviews.sorted {
+          switch selectedOrderType {
+          case .rating:
+            isAscending ? $0.rating < $1.rating : $0.rating > $1.rating
+          case .date:
+            isAscending ? $0.createdAt < $1.createdAt : $0.createdAt > $1.createdAt
+          }
+        }
+      }
   }
 
   var content: some View {
@@ -81,7 +83,7 @@ struct ReviewTabContent<S: Service>: View {
 
   var orderingRow: some View {
     HStack(spacing: fs(16)) {
-      ForEach(OrderType.allCases, id: \.hashValue) { orderType in
+      ForEach(OrderType.allCases, id: \.self) { orderType in
         Button(action: {
           withTransaction(Transaction(animation: nil)) {
             didTapOrderButton(orderType)
@@ -89,8 +91,9 @@ struct ReviewTabContent<S: Service>: View {
         }) {
           HStack(spacing: fs(4)) {
             Text(orderType.name)
-              .font(selectedOrderType == orderType ?
-                .pretendardSemiBold(size: fs(12)) : .pretendardMedium(size: fs(12)))
+              .font(selectedOrderType == orderType
+                ? .pretendardSemiBold(size: fs(12))
+                : .pretendardMedium(size: fs(12)))
             if selectedOrderType == orderType {
               Image(isAscending ? .arrowTriangleUpFill : .arrowTriangleDownFill)
                 .renderingMode(.template)
@@ -126,12 +129,13 @@ struct ReviewTabContent<S: Service>: View {
 }
 
 private struct ReviewCard: View {
+  private static let formatter = DateFormatter()
+
   let review: Review
 
   var createdAt: String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy. MM. dd"
-    return formatter.string(from: review.createdAt)
+    ReviewCard.formatter.dateFormat = "yyyy. MM. dd"
+    return ReviewCard.formatter.string(from: review.createdAt)
   }
 
   var body: some View {

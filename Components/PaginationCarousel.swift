@@ -7,7 +7,7 @@ public struct PaginationCarousel<Content, P>: View where Content: View, P: Pagin
 
   private let pagination: P
   private let paginationOffset: CGFloat
-  private let defaultPaginationOffset: CGFloat = 10
+  private let defaultPaginationOffset: CGFloat = 20
 
   @ViewBuilder let content: () -> Content
 
@@ -76,14 +76,16 @@ public struct PaginationCarousel<Content, P>: View where Content: View, P: Pagin
   }
 
   public var body: some View {
-    VStack(spacing: defaultPaginationOffset + paginationOffset) {
+    ZStack(alignment: .bottom) {
       TabView(selection: $currentIndex.animation()) {
         content()
       }
       .tabViewStyle(.page(indexDisplayMode: .never))
 
       pagination
+        .offset(y: defaultPaginationOffset + paginationOffset)
     }
+    .padding(.bottom, max(0, defaultPaginationOffset + paginationOffset))
   }
 }
 
@@ -93,7 +95,11 @@ public struct PaginationCarousel<Content, P>: View where Content: View, P: Pagin
   let colors: [Color] = [.red, .blue, .yellow]
 
   // 1: Default
-  PaginationCarousel(currentIndex: $index, pageCount: colors.count) {
+  PaginationCarousel(
+    currentIndex: $index,
+    pageCount: colors.count,
+    paginationOffset: 0,
+  ) {
     ForEach(0 ..< colors.count, id: \.self) { index in
       VStack {
         Text("페이지 \(index + 1)")
@@ -122,7 +128,7 @@ public struct PaginationCarousel<Content, P>: View where Content: View, P: Pagin
     pageCount: colors.count,
     appearance: appearance
   )
-  PaginationCarousel(pagination: customPagination) {
+  PaginationCarousel(pagination: customPagination, paginationOffset: -40) {
     ForEach(0 ..< colors.count, id: \.self) { index in
       colors[index]
         .tag(index)

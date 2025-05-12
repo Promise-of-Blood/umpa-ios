@@ -82,16 +82,6 @@ public struct BottomLineSegmentedControl: View {
 
 extension BottomLineSegmentedControl {
   public struct Appearance {
-    enum Item: Hashable {
-      case buttonWidth(CGFloat)
-      case activeColor(Color)
-      case inactiveColor(Color)
-      case bottomLineHeight(CGFloat)
-      case bottomLineOffset(CGFloat)
-      case activeFont(Font)
-      case inactiveFont(Font)
-    }
-    
     /// 버튼의 너비를 지정합니다.
     ///
     /// `GeometryReader` 사용을 피하기 위해 필수로 버튼의 너비를 지정해야 합니다.

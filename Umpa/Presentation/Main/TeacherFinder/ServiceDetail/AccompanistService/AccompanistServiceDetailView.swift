@@ -65,7 +65,7 @@ struct AccompanistServiceDetailView: View {
       ScrollView {
         VStack(spacing: fs(0)) {
           VStack(spacing: fs(20)) {
-            Header(tabSelection: $tabSelection, service: service)
+            Header(service: service)
 
             BottomLineSegmentedControl(
               tabItems.map(\.name),
@@ -123,8 +123,6 @@ struct AccompanistServiceDetailView: View {
 }
 
 private struct Header: View {
-  @Binding var tabSelection: Int
-
   let service: AccompanistService
 
   private let dotSize: CGFloat = fs(1.5)

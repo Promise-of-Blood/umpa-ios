@@ -442,7 +442,7 @@ extension ScoreCreationService {
       minDate: UnitDate(amount: 3, unit: .day),
       maxDate: UnitDate(amount: 7, unit: .day)
     ),
-    pricesByMajor: [
+    priceByMajor: [
       PriceByMajor(price: 20000, major: .vocal),
       PriceByMajor(price: 40000, major: .piano),
       PriceByMajor(price: 20000, major: .drum),

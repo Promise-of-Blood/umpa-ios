@@ -377,17 +377,6 @@ private struct CurriculumTabContent: View {
   }
 }
 
-private extension ScheduleType {
-  var name: String {
-    switch self {
-    case .byStudent:
-      "협의 가능"
-    case .fixed:
-      "정해진 일정"
-    }
-  }
-}
-
 private extension Region {
   var name: String {
     "\(regionalLocalGovernment) \(basicLocalGovernment.name)"
@@ -396,7 +385,7 @@ private extension Region {
 
 private extension [TimeByWeekday<HMTime>] {
   var weekdaysText: String {
-    map(\.weekday.name).joined(separator: ", ")
+    map(\.weekday.name).joined(separator: " · ")
   }
 }
 

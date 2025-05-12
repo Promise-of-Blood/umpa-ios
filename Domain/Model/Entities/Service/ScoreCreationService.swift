@@ -33,7 +33,7 @@ public struct ScoreCreationService: Service {
     majors: [ScoreCreationMajor],
     revisionPolicy: RevisionPolicy,
     turnaround: Turnaround,
-    pricesByMajor: [PriceByMajor],
+    priceByMajor: [PriceByMajor],
     tools: [CompositionTool],
     sampleSheets: [SampleSheet],
     isLiked: Bool,
@@ -50,7 +50,7 @@ public struct ScoreCreationService: Service {
     self.majors = majors
     self.revisionPolicy = revisionPolicy
     self.turnaround = turnaround
-    self.priceByMajor = pricesByMajor
+    self.priceByMajor = priceByMajor
     self.tools = tools
     self.sampleSheets = sampleSheets
     self.isLiked = isLiked

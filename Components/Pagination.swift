@@ -73,7 +73,7 @@ extension DotsPagination {
       spacing: CGFloat = 8,
       normalColor: Color = Color(red: 0x9C / 255, green: 0x9C / 255, blue: 0x9C / 255),
       highlightColor: Color = Color(red: 0x72 / 255, green: 0x72 / 255, blue: 0x7C / 255),
-      highlightScale: CGFloat = 1.0,
+      highlightScale: CGFloat = 1.2,
     ) -> Appearance {
       Appearance(
         size: size,

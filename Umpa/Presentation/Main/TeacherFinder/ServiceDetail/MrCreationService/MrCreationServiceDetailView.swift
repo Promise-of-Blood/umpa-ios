@@ -6,6 +6,26 @@ import Factory
 import SwiftUI
 
 struct MrCreationServiceDetailView: View {
+  enum TabItem {
+    case teacherOverview
+    case serviceOverview
+    case samplePreview
+    case review
+
+    var name: String {
+      switch self {
+      case .teacherOverview:
+        "선생님 소개"
+      case .serviceOverview:
+        "서비스 안내"
+      case .samplePreview:
+        "샘플 확인"
+      case .review:
+        "리뷰"
+      }
+    }
+  }
+
   @InjectedObject(\.appState) private var appState
 
 #if DEBUG
@@ -43,7 +63,7 @@ struct MrCreationServiceDetailView: View {
       ScrollView {
         VStack(spacing: fs(0)) {
           VStack(spacing: fs(20)) {
-            Header(tabSelection: $tabSelection, service: service)
+            Header(service: service)
 
             BottomLineSegmentedControl(
               tabItems.map(\.name),
@@ -102,8 +122,6 @@ struct MrCreationServiceDetailView: View {
 }
 
 private struct Header: View {
-  @Binding var tabSelection: Int
-
   let service: MusicCreationService
 
   private let dotSize: CGFloat = fs(1.5)
@@ -277,28 +295,6 @@ private struct ServiceOverviewTabContent: ServiceOverviewTab {
           .frame(maxWidth: .infinity, alignment: .leading)
       }
       .foregroundStyle(.black)
-    }
-  }
-}
-
-extension MrCreationServiceDetailView {
-  enum TabItem {
-    case teacherOverview
-    case serviceOverview
-    case samplePreview
-    case review
-
-    var name: String {
-      switch self {
-      case .teacherOverview:
-        "선생님 소개"
-      case .serviceOverview:
-        "서비스 안내"
-      case .samplePreview:
-        "샘플 확인"
-      case .review:
-        "리뷰"
-      }
     }
   }
 }
