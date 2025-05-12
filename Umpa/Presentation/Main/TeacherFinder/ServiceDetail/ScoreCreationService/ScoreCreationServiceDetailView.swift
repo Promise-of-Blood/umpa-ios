@@ -366,25 +366,6 @@ private struct SampleSheetPreviewTabContent: View {
   }
 }
 
-private extension Turnaround {
-  var text: String {
-    "\(minDate.text) - \(maxDate.text)"
-  }
-}
-
-private extension UnitDate {
-  var text: String {
-    switch unit {
-    case .day:
-      "\(amount)일"
-    case .week:
-      "\(amount)주"
-    case .month:
-      "\(amount)개월"
-    }
-  }
-}
-
 #if DEBUG
 #Preview {
   ScoreCreationServiceDetailView(service: .sample0)
