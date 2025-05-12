@@ -57,6 +57,7 @@ struct AccompanistServiceDetailView: View {
       .navigationDestination(for: ChatRoom.self) { chatRoom in
         ChatRoomView(chatRoom: chatRoom)
       }
+      .toolbar(.hidden, for: .tabBar)
   }
 
   var content: some View {

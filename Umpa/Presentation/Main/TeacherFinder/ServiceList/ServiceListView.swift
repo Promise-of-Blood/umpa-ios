@@ -26,11 +26,11 @@ struct ServiceListView: View {
 
   @InjectedObject(\.appState) private var appState
 
-  #if DEBUG
-    @Injected(\.stubServiceListInteractor) private var interactor
-  #else
-    @Injected(\.serviceListInteractor) private var interactor
-  #endif
+#if DEBUG
+  @Injected(\.stubServiceListInteractor) private var interactor
+#else
+  @Injected(\.serviceListInteractor) private var interactor
+#endif
 
   // MARK: State
 

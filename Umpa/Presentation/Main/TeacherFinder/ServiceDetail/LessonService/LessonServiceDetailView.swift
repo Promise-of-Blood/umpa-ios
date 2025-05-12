@@ -58,6 +58,7 @@ struct LessonServiceDetailView: View {
       .navigationDestination(for: ChatRoom.self) { chatRoom in
         ChatRoomView(chatRoom: chatRoom)
       }
+      .toolbar(.hidden, for: .tabBar)
   }
 
   @ViewBuilder
