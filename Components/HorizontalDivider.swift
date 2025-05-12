@@ -4,18 +4,25 @@ import SwiftUI
 
 public struct HorizontalDivider: View {
   let thickness: CGFloat
-  let color: Color
+  let color: Color?
 
-  public init(thickness: CGFloat = 1, color: Color = .gray) {
+  public init(thickness: CGFloat = 1, color: Color? = nil) {
     self.thickness = thickness
     self.color = color
   }
 
   public var body: some View {
-    Rectangle()
+    let divider = Rectangle()
       .frame(maxWidth: .infinity, idealHeight: thickness)
       .fixedSize(horizontal: false, vertical: true)
-      .foregroundStyle(color)
+    return Group {
+      if let color {
+        divider
+          .foregroundStyle(color)
+      } else {
+        divider
+      }
+    }
   }
 }
 

@@ -15,7 +15,7 @@ public struct ScoreCreationService: Service {
   public let majors: [ScoreCreationMajor]
   public let revisionPolicy: RevisionPolicy
   public let turnaround: Turnaround
-  public let pricesByMajor: [PriceByMajor]
+  public let priceByMajor: [PriceByMajor]
   public let tools: [CompositionTool]
   public let sampleSheets: [SampleSheet]
   public let isLiked: Bool
@@ -50,7 +50,7 @@ public struct ScoreCreationService: Service {
     self.majors = majors
     self.revisionPolicy = revisionPolicy
     self.turnaround = turnaround
-    self.pricesByMajor = pricesByMajor
+    self.priceByMajor = pricesByMajor
     self.tools = tools
     self.sampleSheets = sampleSheets
     self.isLiked = isLiked

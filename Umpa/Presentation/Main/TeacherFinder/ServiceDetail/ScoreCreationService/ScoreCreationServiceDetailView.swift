@@ -6,6 +6,26 @@ import Factory
 import SwiftUI
 
 struct ScoreCreationServiceDetailView: View {
+  enum TabItem {
+    case teacherOverview
+    case serviceOverview
+    case samplePreview
+    case review
+
+    var name: String {
+      switch self {
+      case .teacherOverview:
+        "선생님 소개"
+      case .serviceOverview:
+        "서비스 안내"
+      case .samplePreview:
+        "샘플 확인"
+      case .review:
+        "리뷰"
+      }
+    }
+  }
+
   @InjectedObject(\.appState) private var appState
 
 #if DEBUG
@@ -26,7 +46,12 @@ struct ScoreCreationServiceDetailView: View {
 
   var body: some View {
     content
-      .modifier(NavigationBackButton(.arrowBack))
+      .navigationBarBackButtonHidden()
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          DismissButton(.arrowBack)
+        }
+      }
       .navigationDestination(for: ChatRoom.self) { chatRoom in
         ChatRoomView(chatRoom: chatRoom)
       }
@@ -83,6 +108,8 @@ struct ScoreCreationServiceDetailView: View {
       TeacherOverviewTabContent(teacher: service.author)
     case .serviceOverview:
       ServiceOverviewTabContent(service: service)
+        .padding(.horizontal, fs(30))
+        .padding(.vertical, fs(22))
     case .samplePreview:
       SampleSheetPreviewTabContent(sampleSheetList: service.sampleSheets)
     case .review:
@@ -155,11 +182,153 @@ private struct Header: View {
   }
 }
 
-private struct ServiceOverviewTabContent: View {
+private struct ServiceOverviewTabContent: ServiceOverviewTab {
   let service: ScoreCreationService
 
+  private let symbolSpacing: CGFloat = fs(26)
+  private let symbolSize: CGFloat = fs(22)
+
   var body: some View {
-    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    VStack(spacing: fs(16)) {
+      priceInfoCard
+      turnaroundInfoCard
+      revisionPolicyInfoCard
+      toolsInfoCard
+      serviceDescriptionCard
+    }
+  }
+
+  var priceInfoCard: some View {
+    makeContentCard {
+      VStack(spacing: fs(18)) {
+        HStack(spacing: symbolSpacing) {
+          Image(systemSymbol: .dollarsign)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: symbolSize, height: symbolSize)
+          Text("가격 안내")
+            .font(.pretendardSemiBold(size: fs(13)))
+            .foregroundStyle(.black)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+
+        Grid(horizontalSpacing: fs(0), verticalSpacing: fs(0)) {
+          GridRow {
+            Text("전공")
+              .frame(width: fs(110))
+              .padding(.vertical, fs(6))
+              .foregroundStyle(UmpaColor.darkGray)
+            VerticalDivider(color: UmpaColor.lightGray)
+            Text("가격")
+              .frame(maxWidth: .infinity)
+              .foregroundStyle(UmpaColor.darkGray)
+          }
+          HorizontalDivider(color: UmpaColor.lightGray)
+            .frame(maxWidth: .infinity)
+          IndexingForEach(service.priceByMajor) { _, priceByMajor in
+            GridRow {
+              Text(priceByMajor.major.name)
+                .padding(.vertical, fs(6))
+              VerticalDivider(color: UmpaColor.lightGray)
+              Text("\(priceByMajor.price)원 / 장")
+            }
+            HorizontalDivider(color: UmpaColor.lightGray)
+          }
+        }
+        .frame(maxWidth: .infinity)
+        .foregroundStyle(UmpaColor.mediumGray)
+        .innerStroke(UmpaColor.lightGray)
+        .font(.pretendardMedium(size: fs(14)))
+      }
+    }
+  }
+
+  var turnaroundInfoCard: some View {
+    makeContentCard {
+      HStack(spacing: symbolSpacing) {
+        Image(systemSymbol: .clock)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: symbolSize, height: symbolSize)
+
+        VStack(spacing: fs(6)) {
+          Text("평균 소요 시간")
+            .font(.pretendardSemiBold(size: fs(13)))
+            .foregroundStyle(.black)
+            .frame(maxWidth: .infinity, alignment: .leading)
+          Text(service.turnaround.text)
+            .font(.pretendardMedium(size: fs(13)))
+            .foregroundStyle(UmpaColor.mediumGray)
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      }
+    }
+  }
+
+  var revisionPolicyInfoCard: some View {
+    makeContentCard {
+      HStack(spacing: symbolSpacing) {
+        Image(systemSymbol: .pencil)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: symbolSize, height: symbolSize)
+
+        VStack(spacing: fs(6)) {
+          Group {
+            Text("수정 횟수")
+              .font(.pretendardSemiBold(size: fs(13)))
+              .foregroundStyle(.black)
+
+            Group {
+              Text("무료 수정 \(service.revisionPolicy.freeCount)회")
+              Text("이후 수정 비용 \(service.revisionPolicy.price)원")
+            }
+            .font(.pretendardMedium(size: fs(13)))
+            .foregroundStyle(UmpaColor.mediumGray)
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      }
+    }
+  }
+
+  var toolsInfoCard: some View {
+    makeContentCard {
+      HStack(spacing: symbolSpacing) {
+        Image(systemSymbol: .macbook)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: symbolSize, height: symbolSize)
+
+        VStack(spacing: fs(6)) {
+          Text("사용 프로그램")
+            .font(.pretendardSemiBold(size: fs(13)))
+            .foregroundStyle(.black)
+            .frame(maxWidth: .infinity, alignment: .leading)
+
+          IndexingForEach(service.tools) { _, tool in
+            Text(tool.name)
+              .font(.pretendardMedium(size: fs(13)))
+              .foregroundStyle(UmpaColor.mediumGray)
+              .frame(maxWidth: .infinity, alignment: .leading)
+          }
+        }
+      }
+    }
+  }
+
+  var serviceDescriptionCard: some View {
+    makeContentCard {
+      VStack(spacing: fs(28)) {
+        Text("서비스 소개")
+          .font(.pretendardSemiBold(size: fs(16)))
+          .frame(maxWidth: .infinity, alignment: .leading)
+        Text(service.serviceDescription)
+          .fontWithLineHeight(font: .pretendardRegular(size: fs(13)), lineHeight: fs(20))
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      .foregroundStyle(.black)
+    }
   }
 }
 
@@ -197,24 +366,21 @@ private struct SampleSheetPreviewTabContent: View {
   }
 }
 
-extension ScoreCreationServiceDetailView {
-  enum TabItem {
-    case teacherOverview
-    case serviceOverview
-    case samplePreview
-    case review
+private extension Turnaround {
+  var text: String {
+    "\(minDate.text) - \(maxDate.text)"
+  }
+}
 
-    var name: String {
-      switch self {
-      case .teacherOverview:
-        "선생님 소개"
-      case .serviceOverview:
-        "서비스 안내"
-      case .samplePreview:
-        "샘플 확인"
-      case .review:
-        "리뷰"
-      }
+private extension UnitDate {
+  var text: String {
+    switch unit {
+    case .day:
+      "\(amount)일"
+    case .week:
+      "\(amount)주"
+    case .month:
+      "\(amount)개월"
     }
   }
 }

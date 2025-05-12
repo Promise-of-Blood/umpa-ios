@@ -184,7 +184,7 @@ private struct Header: View {
   }
 }
 
-private struct LessonOverviewTabContent: View {
+private struct LessonOverviewTabContent: ServiceOverviewTab {
   let service: LessonService
 
   private let symbolSpacing: CGFloat = fs(26)
@@ -343,19 +343,6 @@ private struct LessonOverviewTabContent: View {
         .frame(maxWidth: .infinity, height: fs(210))
       }
     }
-  }
-
-  private func makeContentCard(@ViewBuilder _ content: () -> some View) -> some View {
-    let horiozontalPadding: CGFloat = fs(20)
-    let verticalPadding: CGFloat = fs(24)
-    let cardCornerRadius: CGFloat = fs(10)
-
-    return content()
-      .frame(maxWidth: .infinity)
-      .padding(.horizontal, horiozontalPadding)
-      .padding(.vertical, verticalPadding)
-      .background(.white)
-      .innerRoundedStroke(UmpaColor.lightLightGray, cornerRadius: cardCornerRadius)
   }
 }
 

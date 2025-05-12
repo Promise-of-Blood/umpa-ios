@@ -415,7 +415,7 @@ extension Service {
       }
     case .scoreCreation:
       if let scoreCreationService = service as? ScoreCreationService,
-         let firstPrice = scoreCreationService.pricesByMajor.first?.price
+         let firstPrice = scoreCreationService.priceByMajor.first?.price
       {
         price = firstPrice
       } else {

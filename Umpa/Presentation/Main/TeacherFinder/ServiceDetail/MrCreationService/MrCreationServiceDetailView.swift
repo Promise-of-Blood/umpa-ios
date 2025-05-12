@@ -143,7 +143,7 @@ private struct Header: View {
   }
 }
 
-private struct ServiceOverviewTabContent: View {
+private struct ServiceOverviewTabContent: ServiceOverviewTab {
   let service: MusicCreationService
 
   var body: some View {
