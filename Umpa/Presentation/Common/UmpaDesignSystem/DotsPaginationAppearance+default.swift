@@ -2,12 +2,12 @@
 
 import Components
 
-extension DotsPaginationAppearance {
-    static let `default` = DotsPaginationAppearance(
-        size: 8,
-        spacing: 8,
-        normalColor: UmpaColor.lightGray,
-        selectedColor: UmpaColor.darkGray,
-        selectedScale: 1.0
-    )
+extension DotsPagination.Appearance {
+  static let `default` = DotsPagination.Appearance(
+    size: 8,
+    spacing: 8,
+    normalColor: UmpaColor.lightGray,
+    highlightColor: UmpaColor.darkGray,
+    highlightScale: 1.0
+  )
 }

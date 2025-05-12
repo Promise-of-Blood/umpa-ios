@@ -1,6 +1,6 @@
 // Created for Umpa in 2025
 
-public struct TimesByWeekday<T: Time>: Hashable {
+public struct TimeByWeekday<T: Time>: Hashable {
     public let weekday: Weekday
     public let startTime: T
     public let endTime: T
