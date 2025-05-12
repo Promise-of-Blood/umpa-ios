@@ -26,6 +26,11 @@ extension AccompanistService {
     isServingMusicRecorded: true,
     ensemblePlace: [.privateStudio, .studentPreference],
     isLiked: false,
+    sampleMusics: [
+      SampleMusic(url: URL(string: "https://www.youtube.com/watch?v=lQcnNPqy2Ww&list=PL0Gs8Z2OHv2ne2p-FvA31BeQSWbXiXDpn")),
+      SampleMusic(url: URL(string: "https://www.youtube.com/watch?v=2VkWaOOF4Rc&list=PL0Gs8Z2OHv2ne2p-FvA31BeQSWbXiXDpn&index=2")),
+      SampleMusic(url: URL(string: "https://www.youtube.com/watch?v=ctS0kU2k4HE&list=PL0Gs8Z2OHv2ne2p-FvA31BeQSWbXiXDpn&index=3")),
+    ]
   )
 }
 

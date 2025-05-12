@@ -18,6 +18,7 @@ public struct AccompanistService: SinglePriceService {
   public let isServingMusicRecorded: Bool
   public let ensemblePlace: EnsemblePlace
   public let isLiked: Bool
+  public let sampleMusics: [SampleMusic]
 
   public init(
     id: Id,
@@ -35,6 +36,7 @@ public struct AccompanistService: SinglePriceService {
     isServingMusicRecorded: Bool,
     ensemblePlace: EnsemblePlace,
     isLiked: Bool,
+    sampleMusics: [SampleMusic],
   ) {
     self.id = id
     self.type = type
@@ -51,6 +53,7 @@ public struct AccompanistService: SinglePriceService {
     self.isServingMusicRecorded = isServingMusicRecorded
     self.ensemblePlace = ensemblePlace
     self.isLiked = isLiked
+    self.sampleMusics = sampleMusics
   }
 }
 

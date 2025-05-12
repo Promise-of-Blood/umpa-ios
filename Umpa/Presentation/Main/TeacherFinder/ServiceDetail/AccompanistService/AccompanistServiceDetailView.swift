@@ -9,6 +9,7 @@ struct AccompanistServiceDetailView: View {
   enum TabItem {
     case teacherOverview
     case serviceOverview
+    case samplePreview
     case review
 
     var name: String {
@@ -17,6 +18,8 @@ struct AccompanistServiceDetailView: View {
         "선생님 소개"
       case .serviceOverview:
         "서비스 소개"
+      case .samplePreview:
+        "샘플 확인"
       case .review:
         "리뷰"
       }
@@ -33,7 +36,11 @@ struct AccompanistServiceDetailView: View {
 
   let service: AccompanistService
 
-  let tabItems: [TabItem] = [.teacherOverview, .serviceOverview, .review]
+  var tabItems: [TabItem] {
+    service.sampleMusics.isEmpty
+      ? [.teacherOverview, .serviceOverview, .review]
+      : [.teacherOverview, .serviceOverview, .samplePreview, .review]
+  }
 
   @State private var tabSelection = 0
 
@@ -105,6 +112,9 @@ struct AccompanistServiceDetailView: View {
       ServiceOverviewTabContent(service: service)
         .padding(.horizontal, fs(30))
         .padding(.vertical, fs(22))
+    case .samplePreview:
+      SampleMusicPreviewTabContent(sampleMusicList: service.sampleMusics)
+        .padding(fs(30))
     case .review:
       ReviewTabContent(service: service.eraseToAnyService())
     }
