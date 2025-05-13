@@ -7,26 +7,28 @@ import NidThirdPartyLogin
 
 @MainActor
 protocol MyProfileInteractor {
-    func logout()
+  func logout()
 }
 
 struct DefaultMyProfileInteractor {
-    private let appState: AppState
+  private let appState: AppState
 
-    init(appState: AppState) {
-        self.appState = appState
-    }
+  init(appState: AppState) {
+    self.appState = appState
+  }
 }
 
 extension DefaultMyProfileInteractor: MyProfileInteractor {
-    func logout() {
-        appState.reset()
-        NidOAuth.shared.logout()
-        UserApi.shared.logout { error in
-            if let error {
-                print(error)
-            }
-        }
-        GIDSignIn.sharedInstance.signOut()
+  func logout() {
+    appState.routing.reset()
+    appState.userData.reset()
+
+    NidOAuth.shared.logout()
+    UserApi.shared.logout { error in
+      if let error {
+        print(error)
+      }
     }
+    GIDSignIn.sharedInstance.signOut()
+  }
 }

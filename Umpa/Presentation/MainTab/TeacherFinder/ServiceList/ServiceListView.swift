@@ -65,34 +65,36 @@ struct ServiceListView: View {
   // MARK: View
 
   var body: some View {
-    content
-      .onChange(of: serviceType, initial: true, loadMatchedServiceList)
-      .navigationDestination(for: AnyService.self) { service in
-        if let lesson = service.unwrap(as: LessonService.self) {
-          LessonServiceDetailView(service: lesson)
-        } else if let accompanistService = service.unwrap(as: AccompanistService.self) {
-          AccompanistServiceDetailView(service: accompanistService)
-        } else if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
-          MrCreationServiceDetailView(service: musicCreationService)
-        } else if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
-          ScoreCreationServiceDetailView(service: scoreCreationService)
+    NavigationStack(path: $appState.routing.teacherFinderNavigationPath) {
+      content
+        .navigationDestination(for: AnyService.self) { service in
+          if let lesson = service.unwrap(as: LessonService.self) {
+            LessonServiceDetailView(service: lesson)
+          } else if let accompanistService = service.unwrap(as: AccompanistService.self) {
+            AccompanistServiceDetailView(service: accompanistService)
+          } else if let musicCreationService = service.unwrap(as: MusicCreationService.self) {
+            MrCreationServiceDetailView(service: musicCreationService)
+          } else if let scoreCreationService = service.unwrap(as: ScoreCreationService.self) {
+            ScoreCreationServiceDetailView(service: scoreCreationService)
+          }
         }
-      }
-      .fullScreenCover(isPresented: $isShowingLessonFilterSettings) {
-        LessonFilterSettingView(lessonFilter: lessonFilter)
-      }
-      .fullScreenCover(isPresented: $isShowingAccompanistFilterSettings) {
-        AccompanistFilterSettingView(accompanistFilter: accompanistFilter)
-      }
-      .fullScreenCover(isPresented: $isShowingScoreCreationFilterSettings) {
-        ScoreCreationFilterSettingView(filter: scoreCreationFilter)
-      }
-      .fullScreenCover(isPresented: $isShowingMRCreationFilterSettings) {
-        MRCreationFilterSettingView(filter: mrCreationFilter)
-      }
-      .transaction { transaction in
-        transaction.disablesAnimations = true
-      }
+    }
+    .onChange(of: serviceType, initial: true, loadMatchedServiceList)
+    .fullScreenCover(isPresented: $isShowingLessonFilterSettings) {
+      LessonFilterSettingView(lessonFilter: lessonFilter)
+    }
+    .fullScreenCover(isPresented: $isShowingAccompanistFilterSettings) {
+      AccompanistFilterSettingView(accompanistFilter: accompanistFilter)
+    }
+    .fullScreenCover(isPresented: $isShowingScoreCreationFilterSettings) {
+      ScoreCreationFilterSettingView(filter: scoreCreationFilter)
+    }
+    .fullScreenCover(isPresented: $isShowingMRCreationFilterSettings) {
+      MRCreationFilterSettingView(filter: mrCreationFilter)
+    }
+    .transaction { transaction in
+      transaction.disablesAnimations = true
+    }
   }
 
   @ViewBuilder
@@ -456,11 +458,9 @@ private extension ServiceType {
 
 #Preview {
   TabView {
-    NavigationStack {
-      ServiceListView()
-    }
-    .tabItem {
-      Text("선생님 찾기")
-    }
+    ServiceListView()
+      .tabItem {
+        Text("선생님 찾기")
+      }
   }
 }

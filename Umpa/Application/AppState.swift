@@ -1,112 +1,135 @@
 // Created for Umpa in 2025
 
+import Core
 import Domain
+import Foundation
 import SwiftUI
 
 final class AppState: ObservableObject {
-    @Published var userData = UserData()
-    @Published var appData = AppData()
-    @Published var routing = Routing()
-    @Published var system = System()
+  /// 사용자와 연관된 데이터.
+  @Published var userData = UserData()
 
-    func reset() {
-        userData = UserData()
-        routing = Routing()
-    }
+  /// 앱 실행에 필요한 데이터. 대부분 앱 시작 시 한 번만 받아오면 되는 데이터들.
+  @Published var appData = AppData()
+
+  /// 앱의 라우팅 상태.
+  @Published var routing = Routing()
+
+  /// 앱 설정, 앱의 전역 상태 등.
+  @Published var system = System()
 }
 
 // MARK: - Routing
 
 extension AppState {
-    struct Routing {
-        var currentTab: MainViewTabType = .teacherFinder
-        var chatNavigationPath = NavigationPath()
-        var teacherFinderNavigationPath = NavigationPath()
-        var myServicesNavigationPath = NavigationPath()
-        var loginNavigationPath = NavigationPath()
-        var myProfileNavigationPath = NavigationPath()
+  struct Routing {
+    var currentTab: MainViewTabType = .teacherFinder
+    var chatNavigationPath = NavigationPath()
+    var teacherFinderNavigationPath = NavigationPath()
+    var myServicesNavigationPath = NavigationPath()
+    var loginNavigationPath = NavigationPath()
+    var myProfileNavigationPath = NavigationPath()
+    var settingsNavigationPath = NavigationPath()
+
+    fileprivate init() {}
+
+    mutating func reset() {
+      currentTab = .teacherFinder
+      chatNavigationPath = NavigationPath()
+      teacherFinderNavigationPath = NavigationPath()
+      myServicesNavigationPath = NavigationPath()
+      loginNavigationPath = NavigationPath()
+      myProfileNavigationPath = NavigationPath()
     }
+  }
 }
 
 enum MainViewTabType: Int {
-    case teacherHome = 0
-    case teacherFinder
-    case community
-    case chat
-    case myProfile
+  case teacherHome = 0
+  case teacherFinder
+  case community
+  case chat
+  case myProfile
 }
 
 // MARK: - UserData
 
 extension AppState {
-    struct UserData {
-        var teacherFinder = TeacherFinderData()
-        var loginInfo = LoginInfo()
-        fileprivate init() {}
+  struct UserData {
+    var teacherFinder = TeacherFinderData()
+    var loginInfo = LoginInfo()
+
+    fileprivate init() {}
+
+    mutating func reset() {
+      teacherFinder = TeacherFinderData()
+      loginInfo = LoginInfo()
     }
+  }
 }
 
 extension AppState.UserData {
-    struct TeacherFinderData {
-        var selectedServiceType: ServiceType = .lesson
-        var selectedSubject: LessonSubject?
-        var isDisplayedServiceTypeSelectOnBoarding = false
-        fileprivate init() {}
-    }
+  struct TeacherFinderData {
+    var selectedServiceType: ServiceType = .lesson
+    var selectedSubject: LessonSubject?
+    var hasDisplayedServiceTypeSelectOnBoarding = false
+    fileprivate init() {}
+  }
 
-    struct LoginInfo {
-        var currentUser: AnyUser?
-        fileprivate init() {}
-    }
+  struct LoginInfo {
+    var currentUser: AnyUser?
+    fileprivate init() {}
+  }
 }
 
 // MARK: - AppData
 
 extension AppState {
-    struct AppData {
-        var majorList: [Major] = []
-        var collegeList: [College] = []
-        var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
-        var lessonSubjectList: [LessonSubject] = []
-        var accompanimentInstrumentList: [AccompanimentInstrument] = []
-        fileprivate init() {}
-    }
+  struct AppData {
+    var majorList: [Major] = []
+    var collegeList: [College] = []
+    var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
+    var lessonSubjectList: [LessonSubject] = []
+    var accompanimentInstrumentList: [AccompanimentInstrument] = []
+    fileprivate init() {}
+  }
 }
 
 // MARK: - System
 
 extension AppState {
-    struct System {
-        var isSplashFinished = false
-        fileprivate init() {}
+  struct System {
+    var isSplashFinished = false
+    var isChatNotificationEnabled = false
+    var appVersion: String = ""
+
+    fileprivate init() {
+      let appVersion = Bundle.main.infoPlist.string(forKey: .CFBundleShortVersionString)
+      self.appVersion = appVersion
     }
+  }
 }
 
 // MARK: - Conveniences
 
 extension AppState.UserData.LoginInfo {
-    var isLoggedIn: Bool {
-        currentUser != nil
-    }
+  var isLoggedIn: Bool {
+    currentUser != nil
+  }
 
-    var userType: UserType {
-        get throws {
-            guard let currentUser else {
-                throw UserDataError.userNotLoggedIn
-            }
-            return currentUser.userType
-        }
+  var userType: UserType? {
+    if let currentUser {
+      currentUser.userType
+    } else {
+      nil
     }
+  }
 
-    var isTeacher: Bool {
-        (try? userType) == .teacher
-    }
+  var isTeacher: Bool {
+    userType == .teacher
+  }
 
-    var isStudent: Bool {
-        (try? userType) == .student
-    }
-}
-
-enum UserDataError: Error {
-    case userNotLoggedIn
+  var isStudent: Bool {
+    userType == .student
+  }
 }
