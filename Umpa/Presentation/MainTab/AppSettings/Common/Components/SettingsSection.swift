@@ -1,8 +1,5 @@
 // Created for Umpa in 2025
 
-import Components
-import Factory
-import SFSafeSymbols
 import SwiftUI
 
 struct SettingsSection<Content: View, Header: View>: View {

@@ -15,13 +15,13 @@ struct AccountManagementSettingsView: View {
         SettingsSection {
           SettingsNormalRow(text: "연결된 서비스")
           SettingsButtonRow(text: "학생 계정으로 전환") {
-            // TOOD: Implement
+            // TODO: Implement
           }
           SettingsButtonRow(text: "로그아웃") {
-            // TOOD: Implement
+            // TODO: Implement
           }
           SettingsButtonRow(text: "탈퇴하기") {
-            // TOOD: Implement
+            // TODO: Implement
           }
         }
       }

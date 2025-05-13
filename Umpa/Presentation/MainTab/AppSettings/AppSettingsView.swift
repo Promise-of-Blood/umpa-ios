@@ -46,13 +46,13 @@ struct AppSettingsView: View {
         SettingsSection {
           SettingsValueRow(text: "앱 버전", value: appState.system.appVersion)
           SettingsButtonRow(text: "개인 정보 처리 방침") {
-            // TOOD: Implement
+            // TODO: Implement
           }
           SettingsButtonRow(text: "오픈 소스 라이선스") {
-            // TOOD: Implement
+            // TODO: Implement
           }
           SettingsButtonRow(text: "이용 약관") {
-            // TOOD: Implement
+            // TODO: Implement
           }
         } header: {
           SettingsSectionHeader(title: "기타")
