@@ -41,7 +41,7 @@ public struct BottomLineSegmentedControl: View {
         Button(action: {
           selection = index
         }) {
-          VStack(spacing: appearance.bottomLineOffset) {
+          VStack(spacing: 0) {
             ZStack {
               if index == selection {
                 selectedText(name)
@@ -49,6 +49,9 @@ public struct BottomLineSegmentedControl: View {
                 unselectedText(name)
               }
             }
+            .padding(.vertical, appearance.bottomLineOffset)
+            .padding(.top, appearance.bottomLineHeight)
+
             Rectangle()
               .frame(height: appearance.bottomLineHeight)
               .foregroundStyle(index == selection ? appearance.activeColor : Color.clear)

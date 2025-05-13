@@ -16,8 +16,6 @@ struct TeacherOverviewTabContent: View {
       keyphraseText
       card
     }
-    .padding(.horizontal, fs(30))
-    .padding(.vertical, fs(24))
     .background(.white)
   }
 
@@ -86,9 +84,9 @@ struct TeacherOverviewTabContent: View {
 }
 
 #if DEBUG
-  #Preview {
-    TeacherOverviewTabContent(teacher: .sample0)
-      .padding()
-      .background(.gray)
-  }
+#Preview {
+  TeacherOverviewTabContent(teacher: .sample0)
+    .padding()
+    .background(.gray)
+}
 #endif

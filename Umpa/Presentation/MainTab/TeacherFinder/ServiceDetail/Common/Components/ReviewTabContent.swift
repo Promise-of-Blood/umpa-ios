@@ -54,8 +54,6 @@ struct ReviewTabContent<S: Service>: View {
         }
       }
     }
-    .padding(.horizontal, fs(30))
-    .padding(.vertical, fs(20))
   }
 
   var header: some View {

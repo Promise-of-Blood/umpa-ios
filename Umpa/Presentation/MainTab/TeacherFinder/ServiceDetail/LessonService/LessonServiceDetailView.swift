@@ -65,10 +65,14 @@ struct LessonServiceDetailView: View {
   var content: some View {
     ZStack(alignment: .bottom) {
       ScrollView {
-        VStack(spacing: 0) {
-          VStack(spacing: fs(20)) {
-            Header(service: service)
+        LazyVStack(spacing: fs(0), pinnedViews: .sectionHeaders) {
+          Header(service: service)
+            .padding(.bottom, fs(4))
 
+          Section {
+            segmentedControlContent
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+          } header: {
             BottomLineSegmentedControl(
               tabItems.map(\.name),
               selection: $tabSelection,
@@ -82,11 +86,9 @@ struct LessonServiceDetailView: View {
               )
             )
             .padding(.horizontal, fs(26))
+            .background(.white)
             .innerStroke(.black.opacity(0.1), edges: .bottom, lineWidth: fs(1))
           }
-
-          segmentedControlContent
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding(.bottom, ServiceDetailConstant.bottomActionBarHeight)
       }
@@ -108,20 +110,19 @@ struct LessonServiceDetailView: View {
 
   @ViewBuilder
   var segmentedControlContent: some View {
-    switch tabItems[tabSelection] {
-    case .teacherOverview:
-      TeacherOverviewTabContent(teacher: service.author)
-    case .lessonOverview:
-      LessonOverviewTabContent(service: service)
-        .padding(.horizontal, fs(30))
-        .padding(.vertical, fs(22))
-    case .curriculum:
-      CurriculumTabContent(curriculumList: service.curriculum)
-        .padding(.horizontal, fs(30))
-        .padding(.vertical, fs(22))
-    case .review:
-      ReviewTabContent(service: service.eraseToAnyService())
+    Group {
+      switch tabItems[tabSelection] {
+      case .teacherOverview:
+        TeacherOverviewTabContent(teacher: service.author)
+      case .lessonOverview:
+        LessonOverviewTabContent(service: service)
+      case .curriculum:
+        CurriculumTabContent(curriculumList: service.curriculum)
+      case .review:
+        ReviewTabContent(service: service.eraseToAnyService())
+      }
     }
+    .padding(fs(28))
   }
 }
 

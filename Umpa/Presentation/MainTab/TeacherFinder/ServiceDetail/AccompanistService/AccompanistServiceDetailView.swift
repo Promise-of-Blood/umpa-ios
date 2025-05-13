@@ -63,10 +63,14 @@ struct AccompanistServiceDetailView: View {
   var content: some View {
     ZStack(alignment: .bottom) {
       ScrollView {
-        VStack(spacing: fs(0)) {
-          VStack(spacing: fs(20)) {
-            Header(service: service)
+        LazyVStack(spacing: fs(0), pinnedViews: .sectionHeaders) {
+          Header(service: service)
+            .padding(.bottom, fs(4))
 
+          Section {
+            segmentedControlContent
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+          } header: {
             BottomLineSegmentedControl(
               tabItems.map(\.name),
               selection: $tabSelection,
@@ -80,11 +84,9 @@ struct AccompanistServiceDetailView: View {
               )
             )
             .padding(.horizontal, fs(26))
+            .background(.white)
             .innerStroke(.black.opacity(0.1), edges: .bottom, lineWidth: fs(1))
           }
-
-          segmentedControlContent
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding(.bottom, ServiceDetailConstant.bottomActionBarHeight)
       }
@@ -106,19 +108,19 @@ struct AccompanistServiceDetailView: View {
 
   @ViewBuilder
   var segmentedControlContent: some View {
-    switch tabItems[tabSelection] {
-    case .teacherOverview:
-      TeacherOverviewTabContent(teacher: service.author)
-    case .serviceOverview:
-      ServiceOverviewTabContent(service: service)
-        .padding(.horizontal, fs(30))
-        .padding(.vertical, fs(22))
-    case .samplePreview:
-      SampleMusicPreviewTabContent(sampleMusicList: service.sampleMusics)
-        .padding(fs(30))
-    case .review:
-      ReviewTabContent(service: service.eraseToAnyService())
+    Group {
+      switch tabItems[tabSelection] {
+      case .teacherOverview:
+        TeacherOverviewTabContent(teacher: service.author)
+      case .serviceOverview:
+        ServiceOverviewTabContent(service: service)
+      case .samplePreview:
+        SampleMusicPreviewTabContent(sampleMusicList: service.sampleMusics)
+      case .review:
+        ReviewTabContent(service: service.eraseToAnyService())
+      }
     }
+    .padding(fs(28))
   }
 }
 
@@ -292,7 +294,9 @@ private struct ServiceOverviewTabContent: ServiceOverviewTab {
 }
 
 #Preview {
+  NavigationStack {
 #if DEBUG
-  AccompanistServiceDetailView(service: .sample0)
+    AccompanistServiceDetailView(service: .sample0)
 #endif
+  }
 }
