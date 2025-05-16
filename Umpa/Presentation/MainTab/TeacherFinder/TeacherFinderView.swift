@@ -4,7 +4,7 @@ import Factory
 import SwiftUI
 
 struct TeacherFinderView: View {
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   var body: some View {
     content

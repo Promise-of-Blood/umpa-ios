@@ -8,8 +8,7 @@ import UmpaUIKit
 
 struct ScoreCreationFilterSettingView: View {
   @Environment(\.dismiss) private var dismiss
-
-  @Injected(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   /// 실제 적용할 필터 정보
   @Bindable var filter: ScoreCreationFilter

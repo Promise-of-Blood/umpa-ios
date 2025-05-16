@@ -9,9 +9,10 @@ struct AppSettingsView: View {
     case accountManagement
   }
 
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   var body: some View {
+    @Bindable var appState = appState
     NavigationStack(path: $appState.routing.settingsNavigationPath) {
       content
         .navigationDestination(for: NavigationDestination.self) { destination in
@@ -24,7 +25,9 @@ struct AppSettingsView: View {
     }
   }
 
+  @ViewBuilder
   var content: some View {
+    @Bindable var appState = appState
     ScrollView {
       VStack(spacing: AppSettingsConstant.sectionSpacing) {
         SettingsSection {

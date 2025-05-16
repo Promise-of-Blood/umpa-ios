@@ -24,7 +24,7 @@ struct ServiceListView: View {
 
   // MARK: Dependencies
 
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
 #if DEBUG
   @Injected(\.stubServiceListInteractor) private var interactor
@@ -51,11 +51,8 @@ struct ServiceListView: View {
   // MARK: Derived State
 
   private var selectedServiceType: Binding<ServiceType> {
-    $appState.userData.teacherFinder.selectedServiceType
-  }
-
-  private var serviceType: ServiceType {
-    appState.userData.teacherFinder.selectedServiceType
+    @Bindable var appState = appState
+    return $appState.userData.teacherFinder.selectedServiceType
   }
 
   // MARK: Appearance
@@ -65,6 +62,7 @@ struct ServiceListView: View {
   // MARK: View
 
   var body: some View {
+    @Bindable var appState = appState
     NavigationStack(path: $appState.routing.teacherFinderNavigationPath) {
       content
         .navigationDestination(for: AnyService.self) { service in
@@ -79,7 +77,7 @@ struct ServiceListView: View {
           }
         }
     }
-    .onChange(of: serviceType, initial: true, loadMatchedServiceList)
+    .onChange(of: selectedServiceType.wrappedValue, initial: true, loadMatchedServiceList)
     .fullScreenCover(isPresented: $isShowingLessonFilterSettings) {
       LessonFilterSettingView(lessonFilter: lessonFilter)
     }
@@ -111,7 +109,7 @@ struct ServiceListView: View {
         .onChanges(of: selectedListType, action: loadMatchedServiceList)
 
         FilterListRow(
-          serviceType: serviceType,
+          serviceType: selectedServiceType.wrappedValue,
           isShowingLessonFilterSettings: $isShowingLessonFilterSettings,
           isShowingAccompanistFilterSettings: $isShowingAccompanistFilterSettings,
           isShowingScoreCreationFilterSettings: $isShowingScoreCreationFilterSettings,
@@ -168,7 +166,7 @@ struct ServiceListView: View {
     case .all:
       interactor.load(
         $serviceList,
-        for: serviceType
+        for: selectedServiceType.wrappedValue
       )
     case .favorite:
       interactor.loadFavoriteServices($serviceList)

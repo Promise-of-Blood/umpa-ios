@@ -12,7 +12,7 @@ import SwiftUI
 struct UmpaApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-  @InjectedObject(\.appState) private var appState
+  @State private var appState = Container.shared.appState()
 
 #if DEBUG
   @Injected(\.mockAppInteractor) // Preview 에도 사용됨
@@ -31,6 +31,7 @@ struct UmpaApp: App {
   var body: some Scene {
     WindowGroup {
       mainWindow
+        .environment(\.appState, appState)
         .onOpenURL(perform: handleUrl)
         .task(restorePreviousSignIn)
     }
@@ -48,6 +49,10 @@ struct UmpaApp: App {
       SplashView()
     }
   }
+}
+
+extension EnvironmentValues {
+  @Entry var appState: AppState = Container.shared.appState()
 }
 
 // MARK: - Private Methods

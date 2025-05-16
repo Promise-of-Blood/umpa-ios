@@ -124,8 +124,7 @@ private struct DreamCollegesSelectionGroup: View {
 
 private struct CollegeSearchView: View {
   @Environment(\.dismiss) private var dismiss
-
-  @Injected(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   @State private var searchQuery: String = ""
 

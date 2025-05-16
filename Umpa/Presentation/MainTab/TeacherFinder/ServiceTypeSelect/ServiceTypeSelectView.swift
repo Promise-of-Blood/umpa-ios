@@ -39,7 +39,7 @@ struct ServiceTypeSelectView: View {
 }
 
 private struct ServiceTypeCard: View {
-  @Injected(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   let serviceType: ServiceType
 

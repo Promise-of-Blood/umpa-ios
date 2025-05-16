@@ -76,7 +76,7 @@ struct TeacherHomeView: View {
 }
 
 private struct TeacherFindingSection: View {
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   @State private var currentIndex = 0
 

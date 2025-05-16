@@ -14,7 +14,7 @@ struct UserTypeSelectionView: View {
 
   @EnvironmentObject private var preSignUpData: PreSignUpData
 
-  @Injected(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   @State private var showAlert = false
 

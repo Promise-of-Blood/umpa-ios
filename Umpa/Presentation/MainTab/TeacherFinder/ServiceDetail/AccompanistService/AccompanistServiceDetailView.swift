@@ -26,7 +26,7 @@ struct AccompanistServiceDetailView: View {
     }
   }
 
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
 #if DEBUG
   @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
@@ -60,7 +60,9 @@ struct AccompanistServiceDetailView: View {
       .toolbar(.hidden, for: .tabBar)
   }
 
+  @ViewBuilder
   var content: some View {
+    @Bindable var appState = appState
     ZStack(alignment: .bottom) {
       ScrollView {
         LazyVStack(spacing: fs(0), pinnedViews: .sectionHeaders) {

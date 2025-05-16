@@ -6,7 +6,7 @@ import SwiftUI
 import UmpaUIKit
 
 struct ChatView: View {
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
 #if DEBUG
   @Injected(\.stubChatInteractor) private var chatInteractor
@@ -21,6 +21,7 @@ struct ChatView: View {
   }
 
   var body: some View {
+    @Bindable var appState = appState
     NavigationStack(path: $appState.routing.chatNavigationPath) {
       content
         .navigationDestination(for: ChatRoom.self) { chatRoom in
@@ -65,7 +66,7 @@ struct ChatView: View {
 
 #if DEBUG
 #Preview {
-  @Injected(\.appState) var appState
+  @Previewable @Environment(\.appState) var appState
   appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
   return ChatView()

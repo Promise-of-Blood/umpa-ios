@@ -8,7 +8,7 @@ import SwiftUI
 import UmpaUIKit
 
 struct CollegeSelectView: View {
-  @State private var searchQuery: String = ""
+  @State private var searchQuery: String = "대"
 
   @FocusState private var isSearchFieldFocused: Bool
 
@@ -141,7 +141,7 @@ private struct CollegeChip: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
   @Previewable @State var selectedColleges: [College] = []
-  @Injected(\.appState) var appState
+  @Previewable @Environment(\.appState) var appState
 
   CollegeSelectView(collegeList: appState.appData.collegeList, selectedColleges: $selectedColleges)
 }

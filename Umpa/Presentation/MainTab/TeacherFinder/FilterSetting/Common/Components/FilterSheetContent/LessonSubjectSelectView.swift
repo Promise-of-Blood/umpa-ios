@@ -6,7 +6,7 @@ import SwiftUI
 import UmpaUIKit
 
 struct LessonSubjectSelectView: View {
-  @Injected(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   @Binding var editingSelectedSubjects: Set<LessonSubject>
 

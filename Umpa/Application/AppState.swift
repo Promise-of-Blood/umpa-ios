@@ -5,24 +5,26 @@ import Domain
 import Foundation
 import SwiftUI
 
-final class AppState: ObservableObject {
+@Observable
+final class AppState {
   /// 사용자와 연관된 데이터.
-  @Published var userData = UserData()
+  var userData = UserData()
 
   /// 앱 실행에 필요한 데이터. 대부분 앱 시작 시 한 번만 받아오면 되는 데이터들.
-  @Published var appData = AppData()
+  var appData = AppData()
 
   /// 앱의 라우팅 상태.
-  @Published var routing = Routing()
+  var routing = Routing()
 
   /// 앱 설정, 앱의 전역 상태 등.
-  @Published var system = System()
+  var system = System()
 }
 
 // MARK: - Routing
 
 extension AppState {
-  struct Routing {
+  @Observable
+  final class Routing {
     var currentTab: MainViewTabType = .teacherFinder
     var chatNavigationPath = NavigationPath()
     var teacherFinderNavigationPath = NavigationPath()
@@ -33,7 +35,7 @@ extension AppState {
 
     fileprivate init() {}
 
-    mutating func reset() {
+    func reset() {
       currentTab = .teacherFinder
       chatNavigationPath = NavigationPath()
       teacherFinderNavigationPath = NavigationPath()
@@ -55,13 +57,14 @@ enum MainViewTabType: Int {
 // MARK: - UserData
 
 extension AppState {
-  struct UserData {
+  @Observable
+  final class UserData {
     var teacherFinder = TeacherFinderData()
     var loginInfo = LoginInfo()
 
     fileprivate init() {}
 
-    mutating func reset() {
+    func reset() {
       teacherFinder = TeacherFinderData()
       loginInfo = LoginInfo()
     }
@@ -69,15 +72,19 @@ extension AppState {
 }
 
 extension AppState.UserData {
-  struct TeacherFinderData {
+  @Observable
+  final class TeacherFinderData {
     var selectedServiceType: ServiceType = .lesson
     var selectedSubject: LessonSubject?
     var hasDisplayedServiceTypeSelectOnBoarding = false
+
     fileprivate init() {}
   }
 
-  struct LoginInfo {
+  @Observable
+  final class LoginInfo {
     var currentUser: AnyUser?
+
     fileprivate init() {}
   }
 }
@@ -85,7 +92,8 @@ extension AppState.UserData {
 // MARK: - AppData
 
 extension AppState {
-  struct AppData {
+  @Observable
+  final class AppData {
     var majorList: [Major] = []
     var collegeList: [College] = []
     var regionList: [RegionalLocalGovernment: [BasicLocalGovernment]] = [:]
@@ -98,7 +106,8 @@ extension AppState {
 // MARK: - System
 
 extension AppState {
-  struct System {
+  @Observable
+  final class System {
     var isSplashFinished = false
     var isChatNotificationEnabled = false
     var appVersion: String = ""

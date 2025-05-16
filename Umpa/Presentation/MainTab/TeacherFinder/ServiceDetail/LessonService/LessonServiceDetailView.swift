@@ -27,7 +27,7 @@ struct LessonServiceDetailView: View {
     }
   }
 
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
 #if DEBUG
   @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor
@@ -63,6 +63,7 @@ struct LessonServiceDetailView: View {
 
   @ViewBuilder
   var content: some View {
+    @Bindable var appState = appState
     ZStack(alignment: .bottom) {
       ScrollView {
         LazyVStack(spacing: fs(0), pinnedViews: .sectionHeaders) {
@@ -426,12 +427,8 @@ private extension TrialPolicy {
 
 #Preview {
 #if DEBUG
-  @Injected(\.appState) var appState
-  appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
-
-  return
-    NavigationStack {
-      LessonServiceDetailView(service: .sample0)
-    }
+  NavigationStack {
+    LessonServiceDetailView(service: .sample0)
+  }
 #endif
 }

@@ -6,7 +6,7 @@ import SwiftUI
 import UmpaUIKit
 
 struct UmpaRegionSelector: View {
-  @Injected(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   @Binding var selectedRegions: [Region]
 

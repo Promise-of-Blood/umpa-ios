@@ -23,8 +23,8 @@ struct LoginView: View {
   }
 
   @Environment(\.authorizationController) private var authorizationController
+  @Environment(\.appState) private var appState
 
-  @InjectedObject(\.appState) private var appState
 #if DEBUG
   @Injected(\.mockLoginInteractor)
 #else
@@ -39,6 +39,7 @@ struct LoginView: View {
   private let socialLoginButtonSize: CGFloat = fs(60)
 
   var body: some View {
+    @Bindable var appState = appState
     NavigationStack(path: $appState.routing.loginNavigationPath) {
       content
         .navigationDestination(for: NavigationDestination.self) {

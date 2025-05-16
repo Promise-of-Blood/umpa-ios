@@ -5,13 +5,15 @@ import Factory
 import SwiftUI
 
 struct MainTabView: View {
-  @InjectedObject(\.appState) private var appState
+  @Environment(\.appState) private var appState
 
   var body: some View {
     content
   }
 
+  @ViewBuilder
   var content: some View {
+    @Bindable var appState = appState
     TabView(selection: $appState.routing.currentTab) {
       if appState.userData.loginInfo.isTeacher {
         TeacherHomeView()
@@ -86,7 +88,7 @@ extension MainViewTabType {
 
 #if DEBUG
 #Preview {
-  @Injected(\.appState) var appState
+  @Previewable @Environment(\.appState) var appState
   appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
   return MainTabView()
