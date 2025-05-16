@@ -103,6 +103,26 @@ extension AppState {
     var isChatNotificationEnabled = false
     var appVersion: String = ""
 
+    let regionalLocalGovernmentListOrder: [String: Int] = [
+      "서울": 0,
+      "인천": 1,
+      "부산": 2,
+      "대구": 3,
+      "광주": 4,
+      "대전": 5,
+      "울산": 6,
+      "세종": 7,
+      "경기": 8,
+      "강원": 9,
+      "충북": 10,
+      "충남": 11,
+      "전북": 12,
+      "전남": 13,
+      "경북": 14,
+      "경남": 15,
+      "제주": 16,
+    ]
+
     fileprivate init() {
       let appVersion = Bundle.main.infoPlist.string(forKey: .CFBundleShortVersionString)
       self.appVersion = appVersion

@@ -11,8 +11,12 @@
 		DA1E76942DAF78FE001FDAB3 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = DA1E76932DAF78FE001FDAB3 /* Mockable */; };
 		DA1E76962DAF792A001FDAB3 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = DA1E76952DAF792A001FDAB3 /* Mockable */; };
 		DA1E76982DAF794E001FDAB3 /* Mockable in Frameworks */ = {isa = PBXBuildFile; productRef = DA1E76972DAF794E001FDAB3 /* Mockable */; };
+		DA2EBE3B2DD4DA490026FAB1 /* UmpaUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */; };
+		DA2EBE3C2DD4DA490026FAB1 /* UmpaUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA7E35272D8D5B01001DD6AA /* DataAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* DataAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA7E352F2D8D5B5D001DD6AA /* DataAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA7E35202D8D5B01001DD6AA /* DataAccess.framework */; };
+		DA8353472DD6F91B002AACDA /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; };
+		DA8353482DD6F91B002AACDA /* Core.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB64B742D89CBB400319429 /* Core.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA9E60C32D902959009319A0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DA9E60C22D902959009319A0 /* Factory */; };
 		DAA0639F2DB3AABF006F8B68 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DAA0639E2DB3AABF006F8B68 /* KakaoSDK */; };
 		DAA063A12DB3AABF006F8B68 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAA063A02DB3AABF006F8B68 /* KakaoSDKAuth */; };
@@ -51,12 +55,26 @@
 			remoteGlobalIDString = 0C9CD41B2D31062B003F4455;
 			remoteInfo = Umpa;
 		};
+		DA2EBE392DD4DA490026FAB1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA2EBE342DD4DA490026FAB1;
+			remoteInfo = UmpaUIKit;
+		};
 		DA7E35302D8D5B5D001DD6AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DA7E351F2D8D5B01001DD6AA;
 			remoteInfo = Networking;
+		};
+		DA8353492DD6F91B002AACDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAB64B732D89CBB400319429;
+			remoteInfo = Core;
 		};
 		DAB64B612D89CA5A00319429 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -103,6 +121,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		DA83534B2DD6F91B002AACDA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA8353482DD6F91B002AACDA /* Core.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB64B692D89CA5A00319429 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -111,6 +140,7 @@
 			files = (
 				DAB7199D2DA6363800F32BE2 /* Domain.framework in Embed Frameworks */,
 				DAB64B642D89CA5A00319429 /* Components.framework in Embed Frameworks */,
+				DA2EBE3C2DD4DA490026FAB1 /* UmpaUIKit.framework in Embed Frameworks */,
 				DAB64B7B2D89CBB400319429 /* Core.framework in Embed Frameworks */,
 				DA7E35272D8D5B01001DD6AA /* DataAccess.framework in Embed Frameworks */,
 			);
@@ -146,6 +176,7 @@
 		0C9CD41C2D31062B003F4455 /* Umpa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Umpa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9CD42C2D31062D003F4455 /* UmpaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UmpaUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7E35202D8D5B01001DD6AA /* DataAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB64B5D2D89CA5A00319429 /* Components.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Components.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB64B742D89CBB400319429 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -232,6 +263,11 @@
 			path = Umpa;
 			sourceTree = "<group>";
 		};
+		DA2EBE362DD4DA490026FAB1 /* UmpaUIKit */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = UmpaUIKit;
+			sourceTree = "<group>";
+		};
 		DA376F892DA806F4002FE110 /* Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -284,6 +320,7 @@
 				DAA0639F2DB3AABF006F8B68 /* KakaoSDK in Frameworks */,
 				DAA6527E2DB3F16000B218E6 /* GoogleSignIn in Frameworks */,
 				DAA652802DB3F16000B218E6 /* GoogleSignInSwift in Frameworks */,
+				DA2EBE3B2DD4DA490026FAB1 /* UmpaUIKit.framework in Frameworks */,
 				DA7E352F2D8D5B5D001DD6AA /* DataAccess.framework in Frameworks */,
 				DA1E76982DAF794E001FDAB3 /* Mockable in Frameworks */,
 				DAB5DFE82DBA46E70075D9BC /* SFSafeSymbols in Frameworks */,
@@ -308,6 +345,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA2EBE322DD4DA490026FAB1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA8353472DD6F91B002AACDA /* Core.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +400,7 @@
 				DAB64B752D89CBB400319429 /* Core */,
 				DAB719972DA6363800F32BE2 /* Domain */,
 				DA7E35212D8D5B01001DD6AA /* DataAccess */,
+				DA2EBE362DD4DA490026FAB1 /* UmpaUIKit */,
 				0C9CD41E2D31062B003F4455 /* Umpa */,
 				DA376F892DA806F4002FE110 /* Tests */,
 				DAB64B802D89CBBE00319429 /* Frameworks */,
@@ -372,6 +418,7 @@
 				DAB64B742D89CBB400319429 /* Core.framework */,
 				DA7E35202D8D5B01001DD6AA /* DataAccess.framework */,
 				DAB719962DA6363800F32BE2 /* Domain.framework */,
+				DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -386,6 +433,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		DA2EBE302DD4DA490026FAB1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA7E351B2D8D5B01001DD6AA /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -433,6 +487,7 @@
 				DAB64B792D89CBB400319429 /* PBXTargetDependency */,
 				DA7E35312D8D5B5D001DD6AA /* PBXTargetDependency */,
 				DAB7199B2DA6363800F32BE2 /* PBXTargetDependency */,
+				DA2EBE3A2DD4DA490026FAB1 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0C9CD41E2D31062B003F4455 /* Umpa */,
@@ -493,6 +548,31 @@
 			productName = UmpaUITests;
 			productReference = 0C9CD4362D31062D003F4455 /* UmpaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DA2EBE342DD4DA490026FAB1 /* UmpaUIKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA2EBE3D2DD4DA490026FAB1 /* Build configuration list for PBXNativeTarget "UmpaUIKit" */;
+			buildPhases = (
+				DA2EBE302DD4DA490026FAB1 /* Headers */,
+				DA2EBE312DD4DA490026FAB1 /* Sources */,
+				DA2EBE322DD4DA490026FAB1 /* Frameworks */,
+				DA2EBE332DD4DA490026FAB1 /* Resources */,
+				DA83534B2DD6F91B002AACDA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA83534A2DD6F91B002AACDA /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DA2EBE362DD4DA490026FAB1 /* UmpaUIKit */,
+			);
+			name = UmpaUIKit;
+			packageProductDependencies = (
+			);
+			productName = UmpaUIKit;
+			productReference = DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		DA7E351F2D8D5B01001DD6AA /* DataAccess */ = {
 			isa = PBXNativeTarget;
@@ -615,6 +695,10 @@
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 0C9CD41B2D31062B003F4455;
 					};
+					DA2EBE342DD4DA490026FAB1 = {
+						CreatedOnToolsVersion = 16.3;
+						LastSwiftMigration = 1630;
+					};
 					DA7E351F2D8D5B01001DD6AA = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -658,6 +742,7 @@
 				DAB64B732D89CBB400319429 /* Core */,
 				DA7E351F2D8D5B01001DD6AA /* DataAccess */,
 				DAB719952DA6363800F32BE2 /* Domain */,
+				DA2EBE342DD4DA490026FAB1 /* UmpaUIKit */,
 			);
 		};
 /* End PBXProject section */
@@ -678,6 +763,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0C9CD4342D31062D003F4455 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA2EBE332DD4DA490026FAB1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -736,6 +828,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA2EBE312DD4DA490026FAB1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DA7E351C2D8D5B01001DD6AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -777,10 +876,20 @@
 			target = 0C9CD41B2D31062B003F4455 /* Umpa */;
 			targetProxy = DA1E71672DAA3A50001FDAB3 /* PBXContainerItemProxy */;
 		};
+		DA2EBE3A2DD4DA490026FAB1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA2EBE342DD4DA490026FAB1 /* UmpaUIKit */;
+			targetProxy = DA2EBE392DD4DA490026FAB1 /* PBXContainerItemProxy */;
+		};
 		DA7E35312D8D5B5D001DD6AA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DA7E351F2D8D5B01001DD6AA /* DataAccess */;
 			targetProxy = DA7E35302D8D5B5D001DD6AA /* PBXContainerItemProxy */;
+		};
+		DA83534A2DD6F91B002AACDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAB64B732D89CBB400319429 /* Core */;
+			targetProxy = DA8353492DD6F91B002AACDA /* PBXContainerItemProxy */;
 		};
 		DAB64B622D89CA5A00319429 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1117,6 +1226,96 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Umpa;
+			};
+			name = Release;
+		};
+		DA2EBE3E2DD4DA490026FAB1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.UmpaUIKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DA2EBE3F2DD4DA490026FAB1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.UmpaUIKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1531,6 +1730,15 @@
 			buildConfigurations = (
 				0C9CD4472D31062D003F4455 /* Debug */,
 				0C9CD4482D31062D003F4455 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA2EBE3D2DD4DA490026FAB1 /* Build configuration list for PBXNativeTarget "UmpaUIKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA2EBE3E2DD4DA490026FAB1 /* Debug */,
+				DA2EBE3F2DD4DA490026FAB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
