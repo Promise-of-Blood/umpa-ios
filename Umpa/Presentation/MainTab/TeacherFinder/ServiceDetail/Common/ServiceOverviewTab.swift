@@ -1,6 +1,7 @@
 // Created for Umpa in 2025
 
 import SwiftUI
+import UmpaUIKit
 
 protocol ServiceOverviewTab: View {}
 

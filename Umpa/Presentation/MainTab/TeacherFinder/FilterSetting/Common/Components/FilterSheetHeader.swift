@@ -2,28 +2,29 @@
 
 import SFSafeSymbols
 import SwiftUI
+import UmpaUIKit
 
 struct FilterSheetHeader: View {
-    let filterEntry: any FilterEntry
-    let dismissAction: () -> Void
+  let filterEntry: any FilterEntry
+  let dismissAction: () -> Void
 
-    var body: some View {
-        ZStack(alignment: .trailing) {
-            Text(filterEntry.name)
-                .font(.pretendardBold(size: fs(20)))
-                .foregroundStyle(.black)
-                .frame(maxWidth: .infinity)
+  var body: some View {
+    ZStack(alignment: .trailing) {
+      Text(filterEntry.name)
+        .font(.pretendardBold(size: fs(20)))
+        .foregroundStyle(.black)
+        .frame(maxWidth: .infinity)
 
-            Button(action: dismissAction) {
-                Image(systemSymbol: .xmark)
-                    .font(.system(size: fs(20), weight: .medium))
-                    .foregroundStyle(.black)
-            }
-        }
-        .padding(.horizontal, fs(20))
+      Button(action: dismissAction) {
+        Image(systemSymbol: .xmark)
+          .font(.system(size: fs(20), weight: .medium))
+          .foregroundStyle(.black)
+      }
     }
+    .padding(.horizontal, fs(20))
+  }
 }
 
 #Preview {
-    FilterSheetHeader(filterEntry: LessonFilterEntry.college, dismissAction: {})
+  FilterSheetHeader(filterEntry: LessonFilterEntry.college, dismissAction: {})
 }

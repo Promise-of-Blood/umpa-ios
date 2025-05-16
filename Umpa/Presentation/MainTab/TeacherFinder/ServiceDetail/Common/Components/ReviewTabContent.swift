@@ -3,6 +3,7 @@
 import Core
 import Domain
 import SwiftUI
+import UmpaUIKit
 
 struct ReviewTabContent<S: Service>: View {
   enum OrderType: Hashable, CaseIterable {

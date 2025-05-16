@@ -1,100 +1,100 @@
 // Created for Umpa in 2025
 
-import Components
 import Domain
 import Factory
 import SwiftUI
+import UmpaUIKit
 
 private let contentHorizontalPadding: CGFloat = fs(28)
 
 struct TeacherHomeView: View {
-    #if DEBUG
-    @Injected(\.stubTeacherHomeInteractor) private var teacherHomeInteractor
-    #else
-    @Injected(\.teacherHomeInteractor) private var teacherHomeInteractor
-    #endif
+#if DEBUG
+  @Injected(\.stubTeacherHomeInteractor) private var teacherHomeInteractor
+#else
+  @Injected(\.teacherHomeInteractor) private var teacherHomeInteractor
+#endif
 
-    @State private var isPresentingMyProfile = false
+  @State private var isPresentingMyProfile = false
 
-    var body: some View {
-        NavigationStack {
-            content
-        }
+  var body: some View {
+    NavigationStack {
+      content
     }
+  }
 
-    var content: some View {
-        ZStack(alignment: .bottomTrailing) {
-            ScrollView {
-                VStack(spacing: fs(34)) {
-                    header
-                    homeContent
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, fs(20))
-            }
-            .padding(.top, 1) // 네비게이션 바 유지를 위함
+  var content: some View {
+    ZStack(alignment: .bottomTrailing) {
+      ScrollView {
+        VStack(spacing: fs(34)) {
+          header
+          homeContent
         }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, fs(20))
+      }
+      .padding(.top, 1) // 네비게이션 바 유지를 위함
     }
+  }
 
-    var header: some View {
-        HStack(alignment: .bottom) {
-            Image(.umpaLogo)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: fs(87))
-            Spacer()
-            HStack(spacing: fs(12)) {
-                Button(action: {
-                    // TODO: Implement
-                }) {
-                    Image(.notificationIcon)
-                }
-                Button(action: {
-                    isPresentingMyProfile.toggle()
-                }) {
-                    Image(.profileIcon)
-                        .fullScreenCover(isPresented: $isPresentingMyProfile) {
-                            MyProfileView()
-                        }
-                }
+  var header: some View {
+    HStack(alignment: .bottom) {
+      Image(.umpaLogo)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+        .frame(width: fs(87))
+      Spacer()
+      HStack(spacing: fs(12)) {
+        Button(action: {
+          // TODO: Implement
+        }) {
+          Image(.notificationIcon)
+        }
+        Button(action: {
+          isPresentingMyProfile.toggle()
+        }) {
+          Image(.profileIcon)
+            .fullScreenCover(isPresented: $isPresentingMyProfile) {
+              MyProfileView()
             }
         }
-        .padding(.horizontal, contentHorizontalPadding)
+      }
     }
+    .padding(.horizontal, contentHorizontalPadding)
+  }
 
-    var homeContent: some View {
-        VStack(spacing: fs(30)) {
-            TeacherFindingSection()
-            Banner(bannerResources: [
-                .bannerSample1,
-                .bannerSample1,
-                .bannerSample1,
-            ])
-            .padding(.horizontal, contentHorizontalPadding)
-        }
+  var homeContent: some View {
+    VStack(spacing: fs(30)) {
+      TeacherFindingSection()
+      Banner(bannerResources: [
+        .bannerSample1,
+        .bannerSample1,
+        .bannerSample1,
+      ])
+      .padding(.horizontal, contentHorizontalPadding)
     }
+  }
 }
 
 private struct TeacherFindingSection: View {
-    @InjectedObject(\.appState) private var appState
+  @InjectedObject(\.appState) private var appState
 
-    @State private var currentIndex = 0
+  @State private var currentIndex = 0
 
-    private let gridRowCount = 2
-    private let gridColumnCount = 5
+  private let gridRowCount = 2
+  private let gridColumnCount = 5
 
-    private var itemsPerPage: Int { gridRowCount * gridColumnCount }
+  private var itemsPerPage: Int { gridRowCount * gridColumnCount }
 
 //    private var pageCount: Int {
 //        let shortcutCount = LessonSubject.allCases.count + 1 // 전체보기 버튼 +1
 //        return Int(ceil(Double(shortcutCount) / Double(itemsPerPage)))
 //    }
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: fs(15)) {
-            Text("선생님 찾기")
-                .font(UmpaFont.h2Kr)
-                .padding(.horizontal, contentHorizontalPadding)
+  var body: some View {
+    VStack(alignment: .leading, spacing: fs(15)) {
+      Text("선생님 찾기")
+        .font(UmpaFont.h2Kr)
+        .padding(.horizontal, contentHorizontalPadding)
 //            VStack(spacing: fs(12)) {
 //                carouselContent
 //                DotsPagination(
@@ -103,8 +103,8 @@ private struct TeacherFindingSection: View {
 //                    appearance: .default
 //                )
 //            }
-        }
     }
+  }
 
 //    var carouselContent: some View {
 //        Carousel(currentIndex: $currentIndex) {
@@ -157,51 +157,51 @@ private struct TeacherFindingSection: View {
 }
 
 #Preview {
-    TabView {
-        TeacherHomeView()
-            .tabItem {
-                MainTabView.TabLabel(category: .teacherHome)
-            }
-            .tag(0)
-        Color.blue
-            .tabItem {
-                MainTabView.TabLabel(category: .teacherFinder)
-            }
-            .tag(1)
-        Color.yellow
-            .tabItem {
-                MainTabView.TabLabel(category: .community)
-            }
-            .tag(2)
-        Color.red
-            .tabItem {
-                MainTabView.TabLabel(category: .chat)
-            }
-            .tag(3)
-    }
+  TabView {
+    TeacherHomeView()
+      .tabItem {
+        MainTabView.TabLabel(category: .teacherHome)
+      }
+      .tag(0)
+    Color.blue
+      .tabItem {
+        MainTabView.TabLabel(category: .teacherFinder)
+      }
+      .tag(1)
+    Color.yellow
+      .tabItem {
+        MainTabView.TabLabel(category: .community)
+      }
+      .tag(2)
+    Color.red
+      .tabItem {
+        MainTabView.TabLabel(category: .chat)
+      }
+      .tag(3)
+  }
 }
 
 #Preview("iPhoneSE", traits: .iPhoneSE) {
-    TabView {
-        TeacherHomeView()
-            .tabItem {
-                MainTabView.TabLabel(category: .teacherHome)
-            }
-            .tag(0)
-        Color.blue
-            .tabItem {
-                MainTabView.TabLabel(category: .teacherFinder)
-            }
-            .tag(1)
-        Color.yellow
-            .tabItem {
-                MainTabView.TabLabel(category: .community)
-            }
-            .tag(2)
-        Color.red
-            .tabItem {
-                MainTabView.TabLabel(category: .chat)
-            }
-            .tag(3)
-    }
+  TabView {
+    TeacherHomeView()
+      .tabItem {
+        MainTabView.TabLabel(category: .teacherHome)
+      }
+      .tag(0)
+    Color.blue
+      .tabItem {
+        MainTabView.TabLabel(category: .teacherFinder)
+      }
+      .tag(1)
+    Color.yellow
+      .tabItem {
+        MainTabView.TabLabel(category: .community)
+      }
+      .tag(2)
+    Color.red
+      .tabItem {
+        MainTabView.TabLabel(category: .chat)
+      }
+      .tag(3)
+  }
 }

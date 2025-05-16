@@ -1,10 +1,10 @@
 // Created for Umpa in 2025
 
-import Components
 import Core
 import Domain
 import Factory
 import SwiftUI
+import UmpaUIKit
 
 struct LessonServiceDetailView: View {
   enum TabItem {

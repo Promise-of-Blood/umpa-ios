@@ -1,11 +1,11 @@
 // Created for Umpa in 2025
 
-import Components
 import Core
 import Domain
 import Factory
 import SFSafeSymbols
 import SwiftUI
+import UmpaUIKit
 
 struct ServiceListView: View {
   enum ListType: Int, CaseIterable {
@@ -336,7 +336,7 @@ struct ServiceListItem: View {
     let title: String
     let teacherName: String
     let region: String
-    let pricePerUnit: UnitPriceView.V1.Model
+    let pricePerUnit: UnitPriceView.Model
     let image: URL?
     let rating: Double
   }
@@ -396,7 +396,7 @@ struct ServiceListItem: View {
 
 extension Service {
   fileprivate func toServiceListItemModel() -> ServiceListItem.Model {
-    let unitType: UnitPriceView.V1.UnitType = switch type {
+    let unitType: UnitPriceView.UnitType = switch type {
     case .lesson: .hour
     case .accompanist: .school
     case .scoreCreation: .sheet
@@ -431,7 +431,7 @@ extension Service {
       title: title,
       teacherName: author.name,
       region: author.region.description,
-      pricePerUnit: UnitPriceView.V1.Model(
+      pricePerUnit: UnitPriceView.Model(
         price: price,
         unitType: unitType
       ),

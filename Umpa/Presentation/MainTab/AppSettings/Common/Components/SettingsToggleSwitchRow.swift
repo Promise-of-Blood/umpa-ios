@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
-import Components
 import SwiftUI
+import UmpaUIKit
 
 struct SettingsToggleSwitchRow: View {
   let text: String

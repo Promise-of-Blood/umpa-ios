@@ -6,108 +6,109 @@ import Domain
 import Foundation
 import Mockable
 import SwiftUICore
+import UmpaUIKit
 
 @MainActor
 protocol StudentSignUpInteractor {
-    func signUp(with model: StudentSignUpModel)
-    func performDuplicateCheck(
-        username: String,
-        isShowingUsernameAlert: Binding<Bool>,
-        isDuplicatedUsername: ValueLoadableBinding<Bool?>,
-    )
+  func signUp(with model: StudentSignUpModel)
+  func performDuplicateCheck(
+    username: String,
+    isShowingUsernameAlert: Binding<Bool>,
+    isDuplicatedUsername: ValueLoadableBinding<Bool?>,
+  )
 }
 
 struct DefaultStudentSignUpInteractor {
-    private let appState: AppState
+  private let appState: AppState
 
-    private let studentSignUp: StudentSignUpUseCase
-    private let checkAvailableUsername: CheckAvailableUsernameUseCase
+  private let studentSignUp: StudentSignUpUseCase
+  private let checkAvailableUsername: CheckAvailableUsernameUseCase
 
-    private let cancelBag = CancelBag()
+  private let cancelBag = CancelBag()
 
-    init(appState: AppState, studentSignUpUseCase: StudentSignUpUseCase, checkAvailableUsername: CheckAvailableUsernameUseCase) {
-        self.appState = appState
-        self.studentSignUp = studentSignUpUseCase
-        self.checkAvailableUsername = checkAvailableUsername
+  init(appState: AppState, studentSignUpUseCase: StudentSignUpUseCase, checkAvailableUsername: CheckAvailableUsernameUseCase) {
+    self.appState = appState
+    studentSignUp = studentSignUpUseCase
+    self.checkAvailableUsername = checkAvailableUsername
 
-        #if DEBUG
-        setupMockBehavior()
-        #endif
+#if DEBUG
+    setupMockBehavior()
+#endif
+  }
+
+#if DEBUG
+  private func setupMockBehavior() {
+    if let mockSignUp = studentSignUp as? MockStudentSignUpUseCase {
+      given(mockSignUp)
+        .callAsFunction(with: .any)
+        .willReturn(
+          Just(Student.sample0)
+            .delay(for: 1, scheduler: DispatchQueue.main)
+            .setFailureType(to: Error.self)
+            .eraseToAnyPublisher()
+        )
     }
-
-    #if DEBUG
-    private func setupMockBehavior() {
-        if let mockSignUp = studentSignUp as? MockStudentSignUpUseCase {
-            given(mockSignUp)
-                .callAsFunction(with: .any)
-                .willReturn(
-                    Just(Student.sample0)
-                        .delay(for: 1, scheduler: DispatchQueue.main)
-                        .setFailureType(to: Error.self)
-                        .eraseToAnyPublisher()
-                )
-        }
-        if let mockCheckAvailableUsername = checkAvailableUsername as? MockCheckAvailableUsernameUseCase {
-            given(mockCheckAvailableUsername)
-                .callAsFunction(.any)
-                .willProduce { username in
-                    if username == "A" {
-                        return Just(false)
-                            .delay(for: 1, scheduler: DispatchQueue.main)
-                            .setFailureType(to: Error.self)
-                            .eraseToAnyPublisher()
-                    } else {
-                        return Just(true)
-                            .delay(for: 1, scheduler: DispatchQueue.main)
-                            .setFailureType(to: Error.self)
-                            .eraseToAnyPublisher()
-                    }
-                }
+    if let mockCheckAvailableUsername = checkAvailableUsername as? MockCheckAvailableUsernameUseCase {
+      given(mockCheckAvailableUsername)
+        .callAsFunction(.any)
+        .willProduce { username in
+          if username == "A" {
+            Just(false)
+              .delay(for: 1, scheduler: DispatchQueue.main)
+              .setFailureType(to: Error.self)
+              .eraseToAnyPublisher()
+          } else {
+            Just(true)
+              .delay(for: 1, scheduler: DispatchQueue.main)
+              .setFailureType(to: Error.self)
+              .eraseToAnyPublisher()
+          }
         }
     }
-    #endif
+  }
+#endif
 }
 
 extension DefaultStudentSignUpInteractor: StudentSignUpInteractor {
-    func signUp(with model: StudentSignUpModel) {
-        #if DEBUG
-        UmpaLogger(category: .signUp).log("회원가입을 진행합니다 : \(model.debugDescription)", level: .debug)
-        #endif
+  func signUp(with model: StudentSignUpModel) {
+#if DEBUG
+    UmpaLogger(category: .signUp).log("회원가입을 진행합니다 : \(model.debugDescription)", level: .debug)
+#endif
 
-        guard let studentCreateData = model.toDomain() else {
-            // TODO: Handle exception - 뭔가 필요한 정보가 입력되지 않은 경우
-            return
+    guard let studentCreateData = model.toDomain() else {
+      // TODO: Handle exception - 뭔가 필요한 정보가 입력되지 않은 경우
+      return
+    }
+
+    studentSignUp(with: studentCreateData)
+      .sink { completion in
+        if let error = completion.error {
+          // TODO: Handle error
         }
+      } receiveValue: { [appState] student in
+        appState.userData.loginInfo.currentUser = student.eraseToAnyUser()
+      }
+      .store(in: cancelBag)
+  }
 
-        studentSignUp(with: studentCreateData)
-            .sink { completion in
-                if let error = completion.error {
-                    // TODO: Handle error
-                }
-            } receiveValue: { [appState] student in
-                appState.userData.loginInfo.currentUser = student.eraseToAnyUser()
-            }
-            .store(in: cancelBag)
-    }
+  func performDuplicateCheck(
+    username: String,
+    isShowingUsernameAlert: Binding<Bool>,
+    isDuplicatedUsername: ValueLoadableBinding<Bool?>,
+  ) {
+    let cancelBag = CancelBag()
 
-    func performDuplicateCheck(
-        username: String,
-        isShowingUsernameAlert: Binding<Bool>,
-        isDuplicatedUsername: ValueLoadableBinding<Bool?>,
-    ) {
-        let cancelBag = CancelBag()
+    isDuplicatedUsername.wrappedValue.setIsLoading(cancelBag: cancelBag)
 
-        isDuplicatedUsername.wrappedValue.setIsLoading(cancelBag: cancelBag)
-
-        checkAvailableUsername(username)
-            .sink { completion in
-                if completion.isError {
-                    // Handle error
-                }
-            } receiveValue: { isAvailable in
-                isShowingUsernameAlert.wrappedValue = isAvailable
-                isDuplicatedUsername.wrappedValue.value = !isAvailable
-            }
-            .store(in: cancelBag)
-    }
+    checkAvailableUsername(username)
+      .sink { completion in
+        if completion.isError {
+          // Handle error
+        }
+      } receiveValue: { isAvailable in
+        isShowingUsernameAlert.wrappedValue = isAvailable
+        isDuplicatedUsername.wrappedValue.value = !isAvailable
+      }
+      .store(in: cancelBag)
+  }
 }

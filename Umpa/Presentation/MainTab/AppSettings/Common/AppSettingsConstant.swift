@@ -2,6 +2,7 @@
 
 import Foundation
 import SwiftUI
+import UmpaUIKit
 
 enum AppSettingsConstant {
   static let rowHeight: CGFloat = fs(40)

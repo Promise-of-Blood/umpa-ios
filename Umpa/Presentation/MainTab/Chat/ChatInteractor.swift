@@ -5,67 +5,68 @@ import Core
 import Domain
 import Factory
 import SwiftUI
+import UmpaUIKit
 
 @MainActor
 protocol ChatInteractor {
-    /// 채팅방 목록을 로드합니다.
-    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>)
+  /// 채팅방 목록을 로드합니다.
+  func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>)
 
-    /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
-    func enterChatRoom(with id: ChatRoom.Id)
+  /// 채팅 목록 화면에서 주어진 `id`의 채팅방으로 이동합니다.
+  func enterChatRoom(with id: ChatRoom.Id)
 }
 
 struct DefaultChatInteractor {
-    private let appState: AppState
+  private let appState: AppState
 
-    private let chatRepository: ChatRepository
+  private let chatRepository: ChatRepository
 
-    private let cancelBag = CancelBag()
+  private let cancelBag = CancelBag()
 
-    init(appState: AppState, chatRepository: ChatRepository) {
-        self.appState = appState
-        self.chatRepository = chatRepository
-    }
+  init(appState: AppState, chatRepository: ChatRepository) {
+    self.appState = appState
+    self.chatRepository = chatRepository
+  }
 }
 
 extension DefaultChatInteractor: ChatInteractor {
-    func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>) {
-        chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
-        chatRepository.fetchChatRoomList()
-            .mapError { _ in
-                ChatInteractorError.fakeError
-            }
-            .sinkToLoadable(chatRoomList)
-            .store(in: cancelBag)
-    }
+  func load(_ chatRoomList: Binding<Loadable<[ChatRoom], ChatInteractorError>>) {
+    chatRoomList.wrappedValue.setIsLoading(cancelBag: cancelBag)
+    chatRepository.fetchChatRoomList()
+      .mapError { _ in
+        ChatInteractorError.fakeError
+      }
+      .sinkToLoadable(chatRoomList)
+      .store(in: cancelBag)
+  }
 
-    func enterChatRoom(with id: ChatRoom.Id) {
-        chatRepository.fetchChatRoom(by: id)
-            .sink { completion in
-                if let error = completion.error {
-                    // TODO: error 처리
-                }
-            } receiveValue: { [appState] chatRoom in
-                appState.routing.chatNavigationPath.append(chatRoom)
-            }
-            .store(in: cancelBag)
-    }
+  func enterChatRoom(with id: ChatRoom.Id) {
+    chatRepository.fetchChatRoom(by: id)
+      .sink { completion in
+        if let error = completion.error {
+          // TODO: error 처리
+        }
+      } receiveValue: { [appState] chatRoom in
+        appState.routing.chatNavigationPath.append(chatRoom)
+      }
+      .store(in: cancelBag)
+  }
 }
 
 enum ChatInteractorError: LocalizedError {
-    case fakeError
+  case fakeError
 
-    var errorDescription: String? {
-        switch self {
-        case .fakeError:
-            return "Fake Error errorDescription"
-        }
+  var errorDescription: String? {
+    switch self {
+    case .fakeError:
+      "Fake Error errorDescription"
     }
+  }
 
-    var recoverySuggestion: String? {
-        switch self {
-        case .fakeError:
-            return "Fake Error recoverySuggestion"
-        }
+  var recoverySuggestion: String? {
+    switch self {
+    case .fakeError:
+      "Fake Error recoverySuggestion"
     }
+  }
 }

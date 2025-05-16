@@ -45,7 +45,7 @@ public struct RegionSelector<C: RegionalLocalGovernment, R: BasicLocalGovernment
     selectedRegions: Binding<[(C, R)]>,
     regionalLocalGovernmentList: [C],
     regionDictionary: [C: [R]],
-    canMultiSelect: Bool = false,
+    canMultiSelect: Bool = true,
   ) {
     _selectedRegions = selectedRegions
     self.regionDictionary = regionDictionary

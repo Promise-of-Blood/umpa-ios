@@ -22,20 +22,20 @@ public enum UnitPriceView {
       }
     }
   }
+
+  public struct Model {
+    let price: Int
+    let unitType: UnitType
+
+    public init(price: Int, unitType: UnitType) {
+      self.price = price
+      self.unitType = unitType
+    }
+  }
 }
 
 extension UnitPriceView {
   public struct V1: View {
-    public struct Model {
-      let price: Int
-      let unitType: UnitType
-
-      public init(price: Int, unitType: UnitType) {
-        self.price = price
-        self.unitType = unitType
-      }
-    }
-
     public struct Appearance {
       let priceColor: Color
       let priceFontSize: CGFloat

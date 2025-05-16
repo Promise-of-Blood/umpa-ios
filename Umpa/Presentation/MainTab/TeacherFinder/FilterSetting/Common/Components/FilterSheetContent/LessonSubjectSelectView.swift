@@ -3,113 +3,114 @@
 import Domain
 import Factory
 import SwiftUI
+import UmpaUIKit
 
 struct LessonSubjectSelectView: View {
-    @Injected(\.appState) private var appState
+  @Injected(\.appState) private var appState
 
-    @Binding var editingSelectedSubjects: Set<LessonSubject>
+  @Binding var editingSelectedSubjects: Set<LessonSubject>
 
-    private var lessonSubjectFlatList: [LessonSubject] {
-        appState.appData.lessonSubjectList
+  private var lessonSubjectFlatList: [LessonSubject] {
+    appState.appData.lessonSubjectList
+  }
+
+  private let columnCount = 4
+  private var rowCount: Int {
+    Int(ceil(Double(lessonSubjectFlatList.count) / Double(columnCount)))
+  }
+
+  private var lessonSubjectGridList: [[LessonSubject]] {
+    var result: [[LessonSubject]] = []
+    for i in 0 ..< rowCount {
+      let startIndex = i * columnCount
+      let endIndex = min(startIndex + columnCount, lessonSubjectFlatList.count)
+      let subArray = Array(lessonSubjectFlatList[startIndex ..< endIndex])
+      result.append(subArray)
     }
+    return result
+  }
 
-    private let columnCount = 4
-    private var rowCount: Int {
-        Int(ceil(Double(lessonSubjectFlatList.count) / Double(columnCount)))
-    }
+  // MARK: View
 
-    private var lessonSubjectGridList: [[LessonSubject]] {
-        var result: [[LessonSubject]] = []
-        for i in 0 ..< rowCount {
-            let startIndex = i * columnCount
-            let endIndex = min(startIndex + columnCount, lessonSubjectFlatList.count)
-            let subArray = Array(lessonSubjectFlatList[startIndex ..< endIndex])
-            result.append(subArray)
-        }
-        return result
-    }
+  var body: some View {
+    content
+  }
 
-    // MARK: View
+  var content: some View {
+    subjectGrid
+  }
 
-    var body: some View {
-        content
-    }
-
-    var content: some View {
-        subjectGrid
-    }
-
-    var subjectGrid: some View {
-        Grid(verticalSpacing: fs(30)) {
-            ForEach(lessonSubjectGridList, id: \.self) { row in
-                GridRow {
-                    ForEach(row, id: \.self) { subject in
-                        LessonSubjectSelectButton(
-                            subject: subject,
-                            isSelected: editingSelectedSubjects.contains(subject),
-                        ) {
-                            didTapSubjectButton(subject: subject)
-                        }
-                        .frame(maxWidth: .infinity)
-                    }
-                }
+  var subjectGrid: some View {
+    Grid(verticalSpacing: fs(30)) {
+      ForEach(lessonSubjectGridList, id: \.self) { row in
+        GridRow {
+          ForEach(row, id: \.self) { subject in
+            LessonSubjectSelectButton(
+              subject: subject,
+              isSelected: editingSelectedSubjects.contains(subject),
+            ) {
+              didTapSubjectButton(subject: subject)
             }
+            .frame(maxWidth: .infinity)
+          }
         }
+      }
     }
+  }
 
-    // MARK: Private Methods
+  // MARK: Private Methods
 
-    private func didTapSubjectButton(subject: LessonSubject) {
-        if editingSelectedSubjects.contains(subject) {
-            editingSelectedSubjects.remove(subject)
-        } else {
-            editingSelectedSubjects.insert(subject)
-        }
+  private func didTapSubjectButton(subject: LessonSubject) {
+    if editingSelectedSubjects.contains(subject) {
+      editingSelectedSubjects.remove(subject)
+    } else {
+      editingSelectedSubjects.insert(subject)
     }
+  }
 }
 
 private struct LessonSubjectSelectButton: View {
-    let subject: LessonSubject
-    let isSelected: Bool
-    let action: () -> Void
+  let subject: LessonSubject
+  let isSelected: Bool
+  let action: () -> Void
 
-    private let iconSize: CGFloat = fs(26)
-    private let iconCornerRadius: CGFloat = fs(14)
-    private let buttonSize: CGFloat = fs(52)
+  private let iconSize: CGFloat = fs(26)
+  private let iconCornerRadius: CGFloat = fs(14)
+  private let buttonSize: CGFloat = fs(52)
 
-    var body: some View {
-        Button(action: action) {
-            VStack(spacing: fs(4)) {
-                Image(subject.imageResource)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: iconSize, height: iconSize)
-                    .padding(fs(12))
-                    .background(isSelected ? UmpaColor.lightBlue : .white)
-                    .innerRoundedStroke(
-                        isSelected ? UmpaColor.mainBlue : UmpaColor.lightLightGray,
-                        cornerRadius: iconCornerRadius,
-                        lineWidth: fs(1.6)
-                    )
-                    .clipShape(RoundedRectangle(cornerRadius: iconCornerRadius))
+  var body: some View {
+    Button(action: action) {
+      VStack(spacing: fs(4)) {
+        Image(subject.imageResource)
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: iconSize, height: iconSize)
+          .padding(fs(12))
+          .background(isSelected ? UmpaColor.lightBlue : .white)
+          .innerRoundedStroke(
+            isSelected ? UmpaColor.mainBlue : UmpaColor.lightLightGray,
+            cornerRadius: iconCornerRadius,
+            lineWidth: fs(1.6)
+          )
+          .clipShape(RoundedRectangle(cornerRadius: iconCornerRadius))
 
-                Text(subject.name)
-                    .font(.pretendardMedium(size: fs(12)))
-                    .foregroundStyle(UmpaColor.darkGray)
-                    .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-            .frame(width: buttonSize)
-        }
+        Text(subject.name)
+          .font(.pretendardMedium(size: fs(12)))
+          .foregroundStyle(UmpaColor.darkGray)
+          .lineLimit(1)
+          .frame(maxWidth: .infinity, alignment: .center)
+      }
+      .frame(width: buttonSize)
     }
+  }
 }
 
 private extension LessonSubject {
-    var imageResource: ImageResource {
-        ImageResource.seeAllIcon
-    }
+  var imageResource: ImageResource {
+    ImageResource.seeAllIcon
+  }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    LessonSubjectSelectView(editingSelectedSubjects: .constant([]))
+  LessonSubjectSelectView(editingSelectedSubjects: .constant([]))
 }

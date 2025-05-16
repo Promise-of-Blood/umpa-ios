@@ -3,6 +3,7 @@
 import AVKit
 import Domain
 import SwiftUI
+import UmpaUIKit
 
 struct SampleMusicPreviewTabContent: View {
   let sampleMusicList: [SampleMusic]

@@ -21,6 +21,14 @@ public struct MajorSelectionButton<Item: MajorItem>: View {
       .hidden()
   }
 
+  public init(major: Item, isSelected: Bool, action: @escaping () -> Void) {
+    self.major = major
+    self.isSelected = isSelected
+    self.action = action
+  }
+
+  // MARK: View
+
   public var body: some View {
     Button(action: action) {
       VStack(spacing: fs(4)) {

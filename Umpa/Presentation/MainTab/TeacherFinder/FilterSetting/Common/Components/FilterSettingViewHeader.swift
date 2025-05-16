@@ -2,29 +2,30 @@
 
 import SFSafeSymbols
 import SwiftUI
+import UmpaUIKit
 
 struct FilterSettingViewHeader: View {
-    @Environment(\.dismiss) private var dismiss
-    
-    let title: String
+  @Environment(\.dismiss) private var dismiss
 
-    var body: some View {
-        ZStack(alignment: .trailing) {
-            Text(title)
-                .font(.pretendardBold(size: fs(20)))
-                .foregroundStyle(UmpaColor.mainBlue)
-                .frame(maxWidth: .infinity)
-            Button(action: {
-                dismiss()
-            }) {
-                Image(systemSymbol: .xmark)
-                    .font(.system(size: fs(20), weight: .medium))
-                    .foregroundStyle(.black)
-            }
-        }
+  let title: String
+
+  var body: some View {
+    ZStack(alignment: .trailing) {
+      Text(title)
+        .font(.pretendardBold(size: fs(20)))
+        .foregroundStyle(UmpaColor.mainBlue)
+        .frame(maxWidth: .infinity)
+      Button(action: {
+        dismiss()
+      }) {
+        Image(systemSymbol: .xmark)
+          .font(.system(size: fs(20), weight: .medium))
+          .foregroundStyle(.black)
+      }
     }
+  }
 }
 
 #Preview {
-    FilterSettingViewHeader(title: "레슨 필터 선택")
+  FilterSettingViewHeader(title: "레슨 필터 선택")
 }

@@ -1,9 +1,9 @@
 // Created for Umpa in 2025
 
-import Components
 import Domain
 import Factory
 import SwiftUI
+import UmpaUIKit
 
 struct AccompanistServiceDetailView: View {
   enum TabItem {

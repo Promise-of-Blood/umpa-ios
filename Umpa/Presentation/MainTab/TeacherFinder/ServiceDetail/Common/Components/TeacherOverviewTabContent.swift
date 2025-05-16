@@ -1,8 +1,8 @@
 // Created for Umpa in 2025
 
-import Components
 import Domain
 import SwiftUI
+import UmpaUIKit
 
 struct TeacherOverviewTabContent: View {
   let teacher: Teacher
