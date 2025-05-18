@@ -45,7 +45,6 @@ public enum UmpaAsset {
     public static let umpaLogo = UmpaImages(name: "umpa_logo")
   }
   public enum PreviewAssets {
-  public static let arrowBack = UmpaImages(name: "arrow_back")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
