@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Domain
 import Factory
 import SwiftUI
@@ -26,7 +27,7 @@ struct AccompanistServiceDetailView: View {
     }
   }
 
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
 #if DEBUG
   @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor

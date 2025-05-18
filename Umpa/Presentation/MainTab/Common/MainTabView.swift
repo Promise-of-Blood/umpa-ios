@@ -1,11 +1,12 @@
 // Created for Umpa in 2025
 
+import AppSettingFeature
+import BaseFeature
 import Domain
-import Factory
 import SwiftUI
 
 struct MainTabView: View {
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
   var body: some View {
     content
@@ -15,29 +16,54 @@ struct MainTabView: View {
   var content: some View {
     @Bindable var appState = appState
     TabView(selection: $appState.routing.currentTab) {
-      if appState.userData.loginInfo.isTeacher {
-        TeacherHomeView()
-          .tabItem {
-            MainTabView.TabLabel(category: .teacherHome)
-          }
-          .tag(MainViewTabType.teacherHome)
+      switch appState.userData.loginInfo.userType {
+      case .student:
+        studentEntry
+      case .teacher:
+        teacherEntry
+      case .none:
+        EmptyView()
       }
-      TeacherFinderView()
-        .tabItem {
-          MainTabView.TabLabel(category: .teacherFinder)
-        }
-        .tag(MainViewTabType.teacherFinder)
-      ChatView()
-        .tabItem {
-          MainTabView.TabLabel(category: .chat)
-        }
-        .tag(MainViewTabType.chat)
-      MyProfileView()
-        .tabItem {
-          MainTabView.TabLabel(category: .myProfile)
-        }
-        .tag(MainViewTabType.myProfile)
     }
+  }
+
+  @ViewBuilder
+  var studentEntry: some View {
+    TeacherFinderView()
+      .tabItem {
+        MainTabView.TabLabel(category: .teacherFinder)
+      }
+      .tag(MainViewTabType.teacherFinder)
+    ChatView()
+      .tabItem {
+        MainTabView.TabLabel(category: .chat)
+      }
+      .tag(MainViewTabType.chat)
+    MyProfileView()
+      .tabItem {
+        MainTabView.TabLabel(category: .myProfile)
+      }
+      .tag(MainViewTabType.myProfile)
+  }
+
+  @ViewBuilder
+  var teacherEntry: some View {
+    TeacherHomeView()
+      .tabItem {
+        MainTabView.TabLabel(category: .teacherHome)
+      }
+      .tag(MainViewTabType.teacherHome)
+//    ProfileServiceManagementView()
+    ChatView()
+      .tabItem {
+        MainTabView.TabLabel(category: .chat)
+      }
+      .tag(MainViewTabType.chat)
+    AppSettingsView()
+      .tabItem {
+        MainTabView.TabLabel(category: .appSettings)
+      }
+      .tag(MainViewTabType.appSettings)
   }
 }
 
@@ -67,6 +93,8 @@ extension MainViewTabType {
       "채팅"
     case .myProfile:
       "내정보"
+    case .appSettings:
+      "설정"
     }
   }
 
@@ -82,13 +110,15 @@ extension MainViewTabType {
       ImageResource(name: "chat", bundle: .main)
     case .myProfile:
       ImageResource(name: "myProfile", bundle: .main)
+    case .appSettings:
+      ImageResource(name: "appSettings", bundle: .main)
     }
   }
 }
 
 #if DEBUG
 #Preview {
-  @Previewable @Environment(\.appState) var appState
+  @Previewable @Environment(AppState.self) var appState
   appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
   return MainTabView()

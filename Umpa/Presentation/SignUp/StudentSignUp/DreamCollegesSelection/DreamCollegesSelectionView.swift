@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Core
 import Domain
 import Factory
@@ -124,7 +125,7 @@ private struct DreamCollegesSelectionGroup: View {
 
 private struct CollegeSearchView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
   @State private var searchQuery: String = ""
 

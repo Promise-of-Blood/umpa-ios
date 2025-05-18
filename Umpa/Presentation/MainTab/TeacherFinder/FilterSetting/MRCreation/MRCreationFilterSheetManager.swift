@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
 import Domain
-import SwiftUICore
+import SwiftUI
 
 @Observable
 final class MRCreationFilterSheetManager: FilterSheetManager {

@@ -10,10 +10,10 @@ struct SettingsToggleSwitchRow: View {
   var body: some View {
     HStack {
       Text(text)
-        .font(AppSettingsConstant.rowFont)
+        .font(Constant.rowFont)
       Spacer()
       ToggleSwitch(isOn: $isOn)
     }
-    .frame(maxWidth: .infinity, height: AppSettingsConstant.rowHeight)
+    .frame(maxWidth: .infinity, height: Constant.rowHeight)
   }
 }

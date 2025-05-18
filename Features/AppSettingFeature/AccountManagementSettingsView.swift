@@ -11,7 +11,7 @@ struct AccountManagementSettingsView: View {
 
   var content: some View {
     ScrollView {
-      VStack(spacing: AppSettingsConstant.sectionSpacing) {
+      VStack(spacing: Constant.sectionSpacing) {
         SettingsSection {
           SettingsNormalRow(text: "연결된 서비스")
           SettingsButtonRow(text: "학생 계정으로 전환") {
@@ -25,8 +25,8 @@ struct AccountManagementSettingsView: View {
           }
         }
       }
-      .padding(.horizontal, AppSettingsConstant.listHorizontalPadding)
-      .padding(.vertical, AppSettingsConstant.listVerticalPadding)
+      .padding(.horizontal, Constant.listHorizontalPadding)
+      .padding(.vertical, Constant.listVerticalPadding)
     }
     .scrollBounceBehavior(.basedOnSize, axes: .vertical)
   }

@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Core
 import Domain
 import Factory
@@ -141,7 +142,7 @@ private struct CollegeChip: View {
 
 #Preview(traits: .sizeThatFitsLayout) {
   @Previewable @State var selectedColleges: [College] = []
-  @Previewable @Environment(\.appState) var appState
+  @Previewable @Environment(AppState.self) var appState
 
   CollegeSelectView(collegeList: appState.appData.collegeList, selectedColleges: $selectedColleges)
 }

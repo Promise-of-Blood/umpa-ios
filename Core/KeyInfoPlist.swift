@@ -3,17 +3,17 @@
 import Foundation
 
 extension Bundle {
-  public var infoPlist: InfoPlist {
+  public var infoPlist: KeyInfoPlist {
     guard let infoPlist = infoDictionary else {
       fatalError("Missing Info.plist")
     }
-    return InfoPlist(infoDictionary: infoPlist)
+    return KeyInfoPlist(infoDictionary: infoPlist)
   }
 }
 
 extension [String: Any] {}
 
-public struct InfoPlist {
+public struct KeyInfoPlist {
   private let infoDictionary: [String: Any]
 
   init(infoDictionary: [String: Any]) {

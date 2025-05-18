@@ -1,11 +1,7 @@
-//
-//  LoginView.swift
-//  Umpa
-//
-//  Created by 공명선 on 1/10/25.
-//
+// Created for Umpa in 2025
 
 import AuthenticationServices
+import BaseFeature
 import Domain
 import Factory
 import SwiftUI
@@ -23,7 +19,7 @@ struct LoginView: View {
   }
 
   @Environment(\.authorizationController) private var authorizationController
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
 #if DEBUG
   @Injected(\.mockLoginInteractor)

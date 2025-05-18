@@ -11,13 +11,13 @@ struct SettingsNavigationRow: View {
     NavigationLink(value: destination) {
       HStack {
         Text(text)
-          .font(AppSettingsConstant.rowFont)
+          .font(Constant.rowFont)
         Spacer()
         Image(systemSymbol: .chevronRight)
           .font(.system(size: 14, weight: .regular))
       }
       .foregroundStyle(Color(UIColor.label))
-      .frame(maxWidth: .infinity, height: AppSettingsConstant.rowHeight, alignment: .leading)
+      .frame(maxWidth: .infinity, height: Constant.rowHeight, alignment: .leading)
     }
   }
 }

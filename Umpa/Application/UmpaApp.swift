@@ -31,7 +31,7 @@ struct UmpaApp: App {
   var body: some Scene {
     WindowGroup {
       mainWindow
-        .environment(\.appState, appState)
+        .environment(appState)
         .onOpenURL(perform: handleUrl)
         .task(restorePreviousSignIn)
     }
@@ -49,10 +49,6 @@ struct UmpaApp: App {
       SplashView()
     }
   }
-}
-
-extension EnvironmentValues {
-  @Entry var appState: AppState = Container.shared.appState()
 }
 
 // MARK: - Private Methods

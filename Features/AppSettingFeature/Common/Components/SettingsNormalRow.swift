@@ -7,7 +7,7 @@ struct SettingsNormalRow: View {
 
   var body: some View {
     Text(text)
-      .font(AppSettingsConstant.rowFont)
-      .frame(maxWidth: .infinity, height: AppSettingsConstant.rowHeight, alignment: .leading)
+      .font(Constant.rowFont)
+      .frame(maxWidth: .infinity, height: Constant.rowHeight, alignment: .leading)
   }
 }

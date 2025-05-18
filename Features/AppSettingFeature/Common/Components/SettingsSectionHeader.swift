@@ -8,7 +8,7 @@ struct SettingsSectionHeader: View {
 
   var body: some View {
     Text(title)
-      .font(AppSettingsConstant.sectionFont)
+      .font(Constant.sectionFont)
       .frame(maxWidth: .infinity, alignment: .leading)
       .padding(.vertical, fs(10))
   }

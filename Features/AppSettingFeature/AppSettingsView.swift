@@ -1,17 +1,19 @@
 // Created for Umpa in 2025
 
-import Factory
+import BaseFeature
 import SwiftUI
 import UmpaUIKit
 
-struct AppSettingsView: View {
+public struct AppSettingsView: View {
   enum NavigationDestination: Hashable {
     case accountManagement
   }
 
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
-  var body: some View {
+  public init() {}
+
+  public var body: some View {
     @Bindable var appState = appState
     NavigationStack(path: $appState.routing.settingsNavigationPath) {
       content
@@ -29,7 +31,7 @@ struct AppSettingsView: View {
   var content: some View {
     @Bindable var appState = appState
     ScrollView {
-      VStack(spacing: AppSettingsConstant.sectionSpacing) {
+      VStack(spacing: Constant.sectionSpacing) {
         SettingsSection {
           SettingsToggleSwitchRow(text: "채팅 알림", isOn: $appState.system.isChatNotificationEnabled)
         } header: {
@@ -61,8 +63,8 @@ struct AppSettingsView: View {
           SettingsSectionHeader(title: "기타")
         }
       }
-      .padding(.horizontal, AppSettingsConstant.listHorizontalPadding)
-      .padding(.vertical, AppSettingsConstant.listVerticalPadding)
+      .padding(.horizontal, Constant.listHorizontalPadding)
+      .padding(.vertical, Constant.listVerticalPadding)
     }
     .scrollBounceBehavior(.basedOnSize, axes: .vertical)
   }

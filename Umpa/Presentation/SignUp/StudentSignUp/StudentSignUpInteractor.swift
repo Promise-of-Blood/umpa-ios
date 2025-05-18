@@ -1,11 +1,12 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Combine
 import Core
 import Domain
 import Foundation
 import Mockable
-import SwiftUICore
+import SwiftUI
 import UmpaUIKit
 
 @MainActor

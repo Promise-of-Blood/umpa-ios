@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 import UmpaUIKit
 
-enum AppSettingsConstant {
+enum Constant {
   static let rowHeight: CGFloat = fs(40)
   static let rowFont: Font = .pretendardRegular(size: fs(13))
   static let sectionHeight: CGFloat = fs(50)

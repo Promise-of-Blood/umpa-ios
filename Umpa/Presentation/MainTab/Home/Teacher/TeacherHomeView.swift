@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Domain
 import Factory
 import SwiftUI
@@ -76,7 +77,7 @@ struct TeacherHomeView: View {
 }
 
 private struct TeacherFindingSection: View {
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
   @State private var currentIndex = 0
 

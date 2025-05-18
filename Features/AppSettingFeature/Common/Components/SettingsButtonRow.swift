@@ -9,9 +9,9 @@ struct SettingsButtonRow: View {
   var body: some View {
     Button(action: action) {
       Text(text)
-        .font(AppSettingsConstant.rowFont)
+        .font(Constant.rowFont)
         .foregroundStyle(Color(UIColor.label))
-        .frame(maxWidth: .infinity, height: AppSettingsConstant.rowHeight, alignment: .leading)
+        .frame(maxWidth: .infinity, height: Constant.rowHeight, alignment: .leading)
     }
   }
 }

@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Core
 import Domain
 import Factory
@@ -14,7 +15,7 @@ struct UserTypeSelectionView: View {
 
   @EnvironmentObject private var preSignUpData: PreSignUpData
 
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
   @State private var showAlert = false
 

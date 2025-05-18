@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Core
 import Domain
 import Factory
@@ -27,7 +28,7 @@ struct LessonServiceDetailView: View {
     }
   }
 
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
 #if DEBUG
   @Injected(\.stubServiceDetailInteractor) private var serviceDetailInteractor

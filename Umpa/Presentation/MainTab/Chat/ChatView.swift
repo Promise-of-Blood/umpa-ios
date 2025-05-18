@@ -1,12 +1,13 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Domain
 import Factory
 import SwiftUI
 import UmpaUIKit
 
 struct ChatView: View {
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
 #if DEBUG
   @Injected(\.stubChatInteractor) private var chatInteractor
@@ -66,7 +67,7 @@ struct ChatView: View {
 
 #if DEBUG
 #Preview {
-  @Previewable @Environment(\.appState) var appState
+  @Previewable @Environment(AppState.self) var appState
   appState.userData.loginInfo.currentUser = Student.sample0.eraseToAnyUser()
 
   return ChatView()

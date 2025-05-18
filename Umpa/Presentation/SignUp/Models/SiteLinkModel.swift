@@ -1,7 +1,7 @@
 // Created for Umpa in 2025
 
 import Foundation
-import SwiftUICore
+import SwiftUI
 
 struct SiteLinkModel: Identifiable {
     enum PreDefinedSite: CaseIterable {

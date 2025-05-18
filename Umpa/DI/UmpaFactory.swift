@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import DataAccess
 import Domain
 import Factory

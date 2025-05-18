@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Core
 import Domain
 import Factory
@@ -24,7 +25,7 @@ struct ServiceListView: View {
 
   // MARK: Dependencies
 
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
 #if DEBUG
   @Injected(\.stubServiceListInteractor) private var interactor

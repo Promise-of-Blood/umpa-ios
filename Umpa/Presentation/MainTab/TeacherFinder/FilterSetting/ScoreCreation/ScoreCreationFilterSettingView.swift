@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Domain
 import Factory
 import SFSafeSymbols
@@ -8,7 +9,7 @@ import UmpaUIKit
 
 struct ScoreCreationFilterSettingView: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.appState) private var appState
+  @Environment(AppState.self) private var appState
 
   /// 실제 적용할 필터 정보
   @Bindable var filter: ScoreCreationFilter
