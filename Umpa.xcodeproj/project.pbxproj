@@ -30,6 +30,15 @@
 		DA83567B2DD9A582002AACDA /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB719962DA6363800F32BE2 /* Domain.framework */; };
 		DA83567C2DD9A582002AACDA /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAB719962DA6363800F32BE2 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA8356B62DD9B170002AACDA /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = DA8356B52DD9B170002AACDA /* SFSafeSymbols */; };
+		DA8356C22DD9B537002AACDA /* MyServiceFeature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8356BC2DD9B537002AACDA /* MyServiceFeature.framework */; };
+		DA8356C32DD9B537002AACDA /* MyServiceFeature.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA8356BC2DD9B537002AACDA /* MyServiceFeature.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA8356C72DD9B546002AACDA /* BaseFeature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA8356662DD9A52D002AACDA /* BaseFeature.framework */; };
+		DA8356C82DD9B546002AACDA /* BaseFeature.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA8356662DD9A52D002AACDA /* BaseFeature.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA8356CC2DD9B54C002AACDA /* UmpaUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */; };
+		DA8356CD2DD9B54C002AACDA /* UmpaUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA8356E52DD9B9C0002AACDA /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DA8356E42DD9B9C0002AACDA /* Factory */; };
+		DA8356F02DD9BBDE002AACDA /* SFSafeSymbols in Frameworks */ = {isa = PBXBuildFile; productRef = DA8356EF2DD9BBDE002AACDA /* SFSafeSymbols */; };
+		DA8356F22DD9BBF4002AACDA /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DA8356F12DD9BBF4002AACDA /* Factory */; };
 		DA9E60C32D902959009319A0 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = DA9E60C22D902959009319A0 /* Factory */; };
 		DAA0639F2DB3AABF006F8B68 /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = DAA0639E2DB3AABF006F8B68 /* KakaoSDK */; };
 		DAA063A12DB3AABF006F8B68 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = DAA063A02DB3AABF006F8B68 /* KakaoSDKAuth */; };
@@ -129,6 +138,27 @@
 			remoteGlobalIDString = DAB719952DA6363800F32BE2;
 			remoteInfo = Domain;
 		};
+		DA8356C02DD9B537002AACDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA8356BB2DD9B537002AACDA;
+			remoteInfo = MyServiceFeature;
+		};
+		DA8356C92DD9B546002AACDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA8356652DD9A52D002AACDA;
+			remoteInfo = BaseFeature;
+		};
+		DA8356CE2DD9B54C002AACDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA2EBE342DD4DA490026FAB1;
+			remoteInfo = UmpaUIKit;
+		};
 		DAB64B782D89CBB400319429 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0C9CD4142D31062B003F4455 /* Project object */;
@@ -202,6 +232,18 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA8356CB2DD9B546002AACDA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				DA8356CD2DD9B54C002AACDA /* UmpaUIKit.framework in Embed Frameworks */,
+				DA8356C82DD9B546002AACDA /* BaseFeature.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB64B692D89CA5A00319429 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +252,7 @@
 			files = (
 				DAB7199D2DA6363800F32BE2 /* Domain.framework in Embed Frameworks */,
 				DA2EBE3C2DD4DA490026FAB1 /* UmpaUIKit.framework in Embed Frameworks */,
+				DA8356C32DD9B537002AACDA /* MyServiceFeature.framework in Embed Frameworks */,
 				DAB64B7B2D89CBB400319429 /* Core.framework in Embed Frameworks */,
 				DA7E35272D8D5B01001DD6AA /* DataAccess.framework in Embed Frameworks */,
 				DA83566D2DD9A52D002AACDA /* BaseFeature.framework in Embed Frameworks */,
@@ -251,6 +294,7 @@
 		DA7E35202D8D5B01001DD6AA /* DataAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA83564F2DD9A0B4002AACDA /* AppSettingFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppSettingFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8356662DD9A52D002AACDA /* BaseFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BaseFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA8356BC2DD9B537002AACDA /* MyServiceFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyServiceFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB64B742D89CBB400319429 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB719962DA6363800F32BE2 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -299,6 +343,12 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				BaseFeature/AppState.swift,
+				MyServiceFeature/Components/TeacherMainProfileCard/TeacherMainProfileCardView.swift,
+				MyServiceFeature/ServiceRegistrationInteractor.swift,
+				MyServiceFeature/TeacherLessonManagement/TeacherLessonManagementInteractor.swift,
+				MyServiceFeature/TeacherLessonManagement/TeacherLessonManagementView.swift,
+				MyServiceFeature/TeacherServiceManagement/TeacherServiceManagementInteractor.swift,
+				MyServiceFeature/TeacherServiceManagement/TeacherServiceManagementView.swift,
 			);
 			target = DA83564E2DD9A0B4002AACDA /* AppSettingFeature */;
 		};
@@ -308,6 +358,18 @@
 				BaseFeature/AppState.swift,
 			);
 			target = DA8356652DD9A52D002AACDA /* BaseFeature */;
+		};
+		DA8356EE2DD9BB7B002AACDA /* Exceptions for "Features" folder in "MyServiceFeature" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MyServiceFeature/Components/TeacherMainProfileCard/TeacherMainProfileCardView.swift,
+				MyServiceFeature/ServiceRegistrationInteractor.swift,
+				MyServiceFeature/TeacherLessonManagement/TeacherLessonManagementInteractor.swift,
+				MyServiceFeature/TeacherLessonManagement/TeacherLessonManagementView.swift,
+				MyServiceFeature/TeacherServiceManagement/TeacherServiceManagementInteractor.swift,
+				MyServiceFeature/TeacherServiceManagement/TeacherServiceManagementView.swift,
+			);
+			target = DA8356BB2DD9B537002AACDA /* MyServiceFeature */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -345,6 +407,7 @@
 			exceptions = (
 				DA8356B32DD9ADD2002AACDA /* Exceptions for "Features" folder in "AppSettingFeature" target */,
 				DA8356B42DD9ADD2002AACDA /* Exceptions for "Features" folder in "BaseFeature" target */,
+				DA8356EE2DD9BB7B002AACDA /* Exceptions for "Features" folder in "MyServiceFeature" target */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -375,6 +438,7 @@
 				DA2EBE3B2DD4DA490026FAB1 /* UmpaUIKit.framework in Frameworks */,
 				DA7E352F2D8D5B5D001DD6AA /* DataAccess.framework in Frameworks */,
 				DA1E76982DAF794E001FDAB3 /* Mockable in Frameworks */,
+				DA8356C22DD9B537002AACDA /* MyServiceFeature.framework in Frameworks */,
 				DAB5DFE82DBA46E70075D9BC /* SFSafeSymbols in Frameworks */,
 				DA017DAB2DB149D90015DD8F /* NidThirdPartyLogin in Frameworks */,
 				DA9E60C32D902959009319A0 /* Factory in Frameworks */,
@@ -431,8 +495,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA8356E52DD9B9C0002AACDA /* Factory in Frameworks */,
 				DA83567B2DD9A582002AACDA /* Domain.framework in Frameworks */,
 				DA8356772DD9A582002AACDA /* Core.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA8356B92DD9B537002AACDA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA8356F02DD9BBDE002AACDA /* SFSafeSymbols in Frameworks */,
+				DA8356CC2DD9B54C002AACDA /* UmpaUIKit.framework in Frameworks */,
+				DA8356C72DD9B546002AACDA /* BaseFeature.framework in Frameworks */,
+				DA8356F22DD9BBF4002AACDA /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +559,7 @@
 				DA2EBE352DD4DA490026FAB1 /* UmpaUIKit.framework */,
 				DA83564F2DD9A0B4002AACDA /* AppSettingFeature.framework */,
 				DA8356662DD9A52D002AACDA /* BaseFeature.framework */,
+				DA8356BC2DD9B537002AACDA /* MyServiceFeature.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -525,6 +602,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DA8356B72DD9B537002AACDA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAB64B6F2D89CBB400319429 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -560,6 +644,7 @@
 				DA2EBE3A2DD4DA490026FAB1 /* PBXTargetDependency */,
 				DA8356542DD9A0B4002AACDA /* PBXTargetDependency */,
 				DA83566B2DD9A52D002AACDA /* PBXTargetDependency */,
+				DA8356C12DD9B537002AACDA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				0C9CD41E2D31062B003F4455 /* Umpa */,
@@ -718,9 +803,35 @@
 			);
 			name = BaseFeature;
 			packageProductDependencies = (
+				DA8356E42DD9B9C0002AACDA /* Factory */,
 			);
 			productName = BaseFeature;
 			productReference = DA8356662DD9A52D002AACDA /* BaseFeature.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		DA8356BB2DD9B537002AACDA /* MyServiceFeature */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA8356C42DD9B537002AACDA /* Build configuration list for PBXNativeTarget "MyServiceFeature" */;
+			buildPhases = (
+				DA8356B72DD9B537002AACDA /* Headers */,
+				DA8356B82DD9B537002AACDA /* Sources */,
+				DA8356B92DD9B537002AACDA /* Frameworks */,
+				DA8356BA2DD9B537002AACDA /* Resources */,
+				DA8356CB2DD9B546002AACDA /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA8356CA2DD9B546002AACDA /* PBXTargetDependency */,
+				DA8356CF2DD9B54C002AACDA /* PBXTargetDependency */,
+			);
+			name = MyServiceFeature;
+			packageProductDependencies = (
+				DA8356EF2DD9BBDE002AACDA /* SFSafeSymbols */,
+				DA8356F12DD9BBF4002AACDA /* Factory */,
+			);
+			productName = MyServiceFeature;
+			productReference = DA8356BC2DD9B537002AACDA /* MyServiceFeature.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		DAB64B732D89CBB400319429 /* Core */ = {
@@ -807,6 +918,9 @@
 					DA8356652DD9A52D002AACDA = {
 						CreatedOnToolsVersion = 16.3;
 					};
+					DA8356BB2DD9B537002AACDA = {
+						CreatedOnToolsVersion = 16.3;
+					};
 					DAB64B732D89CBB400319429 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -846,6 +960,7 @@
 				DA2EBE342DD4DA490026FAB1 /* UmpaUIKit */,
 				DA83564E2DD9A0B4002AACDA /* AppSettingFeature */,
 				DA8356652DD9A52D002AACDA /* BaseFeature */,
+				DA8356BB2DD9B537002AACDA /* MyServiceFeature */,
 			);
 		};
 /* End PBXProject section */
@@ -894,6 +1009,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DA8356642DD9A52D002AACDA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA8356BA2DD9B537002AACDA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -960,6 +1082,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DA8356622DD9A52D002AACDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA8356B82DD9B537002AACDA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1037,6 +1166,21 @@
 			isa = PBXTargetDependency;
 			target = DAB719952DA6363800F32BE2 /* Domain */;
 			targetProxy = DA83567D2DD9A582002AACDA /* PBXContainerItemProxy */;
+		};
+		DA8356C12DD9B537002AACDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA8356BB2DD9B537002AACDA /* MyServiceFeature */;
+			targetProxy = DA8356C02DD9B537002AACDA /* PBXContainerItemProxy */;
+		};
+		DA8356CA2DD9B546002AACDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA8356652DD9A52D002AACDA /* BaseFeature */;
+			targetProxy = DA8356C92DD9B546002AACDA /* PBXContainerItemProxy */;
+		};
+		DA8356CF2DD9B54C002AACDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA2EBE342DD4DA490026FAB1 /* UmpaUIKit */;
+			targetProxy = DA8356CE2DD9B54C002AACDA /* PBXContainerItemProxy */;
 		};
 		DAB64B792D89CBB400319429 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1716,6 +1860,91 @@
 			};
 			name = Release;
 		};
+		DA8356C52DD9B537002AACDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.MyServiceFeature;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DA8356C62DD9B537002AACDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = pob.Umpa.MyServiceFeature;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_MODULE = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		DAB64B7D2D89CBB400319429 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1979,6 +2208,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DA8356C42DD9B537002AACDA /* Build configuration list for PBXNativeTarget "MyServiceFeature" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA8356C52DD9B537002AACDA /* Debug */,
+				DA8356C62DD9B537002AACDA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DAB64B7C2D89CBB400319429 /* Build configuration list for PBXNativeTarget "Core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2075,6 +2313,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = DAB5DFE62DBA46E70075D9BC /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
 			productName = SFSafeSymbols;
+		};
+		DA8356E42DD9B9C0002AACDA /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		DA8356EF2DD9BBDE002AACDA /* SFSafeSymbols */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DAB5DFE62DBA46E70075D9BC /* XCRemoteSwiftPackageReference "SFSafeSymbols" */;
+			productName = SFSafeSymbols;
+		};
+		DA8356F12DD9BBF4002AACDA /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DA9E60C12D902959009319A0 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		DA9E60C22D902959009319A0 /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;

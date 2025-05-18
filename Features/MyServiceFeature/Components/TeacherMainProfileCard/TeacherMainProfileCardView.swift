@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import SFSafeSymbols
 import SwiftUI
 import UmpaUIKit
 

@@ -4,7 +4,6 @@ import BaseFeature
 import Combine
 import Core
 import Domain
-import Factory
 import Foundation
 import SwiftUI
 

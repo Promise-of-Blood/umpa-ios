@@ -233,15 +233,6 @@ extension Container {
       .scope(.shared)
   }
 
-  var serviceRegistrationInteractor: Factory<ServiceRegistrationInteractor> {
-    Factory(self) {
-      DefaultServiceRegistrationInteractor(
-        serviceRepository: self.serviceRepository(),
-      )
-    }
-    .scope(.shared)
-  }
-
   var chatInteractor: Factory<ChatInteractor> {
     Factory(self) {
       DefaultChatInteractor(
@@ -267,30 +258,6 @@ extension Container {
         appState: self.appState(),
         serviceRepository: self.serviceRepository(),
         chatRepository: self.chatRepository(),
-      )
-    }
-    .scope(.shared)
-  }
-
-  var teacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
-    Factory(self) {
-      DefaultTeacherServiceManagementInteractor(
-        appState: self.appState(),
-        serviceRepository: self.serviceRepository(),
-        chatRepository: self.chatRepository(),
-        getAccessTokenUseCase: self.getAccessTokenUseCase(),
-      )
-    }
-    .scope(.shared)
-  }
-
-  var teacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
-    Factory(self) {
-      DefaultTeacherLessonManagementInteractor(
-        appState: self.appState(),
-        serviceRepository: self.serviceRepository(),
-        chatRepository: self.chatRepository(),
-        getAccessTokenUseCase: self.getAccessTokenUseCase(),
       )
     }
     .scope(.shared)
@@ -530,30 +497,6 @@ extension Container {
         appState: self.appState(),
         serviceRepository: self.stubServiceRepository(),
         chatRepository: self.stubChatRepository(),
-      )
-    }
-    .scope(.shared)
-  }
-
-  var stubTeacherLessonManagementInteractor: Factory<TeacherLessonManagementInteractor> {
-    Factory(self) {
-      DefaultTeacherLessonManagementInteractor(
-        appState: self.appState(),
-        serviceRepository: self.stubServiceRepository(),
-        chatRepository: self.stubChatRepository(),
-        getAccessTokenUseCase: self.getAccessTokenUseCase(),
-      )
-    }
-    .scope(.shared)
-  }
-
-  var stubTeacherServiceManagementInteractor: Factory<TeacherServiceManagementInteractor> {
-    Factory(self) {
-      DefaultTeacherServiceManagementInteractor(
-        appState: self.appState(),
-        serviceRepository: self.stubServiceRepository(),
-        chatRepository: self.stubChatRepository(),
-        getAccessTokenUseCase: self.getAccessTokenUseCase(),
       )
     }
     .scope(.shared)

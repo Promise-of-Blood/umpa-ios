@@ -4,12 +4,11 @@ import BaseFeature
 import Combine
 import Core
 import Domain
-import Factory
 import Foundation
 import SwiftUI
 
 @MainActor
-protocol TeacherServiceManagementInteractor {
+public protocol TeacherServiceManagementInteractor {
   func loadMyServiceList(_ serviceList: Binding<[AnyService]>)
   func enterChatRoom(for id: Service.Id)
 //    func sendServiceConfirmationRequest
