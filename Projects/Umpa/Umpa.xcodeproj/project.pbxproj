@@ -1,0 +1,1991 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0287EF8D6B786B1E769D37E8 /* ScoreCreationServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565AA4DC9731B4833B55DABE /* ScoreCreationServiceDetailView.swift */; };
+		031F65A38240EE37AFA2912F /* KakaoSDKFriend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED28D3F866301F2513739AF5 /* KakaoSDKFriend.framework */; };
+		034538635CF12680B541A352 /* LikeCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24C3764CD3635DAE2025FBBA /* LikeCommentView.swift */; };
+		043537D3F8A893AE983308BA /* GoogleUtilities_UserDefaults.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D91354230BDA69FEF1F265D3 /* GoogleUtilities_UserDefaults.framework */; };
+		06C36C5C14BB90CB8743740F /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 74D46C42D513B87131AE8A03 /* Pretendard-Medium.otf */; };
+		083E5BCECF0F7D1629A16E28 /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = A3524F2B850A8E15D71A450B /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle */; };
+		08BC843F212E0AA3DA58926A /* ServiceDetailConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A175C76CFA19A8CBBBF270 /* ServiceDetailConstant.swift */; };
+		0A9ED2C8C2BE5AB268675BD9 /* AppAuth_AppAuthCore.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B7C349D2205C84ADA43B8F2D /* AppAuth_AppAuthCore.bundle */; };
+		0B2A7064EAF5FF1CFC0A333D /* TeacherSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BC6A37B071E9F47F79187D /* TeacherSignUpModel.swift */; };
+		0BEC0BEE5A27BB337FDC1481 /* AppAuth_AppAuth.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F467FC2DF140FF3195C19E26 /* AppAuth_AppAuth.bundle */; };
+		11C92222584763E1A7D6279F /* LessonFilterSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6873B856BD9F44101BA9CD /* LessonFilterSheetManager.swift */; };
+		12CB05E492F52766D43E19DD /* LessonFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9957FD430E4EC026CAA1D38 /* LessonFilter.swift */; };
+		1345205A90682E432A1163EE /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5475B357BCCC15640E5C3EA /* LoginView.swift */; };
+		1418F367B5C8471D0DDFD99F /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3C11AD8F4804DE3CEE0FA3 /* AppKit.framework */; platformFilters = (macos, ); };
+		16403311E9F6E0DC9E1B1243 /* ScoreCreationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEED6FA0E73EEFB4BFE3F0 /* ScoreCreationFilter.swift */; };
+		16E8C9C8981004AE689FD1FA /* ReviewInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB660DB8EF0572AD570A3E7D /* ReviewInteractor.swift */; };
+		17CE8290E0907C72C1D48678 /* LessonFilterSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0288B6B8CAF85B249077D854 /* LessonFilterSettingView.swift */; };
+		183EB2FAF36DAD02889553A7 /* GoogleUtilities_Environment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CD7F0C42790794669739CB /* GoogleUtilities_Environment.framework */; };
+		189E19D8FE09E8ADF12D912F /* TurnaroundSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288AAC39CB1C420B3A33B384 /* TurnaroundSelectView.swift */; };
+		18C7C9E2BBB75700E0406474 /* AppInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A045C2B61A312D3CD0507F7 /* AppInteractor.swift */; };
+		19E99F1910D79547D7B80C0D /* Factory_Factory.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6498D34691DC584EA4C5C725 /* Factory_Factory.bundle */; };
+		1C41A900848A2842E75126A4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7757106CBAE97D4CF31388C0 /* UIKit.framework */; };
+		1DB1B4520919B291FA137E42 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F278D62FF211042FA18217 /* LocalAuthentication.framework */; };
+		1DC8BFE92A5FE1B394EC864E /* NidThirdPartyLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04CD7D7A857FAA12C09610A7 /* NidThirdPartyLogin.framework */; };
+		1E4A8F304DB263CABFE8D4DB /* CollegeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72B16183E4A7411925D94CE /* CollegeSelectView.swift */; };
+		1F95E4AFC8576CC751977D62 /* Mockable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7B0DC6D692734E56DB929F /* Mockable.framework */; };
+		1FF910C3D94EE64EB47F9F29 /* KakaoSDKNavi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6559E5CD05281E8D0515665 /* KakaoSDKNavi.framework */; };
+		203CAB343694430F70B1EE7E /* RegionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 431705079FE372B6C7D36DDA /* RegionSelectView.swift */; };
+		215F4D58BE5DC5251462A0AE /* Promises_FBLPromises.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BBAA1ADA951DA7C0EA57DA17 /* Promises_FBLPromises.bundle */; };
+		22E38D9447CE097574D9C411 /* AppAuth_AppAuth.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = F467FC2DF140FF3195C19E26 /* AppAuth_AppAuth.bundle */; };
+		23005CDCDA115CCF505C44BF /* ServiceListInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F023AD34CC65366FC6ABA /* ServiceListInteractorTests.swift */; };
+		256BDB33D07CCF0696C9AF10 /* AppCheckCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CFB3373C55E4D327967CD89 /* AppCheckCore.framework */; };
+		257C2DFC384F78B1BE8938D7 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 11F81C6A557FCFD4C038C43B /* LICENSE.txt */; };
+		2950ACED06164E209F4FF3FB /* ServiceListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDC1CEB0EA4DB703964B0C4 /* ServiceListInteractor.swift */; };
+		2A647FBABE38B76C418EB420 /* FBLPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D84CA1D225DA72895F8A61 /* FBLPromises.framework */; };
+		2D1D17B9F0C591849151B0C7 /* KakaoSDKAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B7F17055FB3ACBDFDF0BFD /* KakaoSDKAuth.framework */; };
+		2D2F66F0D6FF010FA087D6EF /* LessonSubjectSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A9CB47DB49C66966BF24C /* LessonSubjectSelectView.swift */; };
+		30D6F8EC3F9B68A1F144B8B6 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E85452846F0F3A418084C87 /* Card.swift */; };
+		331C87B4E91D22CFA13B4BC2 /* TitleText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E144B825E4CAA6BB5502A123 /* TitleText.swift */; };
+		3358D439CE6BC340E0ED0DF1 /* AccompanistFeeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57693E8782AA7085E9449327 /* AccompanistFeeSelectView.swift */; };
+		336665099205DB9CD88CAE7A /* NOTICE.txt in Resources */ = {isa = PBXBuildFile; fileRef = BEF982A74345E04FDCBFDD46 /* NOTICE.txt */; };
+		33BFD94A752CB37A98CCD5F4 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E470DCCD2AC2D92BEB1B11A /* Domain.framework */; };
+		34F0070354CF37788A84DDF5 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F0E58A51F21D8D6D92218CEC /* Pretendard-Regular.otf */; };
+		35546DEF4E749B5DAE1FED39 /* AppAuthCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4E87D7590741D0FBC0BBFE /* AppAuthCore.framework */; };
+		36FDEC9EE01AED02DBADCFFF /* GoogleUtilities_Logger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E78ED4F0D22816B325EF8CC /* GoogleUtilities_Logger.framework */; };
+		379B6A4CE1A4D4EA2FE1B607 /* UmpaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8FEBCDEE87C71A52094616 /* UmpaFactory.swift */; };
+		3AA5A399BAC49E8DC3C9E3F2 /* Factory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786212F58CE49A3962BBA0C9 /* Factory.framework */; };
+		3F1519172ED6EB5F8D79D10C /* AccompanistServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9E89498B79808A80981498 /* AccompanistServiceDetailView.swift */; };
+		3FBCF557ED66E5A54D042BBD /* NidThirdPartyLogin_NidThirdPartyLogin.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = EDBF6B9B1B6E5D135BD84B6B /* NidThirdPartyLogin_NidThirdPartyLogin.bundle */; };
+		40AD7058E82881FD492C99FE /* GTMSessionFetcher_GTMSessionFetcherCore.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 72F5434534421838BAB43577 /* GTMSessionFetcher_GTMSessionFetcherCore.bundle */; };
+		433EABE6CC92711E9A5C84BA /* MyProfileInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1707A7C245FC67626A7EFCDF /* MyProfileInteractor.swift */; };
+		44DA64131D83550931DFF6C9 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BA2BB1EDBA34A2823C8DB3 /* MainTabView.swift */; };
+		47DA07D42D56DBE65E3A859E /* PhoneNumberInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FE9DD4017B7C4C71935579 /* PhoneNumberInputView.swift */; };
+		4A9147A25BE8C2F16F7103E9 /* ReviewTabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEDD2BD38A1B4FF80DEA739 /* ReviewTabContent.swift */; };
+		4B0E727C6694BC47F54428C5 /* FilterSettingBottomActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95854A9966BEBB7ED634DDB2 /* FilterSettingBottomActionView.swift */; };
+		4B3A85888C615D544E071F91 /* TeacherOverviewTabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E02AD826156AD08C0143169 /* TeacherOverviewTabContent.swift */; };
+		4B42FFCDC020C415B59454F4 /* TeacherSignUpStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C9F9B6DA7915709B55E833 /* TeacherSignUpStep.swift */; };
+		4BEB82433A1A6C7460BCFAE8 /* GoogleUtilities_GoogleUtilities_Environment.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FABC59DC1A9A29FDE9A264E1 /* GoogleUtilities_GoogleUtilities_Environment.bundle */; };
+		4D81F7C466AB7A9A1D200155 /* IssueReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDBDB75AD142D948FD2C7B1 /* IssueReporting.framework */; };
+		4E032D53514673C437035803 /* AcceptTermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC9DFA8F2FDE1BFC7DE715F /* AcceptTermsView.swift */; };
+		4FD1FDFAF3C19821CE5B88DB /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E109CA39E9A82FB7F684808C /* ChatView.swift */; };
+		509A6A6650F26A690E7D93DF /* SampleMusicPreviewTabContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE04AF6FDAA2BC2F975A11C /* SampleMusicPreviewTabContent.swift */; };
+		5217CA46BC345762186C4480 /* AccompanistFilterSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D10E8AC363FF18F823A8AA1 /* AccompanistFilterSettingView.swift */; };
+		5260833874DCFB6BD7F59B67 /* UmpaNotificationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789A8414BE8CE28A0E065CB6 /* UmpaNotificationInteractor.swift */; };
+		5284E93B1789E0B28361D30C /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F8FEB9C2595677A925F11ABC /* Pretendard-SemiBold.otf */; };
+		53D130C2256AF29FFD07995F /* KakaoSDKCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5454A87668C0E1A11C195BA9 /* KakaoSDKCommon.framework */; };
+		566395910AA847DCE76B6C60 /* MRCreationFeeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3E2E4F9F964EDD8F78F04 /* MRCreationFeeSelectView.swift */; };
+		56B12FC11535257FC0B8D5B5 /* AccompanistFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70672F2CAE3AC09923235C8E /* AccompanistFilter.swift */; };
+		59069E5D9B95E5D1938A1D08 /* TuistAssets+Umpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A0337625A31AB9C64B6EF8F /* TuistAssets+Umpa.swift */; };
+		590D485244833DE33D37E5E7 /* KakaoSDKTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080571BB8EDC49F6FDE696E1 /* KakaoSDKTalk.framework */; };
+		59C316735B5F14132C906D63 /* NetworkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0E29385F2C2D055E663F410 /* NetworkKit.framework */; };
+		5CD4790CC2740FAE10010841 /* LoginInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F83AD2759A4D0EE090ADC34C /* LoginInteractor.swift */; };
+		5D646C96A7357328D8902925 /* FilterSettingViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B705C263DC901720E69B4E /* FilterSettingViewHeader.swift */; };
+		5DDD370118357CE257497BE1 /* DreamCollegesSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8638F37B97418CFE6FD0B51 /* DreamCollegesSelectionView.swift */; };
+		5EB354E76F7F3F71B3334A31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE20CC0FFDB10D0F691E5F88 /* Assets.xcassets */; };
+		5EFC639525C592EEE5EFC880 /* MyServiceFeature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4C98231E8A46D10C3A4F72 /* MyServiceFeature.framework */; };
+		5F0F1CDED0969DD3E00C170F /* UmpaUIKit_UmpaUIKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DA2E83BA55E32603D2F97308 /* UmpaUIKit_UmpaUIKit.bundle */; };
+		601DBEF75854E7FF1E025E28 /* TeacherMajorSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB248FF8FFD555C67A16E99 /* TeacherMajorSelectView.swift */; };
+		605F0DF50E2771E783BAF8A9 /* TeacherFinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8207BF4488068FA0CE2300 /* TeacherFinderView.swift */; };
+		62D7C2C4A9DE40A56AF1874D /* PhoneVerificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871BB084ABD1875B59CA2B30 /* PhoneVerificationError.swift */; };
+		63DB6AACCD13EB379BF479EA /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = C25D4AC3587B5190D998C93F /* Pretendard-Bold.otf */; };
+		657D596ADD91CE81A12F4F8A /* TeacherSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55FF8B99EF16B33A70A90C5 /* TeacherSignUpView.swift */; };
+		6743A7F1DB603C7297EEE5FA /* StudentSignUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD5C2DD3235FF2DBD4ECEB2 /* StudentSignUpModel.swift */; };
+		696E3B5EAB2EA2F7D60D7AC6 /* UsernameInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D823096D96149A93F02E943 /* UsernameInputView.swift */; };
+		6971B4F9E4EB24C7A8106075 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751C30C06B0735178411459F /* TestHelpers.swift */; };
+		69E05FE3C7A97E1694AC8795 /* KakaoOpenSDK_KakaoSDKCommon.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 2D43EE6081FB5C60A14BB868 /* KakaoOpenSDK_KakaoSDKCommon.bundle */; };
+		69F7DBCD5382643D9A7048A4 /* GoogleSignIn_GoogleSignIn.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F61F86E8C7F7A6DD256DB559 /* GoogleSignIn_GoogleSignIn.bundle */; };
+		6A7A1C46621E56F8F0E5A310 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A34EA811F214EFBC72E3E2B /* CoreGraphics.framework */; };
+		6A9FD4CA3A805E6495C9185C /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = ECD6CEB64477770B53C10955 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D80B2766AB22B27BF9B5E74 /* Turnaround+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782344546635BAFFB7B7C5F8 /* Turnaround+.swift */; };
+		6DEB26EC86DEB2C3F75E4747 /* LessonRequirementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526B6CED9931E336C8D94DCA /* LessonRequirementView.swift */; };
+		705FBFCA041CF467408DDBA3 /* ServiceDetailBottomActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FB304BE674FA3CDE589730 /* ServiceDetailBottomActionBar.swift */; };
+		729B295D94B8536DB6C08456 /* GenderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5A754E3F22857B398BAC07 /* GenderFilter.swift */; };
+		72E0516E9DBD68BCF3F4BA1C /* ServiceDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B62201B1FA7878D22F4A4C /* ServiceDetailInteractor.swift */; };
+		72FC6EF3D0DCCFFD15578F43 /* StudentProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC36E34EC91998D926988CA0 /* StudentProfileInputView.swift */; };
+		77A61185954FF13C223C8A88 /* InstrumentSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCA44C0747616B35D8F8D6 /* InstrumentSelectView.swift */; };
+		77AC2037654A341B97A15E61 /* ChatInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91E9CAE2AB8FE5329FD2CBE /* ChatInteractorTests.swift */; };
+		77F912AB368219997A26C810 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFA1227574B6E7A6403B9C7 /* Preview Assets.xcassets */; };
+		78C69798229A95455C71674C /* GoogleSignIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC19FFEA35AE45D4CEDF154 /* GoogleSignIn.framework */; };
+		7B4D01A7BE73B48FC2BB341F /* GTMSessionFetcher_GTMSessionFetcherCore.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 72F5434534421838BAB43577 /* GTMSessionFetcher_GTMSessionFetcherCore.bundle */; };
+		7B75D6ED13F9F881478316AB /* KakaoOpenSDK_KakaoSDKCommon.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2D43EE6081FB5C60A14BB868 /* KakaoOpenSDK_KakaoSDKCommon.bundle */; };
+		7E7DEC114C216998A0E07AEB /* UmpaUIKit_UmpaUIKit.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = DA2E83BA55E32603D2F97308 /* UmpaUIKit_UmpaUIKit.bundle */; };
+		7F095D5B7B87500828DF82AF /* UmpaRegionSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A7F7F99DFAD496652B92D4 /* UmpaRegionSelector.swift */; };
+		7F1148AA34E557AD4C5B6A33 /* FilterSettingConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA086E550EBEFCB948B893E /* FilterSettingConstant.swift */; };
+		7FFD429FB999C79B33DA2BF7 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399E62C53E948293AF46FEE /* SplashView.swift */; };
+		87FC2C704CA495F85917619A /* KakaoSDKShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99A5C6FF34D51E9F948F064B /* KakaoSDKShare.framework */; };
+		8868B88E5008507C791C1761 /* LessonServiceManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FC83E6F9613BDA17A5B2ED4 /* LessonServiceManagementView.swift */; };
+		88EED6689F76510FE5FB3C8F /* GenderSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26CED4BB37DA2B3BBE29868 /* GenderSelectView.swift */; };
+		8AF57F776AC7C00C86F8D83D /* LessonFeeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1AC5464F069B9A378CE820 /* LessonFeeSelectView.swift */; };
+		8D4C44CA4AB9753F6D3BDC94 /* ScoreTypeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306177422FD34C05870E6FC5 /* ScoreTypeSelectView.swift */; };
+		91685A61BE3F15C9AACF35B3 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE4DA31FD07480C277D2391A /* NetworkMonitor.swift */; };
+		91B3AE334B182C800857BF5A /* AppAuth_AppAuthCore.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = B7C349D2205C84ADA43B8F2D /* AppAuth_AppAuthCore.bundle */; };
+		950765E3D46C10FAB4930856 /* FilterEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FAADCE97EF25629C8A2C597 /* FilterEntry.swift */; };
+		96DE42E67F9BB234A29C1DB1 /* NidCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74425DDF0CA54F11B9C205A4 /* NidCore.framework */; };
+		97247CBDFEC81E3153233952 /* SignUpConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1117D9406B4BBB7FFE190FEF /* SignUpConstant.swift */; };
+		9832E5663E843C371DBCE790 /* UserTypeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE98BAFC7BD75025ED509E4A /* UserTypeSelectionView.swift */; };
+		98860D4FC4F67A8A2D6191FA /* TeacherFindingCarouselItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FEA5FC508CF33D6090BC85 /* TeacherFindingCarouselItem.swift */; };
+		9981613864EE711BF5FC261C /* VerificationCodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0861BF1A00B68BFCECD5C0DE /* VerificationCodeInputView.swift */; };
+		9A73D82512D264DA86CEC31F /* UmpaUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 973CC520DF725B8E0D459D13 /* UmpaUIKit.framework */; };
+		9B04241C3E8EFF1252310FEF /* Promises_FBLPromises.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = BBAA1ADA951DA7C0EA57DA17 /* Promises_FBLPromises.bundle */; };
+		9B1962FE7572F21FED71F419 /* LessonRequirementInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E35641F44BB070C5E68273 /* LessonRequirementInteractor.swift */; };
+		9D07786C83302D9E1C906391 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD6CEB64477770B53C10955 /* Alamofire.framework */; };
+		9E849EE1794BA3985D7C0F76 /* TeacherHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFA4CE095FDD9B43BF561F3 /* TeacherHomeView.swift */; };
+		A101FC3B88E526DA02B3E441 /* FilterSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB20DC732909AA7278B56849 /* FilterSheetManager.swift */; };
+		A14CC496E6496CBF96189DED /* AppSettingFeature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCFE85D35878B8E203DC0B1 /* AppSettingFeature.framework */; };
+		A4680CA4AC5439A5517711FC /* LessonStyleSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E5E2DD86923E51E81F85BF /* LessonStyleSelectView.swift */; };
+		A7C59CC337F8431ECFE4DB53 /* GTMAppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 063849C205EB8488EC1B633C /* GTMAppAuth.framework */; };
+		A9AEE20AA693D889065BE03D /* MRCreationFilterSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86243C3101E7A1312D34DBAC /* MRCreationFilterSheetManager.swift */; };
+		AA0994BC9F434240192CDEFE /* AcceptTermsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236B32BA824F4C86161D2AB /* AcceptTermsInteractor.swift */; };
+		AA5D656A4FFABB7E3D648CC0 /* LinkInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09398DE1708096EA6FB31543 /* LinkInputView.swift */; };
+		AABA957A02692A7227E4E12E /* AccompanistFilterSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC65661CCEA333175C9B07F /* AccompanistFilterSheetManager.swift */; };
+		AB232CDDBD715C4A8D19CE56 /* UmpaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942EF40E0C602442B74ECF84 /* UmpaApp.swift */; };
+		ABBAFF8E2E22F0E888661877 /* StudentSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D90B3EB0BB86CF3E368436E5 /* StudentSignUpView.swift */; };
+		ABE85B539C335FC029EFED13 /* GTMAppAuth_GTMAppAuth.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 37A15D7492057851BBBC3FFE /* GTMAppAuth_GTMAppAuth.bundle */; };
+		AC3FE1614A251AB6BD844175 /* TuistBundle+Umpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78938EDBC1FC9536557E77E6 /* TuistBundle+Umpa.swift */; };
+		ACFC563171CB50C604DDA8AD /* KakaoSDKCert.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDADDDDDD709261D437A7057 /* KakaoSDKCert.framework */; };
+		AFA335DBBCDE056383716D21 /* BasicSettingsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64588D15C91EC7EF3705A379 /* BasicSettingsListItem.swift */; };
+		AFCC4913BB159F5B79DF207E /* ServiceOverviewTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B0CF1AF64AEFBA64C0DA942 /* ServiceOverviewTab.swift */; };
+		B40871B94AEA0FB8ABD4674E /* FilterSheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD99305297BBFBDB4F75B716 /* FilterSheetHeader.swift */; };
+		B62BB0BE8FA34755BDFDF66A /* MrCreationServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41396BEC0396F23473C6F17 /* MrCreationServiceDetailView.swift */; };
+		B6E66BE9DC5EE626BA60E230 /* Banner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 059932A6C78F0243833BD5B8 /* Banner.swift */; };
+		B7355CAF512D9B9C1ABB2BF2 /* ExperienceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBEE97E6A267C33574835C8 /* ExperienceModel.swift */; };
+		B7D2C2AB2B497DAB8EC8623D /* TuistFonts+Umpa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8882E3F552C1739089D2140E /* TuistFonts+Umpa.swift */; };
+		B867C478F67C763208393CB8 /* LessonServiceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929BD9D4FC758515AE5A5550 /* LessonServiceDetailView.swift */; };
+		B8C73ED264E4DC31ADC6C1BD /* GTMSessionFetcherCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A64B782FE2E3230F2CA5B7D9 /* GTMSessionFetcherCore.framework */; };
+		B96DDFD3151CE275C7FFDC5C /* ServiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB696F949EAFC373E77E1480 /* ServiceListView.swift */; };
+		B9E7F09A33043F078F74F02C /* TeacherSignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02FC4392E19ECF2B54A95EB /* TeacherSignUpInteractor.swift */; };
+		BAB3F6B487F499FC51033566 /* UmpaNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41FB1F80DA1BE0BF1CD0CCC3 /* UmpaNotificationView.swift */; };
+		BC515BD1888C4428A8B6340E /* MajorSelectableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04C9D55A8DE7EE35C7BB1B8 /* MajorSelectableModel.swift */; };
+		BC7093D7D4FAF0972B597C44 /* ServiceTypeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917DA5D4916D7B7CF3B0261F /* ServiceTypeSelectView.swift */; };
+		BE4CADFDC5D4297844FF8E09 /* ScoreCreationFilterSheetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215A27E07E08FC3DB8B94B5D /* ScoreCreationFilterSheetManager.swift */; };
+		BF196CD5F9CD66CBF64E40AF /* TurnaroundFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77B5D6EB1B23EDE22F09F20 /* TurnaroundFilter.swift */; };
+		C046AD4F182F44ACB0BE1F7B /* DeviceCheck.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B066A00BA1F6F68347F41B25 /* DeviceCheck.framework */; };
+		C25C38B1F66D881F5672F7F1 /* SignUpBottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB157662E55E023CB24B557A /* SignUpBottomButton.swift */; };
+		C3FFD91A83444BB82C9C5C43 /* DataAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B7762C8EE0B7F1A5E7E376 /* DataAccess.framework */; };
+		C6509BE684C3D3FBA2478791 /* UnitDate+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2208E62FEABB64FBCEACEA /* UnitDate+.swift */; };
+		C6F975B9784788132583CCA5 /* MajorSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F98B53B3116A7D45EFF5037 /* MajorSelectionView.swift */; };
+		C7959D1A059F536ADFF75DBD /* TeacherHomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D0842B163733F50B1E6133 /* TeacherHomeInteractor.swift */; };
+		CB40E69847AA06BDFE7BEBA9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CDFB051B71977DD0C0497F2 /* Core.framework */; };
+		CB5C0120048527CC5F9D862C /* TeacherProfileInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC53CA0C1F92E2F5CE80033A /* TeacherProfileInputView.swift */; };
+		CB78FE454D52E74AD5464BEC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B99508D495EF4A6A84A4DE /* Foundation.framework */; };
+		CC19CFC1AA603BF74068B04D /* Factory_Factory.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 6498D34691DC584EA4C5C725 /* Factory_Factory.bundle */; };
+		CCF91851096C0B97CACF1609 /* Pretendard-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 30FC3101A88530469732D696 /* Pretendard-ExtraBold.otf */; };
+		CDE90ABCAAB40F7FF9EFCE78 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A4F1BE136FEAEA705633F8C /* Utils.framework */; };
+		CF2C1A8DC2763CE05AFE273F /* KakaoSDKUser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772AC984E44D88FD44A8C5F9 /* KakaoSDKUser.framework */; };
+		CF5CC50B216A61B83E86085F /* PhoneVerificationInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D633B6026EB4B10B1DFB0664 /* PhoneVerificationInteractor.swift */; };
+		D028E742DC8ACD80843C7443 /* MRCreationFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DAA4F61ED49F1398E70E9D3 /* MRCreationFilter.swift */; };
+		D3F42D7252C0196CAEE7FBFD /* NidLogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA5620D413D3763B699189A4 /* NidLogin.framework */; };
+		D6E653E951DB5EA480984816 /* KakaoSDKTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6BC771083AF4B2C3F3B2A3 /* KakaoSDKTemplate.framework */; };
+		D9DEF1AE13B988BF2F19DD6C /* GoogleSignIn_GoogleSignIn.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = F61F86E8C7F7A6DD256DB559 /* GoogleSignIn_GoogleSignIn.bundle */; };
+		DA116ADEE89E133878480553 /* GTMAppAuth_GTMAppAuth.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 37A15D7492057851BBBC3FFE /* GTMAppAuth_GTMAppAuth.bundle */; };
+		DB5A622A31820029E7A01B7D /* PreferSubjectSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7614F7ED970F06FDFDBDFF92 /* PreferSubjectSelectionView.swift */; };
+		DBF596F7EB551CD38C637893 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DED7DECC37B497DF1F427F /* Security.framework */; };
+		DFBECCA2AB43DE816D2111B8 /* GoogleUtilities_GoogleUtilities_Environment.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = FABC59DC1A9A29FDE9A264E1 /* GoogleUtilities_GoogleUtilities_Environment.bundle */; };
+		E159AC47BEBFE3FAF5808255 /* StudentSignUpStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC41B27894C9D5BB5C467B9 /* StudentSignUpStep.swift */; };
+		E1D75F30B6D752DE9045F705 /* SFSafeSymbols.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EADEAB3C19191C8A5E417E32 /* SFSafeSymbols.framework */; };
+		E39EF2105CBD3705D95E27F3 /* ScoreCreationFeeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48FE90D0869CA2CA105B2A5 /* ScoreCreationFeeSelectView.swift */; };
+		E3DB38C419688FF46836E323 /* GoogleUtilities_GoogleUtilities_Logger.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = DE80BBD5F1874F3E40271752 /* GoogleUtilities_GoogleUtilities_Logger.bundle */; };
+		E3EB68AF9DD5676CBC25E2FE /* BaseFeature.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4929C2BBAA24960955D0684B /* BaseFeature.framework */; };
+		E41C272246FB803D916B434A /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B60ADD16972873EC6FFB64 /* BadgeView.swift */; };
+		E5134006E95F7FFA18712A85 /* KakaoSDKCertCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A2E4A964F68D090E64D5E1A /* KakaoSDKCertCore.xcframework */; };
+		E5A73BF36776A94FED63AEB1 /* third_party_IsAppEncrypted.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB180AF7F77D1BEF1E60D246 /* third_party_IsAppEncrypted.framework */; };
+		E951B7AE4D61AFF7C37379B5 /* NidThirdPartyLogin_NidThirdPartyLogin.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EDBF6B9B1B6E5D135BD84B6B /* NidThirdPartyLogin_NidThirdPartyLogin.bundle */; };
+		EA8A9464E17DA131CD0C6A6A /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8694C09A835E4E4402EB8FA0 /* MyProfileView.swift */; };
+		EB41A634C75CB5339C878DA1 /* StudentSignUpInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A608190BF46550BAC0BADAE9 /* StudentSignUpInteractor.swift */; };
+		EBB29B2B87470F58BF8D63F6 /* GoogleSignIn_GoogleSignInSwift.bundle in Dependencies */ = {isa = PBXBuildFile; fileRef = 79C10E3A98F5593BB17736F5 /* GoogleSignIn_GoogleSignInSwift.bundle */; };
+		EDD5B3F868506D3B471ECA04 /* GoogleSignIn_GoogleSignInSwift.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 79C10E3A98F5593BB17736F5 /* GoogleSignIn_GoogleSignInSwift.bundle */; };
+		EE6679491B55BFAE56CDCA03 /* GoogleUtilities_GoogleUtilities_Logger.bundle in Resources */ = {isa = PBXBuildFile; fileRef = DE80BBD5F1874F3E40271752 /* GoogleUtilities_GoogleUtilities_Logger.bundle */; };
+		EFE01BCCA0321416A41BF7E2 /* ExperienceInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F827C23BBFD5E96ABD829B72 /* ExperienceInputView.swift */; };
+		F360F42FA166871AB21ABAA7 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25059890E2A2205576F84167 /* CoreText.framework */; };
+		F6070207F291E52FA41DB428 /* GoogleSignInSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F9E2CCA98872A8B3D60CC8 /* GoogleSignInSwift.framework */; };
+		F6C9FFEA340CEC4A0535B4C3 /* KakaoSDKFriendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0927DCD4E76FBE0D6CE8CE60 /* KakaoSDKFriendCore.xcframework */; };
+		F78AABC16A6F6BD0506C1298 /* ListContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED7E183370309012F100EC /* ListContent.swift */; };
+		F802ED7981F9EECAE5F2D7D5 /* LessonServiceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88542CA3E39092545B08CA4 /* LessonServiceCard.swift */; };
+		F863AA332ED07F0A63628CC7 /* ChatRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6468C0E0BFA7CB16EA03D3F /* ChatRoomView.swift */; };
+		F9074D4874C85E9B78BECD4E /* SiteLinkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8469820F4020DAA8FB429AB9 /* SiteLinkModel.swift */; };
+		F90F348E5CC85FFBEEADB991 /* ScoreCreationFilterSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E1014219E5E618BE1FCC63 /* ScoreCreationFilterSettingView.swift */; };
+		F9DBEF0BD77186C41B3B9DC9 /* MRCreationFilterSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2FF1357B997DD938F22BA9 /* MRCreationFilterSettingView.swift */; };
+		FB07D3ADF12EEC8AD62A404D /* ChatInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495A5C8D7ACBAD02EDFFDD71 /* ChatInteractor.swift */; };
+		FB25EC1977DE2161EFE3E8BB /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A3524F2B850A8E15D71A450B /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle */; };
+		FDC3EDC78A71250EF9DD3FF0 /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B54D1675E33B779348E11B5 /* AppAuth.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6146AA5FC127E5CAC7D67195 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A1AD7310F4A9F2B3E3E78A0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FC3C5DAAD7E1B0DBDB7D480F;
+			remoteInfo = Umpa;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9638EF8BD657454F30128374 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6A9FD4CA3A805E6495C9185C /* Alamofire.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DDDA7CDB0D1D1F3EEC4C724A /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFA2ECE313E3F262816028A9 /* Dependencies */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstSubfolderSpec = 16;
+			files = (
+				22E38D9447CE097574D9C411 /* AppAuth_AppAuth.bundle in Dependencies */,
+				91B3AE334B182C800857BF5A /* AppAuth_AppAuthCore.bundle in Dependencies */,
+				CC19CFC1AA603BF74068B04D /* Factory_Factory.bundle in Dependencies */,
+				DA116ADEE89E133878480553 /* GTMAppAuth_GTMAppAuth.bundle in Dependencies */,
+				7B4D01A7BE73B48FC2BB341F /* GTMSessionFetcher_GTMSessionFetcherCore.bundle in Dependencies */,
+				D9DEF1AE13B988BF2F19DD6C /* GoogleSignIn_GoogleSignIn.bundle in Dependencies */,
+				EBB29B2B87470F58BF8D63F6 /* GoogleSignIn_GoogleSignInSwift.bundle in Dependencies */,
+				DFBECCA2AB43DE816D2111B8 /* GoogleUtilities_GoogleUtilities_Environment.bundle in Dependencies */,
+				E3DB38C419688FF46836E323 /* GoogleUtilities_GoogleUtilities_Logger.bundle in Dependencies */,
+				083E5BCECF0F7D1629A16E28 /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle in Dependencies */,
+				69E05FE3C7A97E1694AC8795 /* KakaoOpenSDK_KakaoSDKCommon.bundle in Dependencies */,
+				3FBCF557ED66E5A54D042BBD /* NidThirdPartyLogin_NidThirdPartyLogin.bundle in Dependencies */,
+				9B04241C3E8EFF1252310FEF /* Promises_FBLPromises.bundle in Dependencies */,
+				7E7DEC114C216998A0E07AEB /* UmpaUIKit_UmpaUIKit.bundle in Dependencies */,
+			);
+			name = Dependencies;
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		01D0842B163733F50B1E6133 /* TeacherHomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeInteractor.swift; sourceTree = "<group>"; };
+		0288B6B8CAF85B249077D854 /* LessonFilterSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonFilterSettingView.swift; sourceTree = "<group>"; };
+		04CD7D7A857FAA12C09610A7 /* NidThirdPartyLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NidThirdPartyLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		059932A6C78F0243833BD5B8 /* Banner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Banner.swift; sourceTree = "<group>"; };
+		063849C205EB8488EC1B633C /* GTMAppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GTMAppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		080571BB8EDC49F6FDE696E1 /* KakaoSDKTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0861BF1A00B68BFCECD5C0DE /* VerificationCodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationCodeInputView.swift; sourceTree = "<group>"; };
+		0927DCD4E76FBE0D6CE8CE60 /* KakaoSDKFriendCore.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:L75WVXX68A:Kakao Corp."; lastKnownFileType = wrapper.xcframework; path = KakaoSDKFriendCore.xcframework; sourceTree = "<group>"; };
+		09398DE1708096EA6FB31543 /* LinkInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkInputView.swift; sourceTree = "<group>"; };
+		09D0ECCEE4A5C998D232DEBF /* UmpaUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "UmpaUnitTests-Info.plist"; sourceTree = "<group>"; };
+		0A2E4A964F68D090E64D5E1A /* KakaoSDKCertCore.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:L75WVXX68A:Kakao Corp."; lastKnownFileType = wrapper.xcframework; path = KakaoSDKCertCore.xcframework; sourceTree = "<group>"; };
+		0CDFB051B71977DD0C0497F2 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D10E8AC363FF18F823A8AA1 /* AccompanistFilterSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccompanistFilterSettingView.swift; sourceTree = "<group>"; };
+		0E4E87D7590741D0FBC0BBFE /* AppAuthCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppAuthCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F98B53B3116A7D45EFF5037 /* MajorSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorSelectionView.swift; sourceTree = "<group>"; };
+		1117D9406B4BBB7FFE190FEF /* SignUpConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpConstant.swift; sourceTree = "<group>"; };
+		11F81C6A557FCFD4C038C43B /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		1707A7C245FC67626A7EFCDF /* MyProfileInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileInteractor.swift; sourceTree = "<group>"; };
+		1A045C2B61A312D3CD0507F7 /* AppInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInteractor.swift; sourceTree = "<group>"; };
+		1AB4E831E9AC409ECDA62A75 /* Common.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Common.xcconfig; sourceTree = "<group>"; };
+		1C6873B856BD9F44101BA9CD /* LessonFilterSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonFilterSheetManager.swift; sourceTree = "<group>"; };
+		1DAA4F61ED49F1398E70E9D3 /* MRCreationFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreationFilter.swift; sourceTree = "<group>"; };
+		215A27E07E08FC3DB8B94B5D /* ScoreCreationFilterSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCreationFilterSheetManager.swift; sourceTree = "<group>"; };
+		24C3764CD3635DAE2025FBBA /* LikeCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeCommentView.swift; sourceTree = "<group>"; };
+		25059890E2A2205576F84167 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		25EB811C03221E3DA5026E8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		288AAC39CB1C420B3A33B384 /* TurnaroundSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnaroundSelectView.swift; sourceTree = "<group>"; };
+		2D43EE6081FB5C60A14BB868 /* KakaoOpenSDK_KakaoSDKCommon.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KakaoOpenSDK_KakaoSDKCommon.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E02AD826156AD08C0143169 /* TeacherOverviewTabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherOverviewTabContent.swift; sourceTree = "<group>"; };
+		2EDBDB75AD142D948FD2C7B1 /* IssueReporting.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IssueReporting.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F9E89498B79808A80981498 /* AccompanistServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccompanistServiceDetailView.swift; sourceTree = "<group>"; };
+		306177422FD34C05870E6FC5 /* ScoreTypeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTypeSelectView.swift; sourceTree = "<group>"; };
+		30FC3101A88530469732D696 /* Pretendard-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-ExtraBold.otf"; sourceTree = "<group>"; };
+		34FEA5FC508CF33D6090BC85 /* TeacherFindingCarouselItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFindingCarouselItem.swift; sourceTree = "<group>"; };
+		35B60ADD16972873EC6FFB64 /* BadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeView.swift; sourceTree = "<group>"; };
+		35BC6A37B071E9F47F79187D /* TeacherSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSignUpModel.swift; sourceTree = "<group>"; };
+		37A15D7492057851BBBC3FFE /* GTMAppAuth_GTMAppAuth.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTMAppAuth_GTMAppAuth.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A0337625A31AB9C64B6EF8F /* TuistAssets+Umpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistAssets+Umpa.swift"; sourceTree = "<group>"; };
+		3B54D1675E33B779348E11B5 /* AppAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BEDD2BD38A1B4FF80DEA739 /* ReviewTabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTabContent.swift; sourceTree = "<group>"; };
+		3DB248FF8FFD555C67A16E99 /* TeacherMajorSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherMajorSelectView.swift; sourceTree = "<group>"; };
+		3FAADCE97EF25629C8A2C597 /* FilterEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEntry.swift; sourceTree = "<group>"; };
+		41FB1F80DA1BE0BF1CD0CCC3 /* UmpaNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmpaNotificationView.swift; sourceTree = "<group>"; };
+		431705079FE372B6C7D36DDA /* RegionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionSelectView.swift; sourceTree = "<group>"; };
+		436307E3135524DC68D9A910 /* UmpaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4929C2BBAA24960955D0684B /* BaseFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BaseFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		495A5C8D7ACBAD02EDFFDD71 /* ChatInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInteractor.swift; sourceTree = "<group>"; };
+		4A4F1BE136FEAEA705633F8C /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B0CF1AF64AEFBA64C0DA942 /* ServiceOverviewTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceOverviewTab.swift; sourceTree = "<group>"; };
+		4D4247D98113FD2B987AF960 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		4E470DCCD2AC2D92BEB1B11A /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E8FEBCDEE87C71A52094616 /* UmpaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmpaFactory.swift; sourceTree = "<group>"; };
+		4FC83E6F9613BDA17A5B2ED4 /* LessonServiceManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonServiceManagementView.swift; sourceTree = "<group>"; };
+		526B6CED9931E336C8D94DCA /* LessonRequirementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRequirementView.swift; sourceTree = "<group>"; };
+		53F278D62FF211042FA18217 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/LocalAuthentication.framework; sourceTree = DEVELOPER_DIR; };
+		5454A87668C0E1A11C195BA9 /* KakaoSDKCommon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKCommon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		565AA4DC9731B4833B55DABE /* ScoreCreationServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCreationServiceDetailView.swift; sourceTree = "<group>"; };
+		57693E8782AA7085E9449327 /* AccompanistFeeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccompanistFeeSelectView.swift; sourceTree = "<group>"; };
+		5CFB3373C55E4D327967CD89 /* AppCheckCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppCheckCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DBEE97E6A267C33574835C8 /* ExperienceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceModel.swift; sourceTree = "<group>"; };
+		61FEED6FA0E73EEFB4BFE3F0 /* ScoreCreationFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCreationFilter.swift; sourceTree = "<group>"; };
+		64588D15C91EC7EF3705A379 /* BasicSettingsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicSettingsListItem.swift; sourceTree = "<group>"; };
+		6498D34691DC584EA4C5C725 /* Factory_Factory.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Factory_Factory.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CC9DFA8F2FDE1BFC7DE715F /* AcceptTermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsView.swift; sourceTree = "<group>"; };
+		6CD5C2DD3235FF2DBD4ECEB2 /* StudentSignUpModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpModel.swift; sourceTree = "<group>"; };
+		6E78ED4F0D22816B325EF8CC /* GoogleUtilities_Logger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities_Logger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6FFA4CE095FDD9B43BF561F3 /* TeacherHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherHomeView.swift; sourceTree = "<group>"; };
+		70672F2CAE3AC09923235C8E /* AccompanistFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccompanistFilter.swift; sourceTree = "<group>"; };
+		72F5434534421838BAB43577 /* GTMSessionFetcher_GTMSessionFetcherCore.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTMSessionFetcher_GTMSessionFetcherCore.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		7399E62C53E948293AF46FEE /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		74425DDF0CA54F11B9C205A4 /* NidCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NidCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74D46C42D513B87131AE8A03 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		751C30C06B0735178411459F /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		753A9CB47DB49C66966BF24C /* LessonSubjectSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonSubjectSelectView.swift; sourceTree = "<group>"; };
+		7614F7ED970F06FDFDBDFF92 /* PreferSubjectSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferSubjectSelectionView.swift; sourceTree = "<group>"; };
+		772AC984E44D88FD44A8C5F9 /* KakaoSDKUser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKUser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7757106CBAE97D4CF31388C0 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		782344546635BAFFB7B7C5F8 /* Turnaround+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Turnaround+.swift"; sourceTree = "<group>"; };
+		786212F58CE49A3962BBA0C9 /* Factory.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Factory.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78938EDBC1FC9536557E77E6 /* TuistBundle+Umpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistBundle+Umpa.swift"; sourceTree = "<group>"; };
+		789A8414BE8CE28A0E065CB6 /* UmpaNotificationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmpaNotificationInteractor.swift; sourceTree = "<group>"; };
+		79C10E3A98F5593BB17736F5 /* GoogleSignIn_GoogleSignInSwift.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleSignIn_GoogleSignInSwift.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A3C11AD8F4804DE3CEE0FA3 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		7C8207BF4488068FA0CE2300 /* TeacherFinderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherFinderView.swift; sourceTree = "<group>"; };
+		7F0989AB92F0CAAA36D542FD /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		83B3E2E4F9F964EDD8F78F04 /* MRCreationFeeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreationFeeSelectView.swift; sourceTree = "<group>"; };
+		8469820F4020DAA8FB429AB9 /* SiteLinkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiteLinkModel.swift; sourceTree = "<group>"; };
+		85B7F17055FB3ACBDFDF0BFD /* KakaoSDKAuth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKAuth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86243C3101E7A1312D34DBAC /* MRCreationFilterSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreationFilterSheetManager.swift; sourceTree = "<group>"; };
+		8694C09A835E4E4402EB8FA0 /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		871BB084ABD1875B59CA2B30 /* PhoneVerificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationError.swift; sourceTree = "<group>"; };
+		8882E3F552C1739089D2140E /* TuistFonts+Umpa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TuistFonts+Umpa.swift"; sourceTree = "<group>"; };
+		8A34EA811F214EFBC72E3E2B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		8DC19FFEA35AE45D4CEDF154 /* GoogleSignIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleSignIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E85452846F0F3A418084C87 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		8EE04AF6FDAA2BC2F975A11C /* SampleMusicPreviewTabContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleMusicPreviewTabContent.swift; sourceTree = "<group>"; };
+		917DA5D4916D7B7CF3B0261F /* ServiceTypeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTypeSelectView.swift; sourceTree = "<group>"; };
+		91A7F7F99DFAD496652B92D4 /* UmpaRegionSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmpaRegionSelector.swift; sourceTree = "<group>"; };
+		929BD9D4FC758515AE5A5550 /* LessonServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonServiceDetailView.swift; sourceTree = "<group>"; };
+		93E1014219E5E618BE1FCC63 /* ScoreCreationFilterSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCreationFilterSettingView.swift; sourceTree = "<group>"; };
+		942EF40E0C602442B74ECF84 /* UmpaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmpaApp.swift; sourceTree = "<group>"; };
+		95854A9966BEBB7ED634DDB2 /* FilterSettingBottomActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingBottomActionView.swift; sourceTree = "<group>"; };
+		95A175C76CFA19A8CBBBF270 /* ServiceDetailConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailConstant.swift; sourceTree = "<group>"; };
+		95E35641F44BB070C5E68273 /* LessonRequirementInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonRequirementInteractor.swift; sourceTree = "<group>"; };
+		973CC520DF725B8E0D459D13 /* UmpaUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UmpaUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		97DF994B0CA76F4C3A604AF1 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		99A5C6FF34D51E9F948F064B /* KakaoSDKShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		99F9E2CCA98872A8B3D60CC8 /* GoogleSignInSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleSignInSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D823096D96149A93F02E943 /* UsernameInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameInputView.swift; sourceTree = "<group>"; };
+		9EC41B27894C9D5BB5C467B9 /* StudentSignUpStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpStep.swift; sourceTree = "<group>"; };
+		A0E29385F2C2D055E663F410 /* NetworkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetworkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0E5E2DD86923E51E81F85BF /* LessonStyleSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonStyleSelectView.swift; sourceTree = "<group>"; };
+		A1FCA44C0747616B35D8F8D6 /* InstrumentSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentSelectView.swift; sourceTree = "<group>"; };
+		A3524F2B850A8E15D71A450B /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleUtilities_GoogleUtilities_UserDefaults.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		A55FF8B99EF16B33A70A90C5 /* TeacherSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSignUpView.swift; sourceTree = "<group>"; };
+		A608190BF46550BAC0BADAE9 /* StudentSignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpInteractor.swift; sourceTree = "<group>"; };
+		A64B782FE2E3230F2CA5B7D9 /* GTMSessionFetcherCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GTMSessionFetcherCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8638F37B97418CFE6FD0B51 /* DreamCollegesSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamCollegesSelectionView.swift; sourceTree = "<group>"; };
+		AE4DA31FD07480C277D2391A /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		B04C9D55A8DE7EE35C7BB1B8 /* MajorSelectableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorSelectableModel.swift; sourceTree = "<group>"; };
+		B066A00BA1F6F68347F41B25 /* DeviceCheck.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceCheck.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/DeviceCheck.framework; sourceTree = DEVELOPER_DIR; };
+		B3D84CA1D225DA72895F8A61 /* FBLPromises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FBLPromises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B41396BEC0396F23473C6F17 /* MrCreationServiceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrCreationServiceDetailView.swift; sourceTree = "<group>"; };
+		B5B705C263DC901720E69B4E /* FilterSettingViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingViewHeader.swift; sourceTree = "<group>"; };
+		B6DED7DECC37B497DF1F427F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		B72B16183E4A7411925D94CE /* CollegeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollegeSelectView.swift; sourceTree = "<group>"; };
+		B7C349D2205C84ADA43B8F2D /* AppAuth_AppAuthCore.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppAuth_AppAuthCore.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9957FD430E4EC026CAA1D38 /* LessonFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonFilter.swift; sourceTree = "<group>"; };
+		B9B62201B1FA7878D22F4A4C /* ServiceDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailInteractor.swift; sourceTree = "<group>"; };
+		BBAA1ADA951DA7C0EA57DA17 /* Promises_FBLPromises.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Promises_FBLPromises.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC7B0DC6D692734E56DB929F /* Mockable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mockable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD99305297BBFBDB4F75B716 /* FilterSheetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetHeader.swift; sourceTree = "<group>"; };
+		BEF982A74345E04FDCBFDD46 /* NOTICE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = NOTICE.txt; sourceTree = "<group>"; };
+		BF1F023AD34CC65366FC6ABA /* ServiceListInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListInteractorTests.swift; sourceTree = "<group>"; };
+		C25D4AC3587B5190D998C93F /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		C6468C0E0BFA7CB16EA03D3F /* ChatRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomView.swift; sourceTree = "<group>"; };
+		CA5620D413D3763B699189A4 /* NidLogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NidLogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB660DB8EF0572AD570A3E7D /* ReviewInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewInteractor.swift; sourceTree = "<group>"; };
+		CBDC1CEB0EA4DB703964B0C4 /* ServiceListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListInteractor.swift; sourceTree = "<group>"; };
+		CBFA1227574B6E7A6403B9C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CC36E34EC91998D926988CA0 /* StudentProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentProfileInputView.swift; sourceTree = "<group>"; };
+		CF2FF1357B997DD938F22BA9 /* MRCreationFilterSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCreationFilterSettingView.swift; sourceTree = "<group>"; };
+		CF5A754E3F22857B398BAC07 /* GenderFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderFilter.swift; sourceTree = "<group>"; };
+		D0CD7F0C42790794669739CB /* GoogleUtilities_Environment.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities_Environment.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1F27B488030F95B6FE254A1 /* Umpa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Umpa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D26CED4BB37DA2B3BBE29868 /* GenderSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderSelectView.swift; sourceTree = "<group>"; };
+		D2B99508D495EF4A6A84A4DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D48FE90D0869CA2CA105B2A5 /* ScoreCreationFeeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCreationFeeSelectView.swift; sourceTree = "<group>"; };
+		D633B6026EB4B10B1DFB0664 /* PhoneVerificationInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerificationInteractor.swift; sourceTree = "<group>"; };
+		D6559E5CD05281E8D0515665 /* KakaoSDKNavi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKNavi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D88542CA3E39092545B08CA4 /* LessonServiceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonServiceCard.swift; sourceTree = "<group>"; };
+		D90B3EB0BB86CF3E368436E5 /* StudentSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentSignUpView.swift; sourceTree = "<group>"; };
+		D91354230BDA69FEF1F265D3 /* GoogleUtilities_UserDefaults.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoogleUtilities_UserDefaults.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA2E83BA55E32603D2F97308 /* UmpaUIKit_UmpaUIKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmpaUIKit_UmpaUIKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA6BC771083AF4B2C3F3B2A3 /* KakaoSDKTemplate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKTemplate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC53CA0C1F92E2F5CE80033A /* TeacherProfileInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherProfileInputView.swift; sourceTree = "<group>"; };
+		DCCFE85D35878B8E203DC0B1 /* AppSettingFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AppSettingFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD2208E62FEABB64FBCEACEA /* UnitDate+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnitDate+.swift"; sourceTree = "<group>"; };
+		DE20CC0FFDB10D0F691E5F88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DE80BBD5F1874F3E40271752 /* GoogleUtilities_GoogleUtilities_Logger.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleUtilities_GoogleUtilities_Logger.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEED7E183370309012F100EC /* ListContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContent.swift; sourceTree = "<group>"; };
+		DFC65661CCEA333175C9B07F /* AccompanistFilterSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccompanistFilterSheetManager.swift; sourceTree = "<group>"; };
+		E109CA39E9A82FB7F684808C /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		E144B825E4CAA6BB5502A123 /* TitleText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleText.swift; sourceTree = "<group>"; };
+		E236B32BA824F4C86161D2AB /* AcceptTermsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptTermsInteractor.swift; sourceTree = "<group>"; };
+		E3FB304BE674FA3CDE589730 /* ServiceDetailBottomActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailBottomActionBar.swift; sourceTree = "<group>"; };
+		E3FE9DD4017B7C4C71935579 /* PhoneNumberInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberInputView.swift; sourceTree = "<group>"; };
+		E4BA2BB1EDBA34A2823C8DB3 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		E5B7762C8EE0B7F1A5E7E376 /* DataAccess.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAccess.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E77B5D6EB1B23EDE22F09F20 /* TurnaroundFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnaroundFilter.swift; sourceTree = "<group>"; };
+		EADEAB3C19191C8A5E417E32 /* SFSafeSymbols.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SFSafeSymbols.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB157662E55E023CB24B557A /* SignUpBottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpBottomButton.swift; sourceTree = "<group>"; };
+		EB180AF7F77D1BEF1E60D246 /* third_party_IsAppEncrypted.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = third_party_IsAppEncrypted.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB20DC732909AA7278B56849 /* FilterSheetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheetManager.swift; sourceTree = "<group>"; };
+		EC1AC5464F069B9A378CE820 /* LessonFeeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonFeeSelectView.swift; sourceTree = "<group>"; };
+		ECD6CEB64477770B53C10955 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED28D3F866301F2513739AF5 /* KakaoSDKFriend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKFriend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDBF6B9B1B6E5D135BD84B6B /* NidThirdPartyLogin_NidThirdPartyLogin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NidThirdPartyLogin_NidThirdPartyLogin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F02FC4392E19ECF2B54A95EB /* TeacherSignUpInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSignUpInteractor.swift; sourceTree = "<group>"; };
+		F0E58A51F21D8D6D92218CEC /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
+		F1C9F9B6DA7915709B55E833 /* TeacherSignUpStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeacherSignUpStep.swift; sourceTree = "<group>"; };
+		F467FC2DF140FF3195C19E26 /* AppAuth_AppAuth.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppAuth_AppAuth.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5475B357BCCC15640E5C3EA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F61F86E8C7F7A6DD256DB559 /* GoogleSignIn_GoogleSignIn.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleSignIn_GoogleSignIn.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		F827C23BBFD5E96ABD829B72 /* ExperienceInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperienceInputView.swift; sourceTree = "<group>"; };
+		F83AD2759A4D0EE090ADC34C /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
+		F8FEB9C2595677A925F11ABC /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		F91E9CAE2AB8FE5329FD2CBE /* ChatInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInteractorTests.swift; sourceTree = "<group>"; };
+		FA4C98231E8A46D10C3A4F72 /* MyServiceFeature.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MyServiceFeature.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAA086E550EBEFCB948B893E /* FilterSettingConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingConstant.swift; sourceTree = "<group>"; };
+		FABC59DC1A9A29FDE9A264E1 /* GoogleUtilities_GoogleUtilities_Environment.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleUtilities_GoogleUtilities_Environment.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB696F949EAFC373E77E1480 /* ServiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListView.swift; sourceTree = "<group>"; };
+		FDADDDDDD709261D437A7057 /* KakaoSDKCert.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KakaoSDKCert.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE98BAFC7BD75025ED509E4A /* UserTypeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypeSelectionView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		639A5EBF312F5E1C52115D04 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1418F367B5C8471D0DDFD99F /* AppKit.framework in Frameworks */,
+				6A7A1C46621E56F8F0E5A310 /* CoreGraphics.framework in Frameworks */,
+				F360F42FA166871AB21ABAA7 /* CoreText.framework in Frameworks */,
+				C046AD4F182F44ACB0BE1F7B /* DeviceCheck.framework in Frameworks */,
+				CB78FE454D52E74AD5464BEC /* Foundation.framework in Frameworks */,
+				1DB1B4520919B291FA137E42 /* LocalAuthentication.framework in Frameworks */,
+				DBF596F7EB551CD38C637893 /* Security.framework in Frameworks */,
+				1C41A900848A2842E75126A4 /* UIKit.framework in Frameworks */,
+				9D07786C83302D9E1C906391 /* Alamofire.framework in Frameworks */,
+				FDC3EDC78A71250EF9DD3FF0 /* AppAuth.framework in Frameworks */,
+				35546DEF4E749B5DAE1FED39 /* AppAuthCore.framework in Frameworks */,
+				256BDB33D07CCF0696C9AF10 /* AppCheckCore.framework in Frameworks */,
+				A14CC496E6496CBF96189DED /* AppSettingFeature.framework in Frameworks */,
+				E3EB68AF9DD5676CBC25E2FE /* BaseFeature.framework in Frameworks */,
+				CB40E69847AA06BDFE7BEBA9 /* Core.framework in Frameworks */,
+				C3FFD91A83444BB82C9C5C43 /* DataAccess.framework in Frameworks */,
+				33BFD94A752CB37A98CCD5F4 /* Domain.framework in Frameworks */,
+				2A647FBABE38B76C418EB420 /* FBLPromises.framework in Frameworks */,
+				3AA5A399BAC49E8DC3C9E3F2 /* Factory.framework in Frameworks */,
+				A7C59CC337F8431ECFE4DB53 /* GTMAppAuth.framework in Frameworks */,
+				B8C73ED264E4DC31ADC6C1BD /* GTMSessionFetcherCore.framework in Frameworks */,
+				78C69798229A95455C71674C /* GoogleSignIn.framework in Frameworks */,
+				F6070207F291E52FA41DB428 /* GoogleSignInSwift.framework in Frameworks */,
+				183EB2FAF36DAD02889553A7 /* GoogleUtilities_Environment.framework in Frameworks */,
+				36FDEC9EE01AED02DBADCFFF /* GoogleUtilities_Logger.framework in Frameworks */,
+				043537D3F8A893AE983308BA /* GoogleUtilities_UserDefaults.framework in Frameworks */,
+				4D81F7C466AB7A9A1D200155 /* IssueReporting.framework in Frameworks */,
+				2D1D17B9F0C591849151B0C7 /* KakaoSDKAuth.framework in Frameworks */,
+				ACFC563171CB50C604DDA8AD /* KakaoSDKCert.framework in Frameworks */,
+				53D130C2256AF29FFD07995F /* KakaoSDKCommon.framework in Frameworks */,
+				031F65A38240EE37AFA2912F /* KakaoSDKFriend.framework in Frameworks */,
+				1FF910C3D94EE64EB47F9F29 /* KakaoSDKNavi.framework in Frameworks */,
+				87FC2C704CA495F85917619A /* KakaoSDKShare.framework in Frameworks */,
+				590D485244833DE33D37E5E7 /* KakaoSDKTalk.framework in Frameworks */,
+				D6E653E951DB5EA480984816 /* KakaoSDKTemplate.framework in Frameworks */,
+				CF2C1A8DC2763CE05AFE273F /* KakaoSDKUser.framework in Frameworks */,
+				1F95E4AFC8576CC751977D62 /* Mockable.framework in Frameworks */,
+				5EFC639525C592EEE5EFC880 /* MyServiceFeature.framework in Frameworks */,
+				59C316735B5F14132C906D63 /* NetworkKit.framework in Frameworks */,
+				96DE42E67F9BB234A29C1DB1 /* NidCore.framework in Frameworks */,
+				D3F42D7252C0196CAEE7FBFD /* NidLogin.framework in Frameworks */,
+				1DC8BFE92A5FE1B394EC864E /* NidThirdPartyLogin.framework in Frameworks */,
+				E1D75F30B6D752DE9045F705 /* SFSafeSymbols.framework in Frameworks */,
+				9A73D82512D264DA86CEC31F /* UmpaUIKit.framework in Frameworks */,
+				CDE90ABCAAB40F7FF9EFCE78 /* Utils.framework in Frameworks */,
+				E5A73BF36776A94FED63AEB1 /* third_party_IsAppEncrypted.framework in Frameworks */,
+				E5134006E95F7FFA18712A85 /* KakaoSDKCertCore.xcframework in Frameworks */,
+				F6C9FFEA340CEC4A0535B4C3 /* KakaoSDKFriendCore.xcframework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6BE697F86D19816DD964A66E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		005506054BB43749E76F5AB6 /* DreamCollegesSelection */ = {
+			isa = PBXGroup;
+			children = (
+				A8638F37B97418CFE6FD0B51 /* DreamCollegesSelectionView.swift */,
+			);
+			path = DreamCollegesSelection;
+			sourceTree = "<group>";
+		};
+		00872E338968C1EAB960AE9C = {
+			isa = PBXGroup;
+			children = (
+				8D2780F2E8F765B73C724FCE /* Project */,
+				0443069760EF2F6BFA24D2C2 /* Products */,
+				72F045285F6E636905CB6AFD /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		0443069760EF2F6BFA24D2C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECD6CEB64477770B53C10955 /* Alamofire.framework */,
+				F467FC2DF140FF3195C19E26 /* AppAuth_AppAuth.bundle */,
+				B7C349D2205C84ADA43B8F2D /* AppAuth_AppAuthCore.bundle */,
+				3B54D1675E33B779348E11B5 /* AppAuth.framework */,
+				0E4E87D7590741D0FBC0BBFE /* AppAuthCore.framework */,
+				5CFB3373C55E4D327967CD89 /* AppCheckCore.framework */,
+				DCCFE85D35878B8E203DC0B1 /* AppSettingFeature.framework */,
+				4929C2BBAA24960955D0684B /* BaseFeature.framework */,
+				0CDFB051B71977DD0C0497F2 /* Core.framework */,
+				E5B7762C8EE0B7F1A5E7E376 /* DataAccess.framework */,
+				4E470DCCD2AC2D92BEB1B11A /* Domain.framework */,
+				6498D34691DC584EA4C5C725 /* Factory_Factory.bundle */,
+				786212F58CE49A3962BBA0C9 /* Factory.framework */,
+				B3D84CA1D225DA72895F8A61 /* FBLPromises.framework */,
+				F61F86E8C7F7A6DD256DB559 /* GoogleSignIn_GoogleSignIn.bundle */,
+				79C10E3A98F5593BB17736F5 /* GoogleSignIn_GoogleSignInSwift.bundle */,
+				8DC19FFEA35AE45D4CEDF154 /* GoogleSignIn.framework */,
+				99F9E2CCA98872A8B3D60CC8 /* GoogleSignInSwift.framework */,
+				D0CD7F0C42790794669739CB /* GoogleUtilities_Environment.framework */,
+				FABC59DC1A9A29FDE9A264E1 /* GoogleUtilities_GoogleUtilities_Environment.bundle */,
+				DE80BBD5F1874F3E40271752 /* GoogleUtilities_GoogleUtilities_Logger.bundle */,
+				A3524F2B850A8E15D71A450B /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle */,
+				6E78ED4F0D22816B325EF8CC /* GoogleUtilities_Logger.framework */,
+				D91354230BDA69FEF1F265D3 /* GoogleUtilities_UserDefaults.framework */,
+				37A15D7492057851BBBC3FFE /* GTMAppAuth_GTMAppAuth.bundle */,
+				063849C205EB8488EC1B633C /* GTMAppAuth.framework */,
+				72F5434534421838BAB43577 /* GTMSessionFetcher_GTMSessionFetcherCore.bundle */,
+				A64B782FE2E3230F2CA5B7D9 /* GTMSessionFetcherCore.framework */,
+				2EDBDB75AD142D948FD2C7B1 /* IssueReporting.framework */,
+				2D43EE6081FB5C60A14BB868 /* KakaoOpenSDK_KakaoSDKCommon.bundle */,
+				85B7F17055FB3ACBDFDF0BFD /* KakaoSDKAuth.framework */,
+				FDADDDDDD709261D437A7057 /* KakaoSDKCert.framework */,
+				5454A87668C0E1A11C195BA9 /* KakaoSDKCommon.framework */,
+				ED28D3F866301F2513739AF5 /* KakaoSDKFriend.framework */,
+				D6559E5CD05281E8D0515665 /* KakaoSDKNavi.framework */,
+				99A5C6FF34D51E9F948F064B /* KakaoSDKShare.framework */,
+				080571BB8EDC49F6FDE696E1 /* KakaoSDKTalk.framework */,
+				DA6BC771083AF4B2C3F3B2A3 /* KakaoSDKTemplate.framework */,
+				772AC984E44D88FD44A8C5F9 /* KakaoSDKUser.framework */,
+				BC7B0DC6D692734E56DB929F /* Mockable.framework */,
+				FA4C98231E8A46D10C3A4F72 /* MyServiceFeature.framework */,
+				A0E29385F2C2D055E663F410 /* NetworkKit.framework */,
+				74425DDF0CA54F11B9C205A4 /* NidCore.framework */,
+				CA5620D413D3763B699189A4 /* NidLogin.framework */,
+				EDBF6B9B1B6E5D135BD84B6B /* NidThirdPartyLogin_NidThirdPartyLogin.bundle */,
+				04CD7D7A857FAA12C09610A7 /* NidThirdPartyLogin.framework */,
+				BBAA1ADA951DA7C0EA57DA17 /* Promises_FBLPromises.bundle */,
+				EADEAB3C19191C8A5E417E32 /* SFSafeSymbols.framework */,
+				EB180AF7F77D1BEF1E60D246 /* third_party_IsAppEncrypted.framework */,
+				D1F27B488030F95B6FE254A1 /* Umpa.app */,
+				DA2E83BA55E32603D2F97308 /* UmpaUIKit_UmpaUIKit.bundle */,
+				973CC520DF725B8E0D459D13 /* UmpaUIKit.framework */,
+				436307E3135524DC68D9A910 /* UmpaUnitTests.xctest */,
+				4A4F1BE136FEAEA705633F8C /* Utils.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		06E0C06B7E43B543C7CC9796 /* StudentSignUp */ = {
+			isa = PBXGroup;
+			children = (
+				005506054BB43749E76F5AB6 /* DreamCollegesSelection */,
+				7A48177F903E1EA4BCFFBB89 /* LessonRequirement */,
+				8CFAB6346A6CC8E088527B83 /* PreferSubjectSelection */,
+				A0930AFF1B32D84414F3520C /* StudentProfileInput */,
+				EC5D6F1815262807F5CF83F6 /* UsernameInput */,
+				A608190BF46550BAC0BADAE9 /* StudentSignUpInteractor.swift */,
+				9EC41B27894C9D5BB5C467B9 /* StudentSignUpStep.swift */,
+				D90B3EB0BB86CF3E368436E5 /* StudentSignUpView.swift */,
+			);
+			path = StudentSignUp;
+			sourceTree = "<group>";
+		};
+		1072CEC7C7C90BEA567C57F7 /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				5B519568DA3781B041EFF96C /* Components */,
+				4FC83E6F9613BDA17A5B2ED4 /* LessonServiceManagementView.swift */,
+				1707A7C245FC67626A7EFCDF /* MyProfileInteractor.swift */,
+				8694C09A835E4E4402EB8FA0 /* MyProfileView.swift */,
+			);
+			path = MyProfile;
+			sourceTree = "<group>";
+		};
+		10CCCFF69EE27841A9C425B4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C25D4AC3587B5190D998C93F /* Pretendard-Bold.otf */,
+				30FC3101A88530469732D696 /* Pretendard-ExtraBold.otf */,
+				74D46C42D513B87131AE8A03 /* Pretendard-Medium.otf */,
+				F0E58A51F21D8D6D92218CEC /* Pretendard-Regular.otf */,
+				F8FEB9C2595677A925F11ABC /* Pretendard-SemiBold.otf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		12733203696F484F064DE743 /* Domain+UI */ = {
+			isa = PBXGroup;
+			children = (
+				782344546635BAFFB7B7C5F8 /* Turnaround+.swift */,
+				DD2208E62FEABB64FBCEACEA /* UnitDate+.swift */,
+			);
+			path = "Domain+UI";
+			sourceTree = "<group>";
+		};
+		1429BFDB1A5046D0470D9388 /* LessonService */ = {
+			isa = PBXGroup;
+			children = (
+				929BD9D4FC758515AE5A5550 /* LessonServiceDetailView.swift */,
+			);
+			path = LessonService;
+			sourceTree = "<group>";
+		};
+		145FE91D88F9440DB3C8961D /* UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD6951BAF9EA11DDDC731334 /* InteractorTests */,
+				751C30C06B0735178411459F /* TestHelpers.swift */,
+			);
+			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		18B6DA0A475A0C0C0C13A1F5 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				495A5C8D7ACBAD02EDFFDD71 /* ChatInteractor.swift */,
+				C6468C0E0BFA7CB16EA03D3F /* ChatRoomView.swift */,
+				E109CA39E9A82FB7F684808C /* ChatView.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		1B4E52F89D8B9FB1BA82AC51 /* ServiceList */ = {
+			isa = PBXGroup;
+			children = (
+				CBDC1CEB0EA4DB703964B0C4 /* ServiceListInteractor.swift */,
+				FB696F949EAFC373E77E1480 /* ServiceListView.swift */,
+			);
+			path = ServiceList;
+			sourceTree = "<group>";
+		};
+		1E5E07A4799786A5355D667F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D1F736E1C4EA3C2A1267943A /* Resources */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		215539748FD26F43A2C3EDC3 /* Derived */ = {
+			isa = PBXGroup;
+			children = (
+				E74EE767E9B1FB6483908772 /* InfoPlists */,
+				3DC4BA6AB40125F7DBFA9390 /* Sources */,
+			);
+			path = Derived;
+			sourceTree = "<group>";
+		};
+		22BEF327CBA5EEF68683D2B0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E4BA2BB1EDBA34A2823C8DB3 /* MainTabView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		26A78E4CF1A3AA5C281F118E /* MrCreationService */ = {
+			isa = PBXGroup;
+			children = (
+				B41396BEC0396F23473C6F17 /* MrCreationServiceDetailView.swift */,
+			);
+			path = MrCreationService;
+			sourceTree = "<group>";
+		};
+		30122CB25AE066EE6879360B /* ScoreCreation */ = {
+			isa = PBXGroup;
+			children = (
+				61FEED6FA0E73EEFB4BFE3F0 /* ScoreCreationFilter.swift */,
+				93E1014219E5E618BE1FCC63 /* ScoreCreationFilterSettingView.swift */,
+				215A27E07E08FC3DB8B94B5D /* ScoreCreationFilterSheetManager.swift */,
+			);
+			path = ScoreCreation;
+			sourceTree = "<group>";
+		};
+		3546041BA75B0BC5C7D4C0F7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				10CCCFF69EE27841A9C425B4 /* Fonts */,
+				C78FE5695A5BA4C48BFCAA8D /* Licenses */,
+				DE20CC0FFDB10D0F691E5F88 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		35583931EB7E471EA2A046D5 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				EB157662E55E023CB24B557A /* SignUpBottomButton.swift */,
+				E144B825E4CAA6BB5502A123 /* TitleText.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		372B8F464BF8E7633A2AE93B /* TeacherFinder */ = {
+			isa = PBXGroup;
+			children = (
+				58B64B8AD3B7A8C96B74956A /* FilterSetting */,
+				B6662B7A8EFB23EC61273128 /* ServiceDetail */,
+				1B4E52F89D8B9FB1BA82AC51 /* ServiceList */,
+				DA883CF1CB168455292457AE /* ServiceTypeSelect */,
+				7C8207BF4488068FA0CE2300 /* TeacherFinderView.swift */,
+			);
+			path = TeacherFinder;
+			sourceTree = "<group>";
+		};
+		3A96058BFC813A7976E81C3A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5DBEE97E6A267C33574835C8 /* ExperienceModel.swift */,
+				B04C9D55A8DE7EE35C7BB1B8 /* MajorSelectableModel.swift */,
+				8469820F4020DAA8FB429AB9 /* SiteLinkModel.swift */,
+				6CD5C2DD3235FF2DBD4ECEB2 /* StudentSignUpModel.swift */,
+				35BC6A37B071E9F47F79187D /* TeacherSignUpModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3DC4BA6AB40125F7DBFA9390 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3A0337625A31AB9C64B6EF8F /* TuistAssets+Umpa.swift */,
+				78938EDBC1FC9536557E77E6 /* TuistBundle+Umpa.swift */,
+				8882E3F552C1739089D2140E /* TuistFonts+Umpa.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		413C1D3989A8C5A07B4D59DE /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				145FE91D88F9440DB3C8961D /* UnitTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		41D67EDE2908EC9940EBBCCD /* UserTypeSelection */ = {
+			isa = PBXGroup;
+			children = (
+				FE98BAFC7BD75025ED509E4A /* UserTypeSelectionView.swift */,
+			);
+			path = UserTypeSelection;
+			sourceTree = "<group>";
+		};
+		44DC4B0C7A8FAB107C1E9652 /* Naver ID Login SDK for iOS Swift */ = {
+			isa = PBXGroup;
+			children = (
+				11F81C6A557FCFD4C038C43B /* LICENSE.txt */,
+				BEF982A74345E04FDCBFDD46 /* NOTICE.txt */,
+			);
+			path = "Naver ID Login SDK for iOS Swift";
+			sourceTree = "<group>";
+		};
+		4900B85C737165E3727D0E7B /* kakao-ios-sdk */ = {
+			isa = PBXGroup;
+			children = (
+				8B00679D080B58AC139AB31A /* Sources */,
+			);
+			path = "kakao-ios-sdk";
+			sourceTree = "<group>";
+		};
+		4C2E0ACBB50015448A4645E2 /* MRCreation */ = {
+			isa = PBXGroup;
+			children = (
+				1DAA4F61ED49F1398E70E9D3 /* MRCreationFilter.swift */,
+				CF2FF1357B997DD938F22BA9 /* MRCreationFilterSettingView.swift */,
+				86243C3101E7A1312D34DBAC /* MRCreationFilterSheetManager.swift */,
+			);
+			path = MRCreation;
+			sourceTree = "<group>";
+		};
+		4FBB88416D2789374A418C76 /* Teacher */ = {
+			isa = PBXGroup;
+			children = (
+				01D0842B163733F50B1E6133 /* TeacherHomeInteractor.swift */,
+				6FFA4CE095FDD9B43BF561F3 /* TeacherHomeView.swift */,
+			);
+			path = Teacher;
+			sourceTree = "<group>";
+		};
+		58B64B8AD3B7A8C96B74956A /* FilterSetting */ = {
+			isa = PBXGroup;
+			children = (
+				925C40AA6295F385557D706E /* Accompanist */,
+				9DD623624268B73729C5E70E /* Common */,
+				BA4015ED9E87CE4904AF1496 /* LessonService */,
+				4C2E0ACBB50015448A4645E2 /* MRCreation */,
+				30122CB25AE066EE6879360B /* ScoreCreation */,
+			);
+			path = FilterSetting;
+			sourceTree = "<group>";
+		};
+		5B519568DA3781B041EFF96C /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				64588D15C91EC7EF3705A379 /* BasicSettingsListItem.swift */,
+				D88542CA3E39092545B08CA4 /* LessonServiceCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6238EF0BC529CC8035F47148 /* AcceptTerms */ = {
+			isa = PBXGroup;
+			children = (
+				E236B32BA824F4C86161D2AB /* AcceptTermsInteractor.swift */,
+				6CC9DFA8F2FDE1BFC7DE715F /* AcceptTermsView.swift */,
+			);
+			path = AcceptTerms;
+			sourceTree = "<group>";
+		};
+		64A80EF6F8DC1AFCBBDC3BC7 /* FilterSheetContent */ = {
+			isa = PBXGroup;
+			children = (
+				57693E8782AA7085E9449327 /* AccompanistFeeSelectView.swift */,
+				B72B16183E4A7411925D94CE /* CollegeSelectView.swift */,
+				D26CED4BB37DA2B3BBE29868 /* GenderSelectView.swift */,
+				A1FCA44C0747616B35D8F8D6 /* InstrumentSelectView.swift */,
+				EC1AC5464F069B9A378CE820 /* LessonFeeSelectView.swift */,
+				A0E5E2DD86923E51E81F85BF /* LessonStyleSelectView.swift */,
+				753A9CB47DB49C66966BF24C /* LessonSubjectSelectView.swift */,
+				83B3E2E4F9F964EDD8F78F04 /* MRCreationFeeSelectView.swift */,
+				431705079FE372B6C7D36DDA /* RegionSelectView.swift */,
+				D48FE90D0869CA2CA105B2A5 /* ScoreCreationFeeSelectView.swift */,
+				306177422FD34C05870E6FC5 /* ScoreTypeSelectView.swift */,
+				3DB248FF8FFD555C67A16E99 /* TeacherMajorSelectView.swift */,
+				288AAC39CB1C420B3A33B384 /* TurnaroundSelectView.swift */,
+			);
+			path = FilterSheetContent;
+			sourceTree = "<group>";
+		};
+		6572839D29C16375A18DD070 /* KakaoSDKFriendCore */ = {
+			isa = PBXGroup;
+			children = (
+				0927DCD4E76FBE0D6CE8CE60 /* KakaoSDKFriendCore.xcframework */,
+			);
+			path = KakaoSDKFriendCore;
+			sourceTree = "<group>";
+		};
+		677D83131FAA257B952FD839 /* Tuist */ = {
+			isa = PBXGroup;
+			children = (
+				69666B4908774F7E7954EEB1 /* .build */,
+			);
+			name = Tuist;
+			path = ../../Tuist;
+			sourceTree = "<group>";
+		};
+		69666B4908774F7E7954EEB1 /* .build */ = {
+			isa = PBXGroup;
+			children = (
+				E2C6A91875F6E781132F501A /* checkouts */,
+			);
+			path = .build;
+			sourceTree = "<group>";
+		};
+		6F0A8C61F3D6558706A4D7B8 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FEBCDEE87C71A52094616 /* UmpaFactory.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		72F045285F6E636905CB6AFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7A3C11AD8F4804DE3CEE0FA3 /* AppKit.framework */,
+				8A34EA811F214EFBC72E3E2B /* CoreGraphics.framework */,
+				25059890E2A2205576F84167 /* CoreText.framework */,
+				B066A00BA1F6F68347F41B25 /* DeviceCheck.framework */,
+				D2B99508D495EF4A6A84A4DE /* Foundation.framework */,
+				53F278D62FF211042FA18217 /* LocalAuthentication.framework */,
+				B6DED7DECC37B497DF1F427F /* Security.framework */,
+				7757106CBAE97D4CF31388C0 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		78F4225B9AC757DE8416C216 /* TeacherProfileInput */ = {
+			isa = PBXGroup;
+			children = (
+				DC53CA0C1F92E2F5CE80033A /* TeacherProfileInputView.swift */,
+			);
+			path = TeacherProfileInput;
+			sourceTree = "<group>";
+		};
+		79B9CE2B4FB55300F08C768E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				059932A6C78F0243833BD5B8 /* Banner.swift */,
+				8E85452846F0F3A418084C87 /* Card.swift */,
+				24C3764CD3635DAE2025FBBA /* LikeCommentView.swift */,
+				DEED7E183370309012F100EC /* ListContent.swift */,
+				34FEA5FC508CF33D6090BC85 /* TeacherFindingCarouselItem.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7A48177F903E1EA4BCFFBB89 /* LessonRequirement */ = {
+			isa = PBXGroup;
+			children = (
+				95E35641F44BB070C5E68273 /* LessonRequirementInteractor.swift */,
+				526B6CED9931E336C8D94DCA /* LessonRequirementView.swift */,
+			);
+			path = LessonRequirement;
+			sourceTree = "<group>";
+		};
+		7A947545822FFAF7E7088A61 /* UmpaNotification */ = {
+			isa = PBXGroup;
+			children = (
+				789A8414BE8CE28A0E065CB6 /* UmpaNotificationInteractor.swift */,
+				41FB1F80DA1BE0BF1CD0CCC3 /* UmpaNotificationView.swift */,
+			);
+			path = UmpaNotification;
+			sourceTree = "<group>";
+		};
+		7ABB12F425ACE2D52096F4FA /* ScoreCreationService */ = {
+			isa = PBXGroup;
+			children = (
+				565AA4DC9731B4833B55DABE /* ScoreCreationServiceDetailView.swift */,
+			);
+			path = ScoreCreationService;
+			sourceTree = "<group>";
+		};
+		7BD5E6054311E80C2D592E9A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				F7AC5D64E414178FD7048E1E /* Component+Domain */,
+				12733203696F484F064DE743 /* Domain+UI */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		81D8D3F7364342953E564887 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				7BD5E6054311E80C2D592E9A /* Common */,
+				E262B0D3E6AF8BBA5B63428F /* Login */,
+				BDF245389BF1DBFCFD214AB2 /* MainTab */,
+				8F5A618AC71AB06773438D27 /* SignUp */,
+				7A947545822FFAF7E7088A61 /* UmpaNotification */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		86B7F46B3FAD3E8E9F6E874E /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E4E5083E7B6F001BA0056BD8 /* Application */,
+				6F0A8C61F3D6558706A4D7B8 /* DI */,
+				81D8D3F7364342953E564887 /* Presentation */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8B00679D080B58AC139AB31A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F25E4187C16784B40B037BA7 /* KakaoSDKCertCore */,
+				6572839D29C16375A18DD070 /* KakaoSDKFriendCore */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8CFAB6346A6CC8E088527B83 /* PreferSubjectSelection */ = {
+			isa = PBXGroup;
+			children = (
+				7614F7ED970F06FDFDBDFF92 /* PreferSubjectSelectionView.swift */,
+			);
+			path = PreferSubjectSelection;
+			sourceTree = "<group>";
+		};
+		8D2780F2E8F765B73C724FCE /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				C7944F48A86F206EBC1DFCCD /* Config */,
+				215539748FD26F43A2C3EDC3 /* Derived */,
+				1E5E07A4799786A5355D667F /* Preview Content */,
+				3546041BA75B0BC5C7D4C0F7 /* Resources */,
+				86B7F46B3FAD3E8E9F6E874E /* Sources */,
+				413C1D3989A8C5A07B4D59DE /* Tests */,
+				677D83131FAA257B952FD839 /* Tuist */,
+				25EB811C03221E3DA5026E8C /* Info.plist */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		8DE296F792D4CB43313849EC /* AccompanistService */ = {
+			isa = PBXGroup;
+			children = (
+				2F9E89498B79808A80981498 /* AccompanistServiceDetailView.swift */,
+			);
+			path = AccompanistService;
+			sourceTree = "<group>";
+		};
+		8F5A618AC71AB06773438D27 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				6238EF0BC529CC8035F47148 /* AcceptTerms */,
+				35583931EB7E471EA2A046D5 /* Components */,
+				3A96058BFC813A7976E81C3A /* Models */,
+				A1EA4C388535755222747D35 /* PhoneVerification */,
+				06E0C06B7E43B543C7CC9796 /* StudentSignUp */,
+				9028C417B69E8D4CA5042AF9 /* TeacherSignUp */,
+				41D67EDE2908EC9940EBBCCD /* UserTypeSelection */,
+				0F98B53B3116A7D45EFF5037 /* MajorSelectionView.swift */,
+				1117D9406B4BBB7FFE190FEF /* SignUpConstant.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		9028C417B69E8D4CA5042AF9 /* TeacherSignUp */ = {
+			isa = PBXGroup;
+			children = (
+				DBD535CEB9E3C27D77EE9255 /* ExperienceInput */,
+				E8E1CB747684CE873F3285C0 /* LinkInput */,
+				78F4225B9AC757DE8416C216 /* TeacherProfileInput */,
+				F02FC4392E19ECF2B54A95EB /* TeacherSignUpInteractor.swift */,
+				F1C9F9B6DA7915709B55E833 /* TeacherSignUpStep.swift */,
+				A55FF8B99EF16B33A70A90C5 /* TeacherSignUpView.swift */,
+			);
+			path = TeacherSignUp;
+			sourceTree = "<group>";
+		};
+		925C40AA6295F385557D706E /* Accompanist */ = {
+			isa = PBXGroup;
+			children = (
+				70672F2CAE3AC09923235C8E /* AccompanistFilter.swift */,
+				0D10E8AC363FF18F823A8AA1 /* AccompanistFilterSettingView.swift */,
+				DFC65661CCEA333175C9B07F /* AccompanistFilterSheetManager.swift */,
+			);
+			path = Accompanist;
+			sourceTree = "<group>";
+		};
+		9DD623624268B73729C5E70E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CD438C4D655070AF7005663D /* Components */,
+				3FAADCE97EF25629C8A2C597 /* FilterEntry.swift */,
+				FAA086E550EBEFCB948B893E /* FilterSettingConstant.swift */,
+				EB20DC732909AA7278B56849 /* FilterSheetManager.swift */,
+				CF5A754E3F22857B398BAC07 /* GenderFilter.swift */,
+				E77B5D6EB1B23EDE22F09F20 /* TurnaroundFilter.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A0930AFF1B32D84414F3520C /* StudentProfileInput */ = {
+			isa = PBXGroup;
+			children = (
+				CC36E34EC91998D926988CA0 /* StudentProfileInputView.swift */,
+			);
+			path = StudentProfileInput;
+			sourceTree = "<group>";
+		};
+		A1EA4C388535755222747D35 /* PhoneVerification */ = {
+			isa = PBXGroup;
+			children = (
+				E3FE9DD4017B7C4C71935579 /* PhoneNumberInputView.swift */,
+				871BB084ABD1875B59CA2B30 /* PhoneVerificationError.swift */,
+				D633B6026EB4B10B1DFB0664 /* PhoneVerificationInteractor.swift */,
+				0861BF1A00B68BFCECD5C0DE /* VerificationCodeInputView.swift */,
+			);
+			path = PhoneVerification;
+			sourceTree = "<group>";
+		};
+		A217376D049C741ECB66780B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				79B9CE2B4FB55300F08C768E /* Components */,
+				4FBB88416D2789374A418C76 /* Teacher */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B3DB23BF6E813618175BE695 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D837B90A7805272C5285249F /* Components */,
+				CB660DB8EF0572AD570A3E7D /* ReviewInteractor.swift */,
+				95A175C76CFA19A8CBBBF270 /* ServiceDetailConstant.swift */,
+				B9B62201B1FA7878D22F4A4C /* ServiceDetailInteractor.swift */,
+				4B0CF1AF64AEFBA64C0DA942 /* ServiceOverviewTab.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B6662B7A8EFB23EC61273128 /* ServiceDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8DE296F792D4CB43313849EC /* AccompanistService */,
+				B3DB23BF6E813618175BE695 /* Common */,
+				1429BFDB1A5046D0470D9388 /* LessonService */,
+				26A78E4CF1A3AA5C281F118E /* MrCreationService */,
+				7ABB12F425ACE2D52096F4FA /* ScoreCreationService */,
+			);
+			path = ServiceDetail;
+			sourceTree = "<group>";
+		};
+		BA4015ED9E87CE4904AF1496 /* LessonService */ = {
+			isa = PBXGroup;
+			children = (
+				B9957FD430E4EC026CAA1D38 /* LessonFilter.swift */,
+				0288B6B8CAF85B249077D854 /* LessonFilterSettingView.swift */,
+				1C6873B856BD9F44101BA9CD /* LessonFilterSheetManager.swift */,
+			);
+			path = LessonService;
+			sourceTree = "<group>";
+		};
+		BDF245389BF1DBFCFD214AB2 /* MainTab */ = {
+			isa = PBXGroup;
+			children = (
+				18B6DA0A475A0C0C0C13A1F5 /* Chat */,
+				22BEF327CBA5EEF68683D2B0 /* Common */,
+				A217376D049C741ECB66780B /* Home */,
+				1072CEC7C7C90BEA567C57F7 /* MyProfile */,
+				372B8F464BF8E7633A2AE93B /* TeacherFinder */,
+			);
+			path = MainTab;
+			sourceTree = "<group>";
+		};
+		C78FE5695A5BA4C48BFCAA8D /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+				44DC4B0C7A8FAB107C1E9652 /* Naver ID Login SDK for iOS Swift */,
+			);
+			path = Licenses;
+			sourceTree = "<group>";
+		};
+		C7944F48A86F206EBC1DFCCD /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				1AB4E831E9AC409ECDA62A75 /* Common.xcconfig */,
+				97DF994B0CA76F4C3A604AF1 /* Debug.xcconfig */,
+				4D4247D98113FD2B987AF960 /* Release.xcconfig */,
+				7F0989AB92F0CAAA36D542FD /* Secrets.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		CD438C4D655070AF7005663D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				64A80EF6F8DC1AFCBBDC3BC7 /* FilterSheetContent */,
+				95854A9966BEBB7ED634DDB2 /* FilterSettingBottomActionView.swift */,
+				B5B705C263DC901720E69B4E /* FilterSettingViewHeader.swift */,
+				BD99305297BBFBDB4F75B716 /* FilterSheetHeader.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		CD6951BAF9EA11DDDC731334 /* InteractorTests */ = {
+			isa = PBXGroup;
+			children = (
+				F91E9CAE2AB8FE5329FD2CBE /* ChatInteractorTests.swift */,
+				BF1F023AD34CC65366FC6ABA /* ServiceListInteractorTests.swift */,
+			);
+			path = InteractorTests;
+			sourceTree = "<group>";
+		};
+		D1F736E1C4EA3C2A1267943A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA1227574B6E7A6403B9C7 /* Preview Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D837B90A7805272C5285249F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				35B60ADD16972873EC6FFB64 /* BadgeView.swift */,
+				3BEDD2BD38A1B4FF80DEA739 /* ReviewTabContent.swift */,
+				8EE04AF6FDAA2BC2F975A11C /* SampleMusicPreviewTabContent.swift */,
+				E3FB304BE674FA3CDE589730 /* ServiceDetailBottomActionBar.swift */,
+				2E02AD826156AD08C0143169 /* TeacherOverviewTabContent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		DA883CF1CB168455292457AE /* ServiceTypeSelect */ = {
+			isa = PBXGroup;
+			children = (
+				917DA5D4916D7B7CF3B0261F /* ServiceTypeSelectView.swift */,
+			);
+			path = ServiceTypeSelect;
+			sourceTree = "<group>";
+		};
+		DBD535CEB9E3C27D77EE9255 /* ExperienceInput */ = {
+			isa = PBXGroup;
+			children = (
+				F827C23BBFD5E96ABD829B72 /* ExperienceInputView.swift */,
+			);
+			path = ExperienceInput;
+			sourceTree = "<group>";
+		};
+		E262B0D3E6AF8BBA5B63428F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F83AD2759A4D0EE090ADC34C /* LoginInteractor.swift */,
+				F5475B357BCCC15640E5C3EA /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		E2C6A91875F6E781132F501A /* checkouts */ = {
+			isa = PBXGroup;
+			children = (
+				4900B85C737165E3727D0E7B /* kakao-ios-sdk */,
+			);
+			path = checkouts;
+			sourceTree = "<group>";
+		};
+		E4E5083E7B6F001BA0056BD8 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1A045C2B61A312D3CD0507F7 /* AppInteractor.swift */,
+				AE4DA31FD07480C277D2391A /* NetworkMonitor.swift */,
+				7399E62C53E948293AF46FEE /* SplashView.swift */,
+				942EF40E0C602442B74ECF84 /* UmpaApp.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E74EE767E9B1FB6483908772 /* InfoPlists */ = {
+			isa = PBXGroup;
+			children = (
+				09D0ECCEE4A5C998D232DEBF /* UmpaUnitTests-Info.plist */,
+			);
+			path = InfoPlists;
+			sourceTree = "<group>";
+		};
+		E8E1CB747684CE873F3285C0 /* LinkInput */ = {
+			isa = PBXGroup;
+			children = (
+				09398DE1708096EA6FB31543 /* LinkInputView.swift */,
+			);
+			path = LinkInput;
+			sourceTree = "<group>";
+		};
+		EC5D6F1815262807F5CF83F6 /* UsernameInput */ = {
+			isa = PBXGroup;
+			children = (
+				9D823096D96149A93F02E943 /* UsernameInputView.swift */,
+			);
+			path = UsernameInput;
+			sourceTree = "<group>";
+		};
+		F25E4187C16784B40B037BA7 /* KakaoSDKCertCore */ = {
+			isa = PBXGroup;
+			children = (
+				0A2E4A964F68D090E64D5E1A /* KakaoSDKCertCore.xcframework */,
+			);
+			path = KakaoSDKCertCore;
+			sourceTree = "<group>";
+		};
+		F7AC5D64E414178FD7048E1E /* Component+Domain */ = {
+			isa = PBXGroup;
+			children = (
+				91A7F7F99DFAD496652B92D4 /* UmpaRegionSelector.swift */,
+			);
+			path = "Component+Domain";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1037AD037D13FB50DE5FAF06 /* UmpaUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45A4A023DFD6AB5813B2A44B /* Build configuration list for PBXNativeTarget "UmpaUnitTests" */;
+			buildPhases = (
+				EFF5C2912E8C20A4E57C34D8 /* Sources */,
+				04E0DDAB897F42043F621993 /* Resources */,
+				DDDA7CDB0D1D1F3EEC4C724A /* Embed Frameworks */,
+				6BE697F86D19816DD964A66E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				634A3C5CDB92B5A27E24F48D /* PBXTargetDependency */,
+			);
+			name = UmpaUnitTests;
+			productName = UmpaUnitTests;
+			productReference = 436307E3135524DC68D9A910 /* UmpaUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FC3C5DAAD7E1B0DBDB7D480F /* Umpa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA26B61887831F59C05915E6 /* Build configuration list for PBXNativeTarget "Umpa" */;
+			buildPhases = (
+				102208D9176E1276505FFD19 /* Sources */,
+				CFBB3315C9FBB3A0BCA5B34F /* Resources */,
+				9638EF8BD657454F30128374 /* Embed Frameworks */,
+				639A5EBF312F5E1C52115D04 /* Frameworks */,
+				DFA2ECE313E3F262816028A9 /* Dependencies */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Umpa;
+			productName = Umpa;
+			productReference = D1F27B488030F95B6FE254A1 /* Umpa.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0A1AD7310F4A9F2B3E3E78A0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				TargetAttributes = {
+					1037AD037D13FB50DE5FAF06 = {
+						TestTargetID = FC3C5DAAD7E1B0DBDB7D480F;
+					};
+				};
+			};
+			buildConfigurationList = DAB15F5939BAD11777602A76 /* Build configuration list for PBXProject "Umpa" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 00872E338968C1EAB960AE9C;
+			productRefGroup = 0443069760EF2F6BFA24D2C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FC3C5DAAD7E1B0DBDB7D480F /* Umpa */,
+				1037AD037D13FB50DE5FAF06 /* UmpaUnitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		04E0DDAB897F42043F621993 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CFBB3315C9FBB3A0BCA5B34F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77F912AB368219997A26C810 /* Preview Assets.xcassets in Resources */,
+				5EB354E76F7F3F71B3334A31 /* Assets.xcassets in Resources */,
+				63DB6AACCD13EB379BF479EA /* Pretendard-Bold.otf in Resources */,
+				CCF91851096C0B97CACF1609 /* Pretendard-ExtraBold.otf in Resources */,
+				06C36C5C14BB90CB8743740F /* Pretendard-Medium.otf in Resources */,
+				34F0070354CF37788A84DDF5 /* Pretendard-Regular.otf in Resources */,
+				5284E93B1789E0B28361D30C /* Pretendard-SemiBold.otf in Resources */,
+				257C2DFC384F78B1BE8938D7 /* LICENSE.txt in Resources */,
+				336665099205DB9CD88CAE7A /* NOTICE.txt in Resources */,
+				0BEC0BEE5A27BB337FDC1481 /* AppAuth_AppAuth.bundle in Resources */,
+				0A9ED2C8C2BE5AB268675BD9 /* AppAuth_AppAuthCore.bundle in Resources */,
+				19E99F1910D79547D7B80C0D /* Factory_Factory.bundle in Resources */,
+				ABE85B539C335FC029EFED13 /* GTMAppAuth_GTMAppAuth.bundle in Resources */,
+				40AD7058E82881FD492C99FE /* GTMSessionFetcher_GTMSessionFetcherCore.bundle in Resources */,
+				69F7DBCD5382643D9A7048A4 /* GoogleSignIn_GoogleSignIn.bundle in Resources */,
+				EDD5B3F868506D3B471ECA04 /* GoogleSignIn_GoogleSignInSwift.bundle in Resources */,
+				4BEB82433A1A6C7460BCFAE8 /* GoogleUtilities_GoogleUtilities_Environment.bundle in Resources */,
+				EE6679491B55BFAE56CDCA03 /* GoogleUtilities_GoogleUtilities_Logger.bundle in Resources */,
+				FB25EC1977DE2161EFE3E8BB /* GoogleUtilities_GoogleUtilities_UserDefaults.bundle in Resources */,
+				7B75D6ED13F9F881478316AB /* KakaoOpenSDK_KakaoSDKCommon.bundle in Resources */,
+				E951B7AE4D61AFF7C37379B5 /* NidThirdPartyLogin_NidThirdPartyLogin.bundle in Resources */,
+				215F4D58BE5DC5251462A0AE /* Promises_FBLPromises.bundle in Resources */,
+				5F0F1CDED0969DD3E00C170F /* UmpaUIKit_UmpaUIKit.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		102208D9176E1276505FFD19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				59069E5D9B95E5D1938A1D08 /* TuistAssets+Umpa.swift in Sources */,
+				AC3FE1614A251AB6BD844175 /* TuistBundle+Umpa.swift in Sources */,
+				B7D2C2AB2B497DAB8EC8623D /* TuistFonts+Umpa.swift in Sources */,
+				18C7C9E2BBB75700E0406474 /* AppInteractor.swift in Sources */,
+				91685A61BE3F15C9AACF35B3 /* NetworkMonitor.swift in Sources */,
+				7FFD429FB999C79B33DA2BF7 /* SplashView.swift in Sources */,
+				AB232CDDBD715C4A8D19CE56 /* UmpaApp.swift in Sources */,
+				379B6A4CE1A4D4EA2FE1B607 /* UmpaFactory.swift in Sources */,
+				7F095D5B7B87500828DF82AF /* UmpaRegionSelector.swift in Sources */,
+				6D80B2766AB22B27BF9B5E74 /* Turnaround+.swift in Sources */,
+				C6509BE684C3D3FBA2478791 /* UnitDate+.swift in Sources */,
+				5CD4790CC2740FAE10010841 /* LoginInteractor.swift in Sources */,
+				1345205A90682E432A1163EE /* LoginView.swift in Sources */,
+				FB07D3ADF12EEC8AD62A404D /* ChatInteractor.swift in Sources */,
+				F863AA332ED07F0A63628CC7 /* ChatRoomView.swift in Sources */,
+				4FD1FDFAF3C19821CE5B88DB /* ChatView.swift in Sources */,
+				44DA64131D83550931DFF6C9 /* MainTabView.swift in Sources */,
+				B6E66BE9DC5EE626BA60E230 /* Banner.swift in Sources */,
+				30D6F8EC3F9B68A1F144B8B6 /* Card.swift in Sources */,
+				034538635CF12680B541A352 /* LikeCommentView.swift in Sources */,
+				F78AABC16A6F6BD0506C1298 /* ListContent.swift in Sources */,
+				98860D4FC4F67A8A2D6191FA /* TeacherFindingCarouselItem.swift in Sources */,
+				C7959D1A059F536ADFF75DBD /* TeacherHomeInteractor.swift in Sources */,
+				9E849EE1794BA3985D7C0F76 /* TeacherHomeView.swift in Sources */,
+				AFA335DBBCDE056383716D21 /* BasicSettingsListItem.swift in Sources */,
+				F802ED7981F9EECAE5F2D7D5 /* LessonServiceCard.swift in Sources */,
+				8868B88E5008507C791C1761 /* LessonServiceManagementView.swift in Sources */,
+				433EABE6CC92711E9A5C84BA /* MyProfileInteractor.swift in Sources */,
+				EA8A9464E17DA131CD0C6A6A /* MyProfileView.swift in Sources */,
+				56B12FC11535257FC0B8D5B5 /* AccompanistFilter.swift in Sources */,
+				5217CA46BC345762186C4480 /* AccompanistFilterSettingView.swift in Sources */,
+				AABA957A02692A7227E4E12E /* AccompanistFilterSheetManager.swift in Sources */,
+				4B0E727C6694BC47F54428C5 /* FilterSettingBottomActionView.swift in Sources */,
+				5D646C96A7357328D8902925 /* FilterSettingViewHeader.swift in Sources */,
+				3358D439CE6BC340E0ED0DF1 /* AccompanistFeeSelectView.swift in Sources */,
+				1E4A8F304DB263CABFE8D4DB /* CollegeSelectView.swift in Sources */,
+				88EED6689F76510FE5FB3C8F /* GenderSelectView.swift in Sources */,
+				77A61185954FF13C223C8A88 /* InstrumentSelectView.swift in Sources */,
+				8AF57F776AC7C00C86F8D83D /* LessonFeeSelectView.swift in Sources */,
+				A4680CA4AC5439A5517711FC /* LessonStyleSelectView.swift in Sources */,
+				2D2F66F0D6FF010FA087D6EF /* LessonSubjectSelectView.swift in Sources */,
+				566395910AA847DCE76B6C60 /* MRCreationFeeSelectView.swift in Sources */,
+				203CAB343694430F70B1EE7E /* RegionSelectView.swift in Sources */,
+				E39EF2105CBD3705D95E27F3 /* ScoreCreationFeeSelectView.swift in Sources */,
+				8D4C44CA4AB9753F6D3BDC94 /* ScoreTypeSelectView.swift in Sources */,
+				601DBEF75854E7FF1E025E28 /* TeacherMajorSelectView.swift in Sources */,
+				189E19D8FE09E8ADF12D912F /* TurnaroundSelectView.swift in Sources */,
+				B40871B94AEA0FB8ABD4674E /* FilterSheetHeader.swift in Sources */,
+				950765E3D46C10FAB4930856 /* FilterEntry.swift in Sources */,
+				7F1148AA34E557AD4C5B6A33 /* FilterSettingConstant.swift in Sources */,
+				A101FC3B88E526DA02B3E441 /* FilterSheetManager.swift in Sources */,
+				729B295D94B8536DB6C08456 /* GenderFilter.swift in Sources */,
+				BF196CD5F9CD66CBF64E40AF /* TurnaroundFilter.swift in Sources */,
+				12CB05E492F52766D43E19DD /* LessonFilter.swift in Sources */,
+				17CE8290E0907C72C1D48678 /* LessonFilterSettingView.swift in Sources */,
+				11C92222584763E1A7D6279F /* LessonFilterSheetManager.swift in Sources */,
+				D028E742DC8ACD80843C7443 /* MRCreationFilter.swift in Sources */,
+				F9DBEF0BD77186C41B3B9DC9 /* MRCreationFilterSettingView.swift in Sources */,
+				A9AEE20AA693D889065BE03D /* MRCreationFilterSheetManager.swift in Sources */,
+				16403311E9F6E0DC9E1B1243 /* ScoreCreationFilter.swift in Sources */,
+				F90F348E5CC85FFBEEADB991 /* ScoreCreationFilterSettingView.swift in Sources */,
+				BE4CADFDC5D4297844FF8E09 /* ScoreCreationFilterSheetManager.swift in Sources */,
+				3F1519172ED6EB5F8D79D10C /* AccompanistServiceDetailView.swift in Sources */,
+				E41C272246FB803D916B434A /* BadgeView.swift in Sources */,
+				4A9147A25BE8C2F16F7103E9 /* ReviewTabContent.swift in Sources */,
+				509A6A6650F26A690E7D93DF /* SampleMusicPreviewTabContent.swift in Sources */,
+				705FBFCA041CF467408DDBA3 /* ServiceDetailBottomActionBar.swift in Sources */,
+				4B3A85888C615D544E071F91 /* TeacherOverviewTabContent.swift in Sources */,
+				16E8C9C8981004AE689FD1FA /* ReviewInteractor.swift in Sources */,
+				08BC843F212E0AA3DA58926A /* ServiceDetailConstant.swift in Sources */,
+				72E0516E9DBD68BCF3F4BA1C /* ServiceDetailInteractor.swift in Sources */,
+				AFCC4913BB159F5B79DF207E /* ServiceOverviewTab.swift in Sources */,
+				B867C478F67C763208393CB8 /* LessonServiceDetailView.swift in Sources */,
+				B62BB0BE8FA34755BDFDF66A /* MrCreationServiceDetailView.swift in Sources */,
+				0287EF8D6B786B1E769D37E8 /* ScoreCreationServiceDetailView.swift in Sources */,
+				2950ACED06164E209F4FF3FB /* ServiceListInteractor.swift in Sources */,
+				B96DDFD3151CE275C7FFDC5C /* ServiceListView.swift in Sources */,
+				BC7093D7D4FAF0972B597C44 /* ServiceTypeSelectView.swift in Sources */,
+				605F0DF50E2771E783BAF8A9 /* TeacherFinderView.swift in Sources */,
+				AA0994BC9F434240192CDEFE /* AcceptTermsInteractor.swift in Sources */,
+				4E032D53514673C437035803 /* AcceptTermsView.swift in Sources */,
+				C25C38B1F66D881F5672F7F1 /* SignUpBottomButton.swift in Sources */,
+				331C87B4E91D22CFA13B4BC2 /* TitleText.swift in Sources */,
+				C6F975B9784788132583CCA5 /* MajorSelectionView.swift in Sources */,
+				B7355CAF512D9B9C1ABB2BF2 /* ExperienceModel.swift in Sources */,
+				BC515BD1888C4428A8B6340E /* MajorSelectableModel.swift in Sources */,
+				F9074D4874C85E9B78BECD4E /* SiteLinkModel.swift in Sources */,
+				6743A7F1DB603C7297EEE5FA /* StudentSignUpModel.swift in Sources */,
+				0B2A7064EAF5FF1CFC0A333D /* TeacherSignUpModel.swift in Sources */,
+				47DA07D42D56DBE65E3A859E /* PhoneNumberInputView.swift in Sources */,
+				62D7C2C4A9DE40A56AF1874D /* PhoneVerificationError.swift in Sources */,
+				CF5CC50B216A61B83E86085F /* PhoneVerificationInteractor.swift in Sources */,
+				9981613864EE711BF5FC261C /* VerificationCodeInputView.swift in Sources */,
+				97247CBDFEC81E3153233952 /* SignUpConstant.swift in Sources */,
+				5DDD370118357CE257497BE1 /* DreamCollegesSelectionView.swift in Sources */,
+				9B1962FE7572F21FED71F419 /* LessonRequirementInteractor.swift in Sources */,
+				6DEB26EC86DEB2C3F75E4747 /* LessonRequirementView.swift in Sources */,
+				DB5A622A31820029E7A01B7D /* PreferSubjectSelectionView.swift in Sources */,
+				72FC6EF3D0DCCFFD15578F43 /* StudentProfileInputView.swift in Sources */,
+				EB41A634C75CB5339C878DA1 /* StudentSignUpInteractor.swift in Sources */,
+				E159AC47BEBFE3FAF5808255 /* StudentSignUpStep.swift in Sources */,
+				ABBAFF8E2E22F0E888661877 /* StudentSignUpView.swift in Sources */,
+				696E3B5EAB2EA2F7D60D7AC6 /* UsernameInputView.swift in Sources */,
+				EFE01BCCA0321416A41BF7E2 /* ExperienceInputView.swift in Sources */,
+				AA5D656A4FFABB7E3D648CC0 /* LinkInputView.swift in Sources */,
+				CB5C0120048527CC5F9D862C /* TeacherProfileInputView.swift in Sources */,
+				B9E7F09A33043F078F74F02C /* TeacherSignUpInteractor.swift in Sources */,
+				4B42FFCDC020C415B59454F4 /* TeacherSignUpStep.swift in Sources */,
+				657D596ADD91CE81A12F4F8A /* TeacherSignUpView.swift in Sources */,
+				9832E5663E843C371DBCE790 /* UserTypeSelectionView.swift in Sources */,
+				5260833874DCFB6BD7F59B67 /* UmpaNotificationInteractor.swift in Sources */,
+				BAB3F6B487F499FC51033566 /* UmpaNotificationView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EFF5C2912E8C20A4E57C34D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				77AC2037654A341B97A15E61 /* ChatInteractorTests.swift in Sources */,
+				23005CDCDA115CCF505C44BF /* ServiceListInteractorTests.swift in Sources */,
+				6971B4F9E4EB24C7A8106075 /* TestHelpers.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		634A3C5CDB92B5A27E24F48D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Umpa;
+			target = FC3C5DAAD7E1B0DBDB7D480F /* Umpa */;
+			targetProxy = 6146AA5FC127E5CAC7D67195 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		16CC223B5FF104E7B30F9F67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97DF994B0CA76F4C3A604AF1 /* Debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/kakao-ios-sdk/Sources/KakaoSDKCertCore",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/kakao-ios-sdk/Sources/KakaoSDKFriendCore",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS/LoopbackHTTPServer",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuthCore",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS/GoogleSignIn/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Environment/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Logger/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/UserDefaults/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/third_party/IsAppEncrypted/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check/AppCheckCore/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/gtm-session-fetcher/Sources/Core/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include",
+				);
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap -load-plugin-executable $BUILD_DIR/Debug$EFFECTIVE_PLATFORM_NAME/MockableMacro#MockableMacro";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pob.Umpa;
+				PRODUCT_NAME = Umpa;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		28A191748E46EADB53AB4C11 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS/LoopbackHTTPServer",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuthCore",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS/GoogleSignIn/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Environment/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Logger/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/UserDefaults/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/third_party/IsAppEncrypted/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check/AppCheckCore/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/gtm-session-fetcher/Sources/Core/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include",
+				);
+				INFOPLIST_FILE = "Derived/InfoPlists/UmpaUnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap -load-plugin-executable $BUILD_DIR/Debug$EFFECTIVE_PLATFORM_NAME/MockableMacro#MockableMacro";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pob.Umpa.UnitTests;
+				PRODUCT_NAME = UmpaUnitTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Umpa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Umpa";
+				TEST_TARGET_NAME = Umpa;
+			};
+			name = Release;
+		};
+		42E592BC0511C7E4C1A88835 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) MOCKING";
+			};
+			name = Debug;
+		};
+		815A3633224CD1C3DBA68EAD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4D4247D98113FD2B987AF960 /* Release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2AVC8X7323;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/kakao-ios-sdk/Sources/KakaoSDKCertCore",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/kakao-ios-sdk/Sources/KakaoSDKFriendCore",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS/LoopbackHTTPServer",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuthCore",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS/GoogleSignIn/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Environment/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Logger/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/UserDefaults/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/third_party/IsAppEncrypted/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check/AppCheckCore/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/gtm-session-fetcher/Sources/Core/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include",
+				);
+				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap -load-plugin-executable $BUILD_DIR/Debug$EFFECTIVE_PLATFORM_NAME/MockableMacro#MockableMacro";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pob.Umpa;
+				PRODUCT_NAME = Umpa;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		944ABEC1D6EFE1BA556BAF41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(inherited)",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuth/macOS/LoopbackHTTPServer",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/AppAuth-iOS/Sources/AppAuthCore",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleSignIn-iOS/GoogleSignIn/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Environment/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/Logger/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/GoogleUtilities/UserDefaults/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/GoogleUtilities/third_party/IsAppEncrypted/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/app-check/AppCheckCore/Sources/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/gtm-session-fetcher/Sources/Core/Public",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include",
+					"$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include",
+				);
+				INFOPLIST_FILE = "Derived/InfoPlists/UmpaUnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap",
+					"-fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/promises/Sources/FBLPromises/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/checkouts/swift-syntax/Sources/_SwiftSyntaxCShims/include/module.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuth/AppAuth.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppAuthCore/AppAuthCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/AppCheckCore/AppCheckCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GTMSessionFetcherCore/GTMSessionFetcherCore.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleSignIn/GoogleSignIn.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Environment/GoogleUtilities_Environment.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_Logger/GoogleUtilities_Logger.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/GoogleUtilities_UserDefaults/GoogleUtilities_UserDefaults.modulemap -Xcc -fmodule-map-file=$(SRCROOT)/../../Tuist/.build/tuist-derived/third_party_IsAppEncrypted/third_party_IsAppEncrypted.modulemap -load-plugin-executable $BUILD_DIR/Debug$EFFECTIVE_PLATFORM_NAME/MockableMacro#MockableMacro";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pob.Umpa.UnitTests;
+				PRODUCT_NAME = UmpaUnitTests;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
+				SWIFT_COMPILATION_MODE = singlefile;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Umpa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Umpa";
+				TEST_TARGET_NAME = Umpa;
+			};
+			name = Debug;
+		};
+		D86F5C0695AFCE62178D4CD1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45A4A023DFD6AB5813B2A44B /* Build configuration list for PBXNativeTarget "UmpaUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				944ABEC1D6EFE1BA556BAF41 /* Debug */,
+				28A191748E46EADB53AB4C11 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA26B61887831F59C05915E6 /* Build configuration list for PBXNativeTarget "Umpa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				16CC223B5FF104E7B30F9F67 /* Debug */,
+				815A3633224CD1C3DBA68EAD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAB15F5939BAD11777602A76 /* Build configuration list for PBXProject "Umpa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				42E592BC0511C7E4C1A88835 /* Debug */,
+				D86F5C0695AFCE62178D4CD1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0A1AD7310F4A9F2B3E3E78A0 /* Project object */;
+}
