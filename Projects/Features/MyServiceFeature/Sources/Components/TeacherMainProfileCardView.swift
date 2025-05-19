@@ -76,7 +76,7 @@ struct TeacherMainProfileCardView: View {
 
   var bottomButtons: some View {
     let cornerRadius: CGFloat = fs(8)
-    let verticalPadding: CGFloat = fs(8)
+    let verticalPadding: CGFloat = fs(10)
     return HStack(spacing: fs(10)) {
       Button(action: editProfileAction) {
         Text("프로필 편집")

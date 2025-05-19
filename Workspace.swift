@@ -1,9 +1,10 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let workspace = Workspace(
-  name: "Umpa",
+  name: env.projectName,
   projects: [
     "Projects/Umpa",
   ],
-  fileHeaderTemplate: .string("Created for ___PROJECTNAME___ in ___YEAR___"),
+  fileHeaderTemplate: .string("Created for \(env.projectName) in ___YEAR___"),
 )

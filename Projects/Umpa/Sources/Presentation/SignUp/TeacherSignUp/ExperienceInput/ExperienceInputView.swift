@@ -88,8 +88,8 @@ private struct ExperienceCard: View {
     ToggleSwitch(
       isOn: $experience.isRepresentative,
       appearance: .fromDefault(
-        circleColor: UmpaColor.mainBlue,
-        enabledColor: UmpaColor.lightBlue,
+        enableForegroundColor: UmpaColor.mainBlue,
+        enableBackgroundColor: UmpaColor.lightBlue,
       )
     )
     .scaleEffect(1.2, anchor: .topTrailing)

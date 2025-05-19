@@ -5,6 +5,7 @@ public let env = Env()
 public struct Env: Sendable {
   public let bundleIdPrefix = "com.pob"
   public let deploymentTargets: DeploymentTargets = .iOS("17.0")
+  public let projectName = "Umpa"
 }
 
 public enum Module: Sendable {

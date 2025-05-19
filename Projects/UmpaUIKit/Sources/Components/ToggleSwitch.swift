@@ -4,32 +4,35 @@ import SwiftUI
 
 public struct ToggleSwitch: View {
   public struct Appearance {
+    let enableForegroundColor: Color
+    let disableForegroundColor: Color
+    let enableBackgroundColor: Color
+    let disableBackgroundColor: Color
     let circleRadius: CGFloat
-    let circleColor: Color
     let rectangleSize: CGSize
     let rectangleCornerRadius: CGFloat
-    let disabledColor: Color
-    let enabledColor: Color
     let movingOffset: CGFloat
 
     public static let `default` = Appearance.fromDefault()
 
     public static func fromDefault(
+      enableForegroundColor: Color = Color(hex: "0E2F6B"),
+      disableForegroundColor: Color = UmpaColor.mediumGray,
+      enableBackgroundColor: Color = UmpaColor.main,
+      disableBackgroundColor: Color = UmpaColor.lightGray,
       circleRadius: CGFloat = fs(18),
-      circleColor: Color = Color(hex: "0E2F6B"),
       rectangleSize: CGSize = CGSize(width: fs(30), height: fs(12)),
       rectangleCornerRadius: CGFloat = fs(5),
-      disabledColor: Color = UmpaColor.lightGray,
-      enabledColor: Color = UmpaColor.main,
       movingOffset: CGFloat = fs(6.5),
     ) -> Appearance {
       Appearance(
+        enableForegroundColor: enableForegroundColor,
+        disableForegroundColor: disableForegroundColor,
+        enableBackgroundColor: enableBackgroundColor,
+        disableBackgroundColor: disableBackgroundColor,
         circleRadius: circleRadius,
-        circleColor: circleColor,
         rectangleSize: rectangleSize,
         rectangleCornerRadius: rectangleCornerRadius,
-        disabledColor: disabledColor,
-        enabledColor: enabledColor,
         movingOffset: movingOffset,
       )
     }
@@ -40,6 +43,10 @@ public struct ToggleSwitch: View {
   private let appearance: Appearance
 
   @State private var isPressing = false
+
+  /// 스와이프 효과를 적용하기 위해 시각적 상태를 저장하는 변수
+  ///
+  /// 스와이프 제스처가 끝나면 `isOn`과 동기화됩니다. 스와이프 제스처 중에는 `isOn`과 다를 수 있습니다.
   @State private var visualIsOn: Bool
 
   private let animationDuration: CGFloat = 0.25
@@ -80,14 +87,14 @@ public struct ToggleSwitch: View {
     ZStack {
       RoundedRectangle(cornerRadius: appearance.rectangleCornerRadius)
         .frame(width: appearance.rectangleSize.width, height: appearance.rectangleSize.height)
-        .foregroundStyle(visualIsOn ? appearance.enabledColor : appearance.disabledColor)
+        .foregroundStyle(visualIsOn ? appearance.enableBackgroundColor : appearance.disableBackgroundColor)
         .animation(.easeOut(duration: animationDuration), value: visualIsOn)
       Capsule()
         .frame(
           width: isPressing ? appearance.circleRadius + stretchingWidth : appearance.circleRadius,
           height: appearance.circleRadius
         )
-        .foregroundStyle(appearance.circleColor)
+        .foregroundStyle(visualIsOn ? appearance.enableForegroundColor : appearance.disableForegroundColor)
         .offset(x: stretchAdjustingOffset)
         .offset(x: visualIsOn ? appearance.movingOffset : -appearance.movingOffset)
         .animation(.easeOut(duration: animationDuration), value: visualIsOn)
