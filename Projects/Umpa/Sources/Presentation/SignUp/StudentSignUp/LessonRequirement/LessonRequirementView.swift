@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Domain
 import SwiftUI
 import UmpaUIKit
@@ -60,7 +61,7 @@ struct LessonRequirementView: View {
         .font(.pretendardMedium(size: fs(16)))
         .foregroundStyle(UmpaColor.mainBlue)
         .frame(maxWidth: .infinity, alignment: .leading)
-      WeekdaySelector(selectedDays: $signUpModel.availableLessonDays)
+      WeekdaySelector.V1(selectedDays: $signUpModel.availableLessonDays.binding)
     }
   }
 
@@ -126,43 +127,6 @@ private struct LessonStyleSelectButton: View {
         .background(isSelected ? UmpaColor.lightBlue : .white)
         .innerRoundedStroke(isSelected ? UmpaColor.mainBlue : UmpaColor.baseColor, cornerRadius: cornerRadius)
         .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-    }
-  }
-}
-
-private struct WeekdaySelector: View {
-  @Binding var selectedDays: [Domain.Weekday]
-
-  private let cornerRadius: CGFloat = fs(8)
-  private let height: CGFloat = fs(52)
-
-  var body: some View {
-    HStack(spacing: fs(0)) {
-      IndexingForEach(Domain.Weekday.allCases) { index, weekday in
-        Button(action: {
-          didTapWeekday(weekday)
-        }) {
-          Text(weekday.name)
-            .font(.pretendardMedium(size: fs(16)))
-            .frame(maxWidth: .infinity, height: height)
-            .foregroundStyle(UmpaColor.mainBlue)
-            .background(selectedDays.contains(weekday) ? UmpaColor.lightBlue : .white)
-        }
-        if index < Domain.Weekday.allCases.count - 1 {
-          VerticalDivider(color: UmpaColor.mainBlue)
-        }
-      }
-    }
-    .frame(height: height)
-    .innerRoundedStroke(UmpaColor.mainBlue, cornerRadius: cornerRadius)
-    .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-  }
-
-  private func didTapWeekday(_ weekday: Domain.Weekday) {
-    if selectedDays.contains(weekday) {
-      selectedDays.removeAll { $0 == weekday }
-    } else {
-      selectedDays.append(weekday)
     }
   }
 }
