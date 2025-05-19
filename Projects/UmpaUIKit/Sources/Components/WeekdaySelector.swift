@@ -62,7 +62,7 @@ extension WeekdaySelector {
 
     public var body: some View {
       HStack(spacing: fs(0)) {
-        IndexingForEach(weekdays) { index, weekday in
+        ForEach(weekdays, id: \.self) { weekday in
           Button(action: {
             didTapWeekday(weekday)
           }) {
