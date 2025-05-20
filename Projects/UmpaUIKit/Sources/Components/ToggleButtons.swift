@@ -33,11 +33,17 @@ public enum ToggleButtons {
     }
   }
 
-//  public struct State {}
-
   public protocol SelectableItem: Hashable {
     var label: String { get }
 //    var image: ImageResource? { get }
+  }
+
+  public struct LabelItem: SelectableItem {
+    public let label: String
+
+    public init(_ label: String) {
+      self.label = label
+    }
   }
 }
 
@@ -73,6 +79,26 @@ extension ToggleButtons {
         set: { newValue in
           selectedItem.wrappedValue =
             newValue.first(where: \.isSelected)?.item
+        }
+      )
+
+      self.appearance = appearance
+      multiSelectable = false
+    }
+
+    public init(
+      selectedItem: Binding<String?>,
+      itemList: [String],
+      appearance: Appearance = .fromDefault(),
+    ) where Item == LabelItem {
+      _selection = Binding(
+        get: {
+          itemList.map { label in
+            (LabelItem(label), selectedItem.wrappedValue == label)
+          }
+        },
+        set: { newValue in
+          selectedItem.wrappedValue = newValue.first(where: \.isSelected)?.item.label
         }
       )
 
