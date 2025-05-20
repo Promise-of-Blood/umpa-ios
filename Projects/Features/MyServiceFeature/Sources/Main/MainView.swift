@@ -43,8 +43,11 @@ public struct MainView: View {
             navigationPath.append(NavigationDestination.previewProfile)
           }
         )
-        requiredFieldGuideSection
-        myServiceAndStudentLinks
+        if model.needsFilloutRequires {
+          requiredFieldGuideSection
+        } else {
+          myServiceAndStudentLinks
+        }
       }
       .padding(.horizontal, fs(20))
       .padding(.vertical, fs(16))
@@ -187,6 +190,10 @@ extension MainView {
       return Float(completedFields) / Float(totalFields)
     }
 
+    var needsFilloutRequires: Bool {
+      requiredFields.values.contains(false)
+    }
+
     init(profileCardModel: TeacherMainProfileCardView.Model, requiredFields: [RequiredField: Bool]) {
       self.profileCardModel = profileCardModel
       self.requiredFields = requiredFields
@@ -196,7 +203,7 @@ extension MainView {
   }
 }
 
-#Preview {
+#Preview("필수 항목 입력 필요") {
   MainView(
     model: .init(profileCardModel: .init(name: "장우영 선생님",
                                          profileImageUrl: "",
@@ -213,6 +220,27 @@ extension MainView {
                    .lessonRegion: false,
                    .siteLink: false,
                    .gender: false,
+                 ])
+  )
+}
+
+#Preview("필수 항목 입력 완료") {
+  MainView(
+    model: .init(profileCardModel: .init(name: "장우영 선생님",
+                                         profileImageUrl: "",
+                                         secondaryInfo: "베이스 · 서울/연남동 ",
+                                         experiences: [
+                                           "호원대학교 베이스 전공 중퇴",
+                                           "서울예술대학교, 서울예술대학교, 서울예술대학교, 서울예술대학교 베이스 전공 재학중",
+                                           "AKMU - 롱디 녹음 세션",
+                                         ]),
+                 requiredFields: [
+                   .educationVerification: true,
+                   .profileImage: true,
+                   .representativeExperience: true,
+                   .lessonRegion: true,
+                   .siteLink: true,
+                   .gender: true,
                  ])
   )
 }
