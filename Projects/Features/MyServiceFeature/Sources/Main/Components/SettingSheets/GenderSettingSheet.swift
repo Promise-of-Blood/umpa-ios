@@ -6,17 +6,20 @@ import UmpaUIKit
 
 struct GenderSettingSheet: SettingSheet {
   @Binding var isPresenting: Bool
+  @Binding var truthGender: Gender?
 
-  let acceptAction: (Gender) -> Void
-
+  /// 일시적으로 편집 중인 상태를 나타냅니다. `truthGender`와 동기화됩니다.
   @State private var editableGender: Editable<Gender?>
 
   private let genderList: [Gender] = [.male, .female]
 
-  init(isPresenting: Binding<Bool>, initial: Gender?, acceptAction: @escaping (Gender) -> Void) {
+  init(
+    isPresenting: Binding<Bool>,
+    truthGender: Binding<Gender?>,
+  ) {
     _isPresenting = isPresenting
-    editableGender = .confirmed(initial)
-    self.acceptAction = acceptAction
+    _truthGender = truthGender
+    editableGender = .confirmed(truthGender.wrappedValue)
   }
 
   var body: some View {
@@ -27,6 +30,9 @@ struct GenderSettingSheet: SettingSheet {
       }
     ) {
       content
+    }
+    .onChange(of: truthGender) { _, newValue in
+      editableGender.confirm(newValue)
     }
   }
 
@@ -53,8 +59,7 @@ struct GenderSettingSheet: SettingSheet {
 
       acceptButton {
         if let selectedGender = editableGender.current {
-          acceptAction(selectedGender)
-          editableGender.confirm(selectedGender)
+          truthGender = selectedGender
           isPresenting = false
         }
       }
@@ -83,14 +88,21 @@ private extension Gender {
 
 #Preview {
   @Previewable @State var isPresenting = false
+  @Previewable @State var gender: Gender? = nil
 
   ZStack {
-    Button("Present") {
-      isPresenting = true
+    VStack(spacing: 30) {
+      Button("Change to nil") {
+        gender = nil
+      }
+      Button("Change to male") {
+        gender = .male
+      }
+      Button("Present") {
+        isPresenting = true
+      }
     }
     Spacer()
-    GenderSettingSheet(isPresenting: $isPresenting, initial: nil) {
-      print("Selected gender : \($0)")
-    }
+    GenderSettingSheet(isPresenting: $isPresenting, truthGender: $gender)
   }
 }
