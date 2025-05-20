@@ -19,7 +19,9 @@ let project = Project(
       sources: [
         "Sources/**/*.swift",
       ],
-      dependencies: [],
+      dependencies: [
+        .external(name: "Collections"),
+      ],
       settings: .settings(),
     ),
   ],

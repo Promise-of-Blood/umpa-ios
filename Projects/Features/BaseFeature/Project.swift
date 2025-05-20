@@ -3,11 +3,7 @@ import ProjectDescriptionHelpers
 
 let project = Project(
   name: Module.baseFeature.primaryName,
-  settings: .settings(
-    base: [:],
-    debug: [:],
-    release: [:],
-  ),
+  settings: .settings(),
   targets: [
     .target(
       name: Module.baseFeature.primaryName,

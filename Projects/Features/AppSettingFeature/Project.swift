@@ -1,29 +1,21 @@
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let project = Project(
-  name: "AppSettingFeature",
-  settings: .settings(
-    base: [:
-      //        "SWIFT_VERSION": "5.9",
-    ],
-    debug: [:],
-    release: [:],
-  ),
+  name: Module.appSettingFeature.primaryName,
+  settings: .settings(),
   targets: [
     .target(
-      name: "AppSettingFeature",
+      name: Module.appSettingFeature.primaryName,
       destinations: [.iPhone],
       product: .staticFramework,
-      bundleId: "pob.Umpa.AppSettingFeature",
-      deploymentTargets: .iOS("17.0"),
+      bundleId: Module.appSettingFeature.bundleId,
+      deploymentTargets: env.deploymentTargets,
       sources: [
         "Sources/**/*.swift",
       ],
       dependencies: [
-        .project(
-          target: "BaseFeature",
-          path: .relativeToRoot("Projects/Features/BaseFeature")
-        ),
+        Module.baseFeature.asDepencency,
         .external(name: "SFSafeSymbols"),
       ],
       settings: .settings(),
