@@ -108,11 +108,10 @@ extension ToggleButtons {
 
     public var body: some View {
       HStack(spacing: fs(8)) {
-        ForEach(selection.map(\.item), id: \.self) { item in
+        ForEach(selection, id: \.item) { item, isSelected in
           Button(action: {
             didTapItem(item)
           }) {
-            let isSelected = selection.contains(where: { $0.item == item && $0.isSelected })
             VStack(spacing: fs(10)) {
               //              if let imageResource = item.image {
               //                Image(imageResource)
