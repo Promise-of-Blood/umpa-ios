@@ -150,7 +150,9 @@ extension ToggleButtons {
           selection[index].isSelected.toggle()
         }
       } else {
-        selection = selection.map { (item: $0.item, isSelected: $0.item == item) }
+        for i in 0 ..< selection.count {
+          selection[i].isSelected = (selection[i].item == item)
+        }
       }
     }
   }
