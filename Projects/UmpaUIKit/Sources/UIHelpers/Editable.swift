@@ -1,7 +1,26 @@
 // Created for Umpa in 2025. Jaewon Yun.
 
-// FIXME: 예시 코드 Docs 추가
 /// 일시적으로 편집 중인 상태를 표현할 수 있는 enum입니다.
+///
+/// ```swift
+/// // 최초 확정 값으로 초기화
+/// var title = Editable.confirmed("My Post")
+///
+/// // 1) 편집 시작 ─ 현재 값만 바뀌고 lastConfirmed는 그대로
+/// title.setEditing("My Draft")
+/// print(title.current)       // "My Draft"
+/// print(title.lastConfirmed) // "My Post"
+///
+/// // 2) 편집 취소 ─ 마지막 확정 값으로 롤백
+/// title.cancel()
+/// print(title.current)       // "My Post"
+///
+/// // 3) 다시 편집 후 확정
+/// title.setEditing("Final Post")
+/// title.confirm("Final Post")
+/// print(title.current)       // "Final Post"
+/// print(title.lastConfirmed) // "Final Post"
+/// ```
 public enum Editable<Value> {
   /// 편집 중인 상태입니다. 마지막으로 확정된 값을 보존합니다.
   case editing(Value, lastConfirmed: Value)
