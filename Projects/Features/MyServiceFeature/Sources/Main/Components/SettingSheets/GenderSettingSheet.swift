@@ -39,9 +39,7 @@ struct GenderSettingSheet: SettingSheet {
   @ViewBuilder
   var content: some View {
     VStack(spacing: fs(0)) {
-      Text("성별")
-        .font(titleFont)
-        .padding(.top, fs(20))
+      title("성별")
 
       ToggleButtons.V1(
         selectedItem: Binding<String?>(
@@ -55,7 +53,7 @@ struct GenderSettingSheet: SettingSheet {
         itemList: genderList.map(\.name)
       )
       .padding(.horizontal, fs(20))
-      .padding(.vertical, fs(18))
+      .padding(.vertical, fs(24))
 
       acceptButton {
         if let selectedGender = editableGender.current {

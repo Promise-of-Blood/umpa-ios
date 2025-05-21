@@ -1,5 +1,6 @@
 // Created for Umpa in 2025
 
+import BaseFeature
 import Core
 import Domain
 import PhotosUI

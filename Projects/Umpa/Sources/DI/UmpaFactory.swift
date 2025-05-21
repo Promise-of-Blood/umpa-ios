@@ -5,15 +5,6 @@ import DataAccess
 import Domain
 import Factory
 
-// MARK: - Common
-
-extension Container {
-  var appState: Factory<AppState> {
-    Factory(self) { AppState() }
-      .scope(.singleton)
-  }
-}
-
 // MARK: - Repository
 
 extension Container {

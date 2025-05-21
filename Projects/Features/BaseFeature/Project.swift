@@ -13,6 +13,7 @@ let project = Project(
       deploymentTargets: env.deploymentTargets,
       sources: [
         "Sources/**/*.swift",
+        "Preview Content/**/*.swift",
       ],
       dependencies: [
         Module.umpaUIKit.asDepencency,

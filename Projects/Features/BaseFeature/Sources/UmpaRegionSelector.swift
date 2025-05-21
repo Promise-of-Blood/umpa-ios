@@ -1,15 +1,14 @@
 // Created for Umpa in 2025
 
-import BaseFeature
 import Domain
 import Factory
 import SwiftUI
 import UmpaUIKit
 
-struct UmpaRegionSelector: View {
+public struct UmpaRegionSelector: View {
   @Environment(AppState.self) private var appState
 
-  @Binding var selectedRegions: [Region]
+  @Binding public var selectedRegions: [Region]
 
   private var selectedRegionBinding: Binding<[(RegionCategoryItem, RegionItem)]> {
     Binding(
@@ -47,7 +46,7 @@ struct UmpaRegionSelector: View {
     }
   }
 
-  init(selectedRegions: Binding<[Region]>) {
+  public init(selectedRegions: Binding<[Region]>) {
     canMultiSelect = true
     _selectedRegions = selectedRegions
 
@@ -59,7 +58,7 @@ struct UmpaRegionSelector: View {
     regionCategoryList = sortedList.map { $0.toRegionCategoryItem() }
   }
 
-  init(selectedRegion: Binding<Region?>) {
+  public init(selectedRegion: Binding<Region?>) {
     canMultiSelect = false
 
     let selectedRegions = Binding<[Region]>(
@@ -76,7 +75,7 @@ struct UmpaRegionSelector: View {
     regionCategoryList = sortedList.map { $0.toRegionCategoryItem() }
   }
 
-  var body: some View {
+  public var body: some View {
     RegionSelector(
       selectedRegions: selectedRegionBinding,
       regionalLocalGovernmentList: regionCategoryList,
