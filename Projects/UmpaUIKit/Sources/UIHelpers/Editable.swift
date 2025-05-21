@@ -10,12 +10,7 @@ public enum Editable<Value> {
 
   /// 편집 상태로 값을 설정합니다. 자동으로 마지막 확정된 값을 보존합니다.
   public mutating func setEditing(_ value: Value) {
-    switch self {
-    case .editing:
-      self = .editing(value, lastConfirmed: lastConfirmed)
-    case let .confirmed(lastConfirmed):
-      self = .editing(value, lastConfirmed: lastConfirmed)
-    }
+    self = .editing(value, lastConfirmed: lastConfirmed)
   }
 
   /// 편집을 취소하고 마지막으로 확정된 값으로 되돌립니다.
