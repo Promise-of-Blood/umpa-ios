@@ -4,13 +4,17 @@ import SwiftUI
 import UmpaUIKit
 
 protocol SettingSheet: View {
-  var titleFont: Font { get }
+  func title(_ title: String) -> AnyView
   func acceptButton(_ acceptAction: @escaping () -> Void) -> AnyView
 }
 
 extension SettingSheet {
-  var titleFont: Font {
-    .pretendardBold(size: fs(20))
+  func title(_ title: String) -> AnyView {
+    AnyView(
+      Text(title)
+        .font(.pretendardBold(size: fs(20)))
+        .padding(.top, fs(20))
+    )
   }
 
   func acceptButton(_ acceptAction: @escaping () -> Void) -> AnyView {
@@ -36,7 +40,6 @@ private struct AcceptButton: View {
           in: RoundedRectangle(cornerRadius: fs(10))
         )
         .padding(.horizontal, fs(20))
-        .padding(.top, fs(16))
     }
   }
 }
