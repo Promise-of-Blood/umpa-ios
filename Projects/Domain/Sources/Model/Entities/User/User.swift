@@ -7,7 +7,7 @@ public enum UserType {
     case teacher
 }
 
-public enum Gender {
+public enum Gender: CaseIterable {
     case male
     case female
 }

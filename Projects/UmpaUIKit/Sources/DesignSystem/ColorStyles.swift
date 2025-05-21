@@ -14,4 +14,5 @@ public enum UmpaColor {
   public static let darkBlue = Color(hex: "0932A1")
   public static let baseColor = Color(hex: "EFEFEF")
   public static let gold = Color(hex: "FFD700")
+  public static let disabled = Color(hex: "AEAEB2")
 }

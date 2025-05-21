@@ -68,8 +68,8 @@ extension WeekdaySelector {
           }) {
             Text(weekday.name)
               .font(.pretendardMedium(size: fs(16)))
-              .frame(maxWidth: .infinity, height: appearance.height)
               .foregroundStyle(UmpaColor.mainBlue)
+              .frame(maxWidth: .infinity, height: appearance.height - appearance.lineWidth) // 위, 아래 stroke의 절반 너비가 적용되므로
               .background(selectedDays.contains(weekday) ? UmpaColor.lightBlue : .white)
               .overlay {
                 Rectangle()
@@ -78,13 +78,9 @@ extension WeekdaySelector {
           }
         }
       }
-      .frame(height: appearance.height - appearance.lineWidth)
-      .overlay {
-        RoundedRectangle(cornerRadius: appearance.cornerRadius)
-          .stroke(UmpaColor.mainBlue)
-      }
-      .padding(appearance.lineWidth / 2)
-      .clipShape(RoundedRectangle(cornerRadius: appearance.cornerRadius + appearance.lineWidth / 2 / 2))
+      .padding(appearance.lineWidth / 2) // stroke의 절반 너비만큼 padding을 줘야 예상한 크기로 맞춰짐
+      .clipShape(RoundedRectangle(cornerRadius: appearance.cornerRadius))
+      .innerRoundedStroke(UmpaColor.mainBlue, cornerRadius: appearance.cornerRadius, lineWidth: appearance.lineWidth)
     }
 
     private func didTapWeekday(_ weekday: Weekday) {
@@ -98,6 +94,11 @@ extension WeekdaySelector {
 }
 
 #Preview {
-  WeekdaySelector.V1(selectedDays: .constant([]))
-    .padding()
+  @Previewable @State var selectedDays = [WeekdaySelector.Weekday.mon, .wed, .fri]
+
+  ZStack {
+//    Color.yellow
+    WeekdaySelector.V1(selectedDays: $selectedDays)
+      .padding()
+  }
 }

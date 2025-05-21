@@ -8,11 +8,16 @@ import SwiftUI
 public struct InstinctHeightSheet<Content: View>: View {
   @Binding var isPresenting: Bool
 
+  /// 시트 밖을 탭하거나 시트를 내려서 닫을 때 호출됩니다.
   let dismissAction: (() -> Void)?
 
   @ViewBuilder let content: () -> Content
 
-  public init(isPresenting: Binding<Bool>, dismissAction: (() -> Void)? = nil, content: @escaping () -> Content) {
+  public init(
+    isPresenting: Binding<Bool>,
+    dismissAction: (() -> Void)? = nil,
+    @ViewBuilder content: @escaping () -> Content
+  ) {
     _isPresenting = isPresenting
     self.dismissAction = dismissAction
     self.content = content
