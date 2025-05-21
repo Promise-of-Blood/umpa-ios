@@ -11,13 +11,6 @@ struct LessonRegionSettingSheet: SettingSheet {
 
   @State private var editableRegionList: Editable<[Region]> = .confirmed([])
 
-  private var editableRegionListBinding: Binding<[Region]> {
-    Binding(
-      get: { editableRegionList.current },
-      set: { editableRegionList.setEditing($0) }
-    )
-  }
-
   var body: some View {
     InstinctHeightSheet(
       isPresenting: $isPresenting,
