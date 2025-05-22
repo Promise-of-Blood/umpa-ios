@@ -1,12 +1,12 @@
 // Created for Umpa in 2025
 
+import BaseFeature
+import Domain
 import SwiftUI
 import UmpaUIKit
 
 struct LinkInputView: View {
   @ObservedObject var signUpModel: TeacherSignUpModel
-
-  private let maxLinkCount = 5
 
   var body: some View {
     ScrollView {
@@ -28,8 +28,8 @@ struct LinkInputView: View {
           .frame(maxWidth: .infinity, alignment: .leading)
 
         VStack(spacing: fs(18)) {
-          ForEach($signUpModel.siteLinks) { link in
-            SiteLinkRow(link: link) {
+          ForEach(signUpModel.siteLinks) { link in
+            SiteLinkRow(link: Bindable(link)) {
               withAnimation {
                 signUpModel.siteLinks.removeAll(where: { $0.id == link.id })
               }
@@ -37,7 +37,7 @@ struct LinkInputView: View {
             .id(link.id)
             .transition(.blurReplace)
           }
-          if signUpModel.siteLinks.count < maxLinkCount {
+          if signUpModel.siteLinks.count < Teacher.SiteLinkValidator.maxCount {
             addSiteLinkButton
           }
         }
@@ -59,42 +59,9 @@ struct LinkInputView: View {
   }
 
   private func didTapAddSiteLinkButton() {
-    guard signUpModel.siteLinks.count < maxLinkCount else { return }
+    guard signUpModel.siteLinks.count < Teacher.SiteLinkValidator.maxCount else { return }
     withAnimation {
-      signUpModel.siteLinks.append(SiteLinkModel())
-    }
-  }
-}
-
-private struct SiteLinkRow: View {
-  @Binding var link: SiteLinkModel
-
-  let discardAction: () -> Void
-
-  @State private var isShowingDeleteConfirm = false
-
-  var body: some View {
-    HStack(spacing: fs(10)) {
-      link.icon
-
-      TextField("사이트 링크", text: $link.link, prompt: Text("사이트 링크"))
-        .font(.pretendardMedium(size: fs(15)))
-        .foregroundStyle(UmpaColor.darkGray)
-        .textInputAutocapitalization(.never)
-
-      Button(action: { isShowingDeleteConfirm = true }) {
-        Image(systemSymbol: .trash)
-          .foregroundStyle(.red)
-          .font(.system(size: 16, weight: .medium))
-      }
-    }
-    .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(.horizontal, fs(20))
-    .padding(.vertical, fs(18))
-    .innerRoundedStroke(UmpaColor.baseColor, cornerRadius: fs(15))
-    .confirmationDialog("이 링크를 삭제하시겠습니까?", isPresented: $isShowingDeleteConfirm) {
-      Button("삭제", role: .destructive, action: discardAction)
-      Button("취소", role: .cancel) {}
+      signUpModel.siteLinks.append(SiteLinkModel(link: ""))
     }
   }
 }
