@@ -45,10 +45,9 @@ public final class SiteLinkModel: Identifiable {
        let host = url.host()?.lowercased(),
        let matchedSite = PreDefinedSite.allCases.first(where: { $0.domain == host })
     {
-      print(host)
-      return matchedSite.symbol
+      matchedSite.symbol
     } else {
-      return Image(systemName: "circle") // FIXME: 기타에 해당하는 리소스 추가
+      Image(systemName: "circle") // FIXME: 기타에 해당하는 리소스 추가
     }
   }
 }
