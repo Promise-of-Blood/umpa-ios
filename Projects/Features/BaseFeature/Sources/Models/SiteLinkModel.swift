@@ -41,12 +41,14 @@ public final class SiteLinkModel: Identifiable {
   }
 
   public var icon: Image {
-    if let matchedSite = PreDefinedSite.allCases
-      .first(where: { link.localizedCaseInsensitiveContains($0.domain) })
+    if let url = URL(string: link),
+       let host = url.host()?.lowercased(),
+       let matchedSite = PreDefinedSite.allCases.first(where: { $0.domain == host })
     {
-      matchedSite.symbol
+      print(host)
+      return matchedSite.symbol
     } else {
-      Image(systemName: "circle") // FIXME: 기타에 해당하는 리소스 추가
+      return Image(systemName: "circle") // FIXME: 기타에 해당하는 리소스 추가
     }
   }
 }

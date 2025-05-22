@@ -55,6 +55,7 @@ public struct SiteLinkSettingSheet: SettingSheet {
       acceptButton {
         truthLinks = editableLinks.current
           .map(\.link)
+          .filter(\.isNotEmpty)
         isPresenting = false
       }
     }
@@ -94,7 +95,7 @@ private struct AddLinkRow: View {
 }
 
 #Preview {
-  @Previewable @State var isPresenting = true
+  @Previewable @State var isPresenting = false
   @Previewable @State var linkStrings = [
     "https://instagram.com/user",
   ]
